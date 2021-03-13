@@ -139,7 +139,7 @@ export type MutationSignupArgs = {
 
 export type MutationCreateProductArgs = {
   input: CreateProductInput;
-  picture: Scalars['Upload'];
+  picture: Array<Scalars['Upload']>;
 };
 
 
@@ -189,7 +189,7 @@ export type CreateProductMutationVariables = Exact<{
   price: Scalars['String'];
   description: Scalars['String'];
   stock: Scalars['String'];
-  picture: Scalars['Upload'];
+  picture: Array<Scalars['Upload']> | Scalars['Upload'];
   status: Status;
   promotion: Scalars['Boolean'];
 }>;
@@ -398,7 +398,7 @@ export type GetUsersQuery = (
 
 
 export const CreateProductDocument = gql`
-    mutation CreateProduct($name: String!, $price: String!, $description: String!, $stock: String!, $picture: Upload!, $status: Status!, $promotion: Boolean!) {
+    mutation CreateProduct($name: String!, $price: String!, $description: String!, $stock: String!, $picture: [Upload!]!, $status: Status!, $promotion: Boolean!) {
   createProduct(
     picture: $picture
     input: {name: $name, price: $price, description: $description, stock: $stock, status: $status, promotion: $promotion}

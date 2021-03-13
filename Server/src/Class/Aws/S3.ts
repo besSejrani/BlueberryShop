@@ -3,10 +3,12 @@ import "dotenv/config";
 
 // Data
 import stream from "stream";
+import { v4 as uuid } from "uuid";
 
 // AWS
 import AWS from "aws-sdk";
 
+// GraphQL
 import { ApolloServerFileUploads } from "./index";
 
 // ========================================================================================================
@@ -62,22 +64,26 @@ export class S3 {
   async singleFileUploadResolver({
     file,
   }: {
-    file: ApolloServerFileUploads.File;
+    file: ApolloServerFileUploads.Upload;
   }): Promise<ApolloServerFileUploads.UploadedFileResponse> {
     const { createReadStream, filename, mimetype, encoding } = await file;
-    const filePath = this.createDestinationFilePath(filename, mimetype, encoding);
+
+    const extension = filename.split(".")[1];
+    const newFileName = `${uuid()}.${extension}`;
+
+    const filePath = this.createDestinationFilePath(newFileName, mimetype, encoding);
     const uploadStream = this.createUploadStream(filePath);
 
     createReadStream().pipe(uploadStream.writeStream);
     const result = await uploadStream.promise;
 
-    return { filename, mimetype, encoding, url: result.Location };
+    return await { filename, mimetype, encoding, url: result.Location };
   }
 
   async multipleUploadsResolver({
     files,
   }: {
-    files: ApolloServerFileUploads.File[];
+    files: ApolloServerFileUploads.Upload[];
   }): Promise<ApolloServerFileUploads.UploadedFileResponse[]> {
     return Promise.all(files.map((f) => this.singleFileUploadResolver({ file: f })));
   }

@@ -1,7 +1,7 @@
 import { Stream } from "stream";
 
 export namespace ApolloServerFileUploads {
-  export type File = {
+  export type Upload = {
     filename: string;
     mimetype: string;
     encoding: string;
@@ -16,7 +16,7 @@ export namespace ApolloServerFileUploads {
   };
 
   export interface IUploader {
-    singleFileUploadResolver: ({ file }: { file: File }) => Promise<UploadedFileResponse>;
-    multipleUploadsResolver: ({ files }: { files: File[] }) => Promise<UploadedFileResponse[]>;
+    singleFileUploadResolver: ({ file }: { file: Upload }) => Promise<UploadedFileResponse>;
+    multipleUploadsResolver: ({ files }: { files: Upload[] }) => Promise<UploadedFileResponse[]>;
   }
 }

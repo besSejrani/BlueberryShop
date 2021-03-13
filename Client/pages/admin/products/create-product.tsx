@@ -77,7 +77,7 @@ const CreateProductAdmin = () => {
 
     await createProduct({
       variables: {
-        picture: images.images[0],
+        picture: images.images,
         name: form.productName,
         price: form.productPrice,
         description: form.productDescription,

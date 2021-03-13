@@ -16,10 +16,12 @@ import { S3 } from "../../../Class/Aws/S3";
 export class CreateProductResolver {
   @Mutation(() => Product)
   async createProduct(
-    @Arg("picture", () => GraphQLUpload) File: Upload,
+    @Arg("picture", () => [GraphQLUpload]) FileList: Upload[],
     @Arg("input")
     { name, price, description, stock, promotion, status }: CreateProductInput
-  ): Promise<Product | null> {
+  ): Promise<any> {
+    console.log(FileList);
+
     const product = await ProductModel.findOne({ name });
 
     if (product) {
@@ -34,7 +36,11 @@ export class CreateProductResolver {
       region: "eu-west-3",
     });
 
-    const { url } = await s3.singleFileUploadResolver({ file: File });
+    const data: string[] = [];
+
+    const images = await s3.multipleUploadsResolver({ files: FileList });
+    const urls = await Promise.all(images);
+    await urls.forEach((value) => data.push(value.url));
 
     const newProduct = await new ProductModel({
       name,
@@ -43,7 +49,7 @@ export class CreateProductResolver {
       stock,
       promotion,
       status,
-      productImages: url,
+      productImages: data,
     });
     await newProduct.save();
     return newProduct;

@@ -3,7 +3,7 @@ mutation CreateProduct(
   $price: String!
   $description: String!
   $stock: String!
-  $picture: Upload!
+  $picture: [Upload!]!
   $status: Status!
   $promotion: Boolean!
 ) {

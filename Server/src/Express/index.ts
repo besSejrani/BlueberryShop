@@ -65,7 +65,7 @@ const main = async () => {
       },
     });
 
-    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
+    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 4 }));
 
     apolloServer.applyMiddleware({ app, cors: corsOptions });
 

@@ -39,7 +39,6 @@ type IProduct = {
 };
 
 const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
-  console.log("blaa", product);
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -49,7 +48,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
       {loading ? (
         <CardActionArea className={classes.area}>
           <Link href="/products/[id]" as={`/products/${product._id}`} passHref>
-            <img
+            <Image
               width={300}
               height={235}
               onClick={() => dispatch(setSingleProduct(product._id))}
@@ -129,7 +128,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
 
     width: "320px",
-    height: "465px",
+    height: "445px",
 
     borderRadius: 10,
   },
