@@ -26,6 +26,7 @@ export const authentication: MiddlewareFn<MyContext> = async ({ context }, next)
     }
 
     context.req.userId = user?.id;
+    context.req.role = user?.role;
 
     return next();
   } catch (error) {

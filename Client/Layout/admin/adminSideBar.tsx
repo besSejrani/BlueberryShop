@@ -16,6 +16,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
 import SubjectIcon from "@material-ui/icons/Subject";
 import DescriptionIcon from "@material-ui/icons/Description";
+import CategoryIcon from "@material-ui/icons/Category";
 
 // ========================================================================================================
 
@@ -53,6 +54,15 @@ const AdminSideDrawer = () => {
                   <FormatListNumberedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Products" />
+              </ListItem>
+            </Link>
+
+            <Link href="/admin/promotions/">
+              <ListItem button>
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Categories" />
               </ListItem>
             </Link>
 

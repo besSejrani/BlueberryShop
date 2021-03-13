@@ -1,10 +1,5 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/products": "pages/products.js",
-  "/admin/products/create-product": "pages/admin/products/create-product.js",
-  "/": "pages/index.js",
-  "/admin/products/[id]": "pages/admin/products/[id].js",
-  "/admin/products": "pages/admin/products.js"
+  "/_error": "pages/_error.js"
 }
