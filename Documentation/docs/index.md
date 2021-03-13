@@ -14,7 +14,14 @@
 
 ## Authentication
 
+- [x] Implement authentication middleware
 - [x] OAuth2
+
+<hr/>
+
+## Authorization
+
+- [x] Implement authorization middleware
 
 <hr/>
 
