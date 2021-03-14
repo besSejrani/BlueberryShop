@@ -70,11 +70,7 @@ const CreateProductAdmin = () => {
 
   const [createProduct] = useCreateProductMutation();
 
-  console.log(images);
-
   const onSubmit = async (form) => {
-    console.log(form);
-
     await createProduct({
       variables: {
         picture: images.images,

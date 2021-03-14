@@ -23,6 +23,10 @@ import ModifyIcon from "@material-ui/icons/Create";
 //Apollo
 import { useGetProductsQuery, useDeleteProductMutation } from "../../../Graphql/index";
 
+// SSR
+import withApollo from "../../../Apollo/ssr";
+import { getDataFromTree } from "@apollo/react-ssr";
+
 // ========================================================================================================
 
 const index = () => {
@@ -149,7 +153,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default withApollo(index, { getDataFromTree });
 
 // ========================================================================================================
 

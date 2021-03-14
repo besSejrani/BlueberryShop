@@ -26,7 +26,7 @@ type FormValues = {
   confirmPassword: string;
 };
 
-const SignIn = () => {
+const SignUp = () => {
   const classes = useStyles();
 
   const [username, setUsername] = useState("");
@@ -146,7 +146,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
 
 // ========================================================================================================
 

@@ -19,7 +19,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo
-import { useSigninMutation, GetUserDocument, SigninDocument } from "../../Graphql/index";
+import { useSigninMutation, GetUserDocument } from "../../Graphql/index";
 
 // ========================================================================================================
 

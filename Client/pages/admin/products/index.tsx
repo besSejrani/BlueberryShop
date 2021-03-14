@@ -81,7 +81,17 @@ const index = () => {
   if (loading) return <div>loading...</div>;
 
   const columns = [
-    { field: "name", headerName: "Name", flex: 1 },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      renderCell: (params: GridCellParams) => (
+        <>
+          <img src="/static/images/unknownProduct.png" height={55} />
+          {params.value}
+        </>
+      ),
+    },
     { field: "price", headerName: "Price", flex: 0.4 },
     {
       field: "stock",

@@ -62,8 +62,6 @@ const ModifyProductAdmin = () => {
     variables: { productId: query.id as string },
   });
 
-  console.log("dataaaaaaaaaaaa", data);
-
   // State
   const [productName, setProductName] = useState(data?.getProduct?.name);
   const [productPrice, setProductPrice] = useState<number>(data?.getProduct?.price);
@@ -121,7 +119,7 @@ const ModifyProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
-          <PreviewProduct product={product} />
+          <PreviewProduct product={product} images={data?.getProduct?.productImages} router={query.id} />
         </Box>
 
         <Box className={classes.content}>

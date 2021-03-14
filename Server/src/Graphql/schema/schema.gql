@@ -28,6 +28,7 @@ type Mutation {
   confirmUser(token: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   deleteProduct(productId: String!): Boolean!
+  deleteProductImage(keyId: String!, productId: String!): Boolean!
   deleteUser(userId: String!): Boolean!
   forgotPassword(email: String!): Boolean!
   signin(input: SigninInput!): UserResponse!

@@ -17,6 +17,10 @@ import InputForm from "../../../Components/InputForm/InputForm";
 // Apollo
 import { useForgotPasswordMutation } from "../../../Graphql";
 
+// SSR
+import withApollo from "../../../Apollo/ssr";
+import { getDataFromTree } from "@apollo/react-ssr";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -40,7 +44,6 @@ const SignIn = () => {
   const [signUp] = useForgotPasswordMutation();
 
   const onSubmit = async (form) => {
-
     const { data } = await signUp({
       variables: { email: form.email },
     });
@@ -100,7 +103,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default withApollo(SignIn, { getDataFromTree });
 
 // ========================================================================================================
 

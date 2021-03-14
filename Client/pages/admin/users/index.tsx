@@ -78,7 +78,17 @@ const index = () => {
   if (loading) return <div>loading...</div>;
 
   const columns = [
-    { field: "username", headerName: "Username", flex: 1 },
+    {
+      field: "username",
+      headerName: "Username",
+      flex: 1,
+      renderCell: (params: GridCellParams) => (
+        <>
+          <img src="/static/images/unknown.png" height={35} />
+          {params.value}
+        </>
+      ),
+    },
     { field: "email", headerName: "Email", flex: 0.4 },
     {
       field: "confirmed",

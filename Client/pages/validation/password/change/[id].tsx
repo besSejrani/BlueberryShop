@@ -17,6 +17,10 @@ import InputForm from "../../../../Components/InputForm/InputForm";
 // Apollo
 import { useChangePasswordMutation } from "../../../../Graphql";
 
+// SSR
+import withApollo from "../../../../Apollo/ssr";
+import { getDataFromTree } from "@apollo/react-ssr";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -115,11 +119,11 @@ const ChangePassword = ({ query }) => {
   );
 };
 
-export default ChangePassword;
-
 ChangePassword.getInitialProps = async ({ query }) => {
   return { query };
 };
+
+export default withApollo(ChangePassword, { getDataFromTree });
 
 // ========================================================================================================
 

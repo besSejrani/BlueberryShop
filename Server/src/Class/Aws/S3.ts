@@ -87,4 +87,18 @@ export class S3 {
   }): Promise<ApolloServerFileUploads.UploadedFileResponse[]> {
     return Promise.all(files.map((f) => this.singleFileUploadResolver({ file: f })));
   }
+
+  async deleteProductImage(key: string) {
+    this.s3.deleteObject(
+      {
+        Bucket: process.env.AMAZON_S3_BUCKET,
+        Key: key,
+      },
+      function (err, _data) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  }
 }
