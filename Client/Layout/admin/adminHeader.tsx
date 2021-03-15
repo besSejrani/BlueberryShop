@@ -5,8 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 // Material-UI
-import { AppBar, Toolbar, Typography, Box, Button } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Box, Button, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
+// Icons
+import PersonIcon from '@material-ui/icons/Person';
 
 // Apollo State
 import { ui } from "../../Apollo/state/ui";
@@ -22,7 +25,7 @@ const adminHeader = () => {
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar>
+      <Toolbar style={{display:"flex", justifyContent:"space-between"}}>
         <Link href="/">
           <Box
             style={{
@@ -36,9 +39,11 @@ const adminHeader = () => {
             <Typography variant="h6">BlueberryShop</Typography>
           </Box>
         </Link>
-        <Button variant="outlined" color="secondary" onClick={changeState}>
-          toggle admin
-        </Button>
+
+
+        <IconButton  onClick={changeState}>
+          <PersonIcon style={{color:"white", borderRadius:90, fontSize:"25px", backgroundColor: "grey", padding: "3px"}}/>
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

@@ -34,6 +34,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useReactiveVar } from "@apollo/client";
 import { ui } from "../Apollo/state/ui/index";
 
+// Icons
+import PersonIcon from '@material-ui/icons/Person';
+
 // ========================================================================================================
 
 interface Props {
@@ -114,9 +117,6 @@ const Header = () => {
                       Blog
                     </Typography>
                   </Link>
-                  <Button variant="outlined" color="secondary" onClick={changeAdmin}>
-                    toggle admin
-                  </Button>
                 </Hidden>
               </Box>
 
@@ -129,6 +129,10 @@ const Header = () => {
                   <StyledBadge badgeContent={selectProducts} color="secondary" overlap="circle">
                     <CartIcon className="nav-icon" />
                   </StyledBadge>
+                </IconButton>
+
+                <IconButton onClick={changeAdmin}>
+                    <PersonIcon style={{color:"white", borderRadius:90, fontSize:"25px", backgroundColor: "grey", padding: "3px"}}/>
                 </IconButton>
                 <Link href="/register" passHref>
                   <Button color="inherit">Login</Button>

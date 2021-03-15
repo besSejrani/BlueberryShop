@@ -84,7 +84,7 @@ const index = () => {
       flex: 1,
       renderCell: (params: GridCellParams) => (
         <>
-          <img src="/static/images/unknown.png" height={35} />
+          <img src="/static/images/unknown.png" width={50} />
           {params.value}
         </>
       ),
