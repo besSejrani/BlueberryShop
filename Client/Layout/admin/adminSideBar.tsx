@@ -116,17 +116,6 @@ const AdminSideDrawer = () => {
               </ListItem>
             </Link>
           </List>
-
-          <List subheader={<ListSubheader>Documentation</ListSubheader>}>
-            <a href="https://bessejrani.github.io/BlueberryShop/" target="_blank">
-              <ListItem button>
-                <ListItemIcon>
-                  <DescriptionIcon />
-                </ListItemIcon>
-                <ListItemText primary="Documentation" />
-              </ListItem>
-            </a>
-          </List>
         </div>
       </Drawer>
     </Box>

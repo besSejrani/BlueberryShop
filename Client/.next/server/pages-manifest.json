@@ -3,8 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/admin/products": "pages/admin/products.js",
-  "/404": "pages/404.js",
-  "/admin/promotions": "pages/admin/promotions.js",
-  "/admin/users": "pages/admin/users.js",
-  "/admin/products/create-product": "pages/admin/products/create-product.js"
+  "/admin/users": "pages/admin/users.js"
 }
