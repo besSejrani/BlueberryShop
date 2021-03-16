@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
-// Redux
-import { useDispatch } from "react-redux";
-import { setProducts, getItemCart } from "../../Redux/product/productAction";
+// Next
+import { useRouter } from "next/router";
 
-// Apollo
-import { useGetProductsQuery } from "../../Graphql/index";
-
-// Material-Ui
+// Material-UI
 import { Container, Box, TextField, Select, MenuItem } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Pagination } from "@material-ui/lab";
@@ -16,8 +12,8 @@ import { Pagination } from "@material-ui/lab";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import ProductFilter from "../../Components/ProductFilter/ProductFilter";
 
-// Data
-import { items } from "../../Data/productData";
+// Apollo
+import { useGetProductsQuery } from "../../Graphql/index";
 
 // SSR
 import withApollo from "../../Apollo/ssr";
@@ -27,19 +23,26 @@ import { getDataFromTree } from "@apollo/react-ssr";
 
 const Products = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [page, setPage] = React.useState(1);
 
-  const { loading, data } = useGetProductsQuery({ variables: { pageNumber: page, pageSize: 12 } });
-  const pages = Math.ceil(data?.getProducts.count / 12);
+  // Router
+  const router = useRouter();
+  const { page = 1, size = 12 } = router.query;
 
-  useEffect(() => {
-    dispatch(setProducts(items));
-    dispatch(getItemCart());
-  }, []);
+  // State
+  const [pageNumber, setPageNumber] = useState(+page);
+  const [pageSize, setPageSize] = useState(+size);
+
+  const { loading, data } = useGetProductsQuery({
+    variables: { pageNumber: +pageNumber, pageSize: pageSize },
+  });
+  const pages = Math.ceil(data?.getProducts.count / pageSize);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+    setPageNumber(value);
+
+    router.push(`/products?page=${value}&size=${pageSize}`, ``, {
+      shallow: true,
+    });
   };
 
   return (
@@ -65,7 +68,7 @@ const Products = () => {
       </Box>
 
       <div className={classes.pagination}>
-        <Pagination count={pages} color="primary" page={page} onChange={handleChange} />
+        <Pagination count={pages} color="primary" page={pageNumber} onChange={handleChange} />
       </div>
     </Container>
   );

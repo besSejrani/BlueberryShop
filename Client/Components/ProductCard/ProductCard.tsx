@@ -8,17 +8,13 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addToCart, setSingleProduct } from "../../Redux/product/productAction";
 
-// Material-Ui
+// Material-UI
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, makeStyles, Typography } from "@material-ui/core";
 import { Skeleton, Rating } from "@material-ui/lab";
 import { withStyles } from "@material-ui/core/styles";
 
 // Icons
 import AddIcon from "@material-ui/icons/Add";
-
-// Apollo State
-// import { useReactiveVar } from "@apollo/client";
-// import { product as productState } from "../../Apollo/state/product/index";
 
 // ========================================================================================================
 
