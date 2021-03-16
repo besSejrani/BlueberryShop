@@ -28,14 +28,19 @@ import { getDataFromTree } from "@apollo/react-ssr";
 const Products = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [page, setPage] = React.useState(1);
 
-  const { loading, data } = useGetProductsQuery();
+  const { loading, data } = useGetProductsQuery({ variables: { pageNumber: page, pageSize: 12 } });
+  const pages = Math.ceil(data?.getProducts.count / 12);
 
   useEffect(() => {
-    // Prefetch the products page
     dispatch(setProducts(items));
     dispatch(getItemCart());
   }, []);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
     <Container>
@@ -53,14 +58,14 @@ const Products = () => {
       <Box className={classes.products}>
         <ProductFilter />
         <Box className={classes.grid}>
-          {data?.getProducts.map((product) => {
+          {data?.getProducts.products.map((product) => {
             return <ProductCard key={product._id} product={product} loading={loading} />;
           })}
         </Box>
       </Box>
 
       <div className={classes.pagination}>
-        <Pagination count={10} color="primary" />
+        <Pagination count={pages} color="primary" page={page} onChange={handleChange} />
       </div>
     </Container>
   );

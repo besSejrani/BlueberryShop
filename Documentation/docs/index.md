@@ -33,6 +33,7 @@
 
 ## Ecommerce
 
+- [x] Product Pagination
 - [ ] Promotions
 - [ ] Email Notification
 - [ ] Print PDF commands

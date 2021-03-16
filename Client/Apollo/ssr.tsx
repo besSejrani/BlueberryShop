@@ -1,5 +1,6 @@
 import withApollo from "next-with-apollo";
 import { ApolloProvider, InMemoryCache, ApolloClient } from "@apollo/client";
+
 import { setContext } from "@apollo/client/link/context";
 import { ui } from "./state/ui";
 
@@ -28,7 +29,6 @@ export default withApollo(
   ({ initialState }) => {
     return new ApolloClient({
       link: link,
-      // uri: "http://localhost:4000/graphql",
       cache: new InMemoryCache({
         typePolicies: {
           Query: {

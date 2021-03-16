@@ -45,6 +45,12 @@ export type Product = {
   productImages: Array<Scalars['String']>;
 };
 
+export type ProductPagination = {
+  __typename?: 'ProductPagination';
+  products: Array<Product>;
+  count: Scalars['Float'];
+};
+
 export type SigninInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -73,6 +79,11 @@ export enum Status {
   Archived = 'ARCHIVED'
 }
 
+export type ProductPaginationInput = {
+  pageNumber: Scalars['Float'];
+  pageSize: Scalars['Float'];
+};
+
 export type UpdateProductInput = {
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
@@ -95,7 +106,7 @@ export type ChangedProfileInput = {
 export type Query = {
   __typename?: 'Query';
   getProduct?: Maybe<Product>;
-  getProducts?: Maybe<Array<Product>>;
+  getProducts?: Maybe<ProductPagination>;
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
@@ -104,6 +115,11 @@ export type Query = {
 
 export type QueryGetProductArgs = {
   productId: Scalars['String'];
+};
+
+
+export type QueryGetProductsArgs = {
+  pagination: ProductPaginationInput;
 };
 
 
@@ -368,15 +384,22 @@ export type GetProductQuery = (
   )> }
 );
 
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetProductsQueryVariables = Exact<{
+  pageNumber: Scalars['Float'];
+  pageSize: Scalars['Float'];
+}>;
 
 
 export type GetProductsQuery = (
   { __typename?: 'Query' }
-  & { getProducts?: Maybe<Array<(
-    { __typename?: 'Product' }
-    & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
-  )>> }
+  & { getProducts?: Maybe<(
+    { __typename?: 'ProductPagination' }
+    & Pick<ProductPagination, 'count'>
+    & { products: Array<(
+      { __typename?: 'Product' }
+      & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
+    )> }
+  )> }
 );
 
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -876,16 +899,19 @@ export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
 export type GetProductLazyQueryHookResult = ReturnType<typeof useGetProductLazyQuery>;
 export type GetProductQueryResult = Apollo.QueryResult<GetProductQuery, GetProductQueryVariables>;
 export const GetProductsDocument = gql`
-    query GetProducts {
-  getProducts {
-    _id
-    name
-    price
-    description
-    stock
-    promotion
-    status
-    productImages
+    query GetProducts($pageNumber: Float!, $pageSize: Float!) {
+  getProducts(pagination: {pageNumber: $pageNumber, pageSize: $pageSize}) {
+    products {
+      _id
+      name
+      price
+      description
+      stock
+      promotion
+      status
+      productImages
+    }
+    count
   }
 }
     `;
@@ -902,10 +928,12 @@ export const GetProductsDocument = gql`
  * @example
  * const { data, loading, error } = useGetProductsQuery({
  *   variables: {
+ *      pageNumber: // value for 'pageNumber'
+ *      pageSize: // value for 'pageSize'
  *   },
  * });
  */
-export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+export function useGetProductsQuery(baseOptions: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
         return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, baseOptions);
       }
 export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {

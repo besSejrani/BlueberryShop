@@ -51,10 +51,20 @@ type Product {
   stock: Float!
 }
 
+type ProductPagination {
+  count: Float!
+  products: [Product!]!
+}
+
+input ProductPaginationInput {
+  pageNumber: Float!
+  pageSize: Float!
+}
+
 type Query {
   getCurrentUser: User
   getProduct(productId: String!): Product
-  getProducts: [Product!]
+  getProducts(pagination: ProductPaginationInput!): ProductPagination
   getUser(userId: String!): User
   getUsers: [User!]
 }

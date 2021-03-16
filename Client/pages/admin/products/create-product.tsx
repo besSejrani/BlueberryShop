@@ -97,6 +97,9 @@ const CreateProductAdmin = () => {
       },
     });
 
+    images.images = [];
+    images.preview = [];
+
     await router.push("/admin/products");
   };
 
