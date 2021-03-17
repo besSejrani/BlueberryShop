@@ -1,5 +1,6 @@
 // GraphQL
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Query, Arg } from "type-graphql";
+import { ProductPaginationInput } from "./types/productPaginationInput";
 import { ProductPagination } from "./types/productPaginationType";
 
 // Database
@@ -13,12 +14,16 @@ interface ProductPaginationInterface {
 }
 
 @Resolver()
-export class GetProductsResolver {
+export class GetProductsPaginationResolver {
   @Query(() => ProductPagination, { nullable: true })
-  async getProducts(): Promise<ProductPaginationInterface> {
+  async getProductsPagination(
+    @Arg("pagination") { pageNumber = 1, pageSize = 12 }: ProductPaginationInput
+  ): Promise<ProductPaginationInterface> {
     const count = await ProductModel.countDocuments();
 
-    const products = await ProductModel.find({});
+    // 12*(2-1)=12
+    const skips = pageSize * (pageNumber - 1);
+    const products = await ProductModel.find({}).skip(skips).limit(pageSize);
 
     return { products, count };
   }

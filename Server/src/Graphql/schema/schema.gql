@@ -64,7 +64,8 @@ input ProductPaginationInput {
 type Query {
   getCurrentUser: User
   getProduct(productId: String!): Product
-  getProducts(pagination: ProductPaginationInput!): ProductPagination
+  getProducts: ProductPagination
+  getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
   getUser(userId: String!): User
   getUsers: [User!]
 }

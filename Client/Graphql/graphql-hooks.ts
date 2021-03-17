@@ -107,6 +107,7 @@ export type Query = {
   __typename?: 'Query';
   getProduct?: Maybe<Product>;
   getProducts?: Maybe<ProductPagination>;
+  getProductsPagination?: Maybe<ProductPagination>;
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
@@ -118,7 +119,7 @@ export type QueryGetProductArgs = {
 };
 
 
-export type QueryGetProductsArgs = {
+export type QueryGetProductsPaginationArgs = {
   pagination: ProductPaginationInput;
 };
 
@@ -384,15 +385,30 @@ export type GetProductQuery = (
   )> }
 );
 
-export type GetProductsQueryVariables = Exact<{
-  pageNumber: Scalars['Float'];
-  pageSize: Scalars['Float'];
-}>;
+export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProductsQuery = (
   { __typename?: 'Query' }
   & { getProducts?: Maybe<(
+    { __typename?: 'ProductPagination' }
+    & Pick<ProductPagination, 'count'>
+    & { products: Array<(
+      { __typename?: 'Product' }
+      & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
+    )> }
+  )> }
+);
+
+export type GetProductsPaginationQueryVariables = Exact<{
+  pageNumber: Scalars['Float'];
+  pageSize: Scalars['Float'];
+}>;
+
+
+export type GetProductsPaginationQuery = (
+  { __typename?: 'Query' }
+  & { getProductsPagination?: Maybe<(
     { __typename?: 'ProductPagination' }
     & Pick<ProductPagination, 'count'>
     & { products: Array<(
@@ -899,8 +915,8 @@ export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
 export type GetProductLazyQueryHookResult = ReturnType<typeof useGetProductLazyQuery>;
 export type GetProductQueryResult = Apollo.QueryResult<GetProductQuery, GetProductQueryVariables>;
 export const GetProductsDocument = gql`
-    query GetProducts($pageNumber: Float!, $pageSize: Float!) {
-  getProducts(pagination: {pageNumber: $pageNumber, pageSize: $pageSize}) {
+    query GetProducts {
+  getProducts {
     products {
       _id
       name
@@ -928,12 +944,10 @@ export const GetProductsDocument = gql`
  * @example
  * const { data, loading, error } = useGetProductsQuery({
  *   variables: {
- *      pageNumber: // value for 'pageNumber'
- *      pageSize: // value for 'pageSize'
  *   },
  * });
  */
-export function useGetProductsQuery(baseOptions: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
         return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, baseOptions);
       }
 export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
@@ -942,6 +956,52 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export const GetProductsPaginationDocument = gql`
+    query GetProductsPagination($pageNumber: Float!, $pageSize: Float!) {
+  getProductsPagination(
+    pagination: {pageNumber: $pageNumber, pageSize: $pageSize}
+  ) {
+    products {
+      _id
+      name
+      price
+      description
+      stock
+      promotion
+      status
+      productImages
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useGetProductsPaginationQuery__
+ *
+ * To run a query within a React component, call `useGetProductsPaginationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsPaginationQuery({
+ *   variables: {
+ *      pageNumber: // value for 'pageNumber'
+ *      pageSize: // value for 'pageSize'
+ *   },
+ * });
+ */
+export function useGetProductsPaginationQuery(baseOptions: Apollo.QueryHookOptions<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>) {
+        return Apollo.useQuery<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>(GetProductsPaginationDocument, baseOptions);
+      }
+export function useGetProductsPaginationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>) {
+          return Apollo.useLazyQuery<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>(GetProductsPaginationDocument, baseOptions);
+        }
+export type GetProductsPaginationQueryHookResult = ReturnType<typeof useGetProductsPaginationQuery>;
+export type GetProductsPaginationLazyQueryHookResult = ReturnType<typeof useGetProductsPaginationLazyQuery>;
+export type GetProductsPaginationQueryResult = Apollo.QueryResult<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>;
 export const GetCurrentUserDocument = gql`
     query getCurrentUser {
   getCurrentUser {

@@ -13,7 +13,7 @@ import ProductCard from "../../Components/ProductCard/ProductCard";
 import ProductFilter from "../../Components/ProductFilter/ProductFilter";
 
 // Apollo
-import { useGetProductsQuery } from "../../Graphql/index";
+import { useGetProductsPaginationQuery } from "../../Graphql/index";
 
 // SSR
 import withApollo from "../../Apollo/ssr";
@@ -32,10 +32,10 @@ const Products = () => {
   const [pageNumber, setPageNumber] = useState(+page);
   const [pageSize, setPageSize] = useState(+size);
 
-  const { loading, data } = useGetProductsQuery({
+  const { loading, data } = useGetProductsPaginationQuery({
     variables: { pageNumber: +pageNumber, pageSize: pageSize },
   });
-  const pages = Math.ceil(data?.getProducts.count / pageSize);
+  const pages = Math.ceil(data?.getProductsPagination.count / pageSize);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
@@ -61,7 +61,7 @@ const Products = () => {
       <Box className={classes.products}>
         <ProductFilter />
         <Box className={classes.grid}>
-          {data?.getProducts.products.map((product) => {
+          {data?.getProductsPagination.products.map((product) => {
             return <ProductCard key={product._id} product={product} loading={loading} />;
           })}
         </Box>

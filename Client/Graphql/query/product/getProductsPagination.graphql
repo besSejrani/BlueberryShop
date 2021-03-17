@@ -1,0 +1,15 @@
+query GetProductsPagination($pageNumber: Float!, $pageSize: Float!) {
+  getProductsPagination(pagination: { pageNumber: $pageNumber, pageSize: $pageSize }) {
+    products {
+      _id
+      name
+      price
+      description
+      stock
+      promotion
+      status
+      productImages
+    }
+    count
+  }
+}

@@ -1,5 +1,5 @@
-query GetProducts($pageNumber: Float!, $pageSize: Float!) {
-  getProducts(pagination: { pageNumber: $pageNumber, pageSize: $pageSize }) {
+query GetProducts {
+  getProducts {
     products {
       _id
       name

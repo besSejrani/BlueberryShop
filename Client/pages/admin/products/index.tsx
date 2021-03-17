@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Next
 import Link from "next/link";
@@ -36,11 +36,12 @@ import { getDataFromTree } from "@apollo/react-ssr";
 
 const index = () => {
   const classes = useStyles();
-
   const router = useRouter();
 
   const { loading, data } = useGetProductsQuery();
   const [deleteProductMutation] = useDeleteProductMutation();
+
+  const [count, setCount] = useState(data?.getProducts.count);
 
   function CustomToolbar() {
     return (
@@ -66,7 +67,7 @@ const index = () => {
           query: GetProductsDocument,
         });
 
-        const newProducts = getProducts.filter((product) => product._id !== data.deleteProduct);
+        const newProducts = getProducts.products.filter((product) => product._id !== data.deleteProduct);
 
         cache.writeQuery({
           query: GetProductsDocument,
@@ -128,7 +129,7 @@ const index = () => {
     },
   ];
 
-  const rows = data?.getProducts.map((product) => {
+  const rows = data?.getProducts.products.map((product) => {
     return {
       id: product._id,
       name: product.name,
@@ -169,6 +170,7 @@ const index = () => {
               disableClickEventBubbling: true,
             }))}
             pageSize={10}
+            rowCount={count}
             components={{
               Toolbar: CustomToolbar,
             }}
@@ -180,8 +182,6 @@ const index = () => {
     </Box>
   );
 };
-
-// export default index;
 
 export default withApollo(index, { getDataFromTree });
 

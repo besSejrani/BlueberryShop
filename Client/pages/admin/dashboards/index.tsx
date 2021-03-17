@@ -14,6 +14,9 @@ import { useAddProfilePictureMutation } from "../../../Graphql/index";
 import withApollo from "../../../Apollo/ssr";
 import { getDataFromTree } from "@apollo/react-ssr";
 
+// Auth
+import { withAuth } from "../../../Guard/withAuth";
+
 // ========================================================================================================
 
 const index = () => {
@@ -47,7 +50,7 @@ const index = () => {
   );
 };
 
-export default withApollo(index, { getDataFromTree });
+export default withApollo(withAuth(index), { getDataFromTree });
 
 // ========================================================================================================
 
