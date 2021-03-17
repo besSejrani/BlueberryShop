@@ -34,8 +34,6 @@ const index = () => {
     });
   };
 
-  debugger;
-
   return (
     <Box className={classes.root}>
       <form onSubmit={handleSubmit(onSubmit)}>

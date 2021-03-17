@@ -16,8 +16,8 @@ import createSchema from "../Graphql/schema";
 import { graphqlUploadExpress } from "graphql-upload";
 
 // Security
-// import helmet from "helmet";
-// import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 
 // Oauth2
 import passport from "passport";
@@ -37,10 +37,10 @@ const corsOptions = {
 const main = async () => {
   try {
     const app = express();
-    // app.use(helmet({ contentSecurityPolicy: false }));
+    app.use(helmet({ contentSecurityPolicy: false }));
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
-    // app.use(mongoSanitize());
+    app.use(mongoSanitize());
 
     await mongo();
     await githubService();
