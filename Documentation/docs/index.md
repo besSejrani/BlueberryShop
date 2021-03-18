@@ -22,6 +22,7 @@
 ## Authorization
 
 - [x] Implement authorization middleware
+- [x] Implement route guard
 
 <hr/>
 

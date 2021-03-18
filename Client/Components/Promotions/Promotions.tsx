@@ -22,7 +22,7 @@ const Promotions = () => {
   return (
     <Container>
       <section className={classes.root}>
-        {data?.getProducts.map((product) => {
+        {data?.getProducts.products.map((product) => {
           if (product.status === "PUBLISHED") {
             return <Card key={product._id} product={product} />;
           }

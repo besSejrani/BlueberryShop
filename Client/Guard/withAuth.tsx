@@ -1,10 +1,10 @@
 import React from "react";
 
-// Auth
-import redirect from "./redirect";
-
 // Apollo
 // import { useGetCurrentUserQuery } from "../Graphql/index";
+
+// Guard
+import redirect from "./redirect";
 import { NextContextWithApollo } from "./nextContextWithApollo";
 
 // Apollo State
