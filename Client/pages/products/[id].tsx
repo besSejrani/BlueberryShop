@@ -58,7 +58,8 @@ const SingleProduct = () => {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  let maxSteps = selectProduct.images.length;
+  // let maxSteps = selectProduct.images.length;
+  let maxSteps = 3;
 
   useEffect(() => {
     dispatch(getSingleProduct());

@@ -24,8 +24,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 import { useGetProductsQuery, useDeleteProductMutation } from "../../../Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
+import withApollo from "../../../Apollo/ssr"
 
 // ========================================================================================================
 
@@ -101,7 +100,7 @@ const index = () => {
     },
   ];
 
-  const rows = data?.getProducts.map((product) => {
+  const rows = data?.getProducts.products.map((product) => {
     return {
       id: product._id,
       title: product.name,
@@ -153,7 +152,7 @@ const index = () => {
   );
 };
 
-export default withApollo(index, { getDataFromTree });
+export default withApollo({ssr:true})(index)
 
 // ========================================================================================================
 

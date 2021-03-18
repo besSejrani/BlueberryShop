@@ -16,8 +16,7 @@ import ProductFilter from "../../Components/ProductFilter/ProductFilter";
 import { useGetProductsPaginationQuery } from "../../Graphql/index";
 
 // SSR
-import withApollo from "../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
+import withApollo from "../../Apollo/ssr"
 
 // ========================================================================================================
 
@@ -74,7 +73,7 @@ const Products = () => {
   );
 };
 
-export default withApollo(Products, { getDataFromTree });
+export default withApollo({ssr:true})(Products);
 
 // =================================================================
 const useStyles = makeStyles((theme: Theme) =>

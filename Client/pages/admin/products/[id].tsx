@@ -29,9 +29,8 @@ import PreviewProduct from "../../../Components/PreviewProduct/PreviewProduct";
 // Apollo
 import { useUpdateProductMutation, useGetProductQuery } from "../../../Graphql/index";
 
-// // SSR
-import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
+// SSR
+import withApollo from "../../../Apollo/ssr"
 
 // ========================================================================================================
 
@@ -273,7 +272,8 @@ const ModifyProductAdmin = () => {
   );
 };
 
-export default withApollo(ModifyProductAdmin, { getDataFromTree });
+
+export default withApollo({ssr:true})(ModifyProductAdmin)
 
 // ========================================================================================================
 

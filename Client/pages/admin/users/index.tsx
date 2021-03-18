@@ -25,7 +25,6 @@ import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuer
 
 // SSR
 import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
 
 // ========================================================================================================
 
@@ -178,7 +177,7 @@ const index = () => {
   );
 };
 
-export default withApollo(index, { getDataFromTree });
+export default withApollo({ssr:true})(index)
 
 // ========================================================================================================
 

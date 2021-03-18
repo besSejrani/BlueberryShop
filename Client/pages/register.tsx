@@ -5,7 +5,6 @@ import SigninSignup from "../Components/SigninSignup/SigninSignup";
 
 // SSR
 import withApollo from "../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
 
 // ========================================================================================================
 
@@ -13,4 +12,4 @@ const register = () => {
   return <SigninSignup />;
 };
 
-export default withApollo(register, { getDataFromTree });
+export default withApollo({ssr:true})(register)

@@ -35,7 +35,6 @@ import { product as imagesUrl } from "../../../Apollo/state/product/index";
 
 // SSR
 import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
 
 // ========================================================================================================
 
@@ -91,7 +90,7 @@ const CreateProductAdmin = () => {
         cache.writeQuery({
           query: GetProductsDocument,
           data: {
-            getProducts: [...products?.getProducts, newProduct],
+            getProducts: [...products?.getProducts.products, newProduct],
           },
         });
       },
@@ -122,7 +121,7 @@ const CreateProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
-          <PreviewProduct product={product} />
+          <PreviewProduct product={product}/>
         </Box>
 
         <Box className={classes.content}>
@@ -248,7 +247,7 @@ const CreateProductAdmin = () => {
     </Box>
   );
 };
-export default withApollo(CreateProductAdmin, { getDataFromTree });
+export default withApollo({ssr:true})(CreateProductAdmin)
 
 // ========================================================================================================
 

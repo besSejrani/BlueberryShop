@@ -7,15 +7,14 @@ import { useForm } from "react-hook-form";
 import { Box, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
+// Guard
+import { withAuth } from "../../../Guard/withAuth";
+
 // Apollo
 import { useAddProfilePictureMutation } from "../../../Graphql/index";
 
-// Compoenents
+// Apollo State
 import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
-
-// Auth
-import { withAuth } from "../../../Guard/withAuth";
 
 // ========================================================================================================
 
@@ -50,7 +49,7 @@ const index = () => {
   );
 };
 
-export default withApollo(withAuth(index), { getDataFromTree });
+export default withApollo({ssr:true})(withAuth(index))
 
 // ========================================================================================================
 

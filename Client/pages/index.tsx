@@ -8,8 +8,7 @@ import { getItemCart } from "../Redux/product/productAction";
 import Promotions from "../Components/Promotions/Promotions";
 
 // SSR
-import withApollo from "../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
+import withApollo from "../Apollo/ssr"
 
 // ========================================================================================================
 
@@ -27,6 +26,6 @@ const Home: React.FC = () => {
   );
 };
 
-export default withApollo(Home, { getDataFromTree });
+export default withApollo({ssr:true})(Home);
 
 // =================================================================
