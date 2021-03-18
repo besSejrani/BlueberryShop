@@ -5,7 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton } from "@material-ui/core";
+import {
+  Box,
+  Breadcrumbs,
+  Link as MaterialLink,
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@material-ui/core";
 import {
   DataGrid,
   GridCellParams,
@@ -29,7 +40,7 @@ import {
 } from "../../../Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr"
+import withApollo from "../../../Apollo/ssr";
 
 // ========================================================================================================
 
@@ -37,10 +48,25 @@ const index = () => {
   const classes = useStyles();
   const router = useRouter();
 
+  // GraphQL
   const { loading, data } = useGetProductsQuery();
   const [deleteProductMutation] = useDeleteProductMutation();
 
+  // State
   const [count, setCount] = useState(data?.getProducts.count);
+  const [open, setOpen] = React.useState(false);
+  const [product, setProduct] = React.useState(null);
+
+  // Events
+  const handleClickOpen = (params) => {
+    setOpen(true);
+
+    setProduct(params);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   function CustomToolbar() {
     return (
@@ -76,6 +102,8 @@ const index = () => {
         });
       },
     });
+
+    await handleClose();
   };
 
   if (loading) return <div>loading...</div>;
@@ -120,7 +148,7 @@ const index = () => {
             <ModifyIcon />
           </IconButton>
 
-          <IconButton onClick={() => deleteProduct(params.row.id)}>
+          <IconButton onClick={() => handleClickOpen(params)}>
             <DeleteIcon />
           </IconButton>
         </>
@@ -164,6 +192,7 @@ const index = () => {
         <div style={{ width: "100%" }}>
           <DataGrid
             rows={rows}
+            rowsPerPageOptions={[5, 10, 20]}
             columns={columns.map((column) => ({
               ...column,
               disableClickEventBubbling: true,
@@ -177,12 +206,33 @@ const index = () => {
             autoHeight
           />
         </div>
+        <div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete the  ${product?.row.name} ?`}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">Yes, I want to delete this product.</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={() => deleteProduct(product.row.id)} color="secondary" autoFocus>
+                Delete Product
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </Box>
     </Box>
   );
 };
 
-export default withApollo({ssr:true})(index)
+export default withApollo({ ssr: true })(index);
 
 // ========================================================================================================
 

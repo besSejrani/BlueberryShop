@@ -1,10 +1,10 @@
 // GraphQL
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { CreateProductInput } from "./types/createProductInput";
 
-// //Authorization
-// import { authentication } from "../../../Middleware/authentication";
-// import authorization from "../../../Middleware/authorization";
+//Authorization
+import { authentication } from "../../../Middleware/authentication";
+import authorization from "../../../Middleware/authorization";
 
 // Database
 import { Product, ProductModel } from "../../../Model/Product";
@@ -19,8 +19,8 @@ import { S3 } from "../../../Class/Aws/S3";
 @Resolver()
 export class CreateProductResolver {
   @Mutation(() => Product)
-  // @UseMiddleware(authentication)
-  // @UseMiddleware(authorization(["admin"]))
+  @UseMiddleware(authentication)
+  @UseMiddleware(authorization(["admin"]))
   async createProduct(
     @Arg("picture", () => [GraphQLUpload]) FileList: Upload[],
     @Arg("input")

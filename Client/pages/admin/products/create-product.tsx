@@ -121,7 +121,7 @@ const CreateProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
-          <PreviewProduct product={product}/>
+          <PreviewProduct product={product} />
         </Box>
 
         <Box className={classes.content}>
@@ -247,7 +247,7 @@ const CreateProductAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ssr:true})(CreateProductAdmin)
+export default withApollo({ ssr: true })(CreateProductAdmin);
 
 // ========================================================================================================
 

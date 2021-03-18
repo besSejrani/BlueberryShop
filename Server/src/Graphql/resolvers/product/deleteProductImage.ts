@@ -1,17 +1,23 @@
 // GraphQL
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
-// AWS
-import { S3 } from "../../../Class/Aws/S3";
+// Middleware
+import { authentication } from "../../../Middleware/authentication";
+import authorization from "../../../Middleware/authorization";
 
 // Database
 import { ProductModel } from "../../../Model/Product";
+
+// AWS
+import { S3 } from "../../../Class/Aws/S3";
 
 // ========================================================================================================
 
 @Resolver()
 export class DeleteProductImageResolver {
   @Mutation(() => Boolean)
+  @UseMiddleware(authentication)
+  @UseMiddleware(authorization(["admin"]))
   async deleteProductImage(@Arg("productId") productId: string, @Arg("keyId") keyId: string): Promise<boolean> {
     // Remove S3 link from database
     await ProductModel.findOneAndUpdate({ _id: productId }, { $pull: { productImages: keyId } });

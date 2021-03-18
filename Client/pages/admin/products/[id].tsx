@@ -30,7 +30,7 @@ import PreviewProduct from "../../../Components/PreviewProduct/PreviewProduct";
 import { useUpdateProductMutation, useGetProductQuery } from "../../../Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr"
+import withApollo from "../../../Apollo/ssr";
 
 // ========================================================================================================
 
@@ -272,8 +272,7 @@ const ModifyProductAdmin = () => {
   );
 };
 
-
-export default withApollo({ssr:true})(ModifyProductAdmin)
+export default withApollo({ ssr: true })(ModifyProductAdmin);
 
 // ========================================================================================================
 

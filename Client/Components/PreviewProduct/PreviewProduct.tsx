@@ -17,16 +17,16 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import withApollo from "../../Apollo/ssr"
+import withApollo from "../../Apollo/ssr";
 // ========================================================================================================
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 type Preview = {
-  product: any,
-  images?:any,
-  router?:string | string[]
-}
+  product: any;
+  images?: any;
+  router?: string | string[];
+};
 
 const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
   const classes = useStyles();
@@ -39,7 +39,7 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
   const [show, setShow] = useState(false);
 
   let maxSteps = product.images.length;
-  
+
   // Events
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -57,7 +57,6 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
   const deleteImage = async (key) => {
     await deleteProductImage({ variables: { productId: router as string, keyId: key } });
   };
-
 
   return (
     <Box className={classes.root}>
@@ -155,7 +154,7 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
   );
 };
 
-export default withApollo({ssr:true})(PreviewProduct)
+export default withApollo({ ssr: true })(PreviewProduct);
 
 // ========================================================================================================
 
