@@ -16,7 +16,7 @@ import ProductFilter from "../../Components/ProductFilter/ProductFilter";
 import { useGetProductsPaginationQuery } from "../../Graphql/index";
 
 // SSR
-import withApollo from "../../Apollo/ssr"
+import withApollo from "../../Apollo/ssr";
 
 // ========================================================================================================
 
@@ -48,8 +48,8 @@ const Products = () => {
     <Container>
       <form noValidate autoComplete="off">
         <Box className={classes.search}>
-          <TextField fullWidth id="outlined-basic" label="Search Product" variant="outlined" />
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" value="Best Match" variant="outlined">
+          <TextField fullWidth id="search product" label="Search Product" variant="outlined" />
+          <Select id="search match" labelId="demo-simple-select-label" value="Best Match" variant="outlined">
             <MenuItem value={"Best Match"}>Best Match</MenuItem>
             <MenuItem value={"Ascending Price"}>Ascending Price</MenuItem>
             <MenuItem value={"Descending Price"}>Descending Price</MenuItem>
@@ -73,7 +73,7 @@ const Products = () => {
   );
 };
 
-export default withApollo({ssr:true})(Products);
+export default withApollo({ ssr: true })(Products);
 
 // =================================================================
 const useStyles = makeStyles((theme: Theme) =>
