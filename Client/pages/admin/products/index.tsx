@@ -176,36 +176,34 @@ const index = () => {
             <MaterialLink color="inherit" href="/">
               Administration
             </MaterialLink>
-            <MaterialLink color="inherit" href="/getting-started/installation/">
-              Management
-            </MaterialLink>
-            <MaterialLink color="textPrimary" href="/components/breadcrumbs/" aria-current="page">
+            <MaterialLink color="textPrimary" aria-current="page">
               Products
             </MaterialLink>
           </Breadcrumbs>
 
           <Link href="/admin/products/create-product" passHref>
-            <Button variant="outlined">Create Product</Button>
+            <Button variant="outlined" color="secondary">
+              Create Product
+            </Button>
           </Link>
         </Box>
 
-        <div style={{ width: "100%" , backgroundColor:"white", borderRadius:15, border:"none"}}>
-          <DataGrid 
-            rows={rows}
-            rowsPerPageOptions={[5, 10, 20]}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            pageSize={10}
-            rowCount={count}
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-            checkboxSelection
-            autoHeight
-          />
-        </div>
+        <DataGrid
+          className={classes.dataGrid}
+          rows={rows}
+          rowsPerPageOptions={[5, 10, 20]}
+          columns={columns.map((column) => ({
+            ...column,
+            disableClickEventBubbling: true,
+          }))}
+          pageSize={10}
+          rowCount={count}
+          components={{
+            Toolbar: CustomToolbar,
+          }}
+          checkboxSelection
+          autoHeight
+        />
         <div>
           <Dialog
             open={open}
@@ -239,10 +237,9 @@ export default withApollo({ ssr: true })(index);
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
+      height: "100vh",
       justifyContent: "center",
       alignItems: "center",
-      height: "80vh",
     },
     header: {
       display: "flex",
@@ -251,6 +248,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbarIcon: {
       fontSize: 20,
+    },
+    dataGrid: {
+      border: "none",
+      width: "100%",
+      backgroundColor: "white",
+      borderRadius: 15,
     },
   })
 );
