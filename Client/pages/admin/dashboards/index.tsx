@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 import { Box, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-// Guard
-import { withAuth } from "../../../Guard/withAuth";
+
 
 // Apollo
 import { useAddProfilePictureMutation } from "../../../Graphql/index";
@@ -49,7 +48,7 @@ const index = () => {
   );
 };
 
-export default withApollo({ssr:true})(withAuth(index))
+export default withApollo({ssr:true})(index)
 
 // ========================================================================================================
 

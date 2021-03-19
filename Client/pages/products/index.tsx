@@ -57,7 +57,7 @@ const Products = () => {
         </Box>
       </form>
 
-      <Box className={classes.products}>
+      <Box className={classes.products} >
         <ProductFilter />
         <Box className={classes.grid}>
           {data?.getProductsPagination.products.map((product) => {

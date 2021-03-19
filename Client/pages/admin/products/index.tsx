@@ -189,8 +189,8 @@ const index = () => {
           </Link>
         </Box>
 
-        <div style={{ width: "100%" }}>
-          <DataGrid
+        <div style={{ width: "100%" , backgroundColor:"white", borderRadius:15, border:"none"}}>
+          <DataGrid 
             rows={rows}
             rowsPerPageOptions={[5, 10, 20]}
             columns={columns.map((column) => ({

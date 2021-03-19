@@ -279,6 +279,7 @@ export default withApollo({ ssr: true })(ModifyProductAdmin);
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      
       height: "100vh",
       display: "flex",
       flexDirection: "column",
@@ -292,18 +293,19 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "1100px",
       height: 600,
       borderRadius: "10px",
+      overflowY: "scroll",
     },
 
     preview: {
       display: "flex",
       justifyContent: "center",
       width: "50%",
-      padding: "20px 30px",
+      padding: "30px 20px",
     },
 
     content: {
       flexDirection: "column",
-      padding: "20px 20px",
+      padding: "30px 20px",
       width: "50%",
     },
 

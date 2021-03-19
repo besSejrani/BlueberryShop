@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
       {admin.isAdmin ? (
         <>
           <AdminHeader />
-          <div style={{ margin: "120px 20px 0px 260px " }}>{children}</div>
+          <div style={{ padding: "120px 20px 0px 260px", backgroundColor: "rgb(244, 245, 247)",  }}>{children}</div>
           <AdminSideBar />
         </>
       ) : (

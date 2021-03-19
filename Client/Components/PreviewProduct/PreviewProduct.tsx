@@ -5,7 +5,7 @@ import { useDeleteProductImageMutation } from "../../Graphql/index";
 
 // Material-UI
 import theme from "../../Layout/Theme";
-import { Button, Card, Box, MobileStepper, CardActionArea, Typography, IconButton } from "@material-ui/core";
+import { Button, Card, Box, MobileStepper, CardActionArea, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Libraries
@@ -17,7 +17,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import withApollo from "../../Apollo/ssr";
+
 // ========================================================================================================
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -103,14 +103,15 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
       )}
 
       <Box className={classes.productImagesGroup} onMouseLeave={() => setShow(false)}>
-        {images?.map((image) => {
+        {images?.map((image, index) => {
           return (
-            <Box className={classes.productImagesGroup}>
-              <img src={image} alt={image} className={classes.productImage} onMouseOver={() => setShow(true)} />
+            <Box className={classes.productImagesGroup} onMouseEnter={() => setShow(true)}>
+              <img src={image} alt={image} className={classes.productImage}  />
               {show ? (
-                <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
+                  <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
                   <DeleteIcon />
                 </IconButton>
+                  
               ) : (
                 <></>
               )}
@@ -119,42 +120,11 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
         })}
       </Box>
 
-      <Box className={classes.content}>
-        <Box className={classes.item}>
-          <Typography variant="h6" style={{ fontSize: "1.2rem" }}>
-            Title
-          </Typography>
-          <Typography variant="body1"> {product.title}</Typography>
-        </Box>
-
-        <Box className={classes.item}>
-          <Typography variant="h6" style={{ fontSize: "1.2rem" }}>
-            Price
-          </Typography>
-          <Typography variant="body1"> {product.price}.-</Typography>
-        </Box>
-
-        <Box className={classes.item}>
-          <Typography variant="h6" style={{ fontSize: "1.2rem" }}>
-            Description
-          </Typography>
-          <Typography className={classes.description} variant="body1">
-            {product.description}
-          </Typography>
-        </Box>
-
-        <Box className={classes.item}>
-          <Typography variant="h6" style={{ fontSize: "1.2rem" }}>
-            Stock
-          </Typography>
-          <Typography variant="body1"> {product.stock}</Typography>
-        </Box>
-      </Box>
     </Box>
   );
 };
 
-export default withApollo({ ssr: true })(PreviewProduct);
+export default PreviewProduct;
 
 // ========================================================================================================
 
@@ -162,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexDirection: "column",
-      overflowY: "scroll",
+      width: "100%",
       padding: "0px 20px 0px 0px",
     },
 
@@ -175,28 +145,17 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       width: "100%",
     },
-    content: {
-      margin: "50px 0px 0px 0px",
-    },
-    item: {
-      display: "flex",
-      justifyContent: "space-between",
-      margin: "20px 0px 10px 0px",
-    },
-    description: {
-      wordWrap: "break-word",
-      width: "300px",
-    },
 
     productImagesGroup: {
       display: "flex",
       position: "relative",
-      margin: "20px 0px",
+      margin: "25px 0px 15px 0px",
     },
-
+    
     productImage: {
       height: 100,
       width: 100,
+      margin: "0px 15px 0px 0px",
     },
     deleteProductImage: {
       position: "absolute",
