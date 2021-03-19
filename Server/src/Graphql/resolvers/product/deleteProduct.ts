@@ -36,7 +36,7 @@ export class DeleteProductResolver {
       region: "eu-west-3",
     });
 
-    if (!data) {
+    if (images!.length >= 1) {
       // Remove S3 link from database
       await s3.deleteMultipleProductImages(keys);
     }

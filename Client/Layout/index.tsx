@@ -13,6 +13,9 @@ import AdminHeader from "./admin/adminHeader";
 // Theme
 import { withTheme } from "./Theme";
 
+// React-Toastify
+import Toast from "../Components/Toast/Toast";
+
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
 import { ui } from "../Apollo/state/ui";
@@ -27,8 +30,9 @@ const Layout = ({ children }) => {
       {admin.isAdmin ? (
         <>
           <AdminHeader />
-          <div style={{ padding: "120px 20px 0px 260px", backgroundColor: "rgb(244, 245, 247)",  }}>{children}</div>
+          <div style={{ padding: "120px 20px 0px 260px" }}>{children}</div>
           <AdminSideBar />
+          <Toast />
         </>
       ) : (
         <>
@@ -38,6 +42,7 @@ const Layout = ({ children }) => {
           <SideDrawerCart />
           {children}
 
+          <Toast />
           <Footer />
         </>
       )}

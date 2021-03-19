@@ -103,10 +103,6 @@ export class S3 {
   }
 
   async deleteMultipleProductImages(keys = []) {
-    // const data = keys.map((key) => key.split("https://blueberryshop.s3.eu-west-3.amazonaws.com/"));
-
-    console.log(keys);
-    // console.log(data);
     const objects = keys.map((key) => ({ Key: key }));
 
     const params = {

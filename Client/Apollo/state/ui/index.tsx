@@ -5,6 +5,7 @@ const initialState = {
   isUser: false,
   isSideBarOpen: false,
   isCartOpen: false,
+  isToastrOpen: false,
 };
 
 type UI = {
@@ -12,6 +13,7 @@ type UI = {
   isUser?: boolean;
   isSideBarOpen?: boolean;
   isCartOpen?: boolean;
+  isToastrOpen: boolean;
 };
 
 export const ui = makeVar<UI>(initialState);

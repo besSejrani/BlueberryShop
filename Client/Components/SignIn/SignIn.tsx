@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Next
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // React-Hook-Form
 import { useForm } from "react-hook-form";
@@ -10,6 +11,9 @@ import { useForm } from "react-hook-form";
 // Material-UI
 import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+
+// React-Toastify
+import { toast } from "react-toastify";
 
 // Components
 import InputForm from "../InputForm/InputForm";
@@ -19,7 +23,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo
-import { useSigninMutation, GetUserDocument } from "../../Graphql/index";
+import { useSigninMutation } from "../../Graphql/index";
 
 // ========================================================================================================
 
@@ -30,6 +34,7 @@ type FormValues = {
 
 const SignIn = () => {
   const classes = useStyles();
+  const router = useRouter();
 
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
@@ -40,51 +45,33 @@ const SignIn = () => {
 
   const [signIn] = useSigninMutation();
 
+  const toaster = () => {
+    toast.dark("Successful authentication", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const onSubmit = async (form) => {
     const { data } = await signIn({
       variables: { email: form.email, password: form.password },
-      update(cache, { data }) {
-        const newUser = data.signin;
-
-        try {
-          const existingUser = cache.readQuery({
-            query: GetUserDocument,
-            variables: { userId: "603eecfe6efd288fc85f576f" },
-          });
-
-          const isAuth = { isAuth: true };
-
-          cache.writeQuery({
-            query: GetUserDocument,
-            data: {
-              getUser: {
-                existingUser,
-                ...newUser,
-              },
-            },
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      },
     });
 
     localStorage.setItem("token", data?.signin.token!);
 
-    setEmail("");
-    setPassword("");
+    router.push("/products");
+    await toaster();
   };
 
   return (
     <Box>
       <Card elevation={0} className={classes.signin}>
-        <Image
-          className={classes.media}
-          width={790}
-          height={520}
-          src={"/static/Sand2.webp"}
-          // title={product.title}
-        />
+        <Image className={classes.media} width={790} height={520} src={"/static/Sand2.webp"} />
 
         <Box className={classes.content}>
           <Box>

@@ -237,7 +237,6 @@ export default withApollo({ ssr: true })(index);
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: "100vh",
       justifyContent: "center",
       alignItems: "center",
     },

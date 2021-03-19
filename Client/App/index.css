@@ -9,6 +9,7 @@ html {
 
 body {
   height: 100vh;
+  background-color: rgb(244, 245, 247);
 }
 
 #root {
