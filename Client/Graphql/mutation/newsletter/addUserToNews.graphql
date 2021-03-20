@@ -1,0 +1,3 @@
+mutation AddUserToNews($email: String!) {
+  addUserToNews(email: $email)
+}

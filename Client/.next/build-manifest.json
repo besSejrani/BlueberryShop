@@ -28,26 +28,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
-    ],
-    "/admin/products": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/admin/products.js"
-    ],
-    "/admin/products/create-product": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/admin/products/create-product.js"
-    ],
-    "/products": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/products.js"
-    ],
-    "/register": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/register.js"
     ]
   },
   "ampFirstPages": []

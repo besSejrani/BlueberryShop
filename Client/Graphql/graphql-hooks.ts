@@ -33,6 +33,12 @@ export type UserResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type Newsletter = {
+  __typename?: 'Newsletter';
+  _id: Scalars['ObjectId'];
+  email: Scalars['String'];
+};
+
 export type Product = {
   __typename?: 'Product';
   _id: Scalars['ObjectId'];
@@ -132,6 +138,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   signin: UserResponse;
   signup: UserResponse;
+  addUserToNews: Scalars['Boolean'];
   createProduct: Product;
   deleteProduct: Scalars['Boolean'];
   deleteProductImage: Scalars['Boolean'];
@@ -152,6 +159,11 @@ export type MutationSigninArgs = {
 
 export type MutationSignupArgs = {
   input: SignupInput;
+};
+
+
+export type MutationAddUserToNewsArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -207,6 +219,16 @@ export type MutationAddProfilePictureArgs = {
   picture: Scalars['Upload'];
 };
 
+
+export type AddUserToNewsMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type AddUserToNewsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addUserToNews'>
+);
 
 export type CreateProductMutationVariables = Exact<{
   name: Scalars['String'];
@@ -454,6 +476,36 @@ export type GetUsersQuery = (
 );
 
 
+export const AddUserToNewsDocument = gql`
+    mutation AddUserToNews($email: String!) {
+  addUserToNews(email: $email)
+}
+    `;
+export type AddUserToNewsMutationFn = Apollo.MutationFunction<AddUserToNewsMutation, AddUserToNewsMutationVariables>;
+
+/**
+ * __useAddUserToNewsMutation__
+ *
+ * To run a mutation, you first call `useAddUserToNewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddUserToNewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addUserToNewsMutation, { data, loading, error }] = useAddUserToNewsMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useAddUserToNewsMutation(baseOptions?: Apollo.MutationHookOptions<AddUserToNewsMutation, AddUserToNewsMutationVariables>) {
+        return Apollo.useMutation<AddUserToNewsMutation, AddUserToNewsMutationVariables>(AddUserToNewsDocument, baseOptions);
+      }
+export type AddUserToNewsMutationHookResult = ReturnType<typeof useAddUserToNewsMutation>;
+export type AddUserToNewsMutationResult = Apollo.MutationResult<AddUserToNewsMutation>;
+export type AddUserToNewsMutationOptions = Apollo.BaseMutationOptions<AddUserToNewsMutation, AddUserToNewsMutationVariables>;
 export const CreateProductDocument = gql`
     mutation CreateProduct($name: String!, $price: String!, $description: String!, $stock: String!, $picture: [Upload!]!, $status: Status!, $promotion: Boolean!) {
   createProduct(

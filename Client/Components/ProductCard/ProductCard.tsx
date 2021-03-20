@@ -46,7 +46,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
           <Link href="/products/[id]" as={`/products/${product._id}`} passHref>
             <Image
               width={300}
-              height={235}
+              height={250}
               onClick={() => dispatch(setSingleProduct(product._id))}
               src={product.productImages[0] || `/static/images/unknownProduct.png`}
               title={product.name}
@@ -124,14 +124,14 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
 
     width: "320px",
-    height: "450px",
+    height: "465px",
 
     borderRadius: 10,
   },
   area: {
     display: "flex",
     padding: "20px 20px 20px 20px",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#ffffff",
   },
   content: {
     padding: "20px",

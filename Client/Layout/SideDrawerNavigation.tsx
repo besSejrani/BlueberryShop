@@ -1,11 +1,6 @@
 import React from "react";
 import Link from "next/link";
 
-// Redux
-// import { IAppState } from "../Redux/rootReducer";
-// import { useDispatch, useSelector } from "react-redux";
-// import { sidebarToggle } from "../Redux/ui/uiAction";
-
 // Material-Ui
 import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

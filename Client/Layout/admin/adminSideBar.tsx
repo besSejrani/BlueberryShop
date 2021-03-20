@@ -74,6 +74,15 @@ const AdminSideDrawer = () => {
                 <ListItemText primary="Promotions" />
               </ListItem>
             </Link>
+
+            <Link href="/admin/dashboards/">
+              <ListItem button>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="Newsletter" />
+              </ListItem>
+            </Link>
           </List>
           <List subheader={<ListSubheader>Management</ListSubheader>}>
             <Link href="/admin/users">
@@ -102,17 +111,6 @@ const AdminSideDrawer = () => {
                   <SubjectIcon />
                 </ListItemIcon>
                 <ListItemText primary="Articles" />
-              </ListItem>
-            </Link>
-          </List>
-
-          <List subheader={<ListSubheader>Newsletter</ListSubheader>}>
-            <Link href="/admin/dashboards/">
-              <ListItem button>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary="Newsletter" />
               </ListItem>
             </Link>
           </List>
