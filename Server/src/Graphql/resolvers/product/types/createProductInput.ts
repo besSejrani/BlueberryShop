@@ -19,6 +19,9 @@ export class CreateProductInput {
   stock: string;
 
   @Field()
+  category: string;
+
+  @Field()
   promotion: boolean;
 
   @Field(() => Status)

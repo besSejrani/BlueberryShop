@@ -18,7 +18,7 @@ export class GetProductsResolver {
   async getProducts(): Promise<ProductPaginationInterface> {
     const count = await ProductModel.countDocuments();
 
-    const products = await ProductModel.find({});
+    const products = await ProductModel.find({}).populate("categories");
 
     return { products, count };
   }

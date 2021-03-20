@@ -1,0 +1,6 @@
+query GetCategories {
+  getCategories {
+    _id
+    name
+  }
+}

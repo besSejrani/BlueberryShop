@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 // React-Hook-Form
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 // Material-UI
 import {
@@ -18,6 +18,9 @@ import {
   FormLabel,
   FormControlLabel,
   Checkbox,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -27,7 +30,12 @@ import UploadFile from "../../../Components/UploadFile/UploadFile";
 import PreviewProduct from "../../../Components/PreviewProduct/PreviewProduct";
 
 // Apollo
-import { useCreateProductMutation, GetProductsDocument, GetProductsQuery } from "../../../Graphql/index";
+import {
+  useCreateProductMutation,
+  GetProductsDocument,
+  GetProductsQuery,
+  useGetCategoriesQuery,
+} from "../../../Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
@@ -43,33 +51,46 @@ type FormValues = {
   productPrice: number;
   productDescription: string;
   productStock: number;
+  productCategory: string;
   productPromotion: boolean;
 };
 
 const CreateProductAdmin = () => {
   const classes = useStyles();
 
+  // Apollo State
   const images = useReactiveVar(imagesUrl);
 
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState<number>(0);
-  const [productDescription, setProductDescription] = useState("");
-  const [productStock, setProductStock] = useState<number>(0);
-  const [productPromotion, setProductPromotion] = useState<boolean>(false);
+  // GraphQL
+  const [createProduct] = useCreateProductMutation();
+  const { data } = useGetCategoriesQuery();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductPromotion(!productPromotion);
-  };
+  // State
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState<number>();
+  const [productDescription, setProductDescription] = useState("");
+  const [productStock, setProductStock] = useState<number>();
+  const [productCategory, setProductCategory] = useState<string>("");
+  const [productPromotion, setProductPromotion] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const { register, errors, handleSubmit } = useForm<FormValues>({
+  // Form
+  const { register, errors, handleSubmit, control } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
-  const [createProduct] = useCreateProductMutation();
+  // Events
+  const handleChangeCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setProductCategory(event.target.value as string);
+  };
+
+  const handleChangePromotion = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProductPromotion(!productPromotion);
+  };
 
   const onSubmit = async (form) => {
+    console.log(form);
     await createProduct({
       variables: {
         picture: images.images,
@@ -77,6 +98,7 @@ const CreateProductAdmin = () => {
         price: form.productPrice,
         description: form.productDescription,
         stock: form.productStock,
+        category: form.productCategory,
         promotion: form.productPromotion,
         status: form.productStatus,
       },
@@ -198,12 +220,34 @@ const CreateProductAdmin = () => {
               errors={errors}
             />
 
+            <FormControl style={{ margin: "5px 5px 20px 5px" }}>
+              <InputLabel id="productCategoryLabel">Category</InputLabel>
+
+              <Controller
+                control={control}
+                name="productCategory"
+                as={
+                  <Select
+                    labelId="productCategoryLabel"
+                    id="productCategory"
+                    value={productCategory}
+                    onChange={handleChangeCategory}
+                    className={classes.input}
+                  >
+                    {data?.getCategories.map((category) => {
+                      return <MenuItem value={category._id}>{category.name}</MenuItem>;
+                    })}
+                  </Select>
+                }
+              />
+            </FormControl>
+
             <FormControlLabel
               control={
                 <Checkbox
                   color="primary"
                   inputRef={register()}
-                  onChange={handleChange}
+                  onChange={handleChangePromotion}
                   name="productPromotion"
                   id="productPromotion"
                   disableRipple
@@ -265,7 +309,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       width: "1100px",
-      height: 600,
+      height: 650,
       borderRadius: "10px",
     },
 
@@ -286,6 +330,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       margin: "45px 0px 0px 0px",
+    },
+
+    input: {
+      background: "none",
+      "& .MuiSelect-select:focus": {
+        background: "none",
+      },
     },
   })
 );

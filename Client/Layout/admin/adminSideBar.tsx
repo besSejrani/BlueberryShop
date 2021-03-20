@@ -57,7 +57,7 @@ const AdminSideDrawer = () => {
               </ListItem>
             </Link>
 
-            <Link href="/admin/promotions/">
+            <Link href="/admin/categories/">
               <ListItem button>
                 <ListItemIcon>
                   <CategoryIcon />
@@ -84,6 +84,27 @@ const AdminSideDrawer = () => {
               </ListItem>
             </Link>
           </List>
+
+          <List subheader={<ListSubheader>Business</ListSubheader>}>
+            <Link href="/admin/users">
+              <ListItem button>
+                <ListItemIcon>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Taxes" />
+              </ListItem>
+            </Link>
+
+            <Link href="/admin/orders">
+              <ListItem button>
+                <ListItemIcon>
+                  <ReceiptIcon />
+                </ListItemIcon>
+                <ListItemText primary="Payments" />
+              </ListItem>
+            </Link>
+          </List>
+
           <List subheader={<ListSubheader>Management</ListSubheader>}>
             <Link href="/admin/users">
               <ListItem button>

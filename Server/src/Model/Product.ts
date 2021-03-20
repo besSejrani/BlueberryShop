@@ -1,9 +1,10 @@
-// Database
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import { ObjectId } from "mongodb";
-
 // GraphQL
 import { Field, ObjectType } from "type-graphql";
+
+// Database
+import { Category } from "./Category";
+import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import { ObjectId } from "mongodb";
 
 // ========================================================================================================
 
@@ -49,6 +50,10 @@ export class Product {
   @Field(() => [String])
   @Property()
   productImages?: String[];
+
+  @Field(() => [Category])
+  @Property({ ref: Category, type: ObjectId })
+  categories?: Category[];
 
   // @Field(() => [String])
   @Property()

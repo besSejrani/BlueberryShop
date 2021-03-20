@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Category {
+  _id: ObjectId!
+  name: String!
+}
+
 input ChangedPasswordInput {
   password: String!
   token: String!
@@ -14,6 +19,7 @@ input ChangedProfileInput {
 }
 
 input CreateProductInput {
+  category: String!
   description: String!
   name: String!
   price: String!
@@ -27,7 +33,9 @@ type Mutation {
   addToNewsletter(email: String!): Boolean!
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
+  createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
+  deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
   deleteProductImage(keyId: String!, productId: String!): Boolean!
@@ -49,6 +57,7 @@ scalar ObjectId
 
 type Product {
   _id: ObjectId!
+  categories: [Category!]!
   description: String!
   name: String!
   price: Float!
@@ -69,6 +78,7 @@ input ProductPaginationInput {
 }
 
 type Query {
+  getCategories: [Category!]
   getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product

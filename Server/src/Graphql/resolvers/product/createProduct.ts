@@ -24,7 +24,7 @@ export class CreateProductResolver {
   async createProduct(
     @Arg("picture", () => [GraphQLUpload]) FileList: Upload[],
     @Arg("input")
-    { name, price, description, stock, promotion, status }: CreateProductInput
+    { name, price, description, stock, category, promotion, status }: CreateProductInput
   ): Promise<any> {
     const product = await ProductModel.findOne({ name });
 
@@ -54,6 +54,7 @@ export class CreateProductResolver {
       promotion,
       status,
       productImages: data,
+      categories: category,
     });
     await newProduct.save();
     return newProduct;

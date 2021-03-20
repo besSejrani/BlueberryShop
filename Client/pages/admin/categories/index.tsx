@@ -33,10 +33,10 @@ import ModifyIcon from "@material-ui/icons/Create";
 
 //Apollo
 import {
-  useGetProductsQuery,
-  useDeleteProductMutation,
-  GetProductsDocument,
-  GetProductsQuery,
+  GetCategoriesDocument,
+  GetCategoriesQuery,
+  useGetCategoriesQuery,
+  useDeleteCategoryMutation,
 } from "../../../Graphql/index";
 
 // SSR
@@ -44,16 +44,16 @@ import withApollo from "../../../Apollo/ssr";
 
 // ========================================================================================================
 
-const index = () => {
+const Categories = () => {
   const classes = useStyles();
   const router = useRouter();
 
   // GraphQL
-  const { loading, data } = useGetProductsQuery();
-  const [deleteProductMutation] = useDeleteProductMutation();
+  const { loading, data } = useGetCategoriesQuery();
+  const [deleteCategoryMutation] = useDeleteCategoryMutation();
 
   // State
-  const [count, setCount] = useState(data?.getProducts.count);
+  // const [count, setCount] = useState(data?.getProducts.count);
   const [open, setOpen] = React.useState(false);
   const [product, setProduct] = React.useState(null);
 
@@ -83,21 +83,21 @@ const index = () => {
     );
   }
 
-  const deleteProduct = async (productId) => {
-    await deleteProductMutation({
-      variables: { productId },
+  const deleteCategory = async (categoryId) => {
+    await deleteCategoryMutation({
+      variables: { categoryId },
 
       update(cache, { data }) {
-        const { getProducts }: GetProductsQuery = cache.readQuery({
-          query: GetProductsDocument,
+        const { getCategories }: GetCategoriesQuery = cache.readQuery({
+          query: GetCategoriesDocument,
         });
 
-        const newProducts = getProducts.products.filter((product) => product._id !== data.deleteProduct);
+        const newCategory = getCategories.filter((product) => product._id !== data.deleteCategory);
 
         cache.writeQuery({
-          query: GetProductsDocument,
+          query: GetCategoriesDocument,
           data: {
-            getProducts: { newProducts },
+            getCategories: { newCategory },
           },
         });
       },
@@ -111,32 +111,8 @@ const index = () => {
   const columns = [
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Category Name",
       flex: 1,
-      renderCell: (params: GridCellParams) => (
-        <>
-          <img src="/static/images/unknownProduct.png" height={55} />
-          {params.value}
-        </>
-      ),
-    },
-    { field: "category", headerName: "Category", flex: 0.4 },
-    { field: "price", headerName: "Price", flex: 0.4 },
-    {
-      field: "stock",
-      headerName: "Stock",
-      flex: 0.4,
-    },
-    { field: "promotion", headerName: "Promotion", flex: 0.4 },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 0.4,
-      renderCell: (params: GridCellParams) => (
-        <Button variant="outlined" color="secondary" size="small" style={{ marginLeft: 16, borderRadius: 20 }}>
-          {params.value}
-        </Button>
-      ),
     },
     {
       field: "actions",
@@ -157,15 +133,10 @@ const index = () => {
     },
   ];
 
-  const rows = data?.getProducts.products.map((product) => {
+  const rows = data?.getCategories.map((product) => {
     return {
       id: product._id,
       name: product.name,
-      category: product.categories.map((category) => category.name),
-      price: product.price,
-      stock: product.stock,
-      promotion: product.promotion,
-      status: product.status,
       actions: "",
     };
   });
@@ -179,13 +150,13 @@ const index = () => {
               Administration
             </MaterialLink>
             <MaterialLink color="textPrimary" aria-current="page">
-              Products
+              Categories
             </MaterialLink>
           </Breadcrumbs>
 
-          <Link href="/admin/products/create-product" passHref>
+          <Link href="/admin/categories/create-category" passHref>
             <Button variant="outlined" color="secondary">
-              Create Product
+              Create Category
             </Button>
           </Link>
         </Box>
@@ -199,7 +170,7 @@ const index = () => {
             disableClickEventBubbling: true,
           }))}
           pageSize={10}
-          rowCount={count}
+          // rowCount={count}
           components={{
             Toolbar: CustomToolbar,
           }}
@@ -213,7 +184,7 @@ const index = () => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete the  ${product?.row.name} ?`}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete the category ${product?.row.name} ?`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">Yes, I want to delete this product.</DialogContentText>
             </DialogContent>
@@ -221,8 +192,8 @@ const index = () => {
               <Button onClick={handleClose} color="secondary">
                 Cancel
               </Button>
-              <Button onClick={() => deleteProduct(product.row.id)} color="secondary" autoFocus>
-                Delete Product
+              <Button onClick={() => deleteCategory(product.row.id)} color="secondary" autoFocus>
+                Delete Category
               </Button>
             </DialogActions>
           </Dialog>
@@ -232,7 +203,7 @@ const index = () => {
   );
 };
 
-export default withApollo({ ssr: true })(index);
+export default withApollo({ ssr: true })(Categories);
 
 // ========================================================================================================
 

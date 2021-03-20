@@ -9,6 +9,10 @@ query GetProducts {
       promotion
       status
       productImages
+      categories {
+        _id
+        name
+      }
     }
     count
   }
