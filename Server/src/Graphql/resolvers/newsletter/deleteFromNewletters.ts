@@ -7,17 +7,16 @@ import { NewsletterModel } from "../../../Model/Newsletter";
 // ========================================================================================================
 
 @Resolver()
-export class AddUserToNewsResolver {
+export class AddToNewsletterResolver {
   @Mutation(() => Boolean)
-  async addUserToNews(@Arg("email") email: string): Promise<boolean> {
-    const emailNewsletter = await NewsletterModel.findOne({ email });
+  async deleteFromNewsletter(@Arg("newsletterId") newsletterId: string): Promise<boolean> {
+    const emailNewsletter = await NewsletterModel.findById(newsletterId);
 
-    if (emailNewsletter) {
+    if (!emailNewsletter) {
       return true;
     }
 
-    const newEmailNewsletter = new NewsletterModel({ email });
-    newEmailNewsletter.save();
+    await NewsletterModel.findOneAndDelete({ _id: newsletterId });
 
     return true;
   }

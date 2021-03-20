@@ -75,7 +75,7 @@ const AdminSideDrawer = () => {
               </ListItem>
             </Link>
 
-            <Link href="/admin/dashboards/">
+            <Link href="/admin/newsletter/">
               <ListItem button>
                 <ListItemIcon>
                   <MailIcon />

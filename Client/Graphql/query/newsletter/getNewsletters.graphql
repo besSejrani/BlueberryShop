@@ -1,0 +1,6 @@
+query GetNewsletters {
+  getNewsletters {
+    _id
+    email
+  }
+}

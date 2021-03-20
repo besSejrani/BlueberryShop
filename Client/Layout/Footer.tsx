@@ -23,7 +23,7 @@ import YoutubeIcon from "@material-ui/icons/YouTube";
 import SendIcon from "@material-ui/icons/Send";
 
 // GraphQL
-import { useAddUserToNewsMutation } from "../Graphql/index";
+import { useAddToNewsletterMutation } from "../Graphql/index";
 
 //SSR
 import withApollo from "../Apollo/ssr";
@@ -43,7 +43,7 @@ const Footer = () => {
     criteriaMode: "all",
   });
 
-  const [addUserToNew] = useAddUserToNewsMutation();
+  const [addToNewsletter] = useAddToNewsletterMutation();
 
   const toaster = () => {
     toast.dark("Thank you for subscribing to our newsletter.", {
@@ -59,7 +59,7 @@ const Footer = () => {
 
   const onSubmit = async (form) => {
     console.log(form);
-    const { data } = await addUserToNew({
+    const { data } = await addToNewsletter({
       variables: {
         email: form.email,
       },

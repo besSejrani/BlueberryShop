@@ -24,10 +24,11 @@ input CreateProductInput {
 
 type Mutation {
   addProfilePicture(picture: Upload!): Boolean!
-  addUserToNews(email: String!): Boolean!
+  addToNewsletter(email: String!): Boolean!
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
+  deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
   deleteProductImage(keyId: String!, productId: String!): Boolean!
   deleteUser(userId: String!): Boolean!
@@ -69,6 +70,7 @@ input ProductPaginationInput {
 
 type Query {
   getCurrentUser: User
+  getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination

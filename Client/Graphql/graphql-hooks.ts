@@ -111,6 +111,7 @@ export type ChangedProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getNewsletters?: Maybe<Array<Newsletter>>;
   getProduct?: Maybe<Product>;
   getProducts?: Maybe<ProductPagination>;
   getProductsPagination?: Maybe<ProductPagination>;
@@ -138,7 +139,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   signin: UserResponse;
   signup: UserResponse;
-  addUserToNews: Scalars['Boolean'];
+  addToNewsletter: Scalars['Boolean'];
+  deleteFromNewsletter: Scalars['Boolean'];
   createProduct: Product;
   deleteProduct: Scalars['Boolean'];
   deleteProductImage: Scalars['Boolean'];
@@ -162,8 +164,13 @@ export type MutationSignupArgs = {
 };
 
 
-export type MutationAddUserToNewsArgs = {
+export type MutationAddToNewsletterArgs = {
   email: Scalars['String'];
+};
+
+
+export type MutationDeleteFromNewsletterArgs = {
+  newsletterId: Scalars['String'];
 };
 
 
@@ -220,14 +227,24 @@ export type MutationAddProfilePictureArgs = {
 };
 
 
-export type AddUserToNewsMutationVariables = Exact<{
+export type AddToNewsletterMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type AddUserToNewsMutation = (
+export type AddToNewsletterMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'addUserToNews'>
+  & Pick<Mutation, 'addToNewsletter'>
+);
+
+export type DeleteFromNewsletterMutationVariables = Exact<{
+  newsletterId: Scalars['String'];
+}>;
+
+
+export type DeleteFromNewsletterMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteFromNewsletter'>
 );
 
 export type CreateProductMutationVariables = Exact<{
@@ -394,6 +411,17 @@ export type UpdateProfileMutation = (
   )> }
 );
 
+export type GetNewslettersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNewslettersQuery = (
+  { __typename?: 'Query' }
+  & { getNewsletters?: Maybe<Array<(
+    { __typename?: 'Newsletter' }
+    & Pick<Newsletter, '_id' | 'email'>
+  )>> }
+);
+
 export type GetProductQueryVariables = Exact<{
   productId: Scalars['String'];
 }>;
@@ -476,36 +504,66 @@ export type GetUsersQuery = (
 );
 
 
-export const AddUserToNewsDocument = gql`
-    mutation AddUserToNews($email: String!) {
-  addUserToNews(email: $email)
+export const AddToNewsletterDocument = gql`
+    mutation AddToNewsletter($email: String!) {
+  addToNewsletter(email: $email)
 }
     `;
-export type AddUserToNewsMutationFn = Apollo.MutationFunction<AddUserToNewsMutation, AddUserToNewsMutationVariables>;
+export type AddToNewsletterMutationFn = Apollo.MutationFunction<AddToNewsletterMutation, AddToNewsletterMutationVariables>;
 
 /**
- * __useAddUserToNewsMutation__
+ * __useAddToNewsletterMutation__
  *
- * To run a mutation, you first call `useAddUserToNewsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddUserToNewsMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddToNewsletterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToNewsletterMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addUserToNewsMutation, { data, loading, error }] = useAddUserToNewsMutation({
+ * const [addToNewsletterMutation, { data, loading, error }] = useAddToNewsletterMutation({
  *   variables: {
  *      email: // value for 'email'
  *   },
  * });
  */
-export function useAddUserToNewsMutation(baseOptions?: Apollo.MutationHookOptions<AddUserToNewsMutation, AddUserToNewsMutationVariables>) {
-        return Apollo.useMutation<AddUserToNewsMutation, AddUserToNewsMutationVariables>(AddUserToNewsDocument, baseOptions);
+export function useAddToNewsletterMutation(baseOptions?: Apollo.MutationHookOptions<AddToNewsletterMutation, AddToNewsletterMutationVariables>) {
+        return Apollo.useMutation<AddToNewsletterMutation, AddToNewsletterMutationVariables>(AddToNewsletterDocument, baseOptions);
       }
-export type AddUserToNewsMutationHookResult = ReturnType<typeof useAddUserToNewsMutation>;
-export type AddUserToNewsMutationResult = Apollo.MutationResult<AddUserToNewsMutation>;
-export type AddUserToNewsMutationOptions = Apollo.BaseMutationOptions<AddUserToNewsMutation, AddUserToNewsMutationVariables>;
+export type AddToNewsletterMutationHookResult = ReturnType<typeof useAddToNewsletterMutation>;
+export type AddToNewsletterMutationResult = Apollo.MutationResult<AddToNewsletterMutation>;
+export type AddToNewsletterMutationOptions = Apollo.BaseMutationOptions<AddToNewsletterMutation, AddToNewsletterMutationVariables>;
+export const DeleteFromNewsletterDocument = gql`
+    mutation DeleteFromNewsletter($newsletterId: String!) {
+  deleteFromNewsletter(newsletterId: $newsletterId)
+}
+    `;
+export type DeleteFromNewsletterMutationFn = Apollo.MutationFunction<DeleteFromNewsletterMutation, DeleteFromNewsletterMutationVariables>;
+
+/**
+ * __useDeleteFromNewsletterMutation__
+ *
+ * To run a mutation, you first call `useDeleteFromNewsletterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFromNewsletterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFromNewsletterMutation, { data, loading, error }] = useDeleteFromNewsletterMutation({
+ *   variables: {
+ *      newsletterId: // value for 'newsletterId'
+ *   },
+ * });
+ */
+export function useDeleteFromNewsletterMutation(baseOptions?: Apollo.MutationHookOptions<DeleteFromNewsletterMutation, DeleteFromNewsletterMutationVariables>) {
+        return Apollo.useMutation<DeleteFromNewsletterMutation, DeleteFromNewsletterMutationVariables>(DeleteFromNewsletterDocument, baseOptions);
+      }
+export type DeleteFromNewsletterMutationHookResult = ReturnType<typeof useDeleteFromNewsletterMutation>;
+export type DeleteFromNewsletterMutationResult = Apollo.MutationResult<DeleteFromNewsletterMutation>;
+export type DeleteFromNewsletterMutationOptions = Apollo.BaseMutationOptions<DeleteFromNewsletterMutation, DeleteFromNewsletterMutationVariables>;
 export const CreateProductDocument = gql`
     mutation CreateProduct($name: String!, $price: String!, $description: String!, $stock: String!, $picture: [Upload!]!, $status: Status!, $promotion: Boolean!) {
   createProduct(
@@ -926,6 +984,39 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const GetNewslettersDocument = gql`
+    query GetNewsletters {
+  getNewsletters {
+    _id
+    email
+  }
+}
+    `;
+
+/**
+ * __useGetNewslettersQuery__
+ *
+ * To run a query within a React component, call `useGetNewslettersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNewslettersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNewslettersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNewslettersQuery(baseOptions?: Apollo.QueryHookOptions<GetNewslettersQuery, GetNewslettersQueryVariables>) {
+        return Apollo.useQuery<GetNewslettersQuery, GetNewslettersQueryVariables>(GetNewslettersDocument, baseOptions);
+      }
+export function useGetNewslettersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNewslettersQuery, GetNewslettersQueryVariables>) {
+          return Apollo.useLazyQuery<GetNewslettersQuery, GetNewslettersQueryVariables>(GetNewslettersDocument, baseOptions);
+        }
+export type GetNewslettersQueryHookResult = ReturnType<typeof useGetNewslettersQuery>;
+export type GetNewslettersLazyQueryHookResult = ReturnType<typeof useGetNewslettersLazyQuery>;
+export type GetNewslettersQueryResult = Apollo.QueryResult<GetNewslettersQuery, GetNewslettersQueryVariables>;
 export const GetProductDocument = gql`
     query GetProduct($productId: String!) {
   getProduct(productId: $productId) {

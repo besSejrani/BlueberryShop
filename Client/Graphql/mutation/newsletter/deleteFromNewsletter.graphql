@@ -1,0 +1,3 @@
+mutation DeleteFromNewsletter($newsletterId: String!) {
+  deleteFromNewsletter(newsletterId: $newsletterId)
+}
