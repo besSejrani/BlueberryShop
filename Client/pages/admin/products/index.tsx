@@ -113,12 +113,18 @@ const index = () => {
       field: "name",
       headerName: "Name",
       flex: 1,
-      renderCell: (params: GridCellParams) => (
-        <>
-          <img src="/static/images/unknownProduct.png" height={55} />
-          {params.value}
-        </>
-      ),
+
+      renderCell: (params: any) => {
+        console.log(params);
+        const image = params.value[params.rowIndex].productImages[0];
+        return (
+          <>
+            <img src={image || `/static/images/unknownProduct.png`} height={60} width={60} />
+            {params.value[params.rowIndex].name}
+          </>
+        );
+        debugger;
+      },
     },
     { field: "category", headerName: "Category", flex: 0.4 },
     { field: "price", headerName: "Price", flex: 0.4 },
@@ -160,7 +166,7 @@ const index = () => {
   const rows = data?.getProducts.products.map((product) => {
     return {
       id: product._id,
-      name: product.name,
+      name: data?.getProducts.products.map((image) => image) || "",
       category: product.categories.map((category) => category.name),
       price: product.price,
       stock: product.stock,
@@ -198,6 +204,7 @@ const index = () => {
             ...column,
             disableClickEventBubbling: true,
           }))}
+          rowHeight={80}
           pageSize={10}
           rowCount={count}
           components={{

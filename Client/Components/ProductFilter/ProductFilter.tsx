@@ -10,7 +10,7 @@ const ProductFilter = () => {
 
   return (
     <Box className={classes.category}>
-      <Paper style={{ height: "650px", borderRadius: "10px", maxWidth: "195px" }} elevation={3}>
+      <Paper style={{ height: "650px", borderRadius: "10px", maxWidth: "195px" }} elevation={2}>
         <Box className={classes.filter}>
           <Typography variant="h6" id="price-slider" gutterBottom>
             Product Filters

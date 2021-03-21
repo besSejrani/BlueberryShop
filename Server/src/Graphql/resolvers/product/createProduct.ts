@@ -53,6 +53,7 @@ export class CreateProductResolver {
       stock,
       promotion,
       status,
+      productImageUrl: data[0],
       productImages: data,
       categories: category,
     });

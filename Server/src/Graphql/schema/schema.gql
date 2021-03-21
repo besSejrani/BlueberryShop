@@ -61,6 +61,7 @@ type Product {
   description: String!
   name: String!
   price: Float!
+  productImageUrl: String
   productImages: [String!]!
   promotion: Boolean!
   status: String!

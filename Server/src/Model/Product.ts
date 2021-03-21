@@ -43,7 +43,7 @@ export class Product {
   @Property({ enum: ["DRAFT", "PUBLISHED", "ARCHIVED"], default: false })
   status: string;
 
-  // @Field()
+  @Field({ nullable: true })
   @Property()
   productImageUrl?: string;
 

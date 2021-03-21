@@ -9,6 +9,7 @@ query GetProducts {
       promotion
       status
       productImages
+      productImageUrl
       categories {
         _id
         name

@@ -54,6 +54,7 @@ export type Product = {
   stock: Scalars['Float'];
   promotion: Scalars['Boolean'];
   status: Scalars['String'];
+  productImageUrl: Scalars['String'];
   productImages: Array<Scalars['String']>;
   categories: Array<Category>;
 };
@@ -498,7 +499,7 @@ export type GetProductsQuery = (
     & Pick<ProductPagination, 'count'>
     & { products: Array<(
       { __typename?: 'Product' }
-      & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
+      & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages' | 'productImageUrl'>
       & { categories: Array<(
         { __typename?: 'Category' }
         & Pick<Category, '_id' | 'name'>
@@ -1220,6 +1221,7 @@ export const GetProductsDocument = gql`
       promotion
       status
       productImages
+      productImageUrl
       categories {
         _id
         name
