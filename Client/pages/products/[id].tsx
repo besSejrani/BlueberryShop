@@ -155,15 +155,15 @@ const SingleProduct = () => {
 
   return (
     <Container component="section">
-      <Link href="/products">
-        <Box className={classes.backButton}>
-          <IconButton>
-            <ArrowBackIcon color="primary" />
-          </IconButton>
-          <Typography variant="body1">Go Back</Typography>
-        </Box>
-      </Link>
-      <Box style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem" }}>
+      <Box style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem", margin: "50px 0px" }}>
+        <Link href="/products">
+          <Box className={classes.backButton}>
+            <IconButton>
+              <ArrowBackIcon color="primary" />
+            </IconButton>
+            <Typography variant="body1">Go Back</Typography>
+          </Box>
+        </Link>
         <Box>
           <Box className={classes.root}>
             <Card style={{ borderRadius: "10px" }}>
@@ -303,7 +303,7 @@ const SingleProduct = () => {
             </AccordionDetails>
           </Accordion>
 
-          <Box className={classes.social}>
+          <Box className={classes.social} style={{ margin: "50px 0px" }}>
             <Typography variant="h5">Share On Social Media</Typography>
 
             <IconButton>
@@ -339,13 +339,10 @@ const useStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "35% 1fr",
     gridGap: "2rem",
-    margin: "10px 0px 100px 0px",
   },
   backButton: {
     display: "flex",
     alignItems: "center",
-    marginTop: "60px",
-    marginLeft: "2rem",
     cursor: "pointer",
   },
   product: {
@@ -388,7 +385,7 @@ const useStyles = makeStyles({
     borderRadius: "10px",
   },
   social: {
-    margin: "50px 0px",
+    margin: "00px 0px",
   },
   review: {
     margin: "30px 0px",
