@@ -226,7 +226,7 @@ const index = () => {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="secondary">
-                Cancels
+                Cancel
               </Button>
               <Button onClick={() => deleteProduct(product.row.id)} color="secondary" autoFocus>
                 Delete Product
