@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Next
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography } from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -61,6 +61,44 @@ const Dashboard = () => {
             </Button>
           </Box>
         </Box>
+
+        <Paper className={classes.dataGroup}>
+          <Box className={classes.data}>
+            <Typography variant="h5">Sales</Typography>
+          </Box>
+          <Box className={classes.data} style={{ borderLeft: "1px solid #d4d4d4", borderRight: "1px solid #d4d4d4" }}>
+            <Typography variant="h5">Cost</Typography>
+          </Box>
+          <Box className={classes.data}>
+            <Typography variant="h5">Profit</Typography>
+          </Box>
+        </Paper>
+
+        <Box className={classes.chartGroup}>
+          <Paper className={classes.chartLeft}>
+            <Box className={classes.chart}>
+              <Typography variant="h5">Sales revenue</Typography>
+            </Box>
+          </Paper>
+          <Paper className={classes.chartRight}>
+            <Box className={classes.chart}>
+              <Typography variant="h5">Cost Breakdown</Typography>
+            </Box>
+          </Paper>
+        </Box>
+
+        <Box className={classes.chartGroup}>
+          <Paper className={classes.chartLeft}>
+            <Box className={classes.chart}>
+              <Typography variant="h5">Sales By Continent</Typography>
+            </Box>
+          </Paper>
+          <Paper className={classes.chartRight}>
+            <Box className={classes.chart}>
+              <Typography variant="h5">Incremental Sales</Typography>
+            </Box>
+          </Paper>
+        </Box>
       </Box>
     </Box>
   );
@@ -81,6 +119,47 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
       margin: "0px 0px 50px 0px",
+    },
+
+    dataGroup: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr",
+      margin: "20px 0px",
+      borderRadius: 20,
+    },
+
+    data: {
+      display: "flex",
+      width: "100%",
+      height: "100px",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    chartGroup: {
+      display: "grid",
+      gridTemplateColumns: "3fr 2fr",
+      rowGap: 20,
+      columnGap: 20,
+      margin: "20px 0px",
+    },
+
+    chartLeft: {
+      height: 500,
+      borderRadius: 20,
+    },
+
+    chartRight: {
+      height: 500,
+      borderRadius: 20,
+    },
+
+    chart: {
+      display: "flex",
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
     },
   })
 );
