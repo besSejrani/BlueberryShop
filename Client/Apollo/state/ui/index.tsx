@@ -1,7 +1,7 @@
 import { makeVar } from "@apollo/client";
 
 const initialState = {
-  isAdmin: true,
+  isAdmin: false,
   isUser: false,
   isSideBarOpen: false,
   isCartOpen: false,

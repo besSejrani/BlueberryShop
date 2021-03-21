@@ -61,7 +61,7 @@ const Products = () => {
         <ProductFilter />
         <Box className={classes.grid}>
           {data?.getProductsPagination.products.map((product) => {
-            return <ProductCard key={product._id} product={product} loading={loading} />;
+            return <ProductCard key={product._id} product={product} />;
           })}
         </Box>
       </Box>
