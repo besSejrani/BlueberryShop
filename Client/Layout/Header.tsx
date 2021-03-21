@@ -28,14 +28,13 @@ import SearchIcon from "@material-ui/icons/Search";
 
 // Redux
 import { IAppState } from "../Redux/rootReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 // Apollo State
-import { useReactiveVar } from "@apollo/client";
 import { ui } from "../Apollo/state/ui/index";
 
 // Icons
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from "@material-ui/icons/Person";
 
 // ========================================================================================================
 
@@ -132,7 +131,15 @@ const Header = () => {
                 </IconButton>
 
                 <IconButton onClick={changeAdmin}>
-                    <PersonIcon style={{color:"white", borderRadius:90, fontSize:"25px", backgroundColor: "grey", padding: "3px"}}/>
+                  <PersonIcon
+                    style={{
+                      color: "white",
+                      borderRadius: 90,
+                      fontSize: "25px",
+                      backgroundColor: "grey",
+                      padding: "3px",
+                    }}
+                  />
                 </IconButton>
                 <Link href="/register" passHref>
                   <Button color="inherit">Login</Button>

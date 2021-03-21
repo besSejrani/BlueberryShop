@@ -12,7 +12,7 @@ import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "../InputForm/InputForm";
+import InputForm from "@Components/InputForm/InputForm";
 
 // Apollo
 import { useSignupMutation } from "../../Graphql";

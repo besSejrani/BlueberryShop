@@ -14,7 +14,7 @@ import AdminHeader from "./admin/adminHeader";
 import { withTheme } from "./Theme";
 
 // React-Toastify
-import Toast from "../Components/Toast/Toast";
+import Toast from "@Components/Toast/Toast";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";

@@ -14,7 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./"
+    "baseUrl": ".",
+    "paths": {
+      "@Components/*": ["Components/*"],
+      "@Apollo/*": ["Apollo/*"],
+      "@Graphql/*": ["Graphql/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

@@ -21,10 +21,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
 //Apollo
-import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuery } from "../../../Graphql/index";
+import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuery } from "@Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 

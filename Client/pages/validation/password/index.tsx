@@ -12,14 +12,13 @@ import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "../../../Components/InputForm/InputForm";
+import InputForm from "@Components/InputForm/InputForm";
 
 // Apollo
-import { useForgotPasswordMutation } from "../../../Graphql";
+import { useForgotPasswordMutation } from "@Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
-import { getDataFromTree } from "@apollo/react-ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
@@ -103,7 +102,7 @@ const SignIn = () => {
   );
 };
 
-export default withApollo(SignIn, { getDataFromTree });
+export default withApollo({ ssr: true })(SignIn);
 
 // ========================================================================================================
 

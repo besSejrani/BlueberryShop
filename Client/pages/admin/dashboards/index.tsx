@@ -12,7 +12,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 //Apollo
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 

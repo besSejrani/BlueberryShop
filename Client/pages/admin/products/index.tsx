@@ -34,15 +34,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
 //Apollo
-import {
-  useGetProductsQuery,
-  useDeleteProductMutation,
-  GetProductsDocument,
-  GetProductsQuery,
-} from "../../../Graphql/index";
+import { useGetProductsQuery, useDeleteProductMutation, GetProductsDocument, GetProductsQuery } from "@Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 

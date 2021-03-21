@@ -25,24 +25,19 @@ import {
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "../../../Components/InputForm/InputForm";
-import UploadFile from "../../../Components/UploadFile/UploadFile";
-import PreviewProduct from "../../../Components/PreviewProduct/PreviewProduct";
+import InputForm from "@Components/InputForm/InputForm";
+import UploadFile from "@Components/UploadFile/UploadFile";
+import PreviewProduct from "@Components/PreviewProduct/PreviewProduct";
 
 // Apollo
-import {
-  useCreateProductMutation,
-  GetProductsDocument,
-  GetProductsQuery,
-  useGetCategoriesQuery,
-} from "../../../Graphql/index";
+import { useCreateProductMutation, GetProductsDocument, GetProductsQuery, useGetCategoriesQuery } from "@Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { product as imagesUrl } from "../../../Apollo/state/product/index";
+import { product as imagesUrl } from "@Apollo/state/product/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 

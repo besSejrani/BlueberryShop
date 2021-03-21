@@ -39,10 +39,10 @@ import {
   GetCategoriesQuery,
   useGetCategoriesQuery,
   useDeleteCategoryMutation,
-} from "../../../Graphql/index";
+} from "@Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 

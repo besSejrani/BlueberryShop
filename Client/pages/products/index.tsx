@@ -9,14 +9,14 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Pagination } from "@material-ui/lab";
 
 // Components
-import ProductCard from "../../Components/ProductCard/ProductCard";
-import ProductFilter from "../../Components/ProductFilter/ProductFilter";
+import ProductCard from "@Components/ProductCard/ProductCard";
+import ProductFilter from "@Components/ProductFilter/ProductFilter";
 
 // Apollo
-import { useGetProductsPaginationQuery } from "../../Graphql/index";
+import { useGetProductsPaginationQuery } from "@Graphql/index";
 
 // SSR
-import withApollo from "../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
@@ -57,7 +57,7 @@ const Products = () => {
         </Box>
       </form>
 
-      <Box className={classes.products} >
+      <Box className={classes.products}>
         <ProductFilter />
         <Box className={classes.grid}>
           {data?.getProductsPagination.products.map((product) => {

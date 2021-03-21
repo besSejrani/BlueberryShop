@@ -1,10 +1,10 @@
 import React from "react";
 
 // Components
-import SigninSignup from "../Components/SigninSignup/SigninSignup";
+import SigninSignup from "@Components/SigninSignup/SigninSignup";
 
 // SSR
-import withApollo from "../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
@@ -12,4 +12,4 @@ const register = () => {
   return <SigninSignup />;
 };
 
-export default withApollo({ssr:true})(register)
+export default withApollo({ ssr: true })(register);

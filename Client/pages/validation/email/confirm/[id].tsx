@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 // Apollo
-import { useConfirmUserMutation } from "../../../../Graphql";
+import { useConfirmUserMutation } from "@Graphql/index";
 
 // ========================================================================================================
 

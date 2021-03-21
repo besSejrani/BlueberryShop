@@ -11,13 +11,13 @@ import { Button, Box, Card, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "../../../Components/InputForm/InputForm";
+import InputForm from "@Components/InputForm/InputForm";
 
 // Apollo
-import { GetCategoriesDocument, GetCategoriesQuery, useCreateCategoryMutation } from "../../../Graphql/index";
+import { GetCategoriesDocument, GetCategoriesQuery, useCreateCategoryMutation } from "@Graphql/index";
 
 // SSR
-import withApollo from "../../../Apollo/ssr";
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
