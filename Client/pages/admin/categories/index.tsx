@@ -171,6 +171,7 @@ const Categories = () => {
           <DataGrid
             className={classes.dataGrid}
             rows={rows}
+            rowHeight={55}
             rowsPerPageOptions={[5, 10, 20]}
             columns={columns.map((column) => ({
               ...column,

@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  client:
+    build:
+      context: ./Client
+    container_name: client
+    networks:
+      - frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    volumes:
+      - ./Client:/app
+
+  server:
+    build:
+      context: ./Server
+    container_name: server
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+      - redis
+    env_file:
+      - ./Server/.env
+    volumes:
+      - ./Server:/app
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    networks:
+      - backend
+    ports:
+      - "6379:6379"
+    command: redis-server
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+
+    volumes:
+      - ~/docker/Blueberry/mongo:/data/db
+
+  # ===========================================================================================================================
+
+networks:
+  backend:
+  frontend:
