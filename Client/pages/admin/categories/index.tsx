@@ -16,6 +16,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  Paper,
+  Typography,
 } from "@material-ui/core";
 import {
   DataGrid,
@@ -145,38 +147,44 @@ const Categories = () => {
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
         <Box className={classes.header}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <MaterialLink color="inherit" href="/">
-              Administration
-            </MaterialLink>
-            <MaterialLink color="textPrimary" aria-current="page">
+          <Box>
+            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
               Categories
-            </MaterialLink>
-          </Breadcrumbs>
+            </Typography>
+
+            <Breadcrumbs aria-label="breadcrumb">
+              <MaterialLink href="/">Administration</MaterialLink>
+              <MaterialLink color="inherit" aria-current="page">
+                Categories
+              </MaterialLink>
+            </Breadcrumbs>
+          </Box>
 
           <Link href="/admin/categories/create-category" passHref>
-            <Button variant="outlined" color="secondary">
+            <Button variant="contained" color="secondary">
               Create Category
             </Button>
           </Link>
         </Box>
 
-        <DataGrid
-          className={classes.dataGrid}
-          rows={rows}
-          rowsPerPageOptions={[5, 10, 20]}
-          columns={columns.map((column) => ({
-            ...column,
-            disableClickEventBubbling: true,
-          }))}
-          pageSize={10}
-          // rowCount={count}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-          checkboxSelection
-          autoHeight
-        />
+        <Paper style={{ borderRadius: 15 }}>
+          <DataGrid
+            className={classes.dataGrid}
+            rows={rows}
+            rowsPerPageOptions={[5, 10, 20]}
+            columns={columns.map((column) => ({
+              ...column,
+              disableClickEventBubbling: true,
+            }))}
+            pageSize={10}
+            // rowCount={count}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            checkboxSelection
+            autoHeight
+          />
+        </Paper>
         <div>
           <Dialog
             open={open}
@@ -216,6 +224,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
     toolbarIcon: {

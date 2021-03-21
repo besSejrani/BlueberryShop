@@ -24,15 +24,55 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/admin/articles": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/articles.js"
+    ],
+    "/admin/categories": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/categories.js"
+    ],
+    "/admin/dashboards": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/dashboards.js"
+    ],
+    "/admin/newsletter": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/newsletter.js"
+    ],
+    "/admin/orders": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/orders.js"
+    ],
+    "/admin/payments": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/payments.js"
+    ],
     "/admin/products": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/admin/products.js"
     ],
-    "/admin/products/create-product": [
+    "/admin/promotions": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/products/create-product.js"
+      "static/chunks/pages/admin/promotions.js"
+    ],
+    "/admin/taxes": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/taxes.js"
+    ],
+    "/admin/users": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/users.js"
     ]
   },
   "ampFirstPages": []

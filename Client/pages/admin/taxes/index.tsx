@@ -16,7 +16,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 // ========================================================================================================
 
-const Orders = () => {
+const Taxes = () => {
   const classes = useStyles();
 
   function CustomToolbar() {
@@ -63,20 +63,16 @@ const Orders = () => {
         <Box className={classes.header}>
           <Box>
             <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Orders
+              Taxes
             </Typography>
 
             <Breadcrumbs aria-label="breadcrumb">
               <Link href="/">Administration</Link>
               <Link color="inherit" href="/components/breadcrumbs/" aria-current="page">
-                Orders
+                Taxes
               </Link>
             </Breadcrumbs>
           </Box>
-
-          <Button variant="contained" color="secondary">
-            Create Order
-          </Button>
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>
@@ -103,7 +99,7 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Taxes;
 
 // ========================================================================================================
 

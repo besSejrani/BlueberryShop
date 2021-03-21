@@ -1,11 +1,7 @@
 import React from "react";
 
-// Next
-import Link from "next/link";
-import { useRouter } from "next/router";
-
-// Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton } from "@material-ui/core";
+import { Box, Breadcrumbs, Link, Button, Typography, Paper } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import {
   DataGrid,
   GridCellParams,
@@ -14,27 +10,14 @@ import {
   GridColumnsToolbarButton,
   GridFilterToolbarButton,
 } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
-
-//Apollo
-import { useGetProductsQuery, useDeleteProductMutation } from "../../../Graphql/index";
-
-// SSR
-import withApollo from "../../../Apollo/ssr"
 
 // ========================================================================================================
 
-const index = () => {
+const Articles = () => {
   const classes = useStyles();
-
-  const router = useRouter();
-
-  const { loading, data } = useGetProductsQuery();
-  const [deleteProductMutation] = useDeleteProductMutation();
 
   function CustomToolbar() {
     return (
@@ -51,108 +34,76 @@ const index = () => {
     );
   }
 
-  const deleteProduct = async (productId) => {
-    const { data } = await deleteProductMutation({ variables: { productId } });
-  };
-
-  if (loading) return <div>loading...</div>;
-
   const columns = [
-    { field: "title", headerName: "Title", flex: 1 },
-    { field: "date", headerName: "Date", flex: 0.4 },
+    { field: "number", headerName: "Number", flex: 1 },
+    { field: "customer", headerName: "Customer", flex: 0.5 },
+    { field: "method", headerName: "Method", flex: 0.5 },
     {
-      field: "category",
-      headerName: "Category",
-      flex: 0.4,
+      field: "total",
+      headerName: "Total",
+      flex: 0.5,
     },
     {
       field: "status",
       headerName: "Status",
-      flex: 0.4,
-      renderCell: (params: GridCellParams) => (
-        <Button
-          onClick={() => console.log(params)}
-          variant="outlined"
-          color="secondary"
-          size="small"
-          style={{ marginLeft: 16, borderRadius: 20 }}
-        >
-          {params.value}
-        </Button>
-      ),
+      flex: 0.5,
     },
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.4,
-
-      renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton onClick={() => router.push(`/admin/products/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
-
-          <IconButton onClick={() => deleteProduct(params.row.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
-      ),
+      flex: 0.5,
     },
   ];
 
-  const rows = data?.getProducts.products.map((product) => {
-    return {
-      id: product._id,
-      title: product.name,
-      date: product.price,
-      category: product.stock,
-      status: product.status,
-      actions: "",
-    };
-  });
+  const rows = [];
 
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
         <Box className={classes.header}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <MaterialLink color="inherit" href="/">
-              Administration
-            </MaterialLink>
-            <MaterialLink color="inherit" href="/getting-started/installation/">
-              Blog
-            </MaterialLink>
-            <MaterialLink color="textPrimary" href="/components/breadcrumbs/" aria-current="page">
+          <Box>
+            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
               Articles
-            </MaterialLink>
-          </Breadcrumbs>
+            </Typography>
 
-          <Link href="/admin/articles/create-article" passHref>
-            <Button variant="outlined">Create Article</Button>
-          </Link>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link href="/">Administration</Link>
+              <Link color="inherit" href="/components/breadcrumbs/" aria-current="page">
+                Articles
+              </Link>
+            </Breadcrumbs>
+          </Box>
+
+          <Button variant="contained" color="secondary">
+            Create Article
+          </Button>
         </Box>
 
-        <div style={{ width: "100%" }}>
+        <Paper style={{ borderRadius: 15 }}>
           <DataGrid
+            className={classes.dataGrid}
             rows={rows}
+            rowsPerPageOptions={[5, 10, 20]}
             columns={columns.map((column) => ({
               ...column,
               disableClickEventBubbling: true,
             }))}
+            rowHeight={80}
             pageSize={10}
+            // rowCount={count}
             components={{
               Toolbar: CustomToolbar,
             }}
             checkboxSelection
             autoHeight
           />
-        </div>
+        </Paper>
       </Box>
     </Box>
   );
 };
 
-export default withApollo({ssr:true})(index)
+export default Articles;
 
 // ========================================================================================================
 
@@ -162,15 +113,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "80vh",
     },
     header: {
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
-    toolbarIcon: {
-      fontSize: 20,
+
+    dataGrid: {
+      border: "none",
+      width: "100%",
+      backgroundColor: "white",
+      borderRadius: 15,
     },
   })
 );

@@ -16,6 +16,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  Paper,
+  Typography,
 } from "@material-ui/core";
 import {
   DataGrid,
@@ -115,7 +117,6 @@ const index = () => {
       flex: 1,
 
       renderCell: (params: any) => {
-        console.log(params);
         const image = params.value[params.rowIndex].productImages[0];
         return (
           <>
@@ -123,7 +124,6 @@ const index = () => {
             {params.value[params.rowIndex].name}
           </>
         );
-        debugger;
       },
     },
     { field: "category", headerName: "Category", flex: 0.4 },
@@ -138,11 +138,45 @@ const index = () => {
       field: "status",
       headerName: "Status",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => (
-        <Button variant="outlined" color="secondary" size="small" style={{ marginLeft: 16, borderRadius: 20 }}>
-          {params.value}
-        </Button>
-      ),
+      renderCell: (params: GridCellParams) => {
+        const status = params.row.status;
+
+        switch (status) {
+          case "DRAFT":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, borderColor: "#2196f3" }}
+              >
+                {params.value}
+              </Button>
+            );
+          case "PUBLISHED":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "green", borderColor: "green" }}
+              >
+                {params.value}
+              </Button>
+            );
+          case "ARCHIVED":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
+              >
+                {params.value}
+              </Button>
+            );
+        }
+      },
     },
     {
       field: "actions",
@@ -180,39 +214,45 @@ const index = () => {
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
         <Box className={classes.header}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <MaterialLink color="inherit" href="/">
-              Administration
-            </MaterialLink>
-            <MaterialLink color="textPrimary" aria-current="page">
+          <Box>
+            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
               Products
-            </MaterialLink>
-          </Breadcrumbs>
+            </Typography>
+
+            <Breadcrumbs aria-label="breadcrumb">
+              <MaterialLink href="/">Administration</MaterialLink>
+              <MaterialLink color="inherit" aria-current="page">
+                Products
+              </MaterialLink>
+            </Breadcrumbs>
+          </Box>
 
           <Link href="/admin/products/create-product" passHref>
-            <Button variant="outlined" color="secondary">
+            <Button variant="contained" color="secondary">
               Create Product
             </Button>
           </Link>
         </Box>
 
-        <DataGrid
-          className={classes.dataGrid}
-          rows={rows}
-          rowsPerPageOptions={[5, 10, 20]}
-          columns={columns.map((column) => ({
-            ...column,
-            disableClickEventBubbling: true,
-          }))}
-          rowHeight={80}
-          pageSize={10}
-          rowCount={count}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-          checkboxSelection
-          autoHeight
-        />
+        <Paper style={{ borderRadius: 15 }}>
+          <DataGrid
+            className={classes.dataGrid}
+            rows={rows}
+            rowsPerPageOptions={[5, 10, 20]}
+            columns={columns.map((column) => ({
+              ...column,
+              disableClickEventBubbling: true,
+            }))}
+            rowHeight={80}
+            pageSize={10}
+            rowCount={count}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            checkboxSelection
+            autoHeight
+          />
+        </Paper>
         <div>
           <Dialog
             open={open}
@@ -252,6 +292,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
     toolbarIcon: {

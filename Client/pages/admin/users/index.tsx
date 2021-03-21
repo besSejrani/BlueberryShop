@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton } from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Typography, Paper } from "@material-ui/core";
 import {
   DataGrid,
   GridCellParams,
@@ -28,7 +28,7 @@ import withApollo from "../../../Apollo/ssr";
 
 // ========================================================================================================
 
-const index = () => {
+const Users = () => {
   const classes = useStyles();
 
   const router = useRouter();
@@ -81,12 +81,14 @@ const index = () => {
       field: "username",
       headerName: "Username",
       flex: 1,
-      renderCell: (params: GridCellParams) => (
-        <>
-          <img src="/static/images/unknown.png" width={50} />
-          {params.value}
-        </>
-      ),
+      renderCell: (params: GridCellParams) => {
+        return (
+          <>
+            <img src="/static/images/unknown.png" width={50} />
+            {params.value}
+          </>
+        );
+      },
     },
     { field: "email", headerName: "Email", flex: 0.4 },
     {
@@ -98,17 +100,34 @@ const index = () => {
       field: "role",
       headerName: "Role",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => (
-        <Button
-          onClick={() => console.log(params)}
-          variant="outlined"
-          color="secondary"
-          size="small"
-          style={{ marginLeft: 16, borderRadius: 20 }}
-        >
-          {params.value}
-        </Button>
-      ),
+      renderCell: (params: GridCellParams) => {
+        const role = params.row.role;
+
+        switch (role) {
+          case "user":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, borderColor: "#2196f3" }}
+              >
+                {params.value}
+              </Button>
+            );
+          case "admin":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "green", borderColor: "green" }}
+              >
+                {params.value}
+              </Button>
+            );
+        }
+      },
     },
     {
       field: "actions",
@@ -144,21 +163,29 @@ const index = () => {
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
         <Box className={classes.header}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <MaterialLink color="inherit" href="/">
-              Administration
-            </MaterialLink>
-            <MaterialLink color="inherit" href="/getting-started/installation/">
-              Management
-            </MaterialLink>
-            <MaterialLink color="textPrimary" href="/components/breadcrumbs/" aria-current="page">
+          <Box>
+            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
               Users
-            </MaterialLink>
-          </Breadcrumbs>
+            </Typography>
+
+            <Breadcrumbs aria-label="breadcrumb">
+              <MaterialLink href="/">Administration</MaterialLink>
+              <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
+                Users
+              </MaterialLink>
+            </Breadcrumbs>
+          </Box>
+
+          <Link href="/admin/users/create-user" passHref>
+            <Button variant="contained" color="secondary">
+              Create User
+            </Button>
+          </Link>
         </Box>
 
-        <div style={{ width: "100%" }}>
+        <Paper style={{ borderRadius: 15 }}>
           <DataGrid
+            className={classes.dataGrid}
             rows={rows}
             columns={columns.map((column) => ({
               ...column,
@@ -171,13 +198,13 @@ const index = () => {
             checkboxSelection
             autoHeight
           />
-        </div>
+        </Paper>
       </Box>
     </Box>
   );
 };
 
-export default withApollo({ssr:true})(index)
+export default withApollo({ ssr: true })(Users);
 
 // ========================================================================================================
 
@@ -187,15 +214,21 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "80vh",
     },
     header: {
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
     toolbarIcon: {
       fontSize: 20,
+    },
+    dataGrid: {
+      border: "none",
+      width: "100%",
+      backgroundColor: "white",
+      borderRadius: 15,
     },
   })
 );

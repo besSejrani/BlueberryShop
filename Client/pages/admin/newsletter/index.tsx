@@ -12,6 +12,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  Typography,
+  Paper,
 } from "@material-ui/core";
 import {
   DataGrid,
@@ -140,32 +142,40 @@ const Newsletters = () => {
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
         <Box className={classes.header}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <MaterialLink color="inherit" href="/">
-              Administration
-            </MaterialLink>
-            <MaterialLink color="textPrimary" aria-current="page">
+          <Box>
+            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
               Newsletter
-            </MaterialLink>
-          </Breadcrumbs>
+            </Typography>
+
+            <Breadcrumbs aria-label="breadcrumb">
+              <MaterialLink color="inherit" href="/">
+                Administration
+              </MaterialLink>
+              <MaterialLink color="textPrimary" aria-current="page">
+                Newsletter
+              </MaterialLink>
+            </Breadcrumbs>
+          </Box>
         </Box>
 
-        <DataGrid
-          className={classes.dataGrid}
-          rows={rows}
-          rowsPerPageOptions={[5, 10, 20]}
-          columns={columns.map((column) => ({
-            ...column,
-            disableClickEventBubbling: true,
-          }))}
-          pageSize={10}
-          // rowCount={count}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-          checkboxSelection
-          autoHeight
-        />
+        <Paper style={{ borderRadius: 15 }}>
+          <DataGrid
+            className={classes.dataGrid}
+            rows={rows}
+            rowsPerPageOptions={[5, 10, 20]}
+            columns={columns.map((column) => ({
+              ...column,
+              disableClickEventBubbling: true,
+            }))}
+            pageSize={10}
+            // rowCount={count}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            checkboxSelection
+            autoHeight
+          />
+        </Paper>
         <div>
           <Dialog
             open={open}

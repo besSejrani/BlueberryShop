@@ -15,8 +15,10 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import MailIcon from "@material-ui/icons/Mail";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
 import SubjectIcon from "@material-ui/icons/Subject";
-import DescriptionIcon from "@material-ui/icons/Description";
 import CategoryIcon from "@material-ui/icons/Category";
+
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 // ========================================================================================================
 
@@ -85,26 +87,6 @@ const AdminSideDrawer = () => {
             </Link>
           </List>
 
-          <List subheader={<ListSubheader>Business</ListSubheader>}>
-            <Link href="/admin/users">
-              <ListItem button>
-                <ListItemIcon>
-                  <GroupIcon />
-                </ListItemIcon>
-                <ListItemText primary="Taxes" />
-              </ListItem>
-            </Link>
-
-            <Link href="/admin/orders">
-              <ListItem button>
-                <ListItemIcon>
-                  <ReceiptIcon />
-                </ListItemIcon>
-                <ListItemText primary="Payments" />
-              </ListItem>
-            </Link>
-          </List>
-
           <List subheader={<ListSubheader>Management</ListSubheader>}>
             <Link href="/admin/users">
               <ListItem button>
@@ -132,6 +114,26 @@ const AdminSideDrawer = () => {
                   <SubjectIcon />
                 </ListItemIcon>
                 <ListItemText primary="Articles" />
+              </ListItem>
+            </Link>
+          </List>
+
+          <List subheader={<ListSubheader>Business Settings</ListSubheader>}>
+            <Link href="/admin/taxes">
+              <ListItem button>
+                <ListItemIcon>
+                  <AccountBalanceIcon />
+                </ListItemIcon>
+                <ListItemText primary="Taxes" />
+              </ListItem>
+            </Link>
+
+            <Link href="/admin/payments">
+              <ListItem button>
+                <ListItemIcon>
+                  <CreditCardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Payments" />
               </ListItem>
             </Link>
           </List>

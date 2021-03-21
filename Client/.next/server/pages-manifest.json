@@ -2,6 +2,14 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/admin/products/create-product": "pages/admin/products/create-product.js",
-  "/admin/products": "pages/admin/products.js"
+  "/admin/users": "pages/admin/users.js",
+  "/admin/products": "pages/admin/products.js",
+  "/admin/taxes": "pages/admin/taxes.js",
+  "/admin/payments": "pages/admin/payments.js",
+  "/admin/dashboards": "pages/admin/dashboards.js",
+  "/admin/categories": "pages/admin/categories.js",
+  "/admin/promotions": "pages/admin/promotions.js",
+  "/admin/newsletter": "pages/admin/newsletter.js",
+  "/admin/orders": "pages/admin/orders.js",
+  "/admin/articles": "pages/admin/articles.js"
 }
