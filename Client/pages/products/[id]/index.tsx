@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 // Material-Ui
-import theme from "../../Layout/Theme";
+import theme from "../../../Layout/Theme";
 import {
   Button,
   Card,

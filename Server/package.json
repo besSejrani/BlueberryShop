@@ -9,9 +9,10 @@
     "copy": "cp ./src/Graphql/schema/schema.gql ./dist/Graphql/schema ",
     "server": "ts-node-dev --respawn index.ts",
     "client": "npm run dev --prefix ../Client",
+    "storybook": "npm run start --prefix ../StoryBook",
     "client:cypress": "cd ../Client && yarn run cypress:open",
     "documentation": "cd ../Documentation && mkdocs serve",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run documentation\" \" npm run client:cypress\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run documentation\" \" npm run client:cypress\" \"npm run storybook\""
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",
