@@ -28,6 +28,12 @@ input CreateProductInput {
   stock: String!
 }
 
+input CreateReviewInput {
+  rating: String!
+  review: String!
+  username: String!
+}
+
 type Mutation {
   addProfilePicture(picture: Upload!): Boolean!
   addToNewsletter(email: String!): Boolean!
@@ -35,6 +41,7 @@ type Mutation {
   confirmUser(token: String!): Boolean!
   createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
+  createProductReview(productId: String!, reviewInput: CreateReviewInput!): Boolean!
   deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
@@ -64,6 +71,7 @@ type Product {
   productImageUrl: String
   productImages: [String!]!
   promotion: Boolean!
+  reviews: [Review!]!
   status: String!
   stock: Float!
 }
@@ -83,10 +91,18 @@ type Query {
   getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
+  getProductReviews(productId: String!): Product
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
   getUser(userId: String!): User
   getUsers: [User!]
+}
+
+type Review {
+  _id: ObjectId!
+  rating: Float!
+  review: String!
+  reviewerName: String!
 }
 
 input SigninInput {

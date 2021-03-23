@@ -2,10 +2,12 @@
 import { Field, ObjectType } from "type-graphql";
 
 // Database
-import { Category } from "./Category";
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
+// Model
+import { Category } from "./Category";
+import { Review } from "./Review";
 // ========================================================================================================
 
 @ObjectType()
@@ -54,6 +56,10 @@ export class Product {
   @Field(() => [Category])
   @Property({ ref: Category, type: ObjectId })
   categories?: Category[];
+
+  @Field(() => [Review])
+  @Property()
+  reviews?: Review[];
 
   // @Field(() => [String])
   @Property()

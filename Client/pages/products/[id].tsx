@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Next
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
+// React-Hook-Form
+import { useForm } from "react-hook-form";
+
 // Material-Ui
-import theme from "../../../Layout/Theme";
+import theme from "../../Layout/Theme";
 import {
   Button,
   Card,
@@ -37,8 +40,11 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 
+// Components
+import InputForm from "@Components/InputForm/InputForm";
+
 // GraphQL
-import { useGetProductQuery } from "@Graphql/index";
+import { useGetProductQuery, useGetProductReviewsQuery, useCreateProductReviewMutation } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -47,6 +53,12 @@ import withApollo from "@Apollo/ssr";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
+type FormValues = {
+  reviewerName: string;
+  rating: number;
+  review: string;
+};
+
 const SingleProduct = () => {
   const classes = useStyles();
   const router = useRouter();
@@ -54,11 +66,35 @@ const SingleProduct = () => {
 
   // GraphQL
   const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
+  const reviews = useGetProductReviewsQuery({ variables: { productId: query.id as string } });
+  const [createProductReview] = useCreateProductReviewMutation();
 
   // State
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [expanded, setExpanded] = useState<string | false>(false);
+  const [reviewerName, setReviewerName] = useState<string>();
+  const [rating, setRating] = useState<number>();
+  const [review, setReview] = useState<string>();
   let maxSteps = data?.getProduct.productImages.length;
+
+  // Form
+  const { register, errors, handleSubmit, control } = useForm<FormValues>({
+    criteriaMode: "all",
+  });
+
+  // Events
+  const onSubmit = async (form) => {
+    console.log(form);
+
+    const { data } = await createProductReview({
+      variables: {
+        productId: query.id as string,
+        rating: form.rating,
+        review: form.review,
+        username: form.reviewerName,
+      },
+    });
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -77,46 +113,7 @@ const SingleProduct = () => {
   };
 
   const renderReviews = () => {
-    const reviews = [
-      {
-        name: "Mark",
-        rating: 2,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-      {
-        name: "Sandra",
-        rating: 3,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-      {
-        name: "Pietro",
-        rating: 4,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-      {
-        name: "Hasan",
-        rating: 2,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-      {
-        name: "Ingrid",
-        rating: 3,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-      {
-        name: "Super",
-        rating: 4,
-        review:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium deserunt assumenda, exercitationem accusamus debitis repellat est ipsam, nostrum culpa id cum deleniti illo facilis rerum quisquam ipsum praesentium sunt! Eos.",
-      },
-    ];
-
-    return reviews.map((reviews) => {
+    return reviews.data?.getProductReviews.reviews.map((review) => {
       return (
         <Box className={classes.review}>
           <Box className={classes.reviewInfo}>
@@ -131,10 +128,10 @@ const SingleProduct = () => {
               />
             </Box>
             <Box>
-              <Typography variant="body1">{reviews.name}</Typography>
+              <Typography variant="body1">{review.reviewerName}</Typography>
 
               <Rating
-                value={reviews.rating}
+                value={review.rating}
                 readOnly
                 size="small"
                 name="customized-color"
@@ -144,7 +141,7 @@ const SingleProduct = () => {
             </Box>
           </Box>
           <>
-            <Typography variant="body1">{reviews.review}</Typography>
+            <Typography variant="body1">{review.review}</Typography>
           </>
 
           <Divider style={{ marginTop: "10px" }} />
@@ -155,7 +152,7 @@ const SingleProduct = () => {
 
   return (
     <Container component="section">
-      <Box style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem", margin: "50px 0px" }}>
+      <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem", margin: "50px 0px" }}>
         <Link href="/products">
           <Box className={classes.backButton}>
             <IconButton>
@@ -270,40 +267,42 @@ const SingleProduct = () => {
             </Box>
           </Box>
 
-          <Accordion square defaultExpanded={true} onChange={handleChange("panel1")}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-              <Typography variant="body1">Description</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{data?.getProduct.description}</Typography>
-            </AccordionDetails>
-          </Accordion>
+          <Box className={classes.accordions}>
+            <Accordion square defaultExpanded={true} onChange={handleChange("panel1")}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                <Typography variant="body1">Description</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{data?.getProduct.description}</Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <Accordion onChange={handleChange("panel2")}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-              <Typography variant="body1">Specifications</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
-                dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+            <Accordion onChange={handleChange("panel2")}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                <Typography variant="body1">Specifications</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
+                  dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <Accordion onChange={handleChange("panel3")}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-              <Typography variant="body1">Returns & Waranty</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
-                dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+            <Accordion onChange={handleChange("panel3")}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+                <Typography variant="body1">Returns & Waranty</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id
+                  dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Box>
 
-          <Box className={classes.social} style={{ margin: "50px 0px" }}>
+          <Box className={classes.social}>
             <Typography variant="h5">Share On Social Media</Typography>
 
             <IconButton>
@@ -316,16 +315,81 @@ const SingleProduct = () => {
               <WhatsAppIcon fontSize="large" />
             </IconButton>
           </Box>
-
-          <Box className={classes.social}>
-            <Typography variant="h5">Reviews</Typography>
-            {renderReviews()}
-          </Box>
         </Box>
-      </Box>
-      <div className={classes.pagination}>
+      </Card>
+
+      <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem 2rem 1rem 2rem", margin: "50px 0px" }}>
+        <Box className={classes.formReview}>
+          <Box>
+            <Typography variant="h5" style={{ fontSize: "1.85rem" }}>
+              Write a review
+            </Typography>
+          </Box>
+
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <InputForm
+              type="text"
+              name="reviewerName"
+              id="reviewerName"
+              label="Username"
+              inputRef={register({
+                required: "This field is required",
+              })}
+              value={reviewerName}
+              onChange={setReviewerName}
+              errors={errors}
+            />
+
+            <InputForm
+              type="number"
+              name="rating"
+              id="rating"
+              label="Rating"
+              inputRef={register({
+                required: "This field is required",
+                maxLength: { value: 1, message: "The product rating should contain maximum 1 digits" },
+                min: { value: 1, message: "The product rating can not be less than 1" },
+                max: { value: 5, message: "The product rating can not be higher than 5" },
+              })}
+              value={rating}
+              onChange={setRating}
+              errors={errors}
+            />
+
+            <InputForm
+              type="text"
+              name="review"
+              id="review"
+              label="Review"
+              multiline
+              rowsMax={"4"}
+              inputRef={register({
+                required: "This field is required",
+                minLength: { value: 20, message: "The product description should contain minimum 20 characters" },
+                maxLength: { value: 250, message: "The product description should contain maximum 250 characters" },
+              })}
+              value={review}
+              onChange={setReview}
+              errors={errors}
+            />
+
+            <Box style={{ flexDirection: "row", marginTop: "25px" }}>
+              <Button variant="contained" color="secondary" type="submit">
+                Write Review
+              </Button>
+            </Box>
+          </form>
+        </Box>
+
+        <Box className={classes.social}>
+          <Typography variant="h5">Reviews</Typography>
+          {renderReviews()}
+        </Box>
+      </Card>
+
+      <Box className={classes.pagination}>
         <Pagination count={10} color="primary" />
-      </div>
+      </Box>
     </Container>
   );
 };
@@ -385,7 +449,7 @@ const useStyles = makeStyles({
     borderRadius: "10px",
   },
   social: {
-    margin: "00px 0px",
+    margin: "50px 0px 0px 0px",
   },
   review: {
     margin: "30px 0px",
@@ -405,5 +469,16 @@ const useStyles = makeStyles({
       display: "flex",
       justifyContent: "center",
     },
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    margin: "0px 0px 0px 0px",
+  },
+  formReview: {
+    margin: "0px 0px 50px 0px",
+  },
+  accordions: {
+    margin: "50px 0px 0px 0px",
   },
 });

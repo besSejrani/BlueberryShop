@@ -1,0 +1,3 @@
+mutation CreateProductReview($productId: String!, $username: String!, $rating: String!, $review: String!) {
+  createProductReview(productId: $productId, reviewInput: { username: $username, rating: $rating, review: $review })
+}
