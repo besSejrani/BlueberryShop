@@ -1,9 +1,0 @@
-query GetProductReviews($productId: String!) {
-  getProductReviews(productId: $productId) {
-    reviews {
-      reviewerName
-      rating
-      review
-    }
-  }
-}

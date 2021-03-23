@@ -225,7 +225,7 @@ export default withApollo({ ssr: true })(Footer);
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginTop: "calc(1% + 60px)",
+      marginTop: "calc(1% + 40px)",
       bottom: 0,
       backgroundColor: "#212121",
       boxShadow: "rgb(0 0 0 / 50%) 0px 0px 10px 0px",

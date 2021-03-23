@@ -47,10 +47,9 @@ export type Newsletter = {
 
 export type Review = {
   __typename?: 'Review';
-  _id: Scalars['ObjectId'];
-  reviewerName: Scalars['String'];
-  rating: Scalars['Float'];
-  review: Scalars['String'];
+  reviewerName?: Maybe<Scalars['String']>;
+  rating?: Maybe<Scalars['Float']>;
+  review?: Maybe<Scalars['String']>;
 };
 
 export type Product = {
@@ -65,7 +64,7 @@ export type Product = {
   productImageUrl?: Maybe<Scalars['String']>;
   productImages: Array<Scalars['String']>;
   categories: Array<Category>;
-  reviews: Array<Review>;
+  reviews?: Maybe<Array<Review>>;
 };
 
 export type ProductPagination = {
@@ -138,7 +137,6 @@ export type Query = {
   getCategories?: Maybe<Array<Category>>;
   getNewsletters?: Maybe<Array<Newsletter>>;
   getProduct?: Maybe<Product>;
-  getProductReviews?: Maybe<Product>;
   getProducts?: Maybe<ProductPagination>;
   getProductsPagination?: Maybe<ProductPagination>;
   getCurrentUser?: Maybe<User>;
@@ -148,11 +146,6 @@ export type Query = {
 
 
 export type QueryGetProductArgs = {
-  productId: Scalars['String'];
-};
-
-
-export type QueryGetProductReviewsArgs = {
   productId: Scalars['String'];
 };
 
@@ -175,7 +168,7 @@ export type Mutation = {
   addToNewsletter: Scalars['Boolean'];
   deleteFromNewsletter: Scalars['Boolean'];
   createProduct: Product;
-  createProductReview: Scalars['Boolean'];
+  createProductReview?: Maybe<Product>;
   deleteProduct: Scalars['Boolean'];
   deleteProductImage: Scalars['Boolean'];
   updateProduct: Product;
@@ -347,7 +340,14 @@ export type CreateProductReviewMutationVariables = Exact<{
 
 export type CreateProductReviewMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'createProductReview'>
+  & { createProductReview?: Maybe<(
+    { __typename?: 'Product' }
+    & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'promotion' | 'stock' | 'status' | 'productImageUrl'>
+    & { reviews?: Maybe<Array<(
+      { __typename?: 'Review' }
+      & Pick<Review, 'reviewerName' | 'rating' | 'review'>
+    )>> }
+  )> }
 );
 
 export type DeleteProductMutationVariables = Exact<{
@@ -527,22 +527,10 @@ export type GetProductQuery = (
   & { getProduct?: Maybe<(
     { __typename?: 'Product' }
     & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
-  )> }
-);
-
-export type GetProductReviewsQueryVariables = Exact<{
-  productId: Scalars['String'];
-}>;
-
-
-export type GetProductReviewsQuery = (
-  { __typename?: 'Query' }
-  & { getProductReviews?: Maybe<(
-    { __typename?: 'Product' }
-    & { reviews: Array<(
+    & { reviews?: Maybe<Array<(
       { __typename?: 'Review' }
       & Pick<Review, 'reviewerName' | 'rating' | 'review'>
-    )> }
+    )>> }
   )> }
 );
 
@@ -792,7 +780,21 @@ export const CreateProductReviewDocument = gql`
   createProductReview(
     productId: $productId
     reviewInput: {username: $username, rating: $rating, review: $review}
-  )
+  ) {
+    _id
+    name
+    price
+    description
+    promotion
+    stock
+    status
+    productImageUrl
+    reviews {
+      reviewerName
+      rating
+      review
+    }
+  }
 }
     `;
 export type CreateProductReviewMutationFn = Apollo.MutationFunction<CreateProductReviewMutation, CreateProductReviewMutationVariables>;
@@ -1273,6 +1275,11 @@ export const GetProductDocument = gql`
     promotion
     status
     productImages
+    reviews {
+      reviewerName
+      rating
+      review
+    }
   }
 }
     `;
@@ -1302,43 +1309,6 @@ export function useGetProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
 export type GetProductLazyQueryHookResult = ReturnType<typeof useGetProductLazyQuery>;
 export type GetProductQueryResult = Apollo.QueryResult<GetProductQuery, GetProductQueryVariables>;
-export const GetProductReviewsDocument = gql`
-    query GetProductReviews($productId: String!) {
-  getProductReviews(productId: $productId) {
-    reviews {
-      reviewerName
-      rating
-      review
-    }
-  }
-}
-    `;
-
-/**
- * __useGetProductReviewsQuery__
- *
- * To run a query within a React component, call `useGetProductReviewsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProductReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProductReviewsQuery({
- *   variables: {
- *      productId: // value for 'productId'
- *   },
- * });
- */
-export function useGetProductReviewsQuery(baseOptions: Apollo.QueryHookOptions<GetProductReviewsQuery, GetProductReviewsQueryVariables>) {
-        return Apollo.useQuery<GetProductReviewsQuery, GetProductReviewsQueryVariables>(GetProductReviewsDocument, baseOptions);
-      }
-export function useGetProductReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductReviewsQuery, GetProductReviewsQueryVariables>) {
-          return Apollo.useLazyQuery<GetProductReviewsQuery, GetProductReviewsQueryVariables>(GetProductReviewsDocument, baseOptions);
-        }
-export type GetProductReviewsQueryHookResult = ReturnType<typeof useGetProductReviewsQuery>;
-export type GetProductReviewsLazyQueryHookResult = ReturnType<typeof useGetProductReviewsLazyQuery>;
-export type GetProductReviewsQueryResult = Apollo.QueryResult<GetProductReviewsQuery, GetProductReviewsQueryVariables>;
 export const GetProductsDocument = gql`
     query GetProducts {
   getProducts {

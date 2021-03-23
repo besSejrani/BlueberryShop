@@ -44,7 +44,12 @@ import { autoPlay } from "react-swipeable-views-utils";
 import InputForm from "@Components/InputForm/InputForm";
 
 // GraphQL
-import { useGetProductQuery, useGetProductReviewsQuery, useCreateProductReviewMutation } from "@Graphql/index";
+import {
+  GetProductDocument,
+  GetProductQuery,
+  useGetProductQuery,
+  useCreateProductReviewMutation,
+} from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -66,15 +71,14 @@ const SingleProduct = () => {
 
   // GraphQL
   const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
-  const reviews = useGetProductReviewsQuery({ variables: { productId: query.id as string } });
   const [createProductReview] = useCreateProductReviewMutation();
 
   // State
   const [activeStep, setActiveStep] = useState(0);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [reviewerName, setReviewerName] = useState<string>();
-  const [rating, setRating] = useState<number>();
-  const [review, setReview] = useState<string>();
+  const [reviewerName, setReviewerName] = useState<string>("");
+  const [rating, setRating] = useState<number>(4);
+  const [review, setReview] = useState<string>("");
   let maxSteps = data?.getProduct.productImages.length;
 
   // Form
@@ -84,16 +88,33 @@ const SingleProduct = () => {
 
   // Events
   const onSubmit = async (form) => {
-    console.log(form);
-
-    const { data } = await createProductReview({
+    await createProductReview({
       variables: {
         productId: query.id as string,
-        rating: form.rating,
+        rating: `${rating}`,
         review: form.review,
         username: form.reviewerName,
       },
+      update(cache, { data }) {
+        const newReview = data?.createProductReview;
+
+        const product: GetProductQuery = cache.readQuery({
+          variables: { productId: query.id as string },
+          query: GetProductDocument,
+        });
+
+        cache.writeQuery({
+          query: GetProductDocument,
+          data: {
+            getProduct: [...product.getProduct.reviews, newReview],
+          },
+        });
+      },
     });
+
+    setReview("");
+    setReviewerName("");
+    setRating(4);
   };
 
   const handleNext = () => {
@@ -113,7 +134,7 @@ const SingleProduct = () => {
   };
 
   const renderReviews = () => {
-    return reviews.data?.getProductReviews.reviews.map((review) => {
+    return data?.getProduct.reviews.map((review) => {
       return (
         <Box className={classes.review}>
           <Box className={classes.reviewInfo}>
@@ -200,11 +221,7 @@ const SingleProduct = () => {
                   </Button>
                 }
                 backButton={
-                  <Button
-                    size="small"
-                    // onClick={handleBack}
-                    disabled={activeStep === 0}
-                  >
+                  <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
                     {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                     Back
                   </Button>
@@ -233,15 +250,6 @@ const SingleProduct = () => {
                   Stock: {data?.getProduct.stock}
                 </Typography>
 
-                {/* <Box>
-              {selectProduct.options.map((option) => {
-                return (
-                  <Button variant="outlined" className={classes.productOptions}>
-                  {option}
-                  </Button>
-                  );
-                })}
-              </Box> */}
                 <Box className={classes.callToActions}>
                   <Button
                     variant="outlined"
@@ -318,12 +326,17 @@ const SingleProduct = () => {
         </Box>
       </Card>
 
-      <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem 2rem 1rem 2rem", margin: "50px 0px" }}>
+      <Card
+        style={{
+          backgroundColor: "white",
+          borderRadius: 20,
+          padding: "2rem 2rem 1rem 2rem",
+          margin: "0px 0px 50px 0px",
+        }}
+      >
         <Box className={classes.formReview}>
           <Box>
-            <Typography variant="h5" style={{ fontSize: "1.85rem" }}>
-              Write a review
-            </Typography>
+            <Typography variant="h5">Write a review</Typography>
           </Box>
 
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -340,21 +353,19 @@ const SingleProduct = () => {
               errors={errors}
             />
 
-            <InputForm
-              type="number"
-              name="rating"
-              id="rating"
-              label="Rating"
-              inputRef={register({
-                required: "This field is required",
-                maxLength: { value: 1, message: "The product rating should contain maximum 1 digits" },
-                min: { value: 1, message: "The product rating can not be less than 1" },
-                max: { value: 5, message: "The product rating can not be higher than 5" },
-              })}
-              value={rating}
-              onChange={setRating}
-              errors={errors}
-            />
+            <Box component="fieldset" mb={3} borderColor="transparent" style={{ margin: "20px 0px 0px 0px" }}>
+              <Typography component="legend" style={{ margin: "0px 0px 10px 0px" }}>
+                Rating
+              </Typography>
+              <Rating
+                name="rating"
+                precision={0.5}
+                value={rating}
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
+              />
+            </Box>
 
             <InputForm
               type="text"
@@ -380,8 +391,10 @@ const SingleProduct = () => {
             </Box>
           </form>
         </Box>
+      </Card>
 
-        <Box className={classes.social}>
+      <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem 2rem 1rem 2rem", margin: "0px 0px" }}>
+        <Box>
           <Typography variant="h5">Reviews</Typography>
           {renderReviews()}
         </Box>
@@ -463,9 +476,9 @@ const useStyles = makeStyles({
   },
 
   pagination: {
+    margin: "60px 0px 0px 0px",
     "& > *": {
       marginTop: theme.spacing(2),
-      margin: "0px 0px 50px 0px",
       display: "flex",
       justifyContent: "center",
     },
@@ -476,7 +489,7 @@ const useStyles = makeStyles({
     margin: "0px 0px 0px 0px",
   },
   formReview: {
-    margin: "0px 0px 50px 0px",
+    margin: "0px 0px 20px 0px",
   },
   accordions: {
     margin: "50px 0px 0px 0px",

@@ -8,5 +8,10 @@ query GetProduct($productId: String!) {
     promotion
     status
     productImages
+    reviews {
+      reviewerName
+      rating
+      review
+    }
   }
 }

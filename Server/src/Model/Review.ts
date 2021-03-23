@@ -3,32 +3,22 @@ import { Field, ObjectType } from "type-graphql";
 
 // Database
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import { ObjectId } from "mongodb";
-// import { Ref } from "../Graphql/types/Ref";
-
-// import { Product } from "./Product";
 
 // ========================================================================================================
 
 @ObjectType()
 export class Review {
-  @Field()
-  readonly _id: ObjectId;
-
-  @Field()
+  @Field({ nullable: true })
   @Property({ required: true })
   reviewerName: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Property({ required: true })
   rating: number;
 
-  @Field()
+  @Field({ nullable: true })
   @Property({ required: true })
   review: string;
-
-  //   @Property({ ref: "Product", required: true })
-  //   user: Ref<Product>;
 }
 
 // ========================================================================================================

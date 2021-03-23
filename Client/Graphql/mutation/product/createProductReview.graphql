@@ -1,3 +1,17 @@
 mutation CreateProductReview($productId: String!, $username: String!, $rating: String!, $review: String!) {
-  createProductReview(productId: $productId, reviewInput: { username: $username, rating: $rating, review: $review })
+  createProductReview(productId: $productId, reviewInput: { username: $username, rating: $rating, review: $review }) {
+    _id
+    name
+    price
+    description
+    promotion
+    stock
+    status
+    productImageUrl
+    reviews {
+      reviewerName
+      rating
+      review
+    }
+  }
 }

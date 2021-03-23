@@ -57,7 +57,7 @@ export class Product {
   @Property({ ref: Category, type: ObjectId })
   categories?: Category[];
 
-  @Field(() => [Review])
+  @Field(() => [Review], { nullable: true })
   @Property()
   reviews?: Review[];
 
