@@ -5,20 +5,24 @@
 </br>
 
 <div align='center'>
+
+<a>
+    <img src="https://img.shields.io/badge/Vercel-Frontend-blue" alt="BlueberryShop Logo">
+</a>
+<a>
+    <img src="https://img.shields.io/badge/StoryBook-Frontend-blue" alt="BlueberryShop Logo">
+</a>
+
+<a>
+    <img src="https://img.shields.io/badge/Heroku-API-blueviolet" alt="BlueberryShop Logo">
+</a>
+
 <a>
     <img src="https://img.shields.io/badge/Documentation-Mkdocs-success" alt="BlueberryShop Logo">
 </a>
 
 <a>
     <img src="https://img.shields.io/badge/Github Actions-Enabled-success" alt="BlueberryShop Logo">
-</a>
-
-<a>
-    <img src="https://img.shields.io/badge/Vercel-Frontend-blue" alt="BlueberryShop Logo">
-</a>
-
-<a>
-    <img src="https://img.shields.io/badge/Heroku-API-blueviolet" alt="BlueberryShop Logo">
 </a>
 
 <a>
