@@ -67,6 +67,19 @@ export type Product = {
   reviews?: Maybe<Array<Review>>;
 };
 
+export type ProductReviewPagination = {
+  __typename?: 'ProductReviewPagination';
+  _id: Scalars['ObjectId'];
+  reviews?: Maybe<Reviews>;
+};
+
+export type Reviews = {
+  __typename?: 'Reviews';
+  reviewerName?: Maybe<Scalars['String']>;
+  rating?: Maybe<Scalars['String']>;
+  review?: Maybe<Scalars['String']>;
+};
+
 export type ProductPagination = {
   __typename?: 'ProductPagination';
   products: Array<Product>;
@@ -137,6 +150,7 @@ export type Query = {
   getCategories?: Maybe<Array<Category>>;
   getNewsletters?: Maybe<Array<Newsletter>>;
   getProduct?: Maybe<Product>;
+  getProductReviewPagination?: Maybe<Array<ProductReviewPagination>>;
   getProducts?: Maybe<ProductPagination>;
   getProductsPagination?: Maybe<ProductPagination>;
   getCurrentUser?: Maybe<User>;
@@ -146,6 +160,12 @@ export type Query = {
 
 
 export type QueryGetProductArgs = {
+  productId: Scalars['String'];
+};
+
+
+export type QueryGetProductReviewPaginationArgs = {
+  pagination: ProductPaginationInput;
   productId: Scalars['String'];
 };
 
@@ -532,6 +552,24 @@ export type GetProductQuery = (
       & Pick<Review, 'reviewerName' | 'rating' | 'review'>
     )>> }
   )> }
+);
+
+export type GetProductReviewPaginationQueryVariables = Exact<{
+  productId: Scalars['String'];
+  pageNumber: Scalars['Float'];
+  pageSize: Scalars['Float'];
+}>;
+
+
+export type GetProductReviewPaginationQuery = (
+  { __typename?: 'Query' }
+  & { getProductReviewPagination?: Maybe<Array<(
+    { __typename?: 'ProductReviewPagination' }
+    & { reviews?: Maybe<(
+      { __typename?: 'Reviews' }
+      & Pick<Reviews, 'reviewerName' | 'rating' | 'review'>
+    )> }
+  )>> }
 );
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1309,6 +1347,48 @@ export function useGetProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
 export type GetProductLazyQueryHookResult = ReturnType<typeof useGetProductLazyQuery>;
 export type GetProductQueryResult = Apollo.QueryResult<GetProductQuery, GetProductQueryVariables>;
+export const GetProductReviewPaginationDocument = gql`
+    query GetProductReviewPagination($productId: String!, $pageNumber: Float!, $pageSize: Float!) {
+  getProductReviewPagination(
+    productId: $productId
+    pagination: {pageNumber: $pageNumber, pageSize: $pageSize}
+  ) {
+    reviews {
+      reviewerName
+      rating
+      review
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductReviewPaginationQuery__
+ *
+ * To run a query within a React component, call `useGetProductReviewPaginationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductReviewPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductReviewPaginationQuery({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *      pageNumber: // value for 'pageNumber'
+ *      pageSize: // value for 'pageSize'
+ *   },
+ * });
+ */
+export function useGetProductReviewPaginationQuery(baseOptions: Apollo.QueryHookOptions<GetProductReviewPaginationQuery, GetProductReviewPaginationQueryVariables>) {
+        return Apollo.useQuery<GetProductReviewPaginationQuery, GetProductReviewPaginationQueryVariables>(GetProductReviewPaginationDocument, baseOptions);
+      }
+export function useGetProductReviewPaginationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductReviewPaginationQuery, GetProductReviewPaginationQueryVariables>) {
+          return Apollo.useLazyQuery<GetProductReviewPaginationQuery, GetProductReviewPaginationQueryVariables>(GetProductReviewPaginationDocument, baseOptions);
+        }
+export type GetProductReviewPaginationQueryHookResult = ReturnType<typeof useGetProductReviewPaginationQuery>;
+export type GetProductReviewPaginationLazyQueryHookResult = ReturnType<typeof useGetProductReviewPaginationLazyQuery>;
+export type GetProductReviewPaginationQueryResult = Apollo.QueryResult<GetProductReviewPaginationQuery, GetProductReviewPaginationQueryVariables>;
 export const GetProductsDocument = gql`
     query GetProducts {
   getProducts {

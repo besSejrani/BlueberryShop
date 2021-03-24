@@ -49,6 +49,7 @@ import {
   GetProductQuery,
   useGetProductQuery,
   useCreateProductReviewMutation,
+  useGetProductReviewPaginationQuery,
 } from "@Graphql/index";
 
 // SSR
@@ -68,17 +69,24 @@ const SingleProduct = () => {
   const classes = useStyles();
   const router = useRouter();
   const { query } = router;
-
-  // GraphQL
-  const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
-  const [createProductReview] = useCreateProductReviewMutation();
+  const { page = 1, size = 10 } = router.query;
 
   // State
+  const [pageNumber, setPageNumber] = useState(+page);
+  const [pageSize, setPageSize] = useState(+size);
   const [activeStep, setActiveStep] = useState(0);
   const [expanded, setExpanded] = useState<string | false>(false);
   const [reviewerName, setReviewerName] = useState<string>("");
   const [rating, setRating] = useState<number>(4);
   const [review, setReview] = useState<string>("");
+
+  // GraphQL
+  const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
+  const { data: reviews } = useGetProductReviewPaginationQuery({
+    variables: { productId: query.id as string, pageNumber: pageNumber, pageSize: pageSize },
+  });
+  const [createProductReview] = useCreateProductReviewMutation();
+
   let maxSteps = data?.getProduct.productImages.length;
 
   // Form
@@ -117,6 +125,18 @@ const SingleProduct = () => {
     setRating(4);
   };
 
+  console.log("pages", pageSize);
+
+  const pages = Math.ceil(reviews?.getProductReviewPagination.length / pageSize);
+
+  const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPageNumber(value);
+
+    router.push(`/products/${query.id}?page=${value}&size=${pageSize}`, ``, {
+      shallow: true,
+    });
+  };
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -134,7 +154,7 @@ const SingleProduct = () => {
   };
 
   const renderReviews = () => {
-    return data?.getProduct.reviews.map((review) => {
+    return reviews?.getProductReviewPagination.map(({ reviews }) => {
       return (
         <Box className={classes.review}>
           <Box className={classes.reviewInfo}>
@@ -149,20 +169,13 @@ const SingleProduct = () => {
               />
             </Box>
             <Box>
-              <Typography variant="body1">{review.reviewerName}</Typography>
+              <Typography variant="body1">{reviews.reviewerName}</Typography>
 
-              <Rating
-                value={review.rating}
-                readOnly
-                size="small"
-                name="customized-color"
-                defaultValue={2}
-                precision={0.5}
-              />
+              <Rating value={+reviews.rating} readOnly size="small" name="customized-color" precision={0.5} />
             </Box>
           </Box>
           <>
-            <Typography variant="body1">{review.review}</Typography>
+            <Typography variant="body1">{reviews.review}</Typography>
           </>
 
           <Divider style={{ marginTop: "10px" }} />
@@ -401,7 +414,7 @@ const SingleProduct = () => {
       </Card>
 
       <Box className={classes.pagination}>
-        <Pagination count={10} color="primary" />
+        <Pagination count={5} color="primary" page={pageNumber} onChange={handleChangePagination} />
       </Box>
     </Container>
   );

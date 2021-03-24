@@ -86,11 +86,17 @@ input ProductPaginationInput {
   pageSize: Float!
 }
 
+type ProductReviewPagination {
+  _id: ObjectId!
+  reviews: Reviews
+}
+
 type Query {
   getCategories: [Category!]
   getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
+  getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): [ProductReviewPagination!]
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
   getUser(userId: String!): User
@@ -99,6 +105,12 @@ type Query {
 
 type Review {
   rating: Float
+  review: String
+  reviewerName: String
+}
+
+type Reviews {
+  rating: String
   review: String
   reviewerName: String
 }

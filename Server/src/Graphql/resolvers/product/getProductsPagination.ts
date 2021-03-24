@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Query, Arg } from "type-graphql";
-import { ProductPaginationInput } from "./types/productPaginationInput";
+import { ProductPaginationInput } from "./types/productsPaginationInput";
 import { ProductPagination } from "./types/productPaginationType";
 
 // Database

@@ -1,0 +1,9 @@
+query GetProductReviewPagination($productId: String!, $pageNumber: Float!, $pageSize: Float!) {
+  getProductReviewPagination(productId: $productId, pagination: { pageNumber: $pageNumber, pageSize: $pageSize }) {
+    reviews {
+      reviewerName
+      rating
+      review
+    }
+  }
+}
