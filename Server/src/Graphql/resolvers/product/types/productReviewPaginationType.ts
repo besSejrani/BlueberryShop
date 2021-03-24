@@ -1,12 +1,12 @@
 import { Field, ObjectType } from "type-graphql";
 
-
+// Database
+import { ObjectId } from "mongodb";
 // ========================================================================================================
 
 @ObjectType()
 export class ProductReviewPagination {
-
-  @Field({nullable:true})
+  @Field({ nullable: true })
   count: number;
 
   @Field(() => [Reviews10], { nullable: true })
@@ -15,12 +15,21 @@ export class ProductReviewPagination {
 
 @ObjectType()
 export class Reviews10 {
-  @Field(() => Reviews20, { nullable: true })
+  @Field({ nullable: true })
+  _id: ObjectId;
+
+  @Field(() => [Reviews30], { nullable: true })
+  reviews: object[];
+}
+
+@ObjectType()
+export class Reviews30 {
+  @Field(() => Reviews40, { nullable: true })
   reviews: object;
 }
 
 @ObjectType()
-export class Reviews20 {
+export class Reviews40 {
   @Field({ nullable: true })
   reviewerName: string;
 

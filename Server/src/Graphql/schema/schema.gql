@@ -96,7 +96,7 @@ type Query {
   getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
-  getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): [ProductReviewPagination!]
+  getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
   getUser(userId: String!): User
@@ -110,10 +110,15 @@ type Review {
 }
 
 type Reviews10 {
-  reviews: Reviews20
+  _id: ObjectId
+  reviews: [Reviews30!]
 }
 
-type Reviews20 {
+type Reviews30 {
+  reviews: Reviews40
+}
+
+type Reviews40 {
   rating: String
   review: String
   reviewerName: String

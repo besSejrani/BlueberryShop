@@ -9,11 +9,9 @@ import { ObjectId } from "mongodb";
 
 // ========================================================================================================
 
-
-
 @Resolver()
 export class GetProductReviewPaginationResolver {
-  @Query(() => [ProductReviewPagination], { nullable: true })
+  @Query(() => ProductReviewPagination, { nullable: true })
   async getProductReviewPagination(
     @Arg("productId") productId: string,
     @Arg("pagination") { pageNumber = 1, pageSize = 10 }: ProductPaginationInput
@@ -21,7 +19,7 @@ export class GetProductReviewPaginationResolver {
     // 12*(2-1)=12
     const skips = pageSize * (pageNumber - 1);
 
-    const reviews = await ProductModel.aggregate([
+    const reviews = (await ProductModel.aggregate([
       { $unwind: "$reviews" },
       {
         $match: {
@@ -45,22 +43,24 @@ export class GetProductReviewPaginationResolver {
           __v: 0,
         },
       },
-      
+
       {
         $skip: skips,
       },
       {
         $limit: pageSize,
       },
-      { $group: { _id: null,
-        reviews: {
-        $push: {
-          reviews: "$reviews",
+      {
+        $group: {
+          _id: null,
+          reviews: {
+            $push: {
+              reviews: "$reviews",
+            },
+          },
         },
       },
-     }
-    }
-    ]).exec() as object[];
+    ]).exec()) as object[];
 
     const reviewCount = await ProductModel.aggregate([
       { $unwind: "$reviews" },
@@ -87,17 +87,11 @@ export class GetProductReviewPaginationResolver {
         },
       },
 
-      { $group: { _id: null, count: { $sum: 1 },
-     }
-    }
-    ]).exec()
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ]).exec();
 
-    const count = reviewCount[0].count as number
-    console.log(reviews)
-    console.log(count)
+    const count = reviewCount[0].count as number;
 
-
-
-    return {reviews, count};
+    return { reviews, count };
   }
 }

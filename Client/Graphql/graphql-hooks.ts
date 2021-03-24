@@ -69,18 +69,23 @@ export type Product = {
 
 export type ProductReviewPagination = {
   __typename?: 'ProductReviewPagination';
-  _id?: Maybe<Scalars['ObjectId']>;
   count?: Maybe<Scalars['Float']>;
   reviews?: Maybe<Array<Reviews10>>;
 };
 
 export type Reviews10 = {
   __typename?: 'Reviews10';
-  reviews?: Maybe<Reviews20>;
+  _id?: Maybe<Scalars['ObjectId']>;
+  reviews?: Maybe<Array<Reviews30>>;
 };
 
-export type Reviews20 = {
-  __typename?: 'Reviews20';
+export type Reviews30 = {
+  __typename?: 'Reviews30';
+  reviews?: Maybe<Reviews40>;
+};
+
+export type Reviews40 = {
+  __typename?: 'Reviews40';
   reviewerName?: Maybe<Scalars['String']>;
   rating?: Maybe<Scalars['String']>;
   review?: Maybe<Scalars['String']>;
@@ -156,7 +161,7 @@ export type Query = {
   getCategories?: Maybe<Array<Category>>;
   getNewsletters?: Maybe<Array<Newsletter>>;
   getProduct?: Maybe<Product>;
-  getProductReviewPagination?: Maybe<Array<ProductReviewPagination>>;
+  getProductReviewPagination?: Maybe<ProductReviewPagination>;
   getProducts?: Maybe<ProductPagination>;
   getProductsPagination?: Maybe<ProductPagination>;
   getCurrentUser?: Maybe<User>;
@@ -569,17 +574,21 @@ export type GetProductReviewPaginationQueryVariables = Exact<{
 
 export type GetProductReviewPaginationQuery = (
   { __typename?: 'Query' }
-  & { getProductReviewPagination?: Maybe<Array<(
+  & { getProductReviewPagination?: Maybe<(
     { __typename?: 'ProductReviewPagination' }
     & Pick<ProductReviewPagination, 'count'>
     & { reviews?: Maybe<Array<(
       { __typename?: 'Reviews10' }
-      & { reviews?: Maybe<(
-        { __typename?: 'Reviews20' }
-        & Pick<Reviews20, 'reviewerName' | 'rating' | 'review'>
-      )> }
+      & Pick<Reviews10, '_id'>
+      & { reviews?: Maybe<Array<(
+        { __typename?: 'Reviews30' }
+        & { reviews?: Maybe<(
+          { __typename?: 'Reviews40' }
+          & Pick<Reviews40, 'reviewerName' | 'rating' | 'review'>
+        )> }
+      )>> }
     )>> }
-  )>> }
+  )> }
 );
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1365,10 +1374,13 @@ export const GetProductReviewPaginationDocument = gql`
   ) {
     count
     reviews {
+      _id
       reviews {
-        reviewerName
-        rating
-        review
+        reviews {
+          reviewerName
+          rating
+          review
+        }
       }
     }
   }

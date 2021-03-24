@@ -69,7 +69,7 @@ const SingleProduct = () => {
   const classes = useStyles();
   const router = useRouter();
   const { query } = router;
-  const { page = 1, size = 5 } = router.query;
+  const { page = 1, size = 10 } = router.query;
 
   // State
   const [pageNumber, setPageNumber] = useState(+page);
@@ -125,14 +125,12 @@ const SingleProduct = () => {
     setRating(4);
   };
 
-console.log("pages", reviews?.getProductReviewPagination[0].count)
-console.log("pageSize", pageSize)
-
-
-   const pages = Math.ceil(reviews?.getProductReviewPagination[0].count / pageSize);
+  const pages = Math.ceil(reviews?.getProductReviewPagination.count / pageSize);
 
   const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
+
+    console.log(value);
 
     router.push(`/products/${query.id}?page=${value}&size=${pageSize}`, ``, {
       shallow: true,
@@ -156,34 +154,34 @@ console.log("pageSize", pageSize)
   };
 
   const renderReviews = () => {
-    return reviews?.getProductReviewPagination[0].reviews.map(({ reviews }) => {
-      return (
-        <Box className={classes.review}>
-          <Box className={classes.reviewInfo}>
-            <Box style={{ margin: "0px 20px 0px 0px" }}>
-              <Image
-                width={50}
-                height={50}
-                className={classes.avatar}
-                src={`/static/images/unknown.png`}
-                title={"tes"}
-                alt={"test"}
-              />
+    return reviews?.getProductReviewPagination.reviews[0].reviews
+      .map((review) => review.reviews)
+      .map((reviews) => {
+        return (
+          <Box className={classes.review}>
+            <Box className={classes.reviewInfo}>
+              <Box style={{ margin: "0px 20px 0px 0px" }}>
+                <Image
+                  width={50}
+                  height={50}
+                  className={classes.avatar}
+                  src={`/static/images/unknown.png`}
+                  title={"tes"}
+                  alt={"test"}
+                />
+              </Box>
+              <Box>
+                <Typography variant="body1">{reviews.reviewerName}</Typography>
+                <Rating value={+reviews.rating} readOnly size="small" name="customized-color" precision={0.5} />
+              </Box>
             </Box>
-            <Box>
-              <Typography variant="body1">{reviews.reviewerName}</Typography>
-
-              <Rating value={+reviews.rating} readOnly size="small" name="customized-color" precision={0.5} />
-            </Box>
+            <>
+              <Typography variant="body1">{reviews.review}</Typography>
+            </>
+            <Divider style={{ marginTop: "10px" }} />
           </Box>
-          <>
-            <Typography variant="body1">{reviews.review}</Typography>
-          </>
-
-          <Divider style={{ marginTop: "10px" }} />
-        </Box>
-      );
-    });
+        );
+      });
   };
 
   return (
