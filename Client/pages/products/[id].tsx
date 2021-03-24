@@ -35,6 +35,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import TuneIcon from "@material-ui/icons/Tune";
 
 // Libraries
 import SwipeableViews from "react-swipeable-views";
@@ -178,7 +179,7 @@ const SingleProduct = () => {
             <>
               <Typography variant="body1">{reviews.review}</Typography>
             </>
-            <Divider style={{ marginTop: "10px" }} />
+            <Divider style={{ margin: "20px 0px" }} />
           </Box>
         );
       });
@@ -408,7 +409,17 @@ const SingleProduct = () => {
 
       <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem 2rem 1rem 2rem", margin: "0px 0px" }}>
         <Box>
-          <Typography variant="h5">Reviews</Typography>
+          <Box className={classes.reviewsHeader}>
+            <Box>
+              <Typography variant="h5">Reviews</Typography>
+            </Box>
+            <Box>
+              <IconButton>
+                <TuneIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Divider />
           {renderReviews()}
         </Box>
       </Card>
@@ -506,5 +517,10 @@ const useStyles = makeStyles({
   },
   accordions: {
     margin: "50px 0px 0px 0px",
+  },
+  reviewsHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

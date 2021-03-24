@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Mutation, Arg } from "type-graphql";
-import { SignupInput } from "./types/SignupInput";
+import { SignupInput } from "./inputs/SignupInput";
 
 // Database
 import { UserModel } from "../../../Model/User";
@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Response
-import { UserResponse } from "../user/types/UserResponse";
+import { UserResponse } from "../user/types/UserType";
 
 // Email
 import { SendEmail } from "../../../Email/sendEmail";

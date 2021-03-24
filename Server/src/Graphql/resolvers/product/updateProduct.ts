@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
-import { UpdateProductInput } from "./types/updateProductInput";
+import { UpdateProductInput } from "./inputs/updateProductInput";
 
 // Middleware
 import { authentication } from "../../../Middleware/authentication";

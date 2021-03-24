@@ -4,14 +4,6 @@
 
 # Goals
 
-## Stripe
-
-- [ ] Stripe Payment
-- [ ] Stripe Subscription
-- [ ] Cancel Subscription
-
-<hr/>
-
 ## Authentication
 
 - [x] Implement authentication middleware
@@ -34,7 +26,9 @@
 
 ## Ecommerce
 
-- [x] Product Pagination
+- [x] Products Pagination
+- [x] Product Review
+- [x] Product Review Pagination
 - [ ] Promotions
 - [ ] Email Notification
 - [ ] Print PDF commands

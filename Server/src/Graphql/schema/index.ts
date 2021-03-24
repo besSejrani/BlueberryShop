@@ -6,6 +6,8 @@ import path from "path";
 import { ObjectIdScalar } from "../types/ObjectId.scalar";
 import { TypegooseMiddleware } from "../../Middleware/typegoose";
 
+// ========================================================================================================
+
 // build TypeGraphQL executable schema
 export default async function createSchema(): Promise<GraphQLSchema> {
   const schema = await buildSchema({

@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
-import { ChangedPasswordInput } from "./types/ChangePasswordInput";
+import { ChangedPasswordInput } from "./inputs/ChangePasswordInput";
 import { MyContext } from "../../types/MyContext";
 
 // Database

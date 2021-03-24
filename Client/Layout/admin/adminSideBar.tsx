@@ -16,9 +16,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
 import SubjectIcon from "@material-ui/icons/Subject";
 import CategoryIcon from "@material-ui/icons/Category";
-
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
+import TuneIcon from "@material-ui/icons/Tune";
 
 // ========================================================================================================
 
@@ -118,22 +116,13 @@ const AdminSideDrawer = () => {
             </Link>
           </List>
 
-          <List subheader={<ListSubheader>Business Settings</ListSubheader>}>
-            <Link href="/admin/taxes">
+          <List subheader={<ListSubheader>Blueberry</ListSubheader>}>
+            <Link href="/admin/blueberry">
               <ListItem button>
                 <ListItemIcon>
-                  <AccountBalanceIcon />
+                  <TuneIcon />
                 </ListItemIcon>
-                <ListItemText primary="Taxes" />
-              </ListItem>
-            </Link>
-
-            <Link href="/admin/payments">
-              <ListItem button>
-                <ListItemIcon>
-                  <CreditCardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Payments" />
+                <ListItemText primary="Settings" />
               </ListItem>
             </Link>
           </List>

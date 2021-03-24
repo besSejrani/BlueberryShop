@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
-import { ChangedProfileInput } from "./types/ChangeProfileInput";
+import { ChangedProfileInput } from "./inputs/ChangeProfileInput";
 import { MyContext } from "../../types/MyContext";
 
 // Database

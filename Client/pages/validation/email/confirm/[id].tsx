@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 // Apollo
 import { useConfirmUserMutation } from "@Graphql/index";
 
+// SSR
+import withApollo from "@Apollo/ssr";
+
 // ========================================================================================================
 
 const ConfirmUser = ({ query }) => {
@@ -25,10 +28,10 @@ const ConfirmUser = ({ query }) => {
   return <div> </div>;
 };
 
-export default ConfirmUser;
-
 ConfirmUser.getInitialProps = async ({ query }) => {
   return { query };
 };
+
+export default withApollo({ ssr: true })(ConfirmUser);
 
 // ========================================================================================================

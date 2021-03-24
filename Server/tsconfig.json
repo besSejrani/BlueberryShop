@@ -20,7 +20,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "paths": {
+      "@Middleware/*": ["Middleware/*"],
+      "@Model/*": ["Model/*"],
+      "@Class/*": ["Class/*"]
+    },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },
   "include": ["./src/**/*"],
