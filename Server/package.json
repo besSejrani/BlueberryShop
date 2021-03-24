@@ -12,7 +12,7 @@
     "storybook": "npm run start --prefix ../StoryBook",
     "client:cypress": "cd ../Client && yarn run cypress:open",
     "documentation": "cd ../Documentation && mkdocs serve",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run documentation\" \" npm run client:cypress\" \"npm run storybook\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run documentation\" \" npm run client:cypress\""
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",

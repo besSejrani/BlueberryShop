@@ -1,20 +1,26 @@
 import { Field, ObjectType } from "type-graphql";
 
-// Database
-import { ObjectId } from "mongodb";
+
 // ========================================================================================================
 
 @ObjectType()
 export class ProductReviewPagination {
-  @Field()
-  readonly _id: ObjectId;
 
-  @Field(() => Reviews, { nullable: true })
-  reviews: string[];
+  @Field({nullable:true})
+  count: number;
+
+  @Field(() => [Reviews10], { nullable: true })
+  reviews: object[];
 }
 
 @ObjectType()
-export class Reviews {
+export class Reviews10 {
+  @Field(() => Reviews20, { nullable: true })
+  reviews: object;
+}
+
+@ObjectType()
+export class Reviews20 {
   @Field({ nullable: true })
   reviewerName: string;
 

@@ -87,8 +87,8 @@ input ProductPaginationInput {
 }
 
 type ProductReviewPagination {
-  _id: ObjectId!
-  reviews: Reviews
+  count: Float
+  reviews: [Reviews10!]
 }
 
 type Query {
@@ -109,7 +109,11 @@ type Review {
   reviewerName: String
 }
 
-type Reviews {
+type Reviews10 {
+  reviews: Reviews20
+}
+
+type Reviews20 {
   rating: String
   review: String
   reviewerName: String

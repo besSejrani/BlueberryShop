@@ -69,12 +69,18 @@ export type Product = {
 
 export type ProductReviewPagination = {
   __typename?: 'ProductReviewPagination';
-  _id: Scalars['ObjectId'];
-  reviews?: Maybe<Reviews>;
+  _id?: Maybe<Scalars['ObjectId']>;
+  count?: Maybe<Scalars['Float']>;
+  reviews?: Maybe<Array<Reviews10>>;
 };
 
-export type Reviews = {
-  __typename?: 'Reviews';
+export type Reviews10 = {
+  __typename?: 'Reviews10';
+  reviews?: Maybe<Reviews20>;
+};
+
+export type Reviews20 = {
+  __typename?: 'Reviews20';
   reviewerName?: Maybe<Scalars['String']>;
   rating?: Maybe<Scalars['String']>;
   review?: Maybe<Scalars['String']>;
@@ -565,10 +571,14 @@ export type GetProductReviewPaginationQuery = (
   { __typename?: 'Query' }
   & { getProductReviewPagination?: Maybe<Array<(
     { __typename?: 'ProductReviewPagination' }
-    & { reviews?: Maybe<(
-      { __typename?: 'Reviews' }
-      & Pick<Reviews, 'reviewerName' | 'rating' | 'review'>
-    )> }
+    & Pick<ProductReviewPagination, 'count'>
+    & { reviews?: Maybe<Array<(
+      { __typename?: 'Reviews10' }
+      & { reviews?: Maybe<(
+        { __typename?: 'Reviews20' }
+        & Pick<Reviews20, 'reviewerName' | 'rating' | 'review'>
+      )> }
+    )>> }
   )>> }
 );
 
@@ -1353,10 +1363,13 @@ export const GetProductReviewPaginationDocument = gql`
     productId: $productId
     pagination: {pageNumber: $pageNumber, pageSize: $pageSize}
   ) {
+    count
     reviews {
-      reviewerName
-      rating
-      review
+      reviews {
+        reviewerName
+        rating
+        review
+      }
     }
   }
 }

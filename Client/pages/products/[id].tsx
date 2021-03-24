@@ -69,7 +69,7 @@ const SingleProduct = () => {
   const classes = useStyles();
   const router = useRouter();
   const { query } = router;
-  const { page = 1, size = 10 } = router.query;
+  const { page = 1, size = 5 } = router.query;
 
   // State
   const [pageNumber, setPageNumber] = useState(+page);
@@ -125,9 +125,11 @@ const SingleProduct = () => {
     setRating(4);
   };
 
-  console.log("pages", pageSize);
+console.log("pages", reviews?.getProductReviewPagination[0].count)
+console.log("pageSize", pageSize)
 
-  const pages = Math.ceil(reviews?.getProductReviewPagination.length / pageSize);
+
+   const pages = Math.ceil(reviews?.getProductReviewPagination[0].count / pageSize);
 
   const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
@@ -154,7 +156,7 @@ const SingleProduct = () => {
   };
 
   const renderReviews = () => {
-    return reviews?.getProductReviewPagination.map(({ reviews }) => {
+    return reviews?.getProductReviewPagination[0].reviews.map(({ reviews }) => {
       return (
         <Box className={classes.review}>
           <Box className={classes.reviewInfo}>
@@ -414,7 +416,7 @@ const SingleProduct = () => {
       </Card>
 
       <Box className={classes.pagination}>
-        <Pagination count={5} color="primary" page={pageNumber} onChange={handleChangePagination} />
+        <Pagination count={pages} color="primary" page={pageNumber} onChange={handleChangePagination} />
       </Box>
     </Container>
   );

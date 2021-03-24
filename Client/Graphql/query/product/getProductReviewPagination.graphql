@@ -1,9 +1,19 @@
-query GetProductReviewPagination($productId: String!, $pageNumber: Float!, $pageSize: Float!) {
-  getProductReviewPagination(productId: $productId, pagination: { pageNumber: $pageNumber, pageSize: $pageSize }) {
+query GetProductReviewPagination(
+  $productId: String!
+  $pageNumber: Float!
+  $pageSize: Float!
+) {
+  getProductReviewPagination(
+    productId: $productId
+    pagination: { pageNumber: $pageNumber, pageSize: $pageSize }
+  ) {
+    count
     reviews {
-      reviewerName
-      rating
-      review
+      reviews {
+        reviewerName
+        rating
+        review
+      }
     }
   }
 }
