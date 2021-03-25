@@ -2,5 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/admin/promotions": "pages/admin/promotions.js"
+  "/admin/promotions": "pages/admin/promotions.js",
+  "/admin/promotions/create-promotion": "pages/admin/promotions/create-promotion.js"
 }

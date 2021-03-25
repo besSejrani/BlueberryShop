@@ -28,6 +28,11 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/admin/promotions.js"
+    ],
+    "/admin/promotions/create-promotion": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/promotions/create-promotion.js"
     ]
   },
   "ampFirstPages": []

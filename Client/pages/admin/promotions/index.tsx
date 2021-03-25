@@ -1,6 +1,10 @@
 import React from "react";
 
-import { Box, Breadcrumbs, Link, Button, Typography, Paper } from "@material-ui/core";
+// Next
+import Link from "next/link";
+
+// Material-UI
+import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import {
   DataGrid,
@@ -35,12 +39,12 @@ const Promotions = () => {
   }
 
   const columns = [
-    { field: "number", headerName: "Number", flex: 1 },
-    { field: "customer", headerName: "Customer", flex: 0.5 },
-    { field: "method", headerName: "Method", flex: 0.5 },
+    { field: "name", headerName: "Promotion Name", flex: 1 },
+    { field: "start", headerName: "Start Date", flex: 0.5 },
+    { field: "End", headerName: "End Date", flex: 0.5 },
     {
-      field: "total",
-      headerName: "Total",
+      field: "discount",
+      headerName: "Discount",
       flex: 0.5,
     },
     {
@@ -67,16 +71,17 @@ const Promotions = () => {
             </Typography>
 
             <Breadcrumbs aria-label="breadcrumb">
-              <Link href="/">Administration</Link>
-              <Link color="inherit" href="/components/breadcrumbs/" aria-current="page">
+              <MaterialLink href="/">Administration</MaterialLink>
+              <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
                 Promotion
-              </Link>
+              </MaterialLink>
             </Breadcrumbs>
           </Box>
-
-          <Button variant="contained" color="secondary">
-            Create Promotion
-          </Button>
+          <Link href="/admin/promotions/create-promotion" passHref>
+            <Button variant="contained" color="secondary">
+              Create Promotion
+            </Button>
+          </Link>
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>
