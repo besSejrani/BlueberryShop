@@ -190,7 +190,7 @@ const SingleProduct = () => {
       <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem", margin: "50px 0px" }}>
         <Link href="/products">
           <Box className={classes.backButton}>
-            <IconButton>
+            <IconButton edge="start">
               <ArrowBackIcon color="primary" />
             </IconButton>
             <Typography variant="body1">Go Back</Typography>

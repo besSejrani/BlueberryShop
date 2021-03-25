@@ -67,13 +67,13 @@ const Promotions = () => {
         <Box className={classes.header}>
           <Box>
             <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Promotions
+              Sales
             </Typography>
 
             <Breadcrumbs aria-label="breadcrumb">
               <MaterialLink href="/">Administration</MaterialLink>
               <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
-                Promotion
+                Sales
               </MaterialLink>
             </Breadcrumbs>
           </Box>
