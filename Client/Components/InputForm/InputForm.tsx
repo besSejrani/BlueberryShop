@@ -34,7 +34,7 @@ const inputForm: React.FC<inputType> = ({
   return (
     <>
       <TextField
-        style={{ margin: "5px" }}
+        style={{ margin: "5px 0px" }}
         type={type}
         name={name}
         id={id}

@@ -21,15 +21,20 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 
+
 // Date Picker
 import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
+
+// Icons
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Apollo
 import { useCreateProductMutation, GetProductsDocument, GetProductsQuery, useGetCategoriesQuery } from "@Graphql/index";
@@ -116,10 +121,18 @@ const CreateProductAdmin = () => {
   return (
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
+
+          
         <Box className={classes.content}>
+      <Box className={classes.backButton} onClick={()=>router.back()}>
+            <IconButton edge="start">
+              <ArrowBackIcon color="primary" />
+            </IconButton>
+            <Typography variant="body1">Go Back</Typography>
+          </Box>
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
-              Create a promotion
+              Create a product sale
             </Typography>
           </Box>
 
@@ -134,6 +147,7 @@ const CreateProductAdmin = () => {
                 minLength: { value: 2, message: "The product name should contain minimum 2 characters" },
                 maxLength: { value: 22, message: "The product name should contain maximum 22 characters" },
               })}
+              style={{margin: 0}}
               value={promotionName}
               onChange={setPromotionName}
               errors={errors}
@@ -143,13 +157,13 @@ const CreateProductAdmin = () => {
 
             <DateTimePicker
               value={selectedDate}
-              minDate={today}
-              maxDate={new Date("2021-04-25")}
+              minDate={today} 
+              maxDate={new Date("2022-04-25")}
               label="End Date"
               onChange={handleDateChange}
             />
 
-            <FormControl style={{ margin: "5px 5px 5px 5px" }}>
+            <FormControl >
               <InputLabel id="productPromotionLabel">Product</InputLabel>
 
               <Controller
@@ -171,7 +185,7 @@ const CreateProductAdmin = () => {
               />
             </FormControl>
 
-            <FormControl style={{ margin: "5px 5px 20px 5px" }}>
+            {/* <FormControl >
               <InputLabel id="productCategoryLabel">Category</InputLabel>
 
               <Controller
@@ -191,34 +205,13 @@ const CreateProductAdmin = () => {
                   </Select>
                 }
               />
-            </FormControl>
+            </FormControl> */}
 
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Status</FormLabel>
-              <RadioGroup row aria-label="position" name="position" defaultValue="top">
-                <FormControlLabel
-                  control={<Radio color="secondary" value="DRAFT" name="productStatus" inputRef={register()} />}
-                  label="Draft"
-                  labelPlacement="end"
-                />
 
-                <FormControlLabel
-                  control={<Radio color="secondary" value="PUBLISHED" name="productStatus" inputRef={register()} />}
-                  label="Published"
-                  labelPlacement="end"
-                />
-
-                <FormControlLabel
-                  control={<Radio color="secondary" value="ARCHIVED" name="productStatus" inputRef={register()} />}
-                  label="Archived"
-                  labelPlacement="end"
-                />
-              </RadioGroup>
-            </FormControl>
 
             <Box style={{ flexDirection: "row", marginTop: "25px" }}>
               <Button variant="contained" color="secondary" type="submit">
-                Create Promotion
+                Create Sale
               </Button>
             </Box>
           </form>
@@ -243,22 +236,34 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       position: "relative",
       display: "flex",
-      justifyContent: "space-between",
-      width: "1100px",
-      height: 650,
+      justifyContent: "center",
+      alignItems:"center",
+      flexDirection:"column",
+      width: "700px",
+      height: 550,
       borderRadius: "10px",
+      padding: "30px 40px",
     },
-
+    
     content: {
       flexDirection: "column",
-      padding: "20px 20px",
-      width: "50%",
+      width: "100%",
     },
 
+    backButton: {
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      width: "120px",
+      padding: "0px 0px 15px 0px"
+    },
+    
     form: {
       display: "flex",
       flexDirection: "column",
-      margin: "45px 0px 0px 0px",
+      justifyContent: "space-evenly",
+      height:"400px",
+      margin: "30px 0px 0px 0px",
     },
 
     input: {

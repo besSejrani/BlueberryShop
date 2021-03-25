@@ -66,12 +66,12 @@ const AdminSideDrawer = () => {
               </ListItem>
             </Link>
 
-            <Link href="/admin/promotions/">
+            <Link href="/admin/sales/">
               <ListItem button>
                 <ListItemIcon>
                   <TimerIcon />
                 </ListItemIcon>
-                <ListItemText primary="Promotions" />
+                <ListItemText primary="Sales" />
               </ListItem>
             </Link>
 

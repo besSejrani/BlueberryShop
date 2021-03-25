@@ -77,9 +77,9 @@ const Promotions = () => {
               </MaterialLink>
             </Breadcrumbs>
           </Box>
-          <Link href="/admin/promotions/create-promotion" passHref>
+          <Link href="/admin/sales/create-sale" passHref>
             <Button variant="contained" color="secondary">
-              Create Promotion
+              Create Sale
             </Button>
           </Link>
         </Box>

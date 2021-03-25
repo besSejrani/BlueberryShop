@@ -20,7 +20,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@Middleware/*": ["Middleware/*"],
       "@Model/*": ["Model/*"],

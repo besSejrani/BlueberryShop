@@ -442,9 +442,11 @@ const useStyles = makeStyles({
     gridGap: "2rem",
   },
   backButton: {
+    cursor: "pointer",
     display: "flex",
     alignItems: "center",
-    cursor: "pointer",
+    width: "120px",
+    margin: "0px 0px 15px -5px"
   },
   product: {
     display: "flex",
