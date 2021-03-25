@@ -75,31 +75,31 @@ const CreateProductAdmin = () => {
 
   const onSubmit = async (form) => {
     console.log(form);
-    await createProduct({
-      variables: {
-        name: form.productName,
-        price: form.productPrice,
-        description: form.productDescription,
-        stock: form.productStock,
-        category: form.productCategory,
-        promotion: form.productPromotion,
-        status: form.productStatus,
-      },
-      update(cache, { data }) {
-        const newProduct = data?.createProduct;
+    // await createProduct({
+    //   variables: {
+    //     name: form.productName,
+    //     price: form.productPrice,
+    //     description: form.productDescription,
+    //     stock: form.productStock,
+    //     category: form.productCategory,
+    //     promotion: form.productPromotion,
+    //     status: form.productStatus,
+    //   },
+    //   update(cache, { data }) {
+    //     const newProduct = data?.createProduct;
 
-        const products: GetProductsQuery = cache.readQuery({
-          query: GetProductsDocument,
-        });
+    //     const products: GetProductsQuery = cache.readQuery({
+    //       query: GetProductsDocument,
+    //     });
 
-        cache.writeQuery({
-          query: GetProductsDocument,
-          data: {
-            getProducts: [...products?.getProducts.products, newProduct],
-          },
-        });
-      },
-    });
+    //     cache.writeQuery({
+    //       query: GetProductsDocument,
+    //       data: {
+    //         getProducts: [...products?.getProducts.products, newProduct],
+    //       },
+    //     });
+    //   },
+    // });
 
     await router.push("/admin/promotions");
   };

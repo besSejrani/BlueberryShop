@@ -2,6 +2,12 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/404": "pages/404.js",
   "/admin/promotions": "pages/admin/promotions.js",
-  "/admin/promotions/create-promotion": "pages/admin/promotions/create-promotion.js"
+  "/admin/promotions/create-promotion": "pages/admin/promotions/create-promotion.js",
+  "/admin/dashboards": "pages/admin/dashboards.js",
+  "/admin/blueberry": "pages/admin/blueberry.js",
+  "/admin/users": "pages/admin/users.js",
+  "/products": "pages/products.js",
+  "/products/[id]": "pages/products/[id].js"
 }
