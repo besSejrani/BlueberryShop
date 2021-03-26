@@ -20,6 +20,9 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// Moment
+import moment from "moment"
+
 // GraphQL
 import { useGetSalesQuery } from "@Graphql/index";
 
@@ -52,13 +55,13 @@ const Sales = () => {
 
   const columns = [
     { field: "name", headerName: "Sale Name", flex: 1 },
-    { field: "start", headerName: "Start Date", flex: 0.5 },
-    { field: "end", headerName: "End Date", flex: 0.5 },
     {
       field: "discount",
       headerName: "Discount",
       flex: 0.5,
     },
+    { field: "start", headerName: "Start Date", flex: 0.5 },
+    { field: "end", headerName: "End Date", flex: 0.5 },
     {
       field: "status",
       headerName: "Status",
@@ -86,8 +89,8 @@ const Sales = () => {
     return {
       id: product._id,
       name: product.sale,
-      start: product.startDate,
-      end: product.endDate,
+      start: moment(product.startDate).format("DD.MM.yyyy hh:mm") ,
+      end: moment(product.endDate).format("DD.MM.yyyy hh:mm"),
       discount: product.discount,
       status: "",
       actions: "",

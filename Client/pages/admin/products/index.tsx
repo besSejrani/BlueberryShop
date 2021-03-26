@@ -33,6 +33,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// React-Toastify
+import { toast } from "react-toastify";
+
 //Apollo
 import { useGetProductsQuery, useDeleteProductMutation, GetProductsDocument, GetProductsQuery } from "@Graphql/index";
 
@@ -41,13 +44,13 @@ import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const index = () => {
+const Products = () => {
   const classes = useStyles();
   const router = useRouter();
 
   // GraphQL
   const { loading, data } = useGetProductsQuery();
-  const [deleteProductMutation] = useDeleteProductMutation();
+  const [deleteProductMutation, {error}] = useDeleteProductMutation({errorPolicy:"all"});
 
   // State
   const [count, setCount] = useState(data?.getProducts.count);
@@ -103,6 +106,28 @@ const index = () => {
     await handleClose();
   };
 
+  const toaster = (message:string) => {
+    toast.dark(`${message}`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle:{background:"#ff0000"}
+
+    });
+  };
+
+  if(error){
+
+    console.log("blaaaaaaa", error)
+
+    error?.graphQLErrors.map(({message}) => toaster(message))
+    
+  }
+
   if (loading) return <div>loading...</div>;
 
   const columns = [
@@ -143,7 +168,7 @@ const index = () => {
                 variant="outlined"
                 color="secondary"
                 size="small"
-                style={{ borderRadius: 20, borderColor: "#2196f3" }}
+                style={{ borderRadius: 20,color: "green", borderColor: "green"  }}
               >
                 {params.value}
               </Button>
@@ -154,7 +179,7 @@ const index = () => {
                 variant="outlined"
                 color="secondary"
                 size="small"
-                style={{ borderRadius: 20, color: "green", borderColor: "green" }}
+                style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
               >
                 {params.value}
               </Button>
@@ -275,7 +300,7 @@ const index = () => {
   );
 };
 
-export default withApollo({ ssr: true })(index);
+export default withApollo({ ssr: true })(Products);
 
 // ========================================================================================================
 
@@ -299,6 +324,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       backgroundColor: "white",
       borderRadius: 15,
-    },
+    }
   })
 );

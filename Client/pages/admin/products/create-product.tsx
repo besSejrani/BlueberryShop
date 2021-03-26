@@ -21,8 +21,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
+// Icons
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
@@ -138,6 +142,12 @@ const CreateProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
+        <Box className={classes.backButton} onClick={() => router.back()}>
+        <IconButton edge="start">
+          <ArrowBackIcon color="primary" />
+        </IconButton>
+        <Typography variant="body1">Go Back</Typography>
+      </Box>
           <PreviewProduct product={product} />
         </Box>
 
@@ -308,9 +318,18 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "10px",
     },
 
+    backButton: {
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      width: "150px",
+      padding: "0px 0px 15px 0px",
+    },
+
     preview: {
       display: "flex",
-      justifyContent: "center",
+      justifyContent: "start",
+      flexDirection:"column",
       width: "50%",
       padding: "20px 30px",
     },
