@@ -13,9 +13,12 @@ export class CreateSaleInput {
   @Field()
   endDate: Date;
 
+  @Field()
+  discount: string;
+
   @Field({ nullable: true })
   productId?: string;
 
   @Field({ nullable: true })
-  categories?: string;
+  categoryId?: string;
 }

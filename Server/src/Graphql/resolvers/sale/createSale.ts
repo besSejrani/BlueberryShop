@@ -10,18 +10,21 @@ import { SaleModel } from "../../../Model/Sale";
 @Resolver()
 export class CreateSaleResolver {
   @Mutation(() => Boolean)
-  async createSale(@Arg("saleInput") categoryInput: CreateSaleInput): Promise<boolean> {
-    const category = await SaleModel.findOne({ _id: categoryInput.productId });
+  async createSale(@Arg("saleInput") saleInput: CreateSaleInput): Promise<boolean> {
+    const category = await SaleModel.findOne({ _id: saleInput.productId });
 
     if (category) {
       return true;
     }
 
+    console.log(saleInput)
+
     const newCategory = new SaleModel({
-      sale: categoryInput.sale,
-      startDate: categoryInput.startDate,
-      endDate: categoryInput.endDate,
-      products: categoryInput.productId,
+      sale: saleInput.sale,
+      startDate: saleInput.startDate,
+      endDate: saleInput.endDate,
+      discount: saleInput.discount,
+      products: saleInput.productId,
     });
     newCategory.save();
 

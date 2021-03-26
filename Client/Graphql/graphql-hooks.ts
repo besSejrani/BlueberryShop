@@ -105,6 +105,7 @@ export type Sale = {
   sale: Scalars['String'];
   startDate: Scalars['DateTime'];
   endDate: Scalars['DateTime'];
+  discount: Scalars['Float'];
   products: Array<Product>;
   categories: Array<Category>;
   createdAt: Scalars['DateTime'];
@@ -164,8 +165,9 @@ export type CreateSaleInput = {
   sale: Scalars['String'];
   startDate: Scalars['DateTime'];
   endDate: Scalars['DateTime'];
+  discount: Scalars['String'];
   productId?: Maybe<Scalars['String']>;
-  categories?: Maybe<Scalars['String']>;
+  categoryId?: Maybe<Scalars['String']>;
 };
 
 export type ChangedPasswordInput = {
@@ -454,6 +456,7 @@ export type CreateSaleMutationVariables = Exact<{
   sale: Scalars['String'];
   startDate: Scalars['DateTime'];
   endDate: Scalars['DateTime'];
+  discount: Scalars['String'];
   productId: Scalars['String'];
 }>;
 
@@ -691,7 +694,7 @@ export type GetSalesQuery = (
   { __typename?: 'Query' }
   & { getSales?: Maybe<Array<(
     { __typename?: 'Sale' }
-    & Pick<Sale, '_id' | 'sale' | 'startDate' | 'endDate' | 'createdAt'>
+    & Pick<Sale, '_id' | 'sale' | 'startDate' | 'endDate' | 'discount' | 'createdAt'>
     & { products: Array<(
       { __typename?: 'Product' }
       & Pick<Product, '_id' | 'name'>
@@ -1061,9 +1064,9 @@ export type UpdateProductMutationHookResult = ReturnType<typeof useUpdateProduct
 export type UpdateProductMutationResult = Apollo.MutationResult<UpdateProductMutation>;
 export type UpdateProductMutationOptions = Apollo.BaseMutationOptions<UpdateProductMutation, UpdateProductMutationVariables>;
 export const CreateSaleDocument = gql`
-    mutation CreateSale($sale: String!, $startDate: DateTime!, $endDate: DateTime!, $productId: String!) {
+    mutation CreateSale($sale: String!, $startDate: DateTime!, $endDate: DateTime!, $discount: String!, $productId: String!) {
   createSale(
-    saleInput: {sale: $sale, startDate: $startDate, endDate: $endDate, productId: $productId}
+    saleInput: {sale: $sale, startDate: $startDate, endDate: $endDate, discount: $discount, productId: $productId}
   )
 }
     `;
@@ -1085,6 +1088,7 @@ export type CreateSaleMutationFn = Apollo.MutationFunction<CreateSaleMutation, C
  *      sale: // value for 'sale'
  *      startDate: // value for 'startDate'
  *      endDate: // value for 'endDate'
+ *      discount: // value for 'discount'
  *      productId: // value for 'productId'
  *   },
  * });
@@ -1655,6 +1659,7 @@ export const GetSalesDocument = gql`
     sale
     startDate
     endDate
+    discount
     products {
       _id
       name

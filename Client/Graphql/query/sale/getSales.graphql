@@ -4,6 +4,7 @@ query GetSales {
     sale
     startDate
     endDate
+    discount
     products {
       _id
       name

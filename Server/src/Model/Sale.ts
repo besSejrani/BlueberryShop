@@ -26,6 +26,10 @@ export class Sale {
   @Property({ required: true })
   endDate: Date;
 
+  @Field()
+  @Property({ required: true })
+  discount: number;
+
   @Field(() => [Product])
   @Property({ ref: Product, type: ObjectId })
   products?: Product[];

@@ -51,7 +51,7 @@ const Sales = () => {
   }
 
   const columns = [
-    { field: "name", headerName: "Promotion Name", flex: 1 },
+    { field: "name", headerName: "Sale Name", flex: 1 },
     { field: "start", headerName: "Start Date", flex: 0.5 },
     { field: "end", headerName: "End Date", flex: 0.5 },
     {
@@ -88,7 +88,7 @@ const Sales = () => {
       name: product.sale,
       start: product.startDate,
       end: product.endDate,
-      discount: "",
+      discount: product.discount,
       status: "",
       actions: "",
     };

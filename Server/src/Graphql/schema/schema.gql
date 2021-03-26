@@ -35,7 +35,8 @@ input CreateReviewInput {
 }
 
 input CreateSaleInput {
-  categories: String
+  categoryId: String
+  discount: String!
   endDate: DateTime!
   productId: String
   sale: String!
@@ -143,6 +144,7 @@ type Sale {
   _id: ObjectId!
   categories: [Category!]!
   createdAt: DateTime!
+  discount: Float!
   endDate: DateTime!
   products: [Product!]!
   sale: String!

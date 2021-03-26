@@ -29,7 +29,7 @@ type FormValues = {
   productPrice: number;
   productDescription: string;
   productStock: number;
-  productCategory: string;
+  product: string;
   productSale: boolean;
 };
 
@@ -50,11 +50,12 @@ const Product = () => {
   today = mm + "/" + dd + "/" + yyyy;
 
   // State
+  const [saleName, setSaleName] = useState("");
+  const [saleDiscount, setSaleDiscount] = useState<number>();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [saleName, setSaleName] = useState("");
   const [productSale, setProductSale] = useState<number>();
-  const [productCategory, setProductCategory] = useState<string>("");
+  const [product, setProduct] = useState<string>("");
 
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
     criteriaMode: "all",
@@ -64,15 +65,15 @@ const Product = () => {
     console.log(form);
 
     await createSale({
-      variables: { sale: form.saleName, startDate: form.startDate, endDate: form.endDate, productId: form.productSale },
+      variables: { sale: form.saleName, startDate: form.startDate, endDate: form.endDate, discount:form.saleDiscount ,productId: form.productSale },
     });
 
     await router.push("/admin/sales");
   };
 
   // Events
-  const handleChangeCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setProductCategory(event.target.value as string);
+  const handleChangeProduct = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setProduct(event.target.value as string);
   };
 
   return (
@@ -105,10 +106,24 @@ const Product = () => {
           errors={errors}
         />
 
+        <InputForm
+          type="text"
+          name="saleDiscount"
+          id="saleDiscount"
+          label="Discount"
+          inputRef={register({
+            required: "This field is required",
+            maxLength: { value: 2, message: "The sale discount field should contain maximum 2 digits" },
+            min: { value: 0, message: "The sale discount field can not be a negative number" },
+          })}
+          value={saleDiscount}
+          onChange={setSaleDiscount}
+          errors={errors}
+        />
+
         <Controller
           control={control}
           name="startDate"
-          value={startDate}
           as={
             <DateTimePicker
               clearable
@@ -125,7 +140,6 @@ const Product = () => {
         <Controller
           control={control}
           name="endDate"
-          value={endDate}
           as={
             <DateTimePicker
               clearable
@@ -145,12 +159,15 @@ const Product = () => {
           <Controller
             control={control}
             name="productSale"
+            inputRef={register({
+              required: "This field is required",
+            })}
             as={
               <Select
                 labelId="productSaleLabel"
                 id="productSale"
                 value={productSale}
-                onChange={handleChangeCategory}
+                onChange={handleChangeProduct}
                 className={classes.input}
               >
                 {data?.getProducts.products.map((product) => {
@@ -194,7 +211,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-evenly",
-      height: "400px",
+      height: "380px",
       margin: "30px 0px 0px 0px",
     },
     input: {
