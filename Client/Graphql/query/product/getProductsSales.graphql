@@ -1,0 +1,8 @@
+query GetProductsSale {
+  getProducts {
+    products {
+      _id
+      name
+    }
+  }
+}

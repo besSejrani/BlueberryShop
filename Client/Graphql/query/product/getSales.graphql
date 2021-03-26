@@ -1,0 +1,13 @@
+query GetSales {
+  getSales {
+    _id
+    sale
+    startDate
+    endDate
+    products {
+      _id
+      name
+    }
+    createdAt
+  }
+}

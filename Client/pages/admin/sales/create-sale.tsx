@@ -1,15 +1,11 @@
 import React from "react";
 
 // Material-UI
-import {
-  Box,
-  Card,
-} from "@material-ui/core";
+import { Box, Card } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import Sales from "@Components/Sales/Sales"
-
+import Sales from "@Components/Sales/Sales";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -22,9 +18,7 @@ const CreateProductAdmin = () => {
   return (
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
-
-          <Sales/>
-   
+        <Sales />
       </Card>
     </Box>
   );
@@ -46,14 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "relative",
       display: "flex",
       justifyContent: "center",
-      alignItems:"center",
-      flexDirection:"column",
+      alignItems: "center",
+      flexDirection: "column",
       width: "700px",
       height: 600,
       borderRadius: "10px",
       padding: "30px 40px",
     },
-
-    
   })
 );

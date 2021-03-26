@@ -1,0 +1,3 @@
+mutation CreateSale($sale: String!, $startDate: DateTime!, $endDate: DateTime!, $productId: String!) {
+  createSale(saleInput: { sale: $sale, startDate: $startDate, endDate: $endDate, productId: $productId })
+}

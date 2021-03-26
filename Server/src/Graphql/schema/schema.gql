@@ -34,6 +34,19 @@ input CreateReviewInput {
   username: String!
 }
 
+input CreateSaleInput {
+  categories: String
+  endDate: DateTime!
+  productId: String
+  sale: String!
+  startDate: DateTime!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   addProfilePicture(picture: Upload!): Boolean!
   addToNewsletter(email: String!): Boolean!
@@ -42,6 +55,7 @@ type Mutation {
   createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product
+  createSale(saleInput: CreateSaleInput!): Boolean!
   deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
@@ -99,6 +113,7 @@ type Query {
   getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
+  getSales: [Sale!]
   getUser(userId: String!): User
   getUsers: [User!]
 }
@@ -122,6 +137,16 @@ type Reviews40 {
   rating: String
   review: String
   reviewerName: String
+}
+
+type Sale {
+  _id: ObjectId!
+  categories: [Category!]!
+  createdAt: DateTime!
+  endDate: DateTime!
+  products: [Product!]!
+  sale: String!
+  startDate: DateTime!
 }
 
 input SigninInput {

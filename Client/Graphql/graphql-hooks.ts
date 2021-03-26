@@ -13,6 +13,8 @@ export type Scalars = {
   Float: number;
   /** Mongo object id scalar type */
   ObjectId: any;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
@@ -97,6 +99,18 @@ export type ProductPagination = {
   count: Scalars['Float'];
 };
 
+export type Sale = {
+  __typename?: 'Sale';
+  _id: Scalars['ObjectId'];
+  sale: Scalars['String'];
+  startDate: Scalars['DateTime'];
+  endDate: Scalars['DateTime'];
+  products: Array<Product>;
+  categories: Array<Category>;
+  createdAt: Scalars['DateTime'];
+};
+
+
 export type SigninInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -146,6 +160,14 @@ export type UpdateProductInput = {
   status?: Maybe<Status>;
 };
 
+export type CreateSaleInput = {
+  sale: Scalars['String'];
+  startDate: Scalars['DateTime'];
+  endDate: Scalars['DateTime'];
+  productId?: Maybe<Scalars['String']>;
+  categories?: Maybe<Scalars['String']>;
+};
+
 export type ChangedPasswordInput = {
   token: Scalars['String'];
   password: Scalars['String'];
@@ -164,6 +186,7 @@ export type Query = {
   getProductReviewPagination?: Maybe<ProductReviewPagination>;
   getProducts?: Maybe<ProductPagination>;
   getProductsPagination?: Maybe<ProductPagination>;
+  getSales?: Maybe<Array<Sale>>;
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
@@ -203,6 +226,7 @@ export type Mutation = {
   deleteProduct: Scalars['Boolean'];
   deleteProductImage: Scalars['Boolean'];
   updateProduct: Product;
+  createSale: Scalars['Boolean'];
   changePassword?: Maybe<User>;
   confirmUser: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
@@ -268,6 +292,11 @@ export type MutationDeleteProductImageArgs = {
 export type MutationUpdateProductArgs = {
   input: UpdateProductInput;
   productId: Scalars['String'];
+};
+
+
+export type MutationCreateSaleArgs = {
+  saleInput: CreateSaleInput;
 };
 
 
@@ -419,6 +448,19 @@ export type UpdateProductMutation = (
     { __typename?: 'Product' }
     & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion'>
   ) }
+);
+
+export type CreateSaleMutationVariables = Exact<{
+  sale: Scalars['String'];
+  startDate: Scalars['DateTime'];
+  endDate: Scalars['DateTime'];
+  productId: Scalars['String'];
+}>;
+
+
+export type CreateSaleMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createSale'>
 );
 
 export type ChangePasswordMutationVariables = Exact<{
@@ -626,6 +668,35 @@ export type GetProductsPaginationQuery = (
       & Pick<Product, '_id' | 'name' | 'price' | 'description' | 'stock' | 'promotion' | 'status' | 'productImages'>
     )> }
   )> }
+);
+
+export type GetProductsSaleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProductsSaleQuery = (
+  { __typename?: 'Query' }
+  & { getProducts?: Maybe<(
+    { __typename?: 'ProductPagination' }
+    & { products: Array<(
+      { __typename?: 'Product' }
+      & Pick<Product, '_id' | 'name'>
+    )> }
+  )> }
+);
+
+export type GetSalesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSalesQuery = (
+  { __typename?: 'Query' }
+  & { getSales?: Maybe<Array<(
+    { __typename?: 'Sale' }
+    & Pick<Sale, '_id' | 'sale' | 'startDate' | 'endDate' | 'createdAt'>
+    & { products: Array<(
+      { __typename?: 'Product' }
+      & Pick<Product, '_id' | 'name'>
+    )> }
+  )>> }
 );
 
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -989,6 +1060,41 @@ export function useUpdateProductMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProductMutationHookResult = ReturnType<typeof useUpdateProductMutation>;
 export type UpdateProductMutationResult = Apollo.MutationResult<UpdateProductMutation>;
 export type UpdateProductMutationOptions = Apollo.BaseMutationOptions<UpdateProductMutation, UpdateProductMutationVariables>;
+export const CreateSaleDocument = gql`
+    mutation CreateSale($sale: String!, $startDate: DateTime!, $endDate: DateTime!, $productId: String!) {
+  createSale(
+    saleInput: {sale: $sale, startDate: $startDate, endDate: $endDate, productId: $productId}
+  )
+}
+    `;
+export type CreateSaleMutationFn = Apollo.MutationFunction<CreateSaleMutation, CreateSaleMutationVariables>;
+
+/**
+ * __useCreateSaleMutation__
+ *
+ * To run a mutation, you first call `useCreateSaleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSaleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSaleMutation, { data, loading, error }] = useCreateSaleMutation({
+ *   variables: {
+ *      sale: // value for 'sale'
+ *      startDate: // value for 'startDate'
+ *      endDate: // value for 'endDate'
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useCreateSaleMutation(baseOptions?: Apollo.MutationHookOptions<CreateSaleMutation, CreateSaleMutationVariables>) {
+        return Apollo.useMutation<CreateSaleMutation, CreateSaleMutationVariables>(CreateSaleDocument, baseOptions);
+      }
+export type CreateSaleMutationHookResult = ReturnType<typeof useCreateSaleMutation>;
+export type CreateSaleMutationResult = Apollo.MutationResult<CreateSaleMutation>;
+export type CreateSaleMutationOptions = Apollo.BaseMutationOptions<CreateSaleMutation, CreateSaleMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $password: String!) {
   changePassword(input: {token: $token, password: $password}) {
@@ -1507,6 +1613,81 @@ export function useGetProductsPaginationLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetProductsPaginationQueryHookResult = ReturnType<typeof useGetProductsPaginationQuery>;
 export type GetProductsPaginationLazyQueryHookResult = ReturnType<typeof useGetProductsPaginationLazyQuery>;
 export type GetProductsPaginationQueryResult = Apollo.QueryResult<GetProductsPaginationQuery, GetProductsPaginationQueryVariables>;
+export const GetProductsSaleDocument = gql`
+    query GetProductsSale {
+  getProducts {
+    products {
+      _id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductsSaleQuery__
+ *
+ * To run a query within a React component, call `useGetProductsSaleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsSaleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsSaleQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProductsSaleQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsSaleQuery, GetProductsSaleQueryVariables>) {
+        return Apollo.useQuery<GetProductsSaleQuery, GetProductsSaleQueryVariables>(GetProductsSaleDocument, baseOptions);
+      }
+export function useGetProductsSaleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsSaleQuery, GetProductsSaleQueryVariables>) {
+          return Apollo.useLazyQuery<GetProductsSaleQuery, GetProductsSaleQueryVariables>(GetProductsSaleDocument, baseOptions);
+        }
+export type GetProductsSaleQueryHookResult = ReturnType<typeof useGetProductsSaleQuery>;
+export type GetProductsSaleLazyQueryHookResult = ReturnType<typeof useGetProductsSaleLazyQuery>;
+export type GetProductsSaleQueryResult = Apollo.QueryResult<GetProductsSaleQuery, GetProductsSaleQueryVariables>;
+export const GetSalesDocument = gql`
+    query GetSales {
+  getSales {
+    _id
+    sale
+    startDate
+    endDate
+    products {
+      _id
+      name
+    }
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetSalesQuery__
+ *
+ * To run a query within a React component, call `useGetSalesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSalesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSalesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSalesQuery(baseOptions?: Apollo.QueryHookOptions<GetSalesQuery, GetSalesQueryVariables>) {
+        return Apollo.useQuery<GetSalesQuery, GetSalesQueryVariables>(GetSalesDocument, baseOptions);
+      }
+export function useGetSalesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSalesQuery, GetSalesQueryVariables>) {
+          return Apollo.useLazyQuery<GetSalesQuery, GetSalesQueryVariables>(GetSalesDocument, baseOptions);
+        }
+export type GetSalesQueryHookResult = ReturnType<typeof useGetSalesQuery>;
+export type GetSalesLazyQueryHookResult = ReturnType<typeof useGetSalesLazyQuery>;
+export type GetSalesQueryResult = Apollo.QueryResult<GetSalesQuery, GetSalesQueryVariables>;
 export const GetCurrentUserDocument = gql`
     query getCurrentUser {
   getCurrentUser {

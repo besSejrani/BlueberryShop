@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import {
   DataGrid,
@@ -17,11 +17,21 @@ import {
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
+import ModifyIcon from "@material-ui/icons/Create";
+
+// GraphQL
+import { useGetSalesQuery } from "@Graphql/index";
+
+// SSR
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const Promotions = () => {
+const Sales = () => {
   const classes = useStyles();
+
+  // GraphQL
+  const { data } = useGetSalesQuery();
 
   function CustomToolbar() {
     return (
@@ -41,7 +51,7 @@ const Promotions = () => {
   const columns = [
     { field: "name", headerName: "Promotion Name", flex: 1 },
     { field: "start", headerName: "Start Date", flex: 0.5 },
-    { field: "End", headerName: "End Date", flex: 0.5 },
+    { field: "end", headerName: "End Date", flex: 0.5 },
     {
       field: "discount",
       headerName: "Discount",
@@ -56,10 +66,31 @@ const Promotions = () => {
       field: "actions",
       headerName: "Actions",
       flex: 0.5,
+      renderCell: (params: GridCellParams) => (
+        <>
+          <IconButton onClick={() => router.push(`/admin/products/${params.row.id}`)}>
+            <ModifyIcon />
+          </IconButton>
+
+          <IconButton onClick={() => handleClickOpen(params)}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+      ),
     },
   ];
 
-  const rows = [];
+  const rows = data?.getSales.map((product) => {
+    return {
+      id: product._id,
+      name: product.sale,
+      start: product.startDate,
+      end: product.endDate,
+      discount: "",
+      status: "",
+      actions: "",
+    };
+  });
 
   return (
     <Box className={classes.root}>
@@ -108,7 +139,7 @@ const Promotions = () => {
   );
 };
 
-export default Promotions;
+export default withApollo({ ssr: true })(Sales);
 
 // ========================================================================================================
 
