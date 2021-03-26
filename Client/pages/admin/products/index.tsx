@@ -33,8 +33,8 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
-// React-Toastify
-import { toast } from "react-toastify";
+// Hooks
+import useToast from "@Hook/useToast";
 
 //Apollo
 import { useGetProductsQuery, useDeleteProductMutation, GetProductsDocument, GetProductsQuery } from "@Graphql/index";
@@ -50,7 +50,11 @@ const Products = () => {
 
   // GraphQL
   const { loading, data } = useGetProductsQuery();
-  const [deleteProductMutation, {error}] = useDeleteProductMutation({errorPolicy:"all"});
+  const [deleteProductMutation, { error }] = useDeleteProductMutation({ errorPolicy: "all" });
+
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
 
   // State
   const [count, setCount] = useState(data?.getProducts.count);
@@ -106,28 +110,6 @@ const Products = () => {
     await handleClose();
   };
 
-  const toaster = (message:string) => {
-    toast.dark(`${message}`, {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      progressStyle:{background:"#ff0000"}
-
-    });
-  };
-
-  if(error){
-
-    console.log("blaaaaaaa", error)
-
-    error?.graphQLErrors.map(({message}) => toaster(message))
-    
-  }
-
   if (loading) return <div>loading...</div>;
 
   const columns = [
@@ -168,7 +150,7 @@ const Products = () => {
                 variant="outlined"
                 color="secondary"
                 size="small"
-                style={{ borderRadius: 20,color: "green", borderColor: "green"  }}
+                style={{ borderRadius: 20, color: "green", borderColor: "green" }}
               >
                 {params.value}
               </Button>
@@ -324,6 +306,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       backgroundColor: "white",
       borderRadius: 15,
-    }
+    },
   })
 );

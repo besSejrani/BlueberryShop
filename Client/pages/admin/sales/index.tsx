@@ -21,7 +21,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
 // Moment
-import moment from "moment"
+import moment from "moment";
 
 // GraphQL
 import { useGetSalesQuery } from "@Graphql/index";
@@ -89,7 +89,7 @@ const Sales = () => {
     return {
       id: product._id,
       name: product.sale,
-      start: moment(product.startDate).format("DD.MM.yyyy hh:mm") ,
+      start: moment(product.startDate).format("DD.MM.yyyy hh:mm"),
       end: moment(product.endDate).format("DD.MM.yyyy hh:mm"),
       discount: product.discount,
       status: "",

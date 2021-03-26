@@ -18,7 +18,8 @@
     "paths": {
       "@Components/*": ["Components/*"],
       "@Apollo/*": ["Apollo/*"],
-      "@Graphql/*": ["Graphql/*"]
+      "@Graphql/*": ["Graphql/*"],
+      "@Hook/*": ["Hook/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

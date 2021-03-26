@@ -28,6 +28,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 
+// Hook
+import useToast from "@Hook/useToast";
+
 //Apollo
 import {
   GetNewslettersDocument,
@@ -46,10 +49,14 @@ const Newsletters = () => {
 
   // GraphQL
   const { loading, data } = useGetNewslettersQuery();
-  const [deleteFromNewsletter] = useDeleteFromNewsletterMutation();
+  const [deleteFromNewsletter, { error }] = useDeleteFromNewsletterMutation({ errorPolicy: "all" });
+
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
 
   // State
-  // const [count, setCount] = useState(data?..count);
+
   const [open, setOpen] = useState(false);
   const [newsletter, setNewsletter] = useState(null);
 

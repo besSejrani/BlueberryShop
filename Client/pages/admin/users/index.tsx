@@ -20,6 +20,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// Hook
+import useToast from "@Hook/useToast";
+
 //Apollo
 import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuery } from "@Graphql/index";
 
@@ -34,7 +37,11 @@ const Users = () => {
   const router = useRouter();
 
   const { loading, data } = useGetUsersQuery();
-  const [deleteUserMutation] = useDeleteUserMutation();
+  const [deleteUserMutation, { error }] = useDeleteUserMutation({ errorPolicy: "all" });
+
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
 
   function CustomToolbar() {
     return (

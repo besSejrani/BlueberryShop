@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Next
 import Link from "next/link";
@@ -33,6 +33,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// Hook
+import useToast from "@Hook/useToast";
+
 //Apollo
 import {
   GetCategoriesDocument,
@@ -52,10 +55,13 @@ const Categories = () => {
 
   // GraphQL
   const { loading, data } = useGetCategoriesQuery();
-  const [deleteCategoryMutation] = useDeleteCategoryMutation();
+  const [deleteCategoryMutation, { error }] = useDeleteCategoryMutation({ errorPolicy: "all" });
+
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
 
   // State
-  // const [count, setCount] = useState(data?.getProducts.count);
   const [open, setOpen] = React.useState(false);
   const [product, setProduct] = React.useState(null);
 
