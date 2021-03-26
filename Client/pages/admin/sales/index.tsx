@@ -2,6 +2,7 @@ import React from "react";
 
 // Next
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
@@ -29,6 +30,7 @@ import withApollo from "@Apollo/ssr";
 
 const Sales = () => {
   const classes = useStyles();
+  const router = useRouter();
 
   // GraphQL
   const { data } = useGetSalesQuery();
@@ -72,7 +74,7 @@ const Sales = () => {
             <ModifyIcon />
           </IconButton>
 
-          <IconButton onClick={() => handleClickOpen(params)}>
+          <IconButton>
             <DeleteIcon />
           </IconButton>
         </>

@@ -29,6 +29,16 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/admin/dashboards": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/dashboards.js"
+    ],
+    "/admin/products": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/admin/products.js"
+    ],
     "/admin/sales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
