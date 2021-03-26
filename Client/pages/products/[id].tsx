@@ -131,8 +131,6 @@ const SingleProduct = () => {
   const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
 
-    console.log(value);
-
     router.push(`/products/${query.id}?page=${value}&size=${pageSize}`, ``, {
       shallow: true,
     });
@@ -327,14 +325,14 @@ const SingleProduct = () => {
           <Box className={classes.social}>
             <Typography variant="h5">Share On Social Media</Typography>
 
-            <IconButton>
-              <FacebookIcon fontSize="large" />
+            <IconButton edge={"start"}>
+              <FacebookIcon style={{ fontSize: "2rem" }} />
             </IconButton>
             <IconButton>
-              <TwitterIcon fontSize="large" />
+              <TwitterIcon style={{ fontSize: "2rem" }} />
             </IconButton>
             <IconButton>
-              <WhatsAppIcon fontSize="large" />
+              <WhatsAppIcon style={{ fontSize: "2rem" }} />
             </IconButton>
           </Box>
         </Box>
@@ -424,9 +422,13 @@ const SingleProduct = () => {
         </Box>
       </Card>
 
-      <Box className={classes.pagination}>
-        <Pagination count={pages} color="primary" page={pageNumber} onChange={handleChangePagination} />
-      </Box>
+      {pages ? (
+        <Box className={classes.pagination}>
+          <Pagination count={pages} color="primary" page={pageNumber} onChange={handleChangePagination} />
+        </Box>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };
@@ -446,7 +448,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     width: "120px",
-    margin: "0px 0px 15px -5px"
+    margin: "0px 0px 15px -5px",
   },
   product: {
     display: "flex",

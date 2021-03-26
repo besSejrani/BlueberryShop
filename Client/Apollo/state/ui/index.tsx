@@ -6,6 +6,13 @@ const initialState = {
   isSideBarOpen: false,
   isCartOpen: false,
   isToastrOpen: false,
+  isConfirmationDialogOpen: {
+    open: false,
+    dialogContentText: "",
+    identifier: "",
+    handleClose: () => {},
+    deleteResource: () => {},
+  },
 };
 
 type UI = {
@@ -13,7 +20,13 @@ type UI = {
   isUser?: boolean;
   isSideBarOpen?: boolean;
   isCartOpen?: boolean;
-  isToastrOpen: boolean;
+  isToastrOpen?: boolean;
+  isConfirmationDialogOpen?: {
+    open?: boolean;
+    identifier?: string;
+    handleClose?: any;
+    deleteResource?: any;
+  };
 };
 
 export const ui = makeVar<UI>(initialState);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 // Next
+import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -11,91 +12,105 @@ import { useForm } from "react-hook-form";
 import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
+// React-Toastify
+import { toast } from "react-toastify";
+
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "../../InputForm/InputForm";
+
+// Icons
+import TwitterIcon from "@material-ui/icons/Twitter";
+import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo
-import { useSignupMutation } from "../../Graphql";
+import { useSigninMutation } from "../../../Graphql/index";
 
 // ========================================================================================================
 
 type FormValues = {
-  username: string;
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
-const SignUp = () => {
+const SignIn = () => {
   const classes = useStyles();
-
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
 
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
-  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [signUp] = useSignupMutation();
+  const [signIn] = useSigninMutation();
+
+  const toaster = () => {
+    toast.dark("Successful authentication", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const onSubmit = async (form) => {
-    if (password !== confirmPassword) {
-      await alert("passwords don't match");
-      return;
-    }
-
-    const { data } = await signUp({
-      variables: { email: form.email, password: form.password, username: form.username },
+    const { data } = await signIn({
+      variables: { email: form.email, password: form.password },
     });
 
-    router.push("/validation/email");
+    localStorage.setItem("token", data?.signin.token!);
+
+    router.push("/products");
+    await toaster();
   };
 
   return (
     <Box>
       <Card elevation={0} className={classes.signin}>
-        <Image
-          width={700}
-          height={520}
-          className={classes.media}
-          src={"/static/Water24.webp"}
-          // title={product.title}
-        />
+        <Image className={classes.media} width={790} height={520} src={"/static/Sand2.webp"} />
 
         <Box className={classes.content}>
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
-              I do not have an account
+              I already have an account
             </Typography>
             <Typography variant="body1" style={{ marginTop: 5 }}>
-              Register a new account
+              Sign in with social media or your email and password
             </Typography>
+
+            <Box className={classes.socialbuttons}>
+              <a href="http://localhost:4000/auth/google">
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white" }}
+                  startIcon={<img src="/static/google.svg" width="20" />}
+                >
+                  Google
+                </Button>
+              </a>
+
+              <a href="http://localhost:4000/auth/github">
+                <Button variant="contained" color="primary" startIcon={<GithubIcon />}>
+                  Github
+                </Button>
+              </a>
+              <a href="http://localhost:4000/auth/twitter">
+                <Button variant="contained" color="secondary" startIcon={<TwitterIcon />}>
+                  Twitter
+                </Button>
+              </a>
+            </Box>
           </Box>
 
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <InputForm
-              type="text"
-              name="username"
-              id="signupUsername"
-              label="Username"
-              inputRef={register({
-                required: "This field is required",
-                minLength: { value: 3, message: "Your username should contain minimum 3 characters" },
-                maxLength: { value: 20, message: "Your username should contain maximum 20 characters" },
-              })}
-              value={username}
-              onChange={setUsername}
-              errors={errors}
-            />
-
-            <InputForm
               type="email"
               name="email"
-              id="signupEmail"
+              id="signinEmail"
               label="Email"
               inputRef={register({
                 required: "This field is required",
@@ -109,7 +124,7 @@ const SignUp = () => {
             <InputForm
               type="password"
               name="password"
-              id="signupPassword"
+              id="signinPassword"
               label="Password"
               inputRef={register({
                 required: "This field is required",
@@ -120,24 +135,16 @@ const SignUp = () => {
               errors={errors}
             />
 
-            <InputForm
-              type="password"
-              name="confirmPassword"
-              id="signupConfirmPassword"
-              label="Confirm Password"
-              inputRef={register({
-                required: "This field is required",
-                minLength: { value: 8, message: "Your confirm password should contain minimum 8 characters" },
-              })}
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              errors={errors}
-            />
-
             <Box className={classes.actionButtons}>
               <Button type="submit" variant="outlined" color="secondary">
-                Sign up
+                Signin
               </Button>
+
+              <Link href="/validation/password">
+                <Typography variant="body2" style={{ cursor: "pointer" }}>
+                  Forgot Password ?
+                </Typography>
+              </Link>
             </Box>
           </form>
         </Box>
@@ -146,7 +153,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
 
 // ========================================================================================================
 
@@ -154,18 +161,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     signin: {
       display: "flex",
-      height: 520,
+      height: "520px",
       justifyContent: "space-between",
     },
 
     media: {
-      width: "69%",
+      width: "65%",
       height: "100%",
     },
 
     content: {
-      width: "31%",
-      display: "flex",
+      width: "35%",
       flexDirection: "column",
       padding: "20px 30px",
     },
@@ -173,7 +179,13 @@ const useStyles = makeStyles((theme: Theme) =>
     form: {
       display: "flex",
       flexDirection: "column",
-      margin: "30px 0px 0px 0px",
+      margin: "45px 0px 0px 0px",
+    },
+
+    socialbuttons: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginTop: "30px",
     },
 
     actionButtons: {

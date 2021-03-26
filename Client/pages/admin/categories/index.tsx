@@ -1,37 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Next
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import {
-  Box,
-  Breadcrumbs,
-  Link as MaterialLink,
-  Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Paper,
-  Typography,
-} from "@material-ui/core";
-import {
-  DataGrid,
-  GridCellParams,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridColumnsToolbarButton,
-  GridFilterToolbarButton,
-} from "@material-ui/data-grid";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typography } from "@material-ui/core";
+import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
+
+// Components
+import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -43,6 +26,9 @@ import {
   useGetCategoriesQuery,
   useDeleteCategoryMutation,
 } from "@Graphql/index";
+
+// Apollo State
+import { ui } from "@Apollo/state/ui/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -57,39 +43,27 @@ const Categories = () => {
   const { loading, data } = useGetCategoriesQuery();
   const [deleteCategoryMutation, { error }] = useDeleteCategoryMutation({ errorPolicy: "all" });
 
+  // Error Handling
   if (error) {
     error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
   }
 
-  // State
-  const [open, setOpen] = React.useState(false);
-  const [product, setProduct] = React.useState(null);
-
   // Events
-  const handleClickOpen = (params) => {
-    setOpen(true);
 
-    setProduct(params);
+  const handleClickOpen = (params) => {
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.name,
+        deleteResource: () => deleteCategory(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
   };
-
-  function CustomToolbar() {
-    return (
-      <>
-        <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
-          <GridColumnsToolbarButton />
-          <GridFilterToolbarButton />
-          <GridToolbarExport />
-          <Button size="small" startIcon={<DeleteIcon />}>
-            Delete
-          </Button>
-        </GridToolbarContainer>
-      </>
-    );
-  }
 
   const deleteCategory = async (categoryId) => {
     await deleteCategoryMutation({
@@ -186,33 +160,12 @@ const Categories = () => {
             pageSize={10}
             // rowCount={count}
             components={{
-              Toolbar: CustomToolbar,
+              Toolbar,
             }}
             checkboxSelection
             autoHeight
           />
         </Paper>
-        <div>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete the category ${product?.row.name} ?`}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">Yes, I want to delete this product.</DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={() => deleteCategory(product.row.id)} color="secondary" autoFocus>
-                Delete Category
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
       </Box>
     </Box>
   );
@@ -233,9 +186,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
       margin: "0px 0px 50px 0px",
-    },
-    toolbarIcon: {
-      fontSize: 20,
     },
     dataGrid: {
       border: "none",

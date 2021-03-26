@@ -59,15 +59,15 @@ const Header = () => {
   const selectProducts = useSelector((state: IAppState) => state.product.cartItems);
 
   const changeAdmin = () => {
-    ui({ isAdmin: true });
+    ui({ ...ui(), isAdmin: true });
   };
 
   const changeCart = () => {
-    ui({ isCartOpen: true });
+    ui({ ...ui(), isCartOpen: true });
   };
 
   const changeSideBar = () => {
-    ui({ isSideBarOpen: true });
+    ui({ ...ui(), isSideBarOpen: true });
   };
 
   return (

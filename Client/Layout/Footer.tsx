@@ -58,7 +58,6 @@ const Footer = () => {
   };
 
   const onSubmit = async (form) => {
-    console.log(form);
     const { data } = await addToNewsletter({
       variables: {
         email: form.email,

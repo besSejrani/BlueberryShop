@@ -19,15 +19,11 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import {
-  DataGrid,
-  GridCellParams,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridColumnsToolbarButton,
-  GridFilterToolbarButton,
-} from "@material-ui/data-grid";
+import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
+// Components
+import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -58,8 +54,8 @@ const Products = () => {
 
   // State
   const [count, setCount] = useState(data?.getProducts.count);
-  const [open, setOpen] = React.useState(false);
-  const [product, setProduct] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const [product, setProduct] = useState(null);
 
   // Events
   const handleClickOpen = (params) => {
@@ -71,21 +67,6 @@ const Products = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar() {
-    return (
-      <>
-        <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
-          <GridColumnsToolbarButton />
-          <GridFilterToolbarButton />
-          <GridToolbarExport />
-          <Button size="small" startIcon={<DeleteIcon />}>
-            Delete
-          </Button>
-        </GridToolbarContainer>
-      </>
-    );
-  }
 
   const deleteProduct = async (productId) => {
     await deleteProductMutation({
@@ -249,7 +230,7 @@ const Products = () => {
             pageSize={10}
             rowCount={count}
             components={{
-              Toolbar: CustomToolbar,
+              Toolbar,
             }}
             checkboxSelection
             autoHeight
@@ -297,9 +278,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
       margin: "0px 0px 50px 0px",
-    },
-    toolbarIcon: {
-      fontSize: 20,
     },
     dataGrid: {
       border: "none",

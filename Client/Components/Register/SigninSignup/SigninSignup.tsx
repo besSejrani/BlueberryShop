@@ -5,8 +5,8 @@ import { Box, Card, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import Signin from "@Components/SignIn/SignIn";
-import Signup from "@Components/SignUp/SignUp";
+import Signin from "@Components/Register/SignIn/SignIn";
+import Signup from "@Components/Register/SignUp/SignUp";
 
 // ========================================================================================================
 

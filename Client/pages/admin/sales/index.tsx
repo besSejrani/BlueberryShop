@@ -7,14 +7,10 @@ import { useRouter } from "next/router";
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import {
-  DataGrid,
-  GridCellParams,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridColumnsToolbarButton,
-  GridFilterToolbarButton,
-} from "@material-ui/data-grid";
+import { DataGrid, GridCellParams } from "@material-ui/data-grid";
+
+// Components
+import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -37,21 +33,6 @@ const Sales = () => {
 
   // GraphQL
   const { data } = useGetSalesQuery();
-
-  function CustomToolbar() {
-    return (
-      <>
-        <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
-          <GridColumnsToolbarButton />
-          <GridFilterToolbarButton />
-          <GridToolbarExport />
-          <Button size="small" startIcon={<DeleteIcon />}>
-            Delete
-          </Button>
-        </GridToolbarContainer>
-      </>
-    );
-  }
 
   const columns = [
     { field: "name", headerName: "Sale Name", flex: 1 },
@@ -133,7 +114,7 @@ const Sales = () => {
             pageSize={10}
             // rowCount={count}
             components={{
-              Toolbar: CustomToolbar,
+              Toolbar,
             }}
             checkboxSelection
             autoHeight
@@ -161,7 +142,6 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
-
     dataGrid: {
       border: "none",
       width: "100%",

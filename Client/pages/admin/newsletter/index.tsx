@@ -15,18 +15,14 @@ import {
   Typography,
   Paper,
 } from "@material-ui/core";
-import {
-  DataGrid,
-  GridCellParams,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridColumnsToolbarButton,
-  GridFilterToolbarButton,
-} from "@material-ui/data-grid";
+import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
+
+// Components
+import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -69,21 +65,6 @@ const Newsletters = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar() {
-    return (
-      <>
-        <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
-          <GridColumnsToolbarButton />
-          <GridFilterToolbarButton />
-          <GridToolbarExport />
-          <Button size="small" startIcon={<DeleteIcon />}>
-            Delete
-          </Button>
-        </GridToolbarContainer>
-      </>
-    );
-  }
 
   const deleteNewsletter = async (newsletterId) => {
     await deleteFromNewsletter({
@@ -177,7 +158,7 @@ const Newsletters = () => {
             pageSize={10}
             // rowCount={count}
             components={{
-              Toolbar: CustomToolbar,
+              Toolbar,
             }}
             checkboxSelection
             autoHeight
@@ -226,9 +207,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       margin: "0px 0px 50px 0px",
     },
-    toolbarIcon: {
-      fontSize: 20,
-    },
+
     dataGrid: {
       border: "none",
       width: "100%",

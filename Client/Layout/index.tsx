@@ -13,8 +13,9 @@ import AdminHeader from "./admin/adminHeader";
 // Theme
 import { withTheme } from "./Theme";
 
-// React-Toastify
+// Components
 import Toast from "@Components/Toast/Toast";
+import ConfirmationDialog from "@Components/ConfirmationDialog/ConfirmationDialog";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
@@ -43,6 +44,7 @@ const Layout = ({ children }) => {
           {children}
 
           <Toast />
+          <ConfirmationDialog />
           <Footer />
         </>
       )}
