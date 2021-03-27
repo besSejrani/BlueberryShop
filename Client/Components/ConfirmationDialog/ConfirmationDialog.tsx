@@ -37,7 +37,7 @@ const ConfirmationDialog = () => {
             color="secondary"
             autoFocus
           >
-            Delete Category
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

@@ -20,7 +20,7 @@ import InputForm from "@Components/InputForm/InputForm";
 import { useForm, Controller } from "react-hook-form";
 
 // Apollo
-import { useGetProductsSaleQuery, useCreateSaleMutation } from "@Graphql/index";
+import { useGetProductsSaleQuery, useCreateSaleMutation, GetSalesDocument, GetSalesQuery } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -41,19 +41,11 @@ const Product = () => {
   const [createSale] = useCreateSaleMutation();
   const { data } = useGetProductsSaleQuery();
 
-  // Date
-  let today = new Date();
-  const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  const yyyy = today.getFullYear();
-
-  today = mm + "/" + dd + "/" + yyyy;
-
   // State
   const [saleName, setSaleName] = useState("");
   const [saleDiscount, setSaleDiscount] = useState<number>();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [productSale, setProductSale] = useState<number>();
   const [product, setProduct] = useState<string>("");
 
@@ -65,7 +57,27 @@ const Product = () => {
     console.log(form);
 
     await createSale({
-      variables: { sale: form.saleName, startDate: form.startDate, endDate: form.endDate, discount:form.saleDiscount ,productId: form.productSale },
+      variables: {
+        sale: form.saleName,
+        startDate: startDate,
+        endDate: endDate,
+        discount: form.saleDiscount,
+        productId: form.productSale,
+      },
+      update(cache, { data }) {
+        const newSale = data?.createSale;
+
+        const { getSales }: GetSalesQuery = cache.readQuery({
+          query: GetSalesDocument,
+        });
+
+        cache.writeQuery({
+          query: GetSalesDocument,
+          data: {
+            getSales: [...getSales, newSale],
+          },
+        });
+      },
     });
 
     await router.push("/admin/sales");
@@ -86,7 +98,7 @@ const Product = () => {
       </Box>
       <Box>
         <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
-          Create a product sale
+          Create Product Sale
         </Typography>
       </Box>
 
@@ -107,7 +119,7 @@ const Product = () => {
         />
 
         <InputForm
-          type="text"
+          type="number"
           name="saleDiscount"
           id="saleDiscount"
           label="Discount"
@@ -125,15 +137,16 @@ const Product = () => {
           control={control}
           name="startDate"
           as={
-            <DateTimePicker
-              clearable
-              value={startDate}
-              label="Start Date"
-              name="startDate"
-              format="yyyy/MM/dd hh:mm a"
-              minDate={today}
-              onChange={setStartDate}
-            />
+            <>
+              <DateTimePicker
+                clearable
+                value={startDate}
+                label="Start Date"
+                format="DD.MM.yyyy hh:mm"
+                disablePast
+                onChange={setStartDate}
+              />
+            </>
           }
         />
 
@@ -141,15 +154,17 @@ const Product = () => {
           control={control}
           name="endDate"
           as={
-            <DateTimePicker
-              clearable
-              value={endDate}
-              label="End Date"
-              format="yyyy/MM/dd hh:mm a"
-              minDate={today}
-              maxDate={new Date("2022-04-25")}
-              onChange={setEndDate}
-            />
+            <>
+              <DateTimePicker
+                clearable
+                value={endDate}
+                label="End Date"
+                format="DD.MM.yyyy hh:mm"
+                disablePast
+                maxDate={new Date("2022-04-25")}
+                onChange={setEndDate}
+              />
+            </>
           }
         />
 

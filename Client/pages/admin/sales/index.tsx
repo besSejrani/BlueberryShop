@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typography } from "@material-ui/core";
 import { DataGrid, GridCellParams } from "@material-ui/data-grid";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
 import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
@@ -16,23 +16,74 @@ import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// Hooks
+import useToast from "@Hook/useToast";
+
 // Moment
 import moment from "moment";
 
-// GraphQL
-import { useGetSalesQuery } from "@Graphql/index";
+//Apollo
+import { ui } from "@Apollo/state/ui/index";
+import { useGetSalesQuery, useDeleteSaleMutation, GetSalesDocument, GetSalesQuery } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const Sales = () => {
+const Products = () => {
   const classes = useStyles();
   const router = useRouter();
 
   // GraphQL
-  const { data } = useGetSalesQuery();
+  const { data, loading } = useGetSalesQuery();
+  const [deleteSaleMutation, { error }] = useDeleteSaleMutation({ errorPolicy: "all" });
+
+  // Error Handling
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
+
+  // Events
+  const handleClickOpen = (params) => {
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.name,
+        deleteResource: () => deleteSale(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
+  };
+
+  const handleClose = () => {
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
+  };
+
+  const deleteSale = async (productId) => {
+    await deleteSaleMutation({
+      variables: { productId },
+
+      update(cache, { data }) {
+        const { getSales }: GetSalesQuery = cache.readQuery({
+          query: GetSalesDocument,
+        });
+
+        const newSales = getSales.filter((product) => product._id !== data.deleteSale);
+
+        cache.writeQuery({
+          query: GetSalesDocument,
+          data: {
+            getSales: { newSales },
+          },
+        });
+      },
+    });
+
+    await handleClose();
+  };
+
+  if (loading) return <div>loading...</div>;
 
   const columns = [
     { field: "name", headerName: "Sale Name", flex: 1 },
@@ -54,11 +105,11 @@ const Sales = () => {
       flex: 0.5,
       renderCell: (params: GridCellParams) => (
         <>
-          <IconButton onClick={() => router.push(`/admin/products/${params.row.id}`)}>
+          <IconButton onClick={() => router.push(`/admin/sales/${params.row.id}`)}>
             <ModifyIcon />
           </IconButton>
 
-          <IconButton>
+          <IconButton onClick={() => handleClickOpen(params)}>
             <DeleteIcon />
           </IconButton>
         </>
@@ -66,7 +117,7 @@ const Sales = () => {
     },
   ];
 
-  const rows = data?.getSales.map((product) => {
+  const rows = data?.getSales?.map((product) => {
     return {
       id: product._id,
       name: product.sale,
@@ -112,7 +163,6 @@ const Sales = () => {
             }))}
             rowHeight={80}
             pageSize={10}
-            // rowCount={count}
             components={{
               Toolbar,
             }}
@@ -125,14 +175,13 @@ const Sales = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Sales);
+export default withApollo({ ssr: true })(Products);
 
 // ========================================================================================================
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },

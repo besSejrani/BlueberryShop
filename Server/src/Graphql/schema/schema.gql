@@ -61,12 +61,14 @@ type Mutation {
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
   deleteProductImage(keyId: String!, productId: String!): Boolean!
+  deleteSale(productId: String!): Boolean!
   deleteUser(userId: String!): Boolean!
   forgotPassword(email: String!): Boolean!
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(data: ChangedProfileInput!): User
+  updateSale(updateSaleInput: UpdateSaleInput!): Sale!
 }
 
 type Newsletter {
@@ -114,6 +116,7 @@ type Query {
   getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
   getProducts: ProductPagination
   getProductsPagination(pagination: ProductPaginationInput!): ProductPagination
+  getSale(productId: String!): Sale
   getSales: [Sale!]
   getUser(userId: String!): User
   getUsers: [User!]
@@ -177,6 +180,15 @@ input UpdateProductInput {
   promotion: Boolean
   status: Status
   stock: Float
+}
+
+input UpdateSaleInput {
+  categoryId: String
+  discount: String
+  endDate: DateTime
+  productId: String
+  sale: String
+  startDate: DateTime
 }
 
 """The `Upload` scalar type represents a file upload."""

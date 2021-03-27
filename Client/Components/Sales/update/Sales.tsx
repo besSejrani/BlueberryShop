@@ -5,8 +5,8 @@ import { Box, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import SalesProduct from "@Components/Sales/Product/Product";
-import SalesCategory from "@Components/Sales/Category/Category";
+import SalesProduct from "@Components/Sales/update/Product/Product";
+import SalesCategory from "@Components/Sales/update/Category/Category";
 
 // ========================================================================================================
 

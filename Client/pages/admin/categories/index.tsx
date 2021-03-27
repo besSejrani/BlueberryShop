@@ -49,7 +49,6 @@ const Categories = () => {
   }
 
   // Events
-
   const handleClickOpen = (params) => {
     ui({
       isConfirmationDialogOpen: {

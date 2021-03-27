@@ -1,24 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Next
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import {
-  Box,
-  Breadcrumbs,
-  Link as MaterialLink,
-  Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typography } from "@material-ui/core";
 import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -33,6 +20,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 import useToast from "@Hook/useToast";
 
 //Apollo
+import { ui } from "@Apollo/state/ui/index";
 import { useGetProductsQuery, useDeleteProductMutation, GetProductsDocument, GetProductsQuery } from "@Graphql/index";
 
 // SSR
@@ -52,20 +40,20 @@ const Products = () => {
     error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
   }
 
-  // State
-  const [count, setCount] = useState(data?.getProducts.count);
-  const [open, setOpen] = useState(false);
-  const [product, setProduct] = useState(null);
-
   // Events
   const handleClickOpen = (params) => {
-    setOpen(true);
-
-    setProduct(params);
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.name,
+        deleteResource: () => deleteProduct(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
   };
 
   const deleteProduct = async (productId) => {
@@ -228,7 +216,6 @@ const Products = () => {
             }))}
             rowHeight={80}
             pageSize={10}
-            rowCount={count}
             components={{
               Toolbar,
             }}
@@ -236,28 +223,6 @@ const Products = () => {
             autoHeight
           />
         </Paper>
-        <div>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete this product`}</DialogTitle>
-
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">Yes, I want to delete this product.</DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={() => deleteProduct(product.row.id)} color="secondary" autoFocus>
-                Delete Product
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
       </Box>
     </Box>
   );

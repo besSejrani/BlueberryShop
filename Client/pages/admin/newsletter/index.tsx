@@ -1,20 +1,7 @@
 import React, { useState } from "react";
 
 // Material-UI
-import {
-  Box,
-  Breadcrumbs,
-  Link as MaterialLink,
-  Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Typography,
-  Paper,
-} from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, IconButton, Typography, Paper } from "@material-ui/core";
 import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -28,6 +15,7 @@ import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 import useToast from "@Hook/useToast";
 
 //Apollo
+import { ui } from "@Apollo/state/ui/index";
 import {
   GetNewslettersDocument,
   GetNewslettersQuery,
@@ -47,23 +35,25 @@ const Newsletters = () => {
   const { loading, data } = useGetNewslettersQuery();
   const [deleteFromNewsletter, { error }] = useDeleteFromNewsletterMutation({ errorPolicy: "all" });
 
+  // Error Hanlding
   if (error) {
     error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
   }
 
-  // State
-
-  const [open, setOpen] = useState(false);
-  const [newsletter, setNewsletter] = useState(null);
-
   // Events
   const handleClickOpen = (params) => {
-    setOpen(true);
-    setNewsletter(params);
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.email,
+        deleteResource: () => deleteNewsletter(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
   };
 
   const deleteNewsletter = async (newsletterId) => {
@@ -164,29 +154,6 @@ const Newsletters = () => {
             autoHeight
           />
         </Paper>
-        <div>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete the  ${newsletter?.row.email} ?`}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                Yes, I want to delete this newsletter.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={() => deleteNewsletter(newsletter.row.id)} color="secondary" autoFocus>
-                Delete Product
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
       </Box>
     </Box>
   );

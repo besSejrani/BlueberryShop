@@ -11,22 +11,20 @@ import { SaleModel } from "../../../Model/Sale";
 export class CreateSaleResolver {
   @Mutation(() => Boolean)
   async createSale(@Arg("saleInput") saleInput: CreateSaleInput): Promise<boolean> {
-    const category = await SaleModel.findOne({ _id: saleInput.productId });
+    const sale = await SaleModel.findOne({ _id: saleInput.productId });
 
-    if (category) {
+    if (sale) {
       return true;
     }
 
-    console.log(saleInput)
-
-    const newCategory = new SaleModel({
+    const newSale = new SaleModel({
       sale: saleInput.sale,
       startDate: saleInput.startDate,
       endDate: saleInput.endDate,
       discount: saleInput.discount,
       products: saleInput.productId,
     });
-    newCategory.save();
+    newSale.save();
 
     return true;
   }

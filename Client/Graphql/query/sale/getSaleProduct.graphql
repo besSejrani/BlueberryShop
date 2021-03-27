@@ -1,0 +1,13 @@
+query GetSale($productId: String!) {
+  getSale(productId: $productId) {
+    _id
+    sale
+    startDate
+    endDate
+    discount
+    products {
+      _id
+      name
+    }
+  }
+}

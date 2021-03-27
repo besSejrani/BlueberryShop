@@ -24,25 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/admin/categories": [
+    "/admin/sales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/categories.js"
+      "static/chunks/pages/admin/sales.js"
     ],
-    "/admin/categories/create-category": [
+    "/admin/sales/[id]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/categories/create-category.js"
-    ],
-    "/admin/newsletter": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/admin/newsletter.js"
-    ],
-    "/admin/users": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/admin/users.js"
+      "static/chunks/pages/admin/sales/[id].js"
     ]
   },
   "ampFirstPages": []

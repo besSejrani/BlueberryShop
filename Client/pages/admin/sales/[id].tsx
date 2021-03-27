@@ -5,7 +5,7 @@ import { Box, Card } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import Sales from "@Components/Sales/create/Sales";
+import Sales from "@Components/Sales/update/Sales";
 
 // SSR
 import withApollo from "@Apollo/ssr";

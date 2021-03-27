@@ -1,0 +1,23 @@
+mutation UpdateSale(
+  $sale: String!
+  $startDate: DateTime!
+  $endDate: DateTime!
+  $discount: String!
+  $productId: String!
+) {
+  updateSale(
+    updateSaleInput: {
+      sale: $sale
+      startDate: $startDate
+      endDate: $endDate
+      discount: $discount
+      productId: $productId
+    }
+  ) {
+    _id
+    sale
+    discount
+    startDate
+    endDate
+  }
+}

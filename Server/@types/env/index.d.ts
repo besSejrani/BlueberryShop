@@ -12,6 +12,7 @@ declare namespace NodeJS {
     REDIS_PORT: string;
     REDIS_PASSWORD: string;
     REDIS_URL: string;
+    REDIS_TLS_URL: string;
 
     GITHUB_CLIENT_ID: string;
     GITHUB_CLIENT_SECRET: string;
