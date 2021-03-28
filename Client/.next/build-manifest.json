@@ -24,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/admin/newsletter": [
+    "/blog": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/newsletter.js"
+      "static/chunks/pages/blog.js"
     ],
-    "/admin/users": [
+    "/blog/[post]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/users.js"
+      "static/chunks/pages/blog/[post].js"
     ]
   },
   "ampFirstPages": []

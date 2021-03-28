@@ -78,21 +78,21 @@ const Dashboard = () => {
         <Box className={classes.chartGroup}>
           <Paper className={classes.chartLeft}>
             <Box className={classes.chart}>
-              <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography variant="h5" style={{ margin: 20 }}>
+              <Box style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
+                <Typography variant="h6" style={{ margin: 20 }}>
                   Sales revenue
                 </Typography>
-                <Image height={300} width={450} src={`/static/images/chart.png`} />
+                <Image height={400} width={1000} src={`/static/images/chart1.png`} />
               </Box>
             </Box>
           </Paper>
           <Paper className={classes.chartRight}>
             <Box className={classes.chart}>
-              <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography variant="h5" style={{ margin: 20 }}>
+              <Box style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
+                <Typography variant="h6" style={{ margin: 20 }}>
                   Cost Breakdown
                 </Typography>
-                <Image height={300} width={450} src={`/static/images/chart.png`} />
+                <Image height={400} width={600} src={`/static/images/chart2.png`} />
               </Box>
             </Box>
           </Paper>
@@ -101,21 +101,21 @@ const Dashboard = () => {
         <Box className={classes.chartGroup}>
           <Paper className={classes.chartLeft}>
             <Box className={classes.chart}>
-              <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography variant="h5" style={{ margin: 20 }}>
+              <Box style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
+                <Typography variant="h6" style={{ margin: 20 }}>
                   Sales By Continent
                 </Typography>
-                <Image height={300} width={450} src={`/static/images/chart.png`} />
+                <Image height={500} width={1000} src={`/static/images/chart3.png`} />
               </Box>
             </Box>
           </Paper>
           <Paper className={classes.chartRight}>
             <Box className={classes.chart}>
-              <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Box style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
                 <Typography variant="h5" style={{ margin: 20 }}>
                   Incremental Sales
                 </Typography>
-                <Image height={300} width={450} src={`/static/images/chart.png`} />
+                <Image height={500} width={600} src={`/static/images/chart4.png`} />
               </Box>
             </Box>
           </Paper>
@@ -166,12 +166,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     chartLeft: {
-      height: 500,
+      height: 600,
       borderRadius: 20,
     },
 
     chartRight: {
-      height: 500,
+      height: 600,
       borderRadius: 20,
     },
 

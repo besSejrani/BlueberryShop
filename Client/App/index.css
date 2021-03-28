@@ -5,15 +5,21 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
-  height: 100vh;
+  height: 100%;
   background-color: rgb(244, 245, 247);
+  position: relative;
 }
 
 #root {
   height: calc(100% - 6rem);
+}
+
+footer {
+  margin-top: -50px;
 }
 
 a {
