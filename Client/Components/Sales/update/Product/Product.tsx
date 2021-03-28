@@ -114,6 +114,7 @@ const Product = () => {
             required: "This field is required",
             maxLength: { value: 2, message: "The sale discount field should contain maximum 2 digits" },
             min: { value: 0, message: "The sale discount field can not be a negative number" },
+            max: { value: 100, message: "The sale discount field can not be a higher than 100" },
           })}
           value={saleDiscount}
           onChange={setSaleDiscount}

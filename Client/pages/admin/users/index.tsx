@@ -179,6 +179,7 @@ const Users = () => {
               ...column,
               disableClickEventBubbling: true,
             }))}
+            rowHeight={80}
             pageSize={10}
             components={{
               Toolbar,

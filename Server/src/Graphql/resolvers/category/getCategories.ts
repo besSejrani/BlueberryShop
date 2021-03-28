@@ -7,7 +7,7 @@ import { Category, CategoryModel } from "../../../Model/Category";
 //=======================================================================
 
 @Resolver()
-export class NewslettersResolver {
+export class GetCategoriesResolver {
   @Query(() => [Category], { nullable: true })
   async getCategories(): Promise<Category[] | null> {
     return await CategoryModel.find({});

@@ -145,6 +145,7 @@ const Newsletters = () => {
               ...column,
               disableClickEventBubbling: true,
             }))}
+            rowHeight={80}
             pageSize={10}
             // rowCount={count}
             components={{

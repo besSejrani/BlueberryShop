@@ -17,7 +17,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import InputForm from "@Components/InputForm/InputForm";
 
 // Apollo
-import { GetCategoriesDocument, GetCategoriesQuery, useCreateCategoryMutation } from "@Graphql/index";
+import { useUpdateCategoryMutation, useGetCategoryQuery } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -30,36 +30,40 @@ type FormValues = {
 
 const CreateProductAdmin = () => {
   const classes = useStyles();
-
-  const [categoryName, setCategoryName] = useState("");
-
   const router = useRouter();
+  const { query } = router;
+
+  // GraphQL
+  const { data } = useGetCategoryQuery({ variables: { categoryId: query.id as string } });
+
+  const [categoryName, setCategoryName] = useState(data?.getCategory.name);
 
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
-  const [createCategory] = useCreateCategoryMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
 
   const onSubmit = async (form) => {
-    await createCategory({
+    await updateCategory({
       variables: {
-        category: form.categoryName,
+        categoryId: query.id as string,
+        name: form.categoryName,
       },
-      update(cache, { data }) {
-        const newCategory = data?.createCategory;
+      // update(cache, { data }) {
+      //   const newCategory = data?.createCategory;
 
-        const categories: GetCategoriesQuery = cache.readQuery({
-          query: GetCategoriesDocument,
-        });
+      //   const categories: GetCategoriesQuery = cache.readQuery({
+      //     query: GetCategoriesDocument,
+      //   });
 
-        cache.writeQuery({
-          query: GetCategoriesDocument,
-          data: {
-            getCategories: [...categories.getCategories, newCategory],
-          },
-        });
-      },
+      //   cache.writeQuery({
+      //     query: GetCategoriesDocument,
+      //     data: {
+      //       getCategories: [...categories.getCategories, newCategory],
+      //     },
+      //   });
+      // },
     });
 
     await router.push("/admin/categories");
@@ -77,7 +81,7 @@ const CreateProductAdmin = () => {
           </Box>
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
-              Create Category
+              Update Category
             </Typography>
           </Box>
 
@@ -97,7 +101,7 @@ const CreateProductAdmin = () => {
 
             <Box style={{ flexDirection: "row", marginTop: "25px" }}>
               <Button variant="contained" color="secondary" type="submit">
-                Create Category
+                Update Category
               </Button>
             </Box>
           </form>

@@ -11,8 +11,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Date Picker
-import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
+import { DateTimePicker } from "@material-ui/pickers";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
@@ -21,7 +20,7 @@ import InputForm from "@Components/InputForm/InputForm";
 import { useForm, Controller } from "react-hook-form";
 
 // Apollo
-import { useGetCategoriesQuery } from "@Graphql/index";
+import { useGetProductsSaleQuery, useCreateSaleMutation, GetSalesDocument, GetSalesQuery } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -30,36 +29,63 @@ type FormValues = {
   productPrice: number;
   productDescription: string;
   productStock: number;
-  productCategory: string;
-  productPromotion: boolean;
+  product: string;
+  categorytSale: boolean;
 };
 
-const Category = () => {
+const Product = () => {
   const classes = useStyles();
   const router = useRouter();
 
   // GraphQL
-  const { data } = useGetCategoriesQuery();
+  const [createSale] = useCreateSaleMutation();
+  const { data } = useGetProductsSaleQuery();
 
   // State
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [promotionName, setPromotionName] = useState("");
+  const [saleName, setSaleName] = useState("");
+  const [saleDiscount, setSaleDiscount] = useState<number>();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [productPromotion, setProductPromotion] = useState<number>();
-  const [productCategory, setProductCategory] = useState<string>("");
+  const [categorytSale, setCategorytSale] = useState<number>();
+  const [product, setProduct] = useState<string>("");
 
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
   const onSubmit = async (form) => {
+    console.log(form);
+
+    await createSale({
+      variables: {
+        sale: form.saleName,
+        startDate: startDate,
+        endDate: endDate,
+        discount: form.saleDiscount,
+        productId: form.categorytSale,
+      },
+      update(cache, { data }) {
+        const newSale = data?.createSale;
+
+        const { getSales }: GetSalesQuery = cache.readQuery({
+          query: GetSalesDocument,
+        });
+
+        cache.writeQuery({
+          query: GetSalesDocument,
+          data: {
+            getSales: [...getSales, newSale],
+          },
+        });
+      },
+    });
+
     await router.push("/admin/sales");
   };
 
   // Events
-  const handleChangeCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setProductCategory(event.target.value as string);
+  const handleChangeProduct = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setProduct(event.target.value as string);
   };
 
   return (
@@ -79,16 +105,32 @@ const Category = () => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputForm
           type="text"
-          name="promotionName"
-          id="promotionName"
+          name="saleName"
+          id="saleName"
           label="Sale"
           inputRef={register({
             required: "This field is required",
             minLength: { value: 2, message: "The product name should contain minimum 2 characters" },
             maxLength: { value: 22, message: "The product name should contain maximum 22 characters" },
           })}
-          value={promotionName}
-          onChange={setPromotionName}
+          value={saleName}
+          onChange={setSaleName}
+          errors={errors}
+        />
+
+        <InputForm
+          type="number"
+          name="saleDiscount"
+          id="saleDiscount"
+          label="Discount"
+          inputRef={register({
+            required: "This field is required",
+            maxLength: { value: 2, message: "The sale discount field should contain maximum 2 digits" },
+            min: { value: 0, message: "The sale discount field can not be a negative number" },
+            max: { value: 100, message: "The sale discount field can not be a higher than 100" },
+          })}
+          value={saleDiscount}
+          onChange={setSaleDiscount}
           errors={errors}
         />
 
@@ -128,21 +170,24 @@ const Category = () => {
         />
 
         <FormControl>
-          <InputLabel id="productPromotionLabel">Category</InputLabel>
+          <InputLabel id="categorytSaleLabel">Product</InputLabel>
 
           <Controller
             control={control}
-            name="productPromotion"
+            name="categorytSale"
+            inputRef={register({
+              required: "This field is required",
+            })}
             as={
               <Select
-                labelId="productPromotionLabel"
-                id="productPromotion"
-                value={productPromotion}
-                onChange={handleChangeCategory}
+                labelId="categorytSaleLabel"
+                id="categorytSale"
+                value={categorytSale}
+                onChange={handleChangeProduct}
                 className={classes.input}
               >
-                {data?.getCategories.map((category) => {
-                  return <MenuItem value={category._id}>{category.name}</MenuItem>;
+                {data?.getProducts.products.map((product) => {
+                  return <MenuItem value={product._id}>{product.name}</MenuItem>;
                 })}
               </Select>
             }
@@ -159,7 +204,7 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Product;
 
 // ========================================================================================================
 
@@ -182,7 +227,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-evenly",
-      height: "400px",
+      height: "380px",
       margin: "30px 0px 0px 0px",
     },
     input: {

@@ -1,5 +1,5 @@
 overwrite: true
-schema: 
+schema:
   - ${NEXT_PUBLIC_DEVELOPMENT_SERVER}
 documents: "./Graphql/**/**/*.graphql"
 # watch: true

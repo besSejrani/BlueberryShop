@@ -66,6 +66,7 @@ type Mutation {
   forgotPassword(email: String!): Boolean!
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
+  updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(data: ChangedProfileInput!): User
   updateSale(updateSaleInput: UpdateSaleInput!): Sale!
@@ -110,6 +111,7 @@ type ProductReviewPagination {
 
 type Query {
   getCategories: [Category!]
+  getCategory(categoryId: String!): Category
   getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
@@ -171,6 +173,11 @@ enum Status {
   ARCHIVED
   DRAFT
   PUBLISHED
+}
+
+input UpdateCategoryInput {
+  categoryId: String
+  name: String
 }
 
 input UpdateProductInput {

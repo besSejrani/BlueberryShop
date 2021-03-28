@@ -142,12 +142,12 @@ const CreateProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
-        <Box className={classes.backButton} onClick={() => router.back()}>
-        <IconButton edge="start">
-          <ArrowBackIcon color="primary" />
-        </IconButton>
-        <Typography variant="body1">Go Back</Typography>
-      </Box>
+          <Box className={classes.backButton} onClick={() => router.back()}>
+            <IconButton edge="start">
+              <ArrowBackIcon color="primary" />
+            </IconButton>
+            <Typography variant="body1">Go Back</Typography>
+          </Box>
           <PreviewProduct product={product} />
         </Box>
 
@@ -329,7 +329,7 @@ const useStyles = makeStyles((theme: Theme) =>
     preview: {
       display: "flex",
       justifyContent: "start",
-      flexDirection:"column",
+      flexDirection: "column",
       width: "50%",
       padding: "20px 30px",
     },
