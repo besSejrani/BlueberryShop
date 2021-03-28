@@ -102,7 +102,7 @@ const Categories = () => {
 
       renderCell: (params: GridCellParams) => (
         <>
-          <IconButton onClick={() => router.push(`/admin/products/${params.row.id}`)}>
+          <IconButton edge="start" onClick={() => router.push(`/admin/products/${params.row.id}`)}>
             <ModifyIcon />
           </IconButton>
 

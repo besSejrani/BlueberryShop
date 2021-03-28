@@ -86,7 +86,7 @@ const Footer = () => {
                 </Link>
               </Box>
               <Typography variant="body2" style={{ color: "white", margin: "20px 0px 0px 5px" }}>
-                We sell everything, expect you.
+                We sell everything, exept you.
               </Typography>
             </Box>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

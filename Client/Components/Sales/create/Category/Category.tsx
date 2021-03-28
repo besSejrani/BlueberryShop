@@ -54,8 +54,6 @@ const Category = () => {
   });
 
   const onSubmit = async (form) => {
-    console.log(form);
-
     await router.push("/admin/sales");
   };
 
@@ -103,7 +101,7 @@ const Category = () => {
                 clearable
                 value={startDate}
                 label="Start Date"
-                format="DD.MM.yyyy hh:mm"
+                format="DD.MM.yyyy HH:mm"
                 disablePast
                 onChange={setStartDate}
               />
@@ -120,7 +118,7 @@ const Category = () => {
                 clearable
                 value={endDate}
                 label="End Date"
-                format="DD.MM.yyyy hh:mm"
+                format="DD.MM.yyyy HH:mm"
                 disablePast
                 maxDate={new Date("2022-04-25")}
                 onChange={setEndDate}

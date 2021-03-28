@@ -3,5 +3,8 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/admin/sales": "pages/admin/sales.js",
-  "/admin/sales/[id]": "pages/admin/sales/[id].js"
+  "/admin/newsletter": "pages/admin/newsletter.js",
+  "/admin/users": "pages/admin/users.js",
+  "/admin/categories": "pages/admin/categories.js",
+  "/admin/products/[id]": "pages/admin/products/[id].js"
 }

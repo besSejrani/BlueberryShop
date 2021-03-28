@@ -40,7 +40,6 @@ const Product = () => {
 
   // GraphQL
   const { data, loading } = useGetSaleQuery({ variables: { productId: query.id as string } });
-
   const [updateSale] = useUpdateSaleMutation();
 
   // State
@@ -132,7 +131,7 @@ const Product = () => {
                 value={startDate}
                 label="Start Date"
                 name="startDate"
-                format="DD.MM.yyyy hh:mm"
+                format="DD.MM.yyyy HH:mm"
                 disablePast
                 onChange={setStartDate}
               />
@@ -150,7 +149,7 @@ const Product = () => {
                 value={endDate}
                 label="End Date"
                 name="endDate"
-                format="DD.MM.yyyy hh:mm"
+                format="DD.MM.yyyy HH:mm"
                 disablePast
                 onChange={setEndDate}
               />

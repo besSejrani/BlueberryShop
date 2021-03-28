@@ -90,22 +90,100 @@ const Products = () => {
     {
       field: "discount",
       headerName: "Discount",
-      flex: 0.5,
+      flex: 0.4,
+      renderCell: (params: GridCellParams) => {
+        const discount = params.row.discount;
+        console.log(discount <= 20);
+
+        if (discount <= 20) {
+          return (
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
+            >
+              {params.row.discount} %
+            </Button>
+          );
+        }
+
+        if (discount <= 40) {
+          return (
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
+            >
+              {params.row.discount} %
+            </Button>
+          );
+        }
+
+        if (discount > 40) {
+          return (
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ borderRadius: 20, color: "#ff0000", borderColor: "#ff0000" }}
+            >
+              {params.row.discount} %
+            </Button>
+          );
+        }
+      },
     },
-    { field: "start", headerName: "Start Date", flex: 0.5 },
-    { field: "end", headerName: "End Date", flex: 0.5 },
+    { field: "start", headerName: "Start Date", flex: 0.4 },
+    { field: "end", headerName: "End Date", flex: 0.4 },
+    { field: "createdAt", headerName: "Created At", flex: 0.4 },
     {
       field: "status",
       headerName: "Status",
-      flex: 0.5,
+      flex: 0.4,
+
+      renderCell: (params: GridCellParams) => {
+        const end = params.row.end;
+        const now = moment(Date.now()).format("DD.MM.yyyy HH:mm");
+
+        if (now > end) {
+          return (
+            <>
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
+              >
+                Expired
+              </Button>
+            </>
+          );
+        }
+
+        return (
+          <>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
+            >
+              Valid
+            </Button>
+          </>
+        );
+      },
     },
+
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.5,
+      flex: 0.4,
       renderCell: (params: GridCellParams) => (
         <>
-          <IconButton onClick={() => router.push(`/admin/sales/${params.row.id}`)}>
+          <IconButton edge="start" onClick={() => router.push(`/admin/sales/${params.row.id}`)}>
             <ModifyIcon />
           </IconButton>
 
@@ -121,8 +199,9 @@ const Products = () => {
     return {
       id: product._id,
       name: product.sale,
-      start: moment(product.startDate).format("DD.MM.yyyy hh:mm"),
-      end: moment(product.endDate).format("DD.MM.yyyy hh:mm"),
+      start: moment(product.startDate).format("DD.MM.yyyy HH:mm"),
+      end: moment(product.endDate).format("DD.MM.yyyy HH:mm"),
+      createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
       discount: product.discount,
       status: "",
       actions: "",

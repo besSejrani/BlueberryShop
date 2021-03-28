@@ -124,7 +124,7 @@ const Users = () => {
 
       renderCell: (params: GridCellParams) => (
         <>
-          <IconButton onClick={() => router.push(`/admin/users/${params.row.id}`)}>
+          <IconButton edge="start" onClick={() => router.push(`/admin/users/${params.row.id}`)}>
             <ModifyIcon />
           </IconButton>
 

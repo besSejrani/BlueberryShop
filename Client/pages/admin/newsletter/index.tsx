@@ -100,7 +100,7 @@ const Newsletters = () => {
 
       renderCell: (params: GridCellParams) => (
         <>
-          <IconButton onClick={() => handleClickOpen(params)}>
+          <IconButton edge="start" onClick={() => handleClickOpen(params)}>
             <DeleteIcon />
           </IconButton>
         </>

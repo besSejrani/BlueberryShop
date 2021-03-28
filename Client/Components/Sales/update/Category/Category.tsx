@@ -52,8 +52,6 @@ const Category = () => {
   });
 
   const onSubmit = async (form) => {
-    console.log(form);
-
     await router.push("/admin/sales");
   };
 
