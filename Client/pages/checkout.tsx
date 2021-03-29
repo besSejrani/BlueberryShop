@@ -11,18 +11,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Container, Typography } from "@material-ui/core";
 
-// Redux
-import { IAppState } from "../Redux/rootReducer";
-import { useSelector } from "react-redux";
-
 // ========================================================================================================
 
 const Checkout = () => {
   const classes = useStyles();
 
-  const selectCart = useSelector((state: IAppState) => state.product.cart);
-  const selectSubTotal = useSelector((state: IAppState) => state.product.cartSubTotal);
-  const selectTax = useSelector((state: IAppState) => state.product.cartTax);
+  // const selectCart = useSelector((state: IAppState) => state.product.cart);
+  // const selectSubTotal = useSelector((state: IAppState) => state.product.cartSubTotal);
+  // const selectTax = useSelector((state: IAppState) => state.product.cartTax);
 
   const TAX_RATE = 0.2;
 
@@ -67,32 +63,32 @@ const Checkout = () => {
           </TableHead>
 
           <TableBody>
-            {selectCart.map((item) => (
+            {/* {selectCart.map((item) => (
               <TableRow key={item.id} className={classes.row}>
                 <TableCell>{item.title}</TableCell>
                 <TableCell align="left">{item.count}</TableCell>
                 <TableCell align="center">{item.price}</TableCell>
                 <TableCell align="right">{ccyFormat(item.total)}</TableCell>
               </TableRow>
-            ))}
+            ))} */}
 
             <TableRow>
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">{selectSubTotal}</TableCell>
+              {/* <TableCell align="right">{selectSubTotal}</TableCell> */}
             </TableRow>
 
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="center">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-              <TableCell align="right">{selectTax}</TableCell>
+              {/* <TableCell align="right">{selectTax}</TableCell> */}
             </TableRow>
 
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell align="right">
                 <Typography variant="body2" color="secondary">
-                  {renderTotal(selectSubTotal, selectTax)}
+                  {/* {renderTotal(selectSubTotal, selectTax)} */}
                 </Typography>
               </TableCell>
             </TableRow>

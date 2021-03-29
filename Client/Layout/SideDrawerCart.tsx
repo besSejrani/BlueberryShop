@@ -8,11 +8,6 @@ import Image from "next/image";
 import { Drawer, Divider, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-//Redux
-import { IAppState } from "../Redux/rootReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, remove, decrement, clearCart, setSingleProduct } from "../Redux/product/productAction";
-
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
 import { ui } from "../Apollo/state/ui/index";
@@ -24,10 +19,6 @@ type Anchor = "right";
 const SideDrawerCart: React.FC<any> = () => {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-  const selectCart = useSelector((state: IAppState) => state.product.cart);
-  const selectCartTotal = useSelector((state: IAppState) => state.product.cartTotal);
-
   const changeCart = () => {
     ui({ isCartOpen: false });
   };
@@ -36,7 +27,7 @@ const SideDrawerCart: React.FC<any> = () => {
   const list = (anchor: Anchor) => (
     <div className={classes.list}>
       <div className={classes.listProduct}>
-        {selectCart.map((item) => {
+        {/* {selectCart.map((item) => {
           return (
             <div key={item.id} className={classes.product}>
               <Link href={`/products/${item.id}`}>
@@ -45,7 +36,7 @@ const SideDrawerCart: React.FC<any> = () => {
                   height={100}
                   className={classes.media}
                   src={`/${item.imageUrl}`}
-                  onClick={() => dispatch(setSingleProduct(item.id))}
+                  onClick={() => console.log(item.id)}
                   title={item.title}
                 />
               </Link>
@@ -55,7 +46,7 @@ const SideDrawerCart: React.FC<any> = () => {
                 <Button
                   variant="outlined"
                   className={classes.actionButton}
-                  onClick={() => dispatch(decrement(item.id))}
+                  onClick={() => console.log(item.id)}
                 >
                   -
                 </Button>
@@ -65,7 +56,7 @@ const SideDrawerCart: React.FC<any> = () => {
                 <Button
                   variant="outlined"
                   className={classes.actionButton}
-                  onClick={() => dispatch(increment(item.id))}
+                  onClick={() => console.log(item.id)}
                 >
                   +
                 </Button>
@@ -75,13 +66,13 @@ const SideDrawerCart: React.FC<any> = () => {
               </div>
             </div>
           );
-        })}
+        })} */}
       </div>
       <div>
         <div className={classes.amount}>
           <Typography variant="body1">Cart Total </Typography>
           <Typography variant="subtitle2" color="secondary">
-            {selectCartTotal}.-
+            {0}.-
           </Typography>
         </div>
 
@@ -97,7 +88,7 @@ const SideDrawerCart: React.FC<any> = () => {
           size="large"
           color="primary"
           className={classes.clearCart}
-          onClick={() => dispatch(clearCart())}
+          onClick={() => console.log("clear")}
         >
           Clear Cart
         </Button>

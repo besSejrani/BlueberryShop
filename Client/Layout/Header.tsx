@@ -26,10 +26,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 
-// Redux
-import { IAppState } from "../Redux/rootReducer";
-import { useSelector } from "react-redux";
-
 // Apollo State
 import { ui } from "../Apollo/state/ui/index";
 
@@ -56,7 +52,7 @@ const HideOnScroll = (props: Props) => {
 
 const Header = () => {
   const classes = useStyles();
-  const selectProducts = useSelector((state: IAppState) => state.product.cartItems);
+  const selectProducts = [];
 
   const changeAdmin = () => {
     ui({ ...ui(), isAdmin: true });
@@ -125,7 +121,11 @@ const Header = () => {
                 </IconButton>
 
                 <IconButton color="inherit" onClick={changeCart}>
-                  <StyledBadge badgeContent={selectProducts} color="secondary" overlap="circle">
+                  <StyledBadge
+                    // badgeContent={selectProducts}
+                    color="secondary"
+                    overlap="circle"
+                  >
                     <CartIcon className="nav-icon" />
                   </StyledBadge>
                 </IconButton>

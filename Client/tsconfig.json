@@ -22,6 +22,14 @@
       "@Hook/*": ["Hook/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/blog/index.jsx",
+    "pages/blog/[post].jsx",
+    "Blog/mdx.js",
+    "Blog/mdxComponents.jsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -4,10 +4,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Redux
-import { useDispatch } from "react-redux";
-import { addToCart, setSingleProduct } from "../../Redux/product/productAction";
-
 // Material-UI
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, makeStyles, Typography } from "@material-ui/core";
 import { Skeleton, Rating } from "@material-ui/lab";
@@ -37,8 +33,6 @@ type IProduct = {
 const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-
   return (
     <Card className={classes.root}>
       {loading ? (
@@ -47,7 +41,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
             <Image
               width={300}
               height={250}
-              onClick={() => dispatch(setSingleProduct(product._id))}
+              onClick={() => console.log(product._id)}
               src={product.productImages[0] || `/static/images/unknownProduct.png`}
               title={product.name}
             />
@@ -97,7 +91,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
         {loading ? (
           <Button
             size="small"
-            onClick={() => dispatch(addToCart(product._id))}
+            onClick={() => console.log(product._id)}
             title="Add to cart"
             color="secondary"
             variant="outlined"
