@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/register": "pages/register.js",
-  "/validation/email": "pages/validation/email.js",
-  "/": "pages/index.js",
-  "/validation/email/confirm/[id]": "pages/validation/email/confirm/[id].js"
+  "/blog/[post]": "pages/blog/[post].js",
+  "/blog": "pages/blog.js",
+  "/products": "pages/products.js"
 }

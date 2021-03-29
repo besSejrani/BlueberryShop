@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+// import rehypeMapbox from "@mapbox/rehype-prism"
+// import rehypePrism from 'rehype-prism'
+import rehypeHighlight from 'rehype-highlight'
+// import mdxPrism from 'mdx-prism'
 
 import renderToString from "next-mdx-remote/render-to-string";
 import readingTime from "reading-time";
@@ -22,6 +26,15 @@ export async function getFileByPost({ post }) {
 
   const mdxSource = await renderToString(content, {
     components: MdxComponents,
+    mdxOptions: {
+      
+      remarkPlugins: [
+          require('remark-autolink-headings'),
+          require('remark-slug'),
+          require('remark-code-titles'),
+      ],
+      rehypePlugins: [rehypeHighlight]
+  }
   });
 
   return {

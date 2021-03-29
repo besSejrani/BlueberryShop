@@ -5,6 +5,7 @@ import Layout from "../Layout/index";
 
 //Styles
 import "../App/index.css";
+import "../App/highlight.css"
 
 // Date Picker
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";

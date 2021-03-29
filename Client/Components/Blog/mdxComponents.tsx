@@ -1,6 +1,9 @@
+// Next
+import Image from "next/image";
+
 // Components MDX
 import { Typography, Card, Table, TableHead, TableRow, TableCell, Box } from "@material-ui/core";
-import Image from "next/image";
+import {Theme, makeStyles, createStyles} from "@material-ui/core/styles"
 
 // ========================================================================================================
 
@@ -28,11 +31,39 @@ const Components = {
       </Box>
     );
   },
+  hero: (props) => {
+    return (
+      <Box style={{ textAlign: "center", margin: "30px 0px" }}>
+        <Image src={props.src} height={500} width={"100%"} alt={props.alt} />
+      </Box>
+    );
+  },
   card: ({ children }) => (
     <Card style={{ backgroundColor: "white", margin: "50px 0px", padding: "50px", borderRadius: "20px" }}>
       {children}
     </Card>
   ),
+  pre:({children}) => {
+    const classes = useStyles()
+
+    return (
+      <pre>
+          {children}
+    </pre>
+      )
+    }
 };
 
 export default Components;
+
+// ========================================================================================================
+
+const useStyles = makeStyles((theme:Theme)=> createStyles({
+  pre:{
+    borderRadius:" 0px 0px 10px 10px",
+    // backgroundColor: "#2196f3",
+    padding:"30px 10px",
+    overflowX:"auto",
+    tabSize:4,
+  }
+}))

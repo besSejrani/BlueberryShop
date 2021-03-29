@@ -9,6 +9,7 @@ import { Container } from "@material-ui/core";
 // ========================================================================================================
 
 export default function Blog({ mdxSource, frontMatter }) {
+
   const content = hydrate(mdxSource, {
     components: MdxComponents,
   });
