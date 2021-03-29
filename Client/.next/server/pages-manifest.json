@@ -2,13 +2,8 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/blog/[post]": "pages/blog/[post].js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/products": "pages/products.js",
-  "/products/[id]": "pages/products/[id].js",
-  "/admin/newsletter": "pages/admin/newsletter.js",
-  "/admin/users": "pages/admin/users.js",
-  "/admin/orders": "pages/admin/orders.js",
-  "/checkout": "pages/checkout.js",
-  "/admin/dashboards": "pages/admin/dashboards.js"
+  "/register": "pages/register.js",
+  "/validation/email": "pages/validation/email.js",
+  "/": "pages/index.js",
+  "/validation/email/confirm/[id]": "pages/validation/email/confirm/[id].js"
 }
