@@ -1,0 +1,23 @@
+mutation CreateArticle(
+  $author: String!
+  $title: String!
+  $slug: String!
+  $publishedAt: DateTime!
+  $summary: String!
+  $status: Status!
+  $category: String!
+  $content: String!
+) {
+  createArticle(
+    input: {
+      author: $author
+      title: $title
+      slug: $slug
+      publishedAt: $publishedAt
+      summary: $summary
+      status: $status
+      category: $category
+      content: $content
+    }
+  )
+}

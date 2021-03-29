@@ -7,10 +7,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 // Material-UI
-import { Container, Box, Typography, Card } from "@material-ui/core";
-
-// Components
-import InputForm from "@Components/InputForm/InputForm";
+import { Container, Box, Typography, Card, TextField } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 
 // Moment
 import moment from "moment";
@@ -32,7 +30,7 @@ const Blog = ({ posts }) => {
   const [search, setSearch] = useState("");
 
   // React Hook Form
-  const { register, errors, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
@@ -50,17 +48,17 @@ const Blog = ({ posts }) => {
       <Card style={{ padding: 20, margin: "20px 0px", borderRadius: 15 }}>
         <Box>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            <InputForm
+            <TextField
               type="text"
               name="blog"
               label="Search Articles"
+              variant="outlined"
               id="blog-search"
               value={search}
-              onChange={setSearch}
+              onChange={(text) => setSearch(text.target.value)}
               inputRef={register({
                 required: "This field is required",
               })}
-              errors={errors}
             />
           </form>
         </Box>
@@ -80,6 +78,10 @@ const Blog = ({ posts }) => {
           );
         })}
       </Card>
+
+      <Box className={classes.pagination}>
+        <Pagination count={10} color="primary" />
+      </Box>
     </Container>
   );
 };
@@ -98,6 +100,11 @@ const useStyles = makeStyles((theme: Theme) =>
     form: {
       display: "flex",
       flexDirection: "column",
+      margin: "50px 0px",
+    },
+    pagination: {
+      display: "flex",
+      justifyContent: "center",
       margin: "50px 0px",
     },
   })

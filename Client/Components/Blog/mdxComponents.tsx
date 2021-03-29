@@ -1,9 +1,13 @@
 // Next
 import Image from "next/image";
 
-// Components MDX
+// Material-UI
 import { Typography, Card, Table, TableHead, TableRow, TableCell, Box } from "@material-ui/core";
-import {Theme, makeStyles, createStyles} from "@material-ui/core/styles"
+import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
+import { Rating } from "@material-ui/lab";
+
+// Components
+import Newsletter from "@Components/Newsletter/Newsletter";
 
 // ========================================================================================================
 
@@ -17,8 +21,8 @@ const Components = {
   h5: ({ children }) => <Typography variant="h5">{children}</Typography>,
   h6: ({ children }) => <Typography variant="h6">{children}</Typography>,
   p: ({ children }) => <Typography variant="body1">{children}</Typography>,
-  hr: () => <hr style={{ margin: "30px 0px" }} />,
-  br: () => <Box style={{ height: "20px" }} />,
+  hr: () => <hr style={{ margin: "20px 0px" }} />,
+  br: () => <Box style={{ height: "25px" }} />,
   table: ({ children }) => <Table>{children}</Table>,
   thead: ({ children }) => <TableHead>{children}</TableHead>,
   tr: ({ children }) => <TableRow>{children}</TableRow>,
@@ -43,27 +47,48 @@ const Components = {
       {children}
     </Card>
   ),
-  pre:({children}) => {
-    const classes = useStyles()
+  pre: ({ children }) => {
+    const classes = useStyles();
 
     return (
-      <pre>
-          {children}
-    </pre>
-      )
-    }
+      <Box>
+        <pre className={classes.pre}>{children}</pre>
+        <br />
+      </Box>
+    );
+  },
+  newsletter: () => {
+    return <Newsletter />;
+  },
+
+  rating: () => {
+    return (
+      <Rating
+        // value={product.rating}
+        value={5}
+        readOnly
+        size="medium"
+        name="customized-color"
+        defaultValue={4}
+        precision={0.5}
+      />
+    );
+  },
 };
 
 export default Components;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme:Theme)=> createStyles({
-  pre:{
-    borderRadius:" 0px 0px 10px 10px",
-    // backgroundColor: "#2196f3",
-    padding:"30px 10px",
-    overflowX:"auto",
-    tabSize:4,
-  }
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    pre: {
+      "& code": {
+        padding: "20px 10px",
+        tabSize: 4,
+        overflowX: "auto",
+        borderRadius: "0px 0px 10px 10px",
+      },
+    },
+  })
+);

@@ -9,12 +9,11 @@ import { Container } from "@material-ui/core";
 // ========================================================================================================
 
 export default function Blog({ mdxSource, frontMatter }) {
-
   const content = hydrate(mdxSource, {
     components: MdxComponents,
   });
 
-  return <Container frontMatter={frontMatter}>{content}</Container>;
+  return <Container>{content}</Container>;
 }
 
 export const getStaticProps = async ({ params }) => {

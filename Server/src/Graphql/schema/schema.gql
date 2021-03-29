@@ -3,6 +3,19 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Article {
+  _id: ObjectId!
+  author: String!
+  category: String!
+  content: String!
+  createdAt: DateTime!
+  publishedAt: DateTime!
+  slug: String!
+  status: String!
+  summary: String!
+  title: String!
+}
+
 type Category {
   _id: ObjectId!
   name: String!
@@ -16,6 +29,17 @@ input ChangedPasswordInput {
 input ChangedProfileInput {
   email: String!
   username: String!
+}
+
+input CreateArticleInput {
+  author: String!
+  category: String!
+  content: String!
+  publishedAt: DateTime!
+  slug: String!
+  status: Status!
+  summary: String!
+  title: String!
 }
 
 input CreateProductInput {
@@ -53,6 +77,7 @@ type Mutation {
   addToNewsletter(email: String!): Boolean!
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
+  createArticle(input: CreateArticleInput!): Boolean!
   createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product
@@ -110,6 +135,7 @@ type ProductReviewPagination {
 }
 
 type Query {
+  getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
   getCurrentUser: User

@@ -1,7 +1,10 @@
 import React from "react";
 
+//Next
+import Link from "next/link";
+
 // Material-UI
-import { Box, Breadcrumbs, Link, Button, Typography, Paper } from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 
@@ -46,16 +49,18 @@ const Articles = () => {
             </Typography>
 
             <Breadcrumbs aria-label="breadcrumb">
-              <Link href="/">Administration</Link>
-              <Link color="inherit" href="/components/breadcrumbs/" aria-current="page">
+              <MaterialLink href="/">Administration</MaterialLink>
+              <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
                 Articles
-              </Link>
+              </MaterialLink>
             </Breadcrumbs>
           </Box>
 
-          <Button variant="contained" color="secondary">
-            Create Article
-          </Button>
+          <Link href="articles/create-article" passHref>
+            <Button variant="contained" color="secondary">
+              Create Article
+            </Button>
+          </Link>
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>

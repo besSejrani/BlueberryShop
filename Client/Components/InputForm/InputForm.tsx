@@ -13,6 +13,7 @@ type inputType = {
   label: string;
   multiline?: boolean;
   rowsMax?: string;
+  variant?: "standard" | "filled" | "outlined";
   inputRef: any;
   value: string | number;
   onChange: Function;
@@ -26,6 +27,7 @@ const inputForm: React.FC<inputType> = ({
   label,
   multiline,
   rowsMax,
+  variant,
   inputRef,
   value,
   onChange,
@@ -40,6 +42,7 @@ const inputForm: React.FC<inputType> = ({
         id={id}
         label={label}
         multiline={multiline}
+        variant={variant}
         rowsMax={rowsMax}
         inputRef={inputRef}
         value={value}

@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/blog/index.jsx",
-    "pages/blog/[post].jsx",
+    "pages/blog/[post].tsx",
     "Blog/mdx.js",
     "Blog/mdxComponents.jsx"
   ],

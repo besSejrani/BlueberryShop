@@ -35,6 +35,11 @@ module.exports = {
   },
 
   images: {
-    domains: ["blueberryshop.s3.eu-west-3.amazonaws.com", "bessejrani.github.io", "mediatemple.net"],
+    domains: [
+      "blueberryshop.s3.eu-west-3.amazonaws.com",
+      "bessejrani.github.io",
+      "mediatemple.net",
+      "images.unsplash.com/",
+    ],
   },
 };
