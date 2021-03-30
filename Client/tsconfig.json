@@ -28,7 +28,7 @@
     "**/*.tsx",
     "pages/blog/index.jsx",
     "pages/blog/[post].tsx",
-    "Blog/mdx.js",
+    "Blog/mdx.ts",
     "Blog/mdxComponents.jsx"
   ],
   "exclude": ["node_modules"]

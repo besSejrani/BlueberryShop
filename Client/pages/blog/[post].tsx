@@ -9,6 +9,8 @@ import { Container } from "@material-ui/core";
 // ========================================================================================================
 
 export default function Blog({ mdxSource, frontMatter }) {
+  console.log(mdxSource, frontMatter);
+
   const content = hydrate(mdxSource, {
     components: MdxComponents,
   });
@@ -17,6 +19,8 @@ export default function Blog({ mdxSource, frontMatter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
+  console.log("paraaaaaaaaaaams", params);
+
   const post = await getFileByPost(params);
 
   return {
@@ -30,7 +34,7 @@ export const getStaticPaths = async () => {
   return {
     paths: posts.map((post) => ({
       params: {
-        post: post.replace(/\.mdx/, ""),
+        post: post,
       },
     })),
     fallback: false,

@@ -46,7 +46,7 @@ const link = createUploadLink({
   credentials: "same-origin",
 });
 
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
   link: authMiddleware.concat(link),
   cache,
   ssrMode: true,

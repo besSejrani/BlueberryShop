@@ -6,7 +6,14 @@ import rehypeHighlight from "rehype-highlight";
 import renderToString from "next-mdx-remote/render-to-string";
 import readingTime from "reading-time";
 
+// Components
 import MdxComponents from "../Components/Blog/mdxComponents";
+
+// Apollo
+import { apolloClient } from "@Apollo/ssr";
+
+// GraphQL
+import { GetArticlesDocument } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -41,16 +48,49 @@ export async function getFileByPost({ post }) {
 }
 
 export async function getAllFilesFrontMatter() {
-  const files = fs.readdirSync(path.join(process.cwd(), "Blog", "Content"));
+  const data = await apolloClient.query({
+    query: GetArticlesDocument,
+  });
 
-  return files.reduce((allPosts, postSlug) => {
-    const source = fs.readFileSync(path.join(process.cwd(), "Blog", "Content", postSlug), "utf8");
-    const { data } = matter(source);
+  const gql = await data?.data.getArticles;
+  console.log(
+    "grahql",
+    gql.map((value) => value.slug)
+  );
+
+  const files = fs.readdirSync(path.join(process.cwd(), "Blog", "Content"));
+  // console.log(
+  //   "filessssssssssss",
+  //   files.map((value) => value.content)
+  // );
+
+  // const bla = files.map((value) => value.content);
+
+  // console.log("filesssssssss", files);
+
+  return gql.reduce((allPosts, postSlug) => {
+    // console.log("allposts", allPosts);
+    // console.log("postslug", postSlug);
+
+    // const source = fs.readFileSync(path.join(process.cwd(), "Blog", "Content", postSlug), "utf8");
+    // const files = JSON.stringify(allPosts);
+
+    // console.log("alllllllllPosts", allPosts);
+    // console.log("postSluuugss", postSlug);
+
+    // console.log(
+    //   "exampleeeeeeeeeeeeeeeee",
+    //   fs.readFileSync(path.join(process.cwd(), "Blog", "Content", "alex.mdx"), "utf8")
+    // );
+
+    // const { data } = matter(`${allPosts}`);
+
+    // console.log("data frontmatter", data);
 
     return [
       {
-        ...data,
-        slug: postSlug.replace(".mdx", ""),
+        ...postSlug,
+        slug: postSlug.slug,
       },
       ...allPosts,
     ];
