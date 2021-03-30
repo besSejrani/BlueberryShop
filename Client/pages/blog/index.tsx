@@ -26,8 +26,6 @@ type FormValues = {
 const Blog = ({ posts }) => {
   const classes = useStyles();
 
-  // console.log(posts);
-
   // State
   const [search, setSearch] = useState("");
 

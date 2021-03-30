@@ -135,6 +135,7 @@ type ProductReviewPagination {
 }
 
 type Query {
+  getArticle(productSlug: String!): Article
   getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category

@@ -1,5 +1,4 @@
-import fs from "fs";
-import path from "path";
+// Mdx
 import matter from "gray-matter";
 import rehypeHighlight from "rehype-highlight";
 
@@ -13,20 +12,34 @@ import MdxComponents from "../Components/Blog/mdxComponents";
 import { apolloClient } from "@Apollo/ssr";
 
 // GraphQL
-import { GetArticlesDocument } from "@Graphql/index";
+import { GetArticlesDocument, GetArticleDocument } from "@Graphql/index";
 
 // ========================================================================================================
 
 export async function getFiles() {
-  const folderPath = path.join(process.cwd(), "Blog", "Content");
 
-  return fs.readdirSync(folderPath);
+  const data = await apolloClient.query({
+    query: GetArticlesDocument,
+  });
+
+  const gql = await data?.data.getArticles;
+
+  return gql.map(value => value.slug)
 }
 
 export async function getFileByPost({ post }) {
-  const source = fs.readFileSync(path.join(process.cwd(), "Blog", "Content", `${post}.mdx`), "utf8");
 
-  const { data, content } = matter(source);
+
+  const result = apolloClient.query({
+    query: GetArticleDocument,
+    variables:{
+      productSlug: post
+    }
+  })
+
+  const article = await (await result).data.getArticle
+
+  const { data, content } = matter(article.content);
 
   const mdxSource = await renderToString(content, {
     components: MdxComponents,
@@ -53,39 +66,8 @@ export async function getAllFilesFrontMatter() {
   });
 
   const gql = await data?.data.getArticles;
-  console.log(
-    "grahql",
-    gql.map((value) => value.slug)
-  );
-
-  const files = fs.readdirSync(path.join(process.cwd(), "Blog", "Content"));
-  // console.log(
-  //   "filessssssssssss",
-  //   files.map((value) => value.content)
-  // );
-
-  // const bla = files.map((value) => value.content);
-
-  // console.log("filesssssssss", files);
 
   return gql.reduce((allPosts, postSlug) => {
-    // console.log("allposts", allPosts);
-    // console.log("postslug", postSlug);
-
-    // const source = fs.readFileSync(path.join(process.cwd(), "Blog", "Content", postSlug), "utf8");
-    // const files = JSON.stringify(allPosts);
-
-    // console.log("alllllllllPosts", allPosts);
-    // console.log("postSluuugss", postSlug);
-
-    // console.log(
-    //   "exampleeeeeeeeeeeeeeeee",
-    //   fs.readFileSync(path.join(process.cwd(), "Blog", "Content", "alex.mdx"), "utf8")
-    // );
-
-    // const { data } = matter(`${allPosts}`);
-
-    // console.log("data frontmatter", data);
 
     return [
       {

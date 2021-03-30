@@ -1,17 +1,16 @@
-import { getFileByPost, getFiles } from "../../Blog/mdx";
-
 import hydrate from "next-mdx-remote/hydrate";
 import MdxComponents from "../../Components/Blog/mdxComponents";
+
+import {getFileByPost, getFiles} from "../../Blog/mdx"
 
 // Material-UI
 import { Container } from "@material-ui/core";
 
 // ========================================================================================================
 
-export default function Blog({ mdxSource, frontMatter }) {
-  console.log(mdxSource, frontMatter);
+export default function Blog(props) {
 
-  const content = hydrate(mdxSource, {
+  const content = hydrate(props.mdxSource, {
     components: MdxComponents,
   });
 
@@ -19,8 +18,6 @@ export default function Blog({ mdxSource, frontMatter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  console.log("paraaaaaaaaaaams", params);
-
   const post = await getFileByPost(params);
 
   return {

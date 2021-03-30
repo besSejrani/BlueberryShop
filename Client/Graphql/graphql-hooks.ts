@@ -268,6 +268,7 @@ export type ProductReviewPagination = {
 
 export type Query = {
   __typename?: 'Query';
+  getArticle?: Maybe<Article>;
   getArticles?: Maybe<Array<Article>>;
   getCategories?: Maybe<Array<Category>>;
   getCategory?: Maybe<Category>;
@@ -281,6 +282,11 @@ export type Query = {
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
+};
+
+
+export type QueryGetArticleArgs = {
+  productSlug: Scalars['String'];
 };
 
 
@@ -424,6 +430,19 @@ export type CreateArticleMutationVariables = Exact<{
 export type CreateArticleMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createArticle'>
+);
+
+export type GetArticleQueryVariables = Exact<{
+  productSlug: Scalars['String'];
+}>;
+
+
+export type GetArticleQuery = (
+  { __typename?: 'Query' }
+  & { getArticle?: Maybe<(
+    { __typename?: 'Article' }
+    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'category' | 'content' | 'status' | 'createdAt'>
+  )> }
 );
 
 export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -954,6 +973,50 @@ export function useCreateArticleMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateArticleMutationHookResult = ReturnType<typeof useCreateArticleMutation>;
 export type CreateArticleMutationResult = Apollo.MutationResult<CreateArticleMutation>;
 export type CreateArticleMutationOptions = Apollo.BaseMutationOptions<CreateArticleMutation, CreateArticleMutationVariables>;
+export const GetArticleDocument = gql`
+    query GetArticle($productSlug: String!) {
+  getArticle(productSlug: $productSlug) {
+    _id
+    author
+    title
+    slug
+    summary
+    publishedAt
+    category
+    content
+    status
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetArticleQuery__
+ *
+ * To run a query within a React component, call `useGetArticleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticleQuery({
+ *   variables: {
+ *      productSlug: // value for 'productSlug'
+ *   },
+ * });
+ */
+export function useGetArticleQuery(baseOptions: Apollo.QueryHookOptions<GetArticleQuery, GetArticleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticleQuery, GetArticleQueryVariables>(GetArticleDocument, options);
+      }
+export function useGetArticleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticleQuery, GetArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticleQuery, GetArticleQueryVariables>(GetArticleDocument, options);
+        }
+export type GetArticleQueryHookResult = ReturnType<typeof useGetArticleQuery>;
+export type GetArticleLazyQueryHookResult = ReturnType<typeof useGetArticleLazyQuery>;
+export type GetArticleQueryResult = Apollo.QueryResult<GetArticleQuery, GetArticleQueryVariables>;
 export const GetArticlesDocument = gql`
     query GetArticles {
   getArticles {

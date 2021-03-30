@@ -1,0 +1,14 @@
+query GetArticle($productSlug: String!){
+  getArticle(productSlug:$productSlug){
+    _id
+    author
+    title
+    slug
+    summary
+    publishedAt
+    category
+    content
+    status
+    createdAt
+  }
+}
