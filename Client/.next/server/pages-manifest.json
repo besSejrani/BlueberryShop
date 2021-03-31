@@ -2,8 +2,8 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/blog": "pages/blog.js",
-  "/blog/[post]": "pages/blog/[post].js",
   "/admin/articles/create-article": "pages/admin/articles/create-article.js",
-  "/admin/articles": "pages/admin/articles.js"
+  "/admin/articles": "pages/admin/articles.js",
+  "/blog": "pages/blog.js",
+  "/blog/[post]": "pages/blog/[post].js"
 }

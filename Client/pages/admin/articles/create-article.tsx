@@ -36,7 +36,7 @@ import withApollo from "@Apollo/ssr";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // GraphQL
-import { useCreateArticleMutation } from "@Graphql/index";
+import { useCreateArticleMutation, GetArticlesQuery, GetArticlesDocument } from "@Graphql/index";
 
 // State Management
 import { useReactiveVar } from "@apollo/client";
@@ -95,7 +95,23 @@ const CreateProductAdmin = () => {
         status: form.articleStatus,
         category: "bla",
       },
+      update(cache, { data }) {
+        const newArticle = data?.createArticle;
+
+        const { getArticles }: GetArticlesQuery = cache.readQuery({
+          query: GetArticlesDocument,
+        });
+
+        cache.writeQuery({
+          query: GetArticlesDocument,
+          data: {
+            getArticles: [...getArticles, newArticle],
+          },
+        });
+      },
     });
+
+    await router.push("/admin/articles");
   };
 
   return (

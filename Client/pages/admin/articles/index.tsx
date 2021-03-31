@@ -26,7 +26,7 @@ import moment from "moment";
 import { ui } from "@Apollo/state/ui/index";
 
 // GraphQl
-import { useGetArticlesQuery, useDeleteArticleMutation } from "@Graphql/index";
+import { useGetArticlesQuery, useDeleteArticleMutation, GetArticlesQuery, GetArticlesDocument } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -64,7 +64,23 @@ const Articles = () => {
   const deleteArticle = async (articleId) => {
     console.log(articleId);
 
-    await deleteArticleMutation({ variables: { articleId } });
+    await deleteArticleMutation({
+      variables: { articleId },
+      update(cache, { data }) {
+        const { getArticles }: GetArticlesQuery = cache.readQuery({
+          query: GetArticlesDocument,
+        });
+
+        const newArticles = getArticles.filter((product) => product._id !== data.deleteArticle);
+
+        cache.writeQuery({
+          query: GetArticlesDocument,
+          data: {
+            getArticles: { newArticles },
+          },
+        });
+      },
+    });
 
     await handleClose();
   };
