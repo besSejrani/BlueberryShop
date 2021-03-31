@@ -2,42 +2,189 @@ import React from "react";
 
 //Next
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
+import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 
+//Icons
+import DeleteIcon from "@material-ui/icons/Delete";
+import ModifyIcon from "@material-ui/icons/Create";
+
 // Components
 import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
+
+// Moment
+import moment from "moment";
+
+// Apollo
+import { ui } from "@Apollo/state/ui/index";
+
+// GraphQl
+import { useGetArticlesQuery } from "@Graphql/index";
+
+// SSR
+import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
 const Articles = () => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const { data, loading } = useGetArticlesQuery();
+
+  // // Error Handling
+  // if (error) {
+  //   error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  // }
+
+  // Events
+  const handleClickOpen = (params) => {
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.name,
+        deleteResource: () => deleteSale(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
+  };
+
+  const handleClose = () => {
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
+  };
+
+  const deleteSale = async (productId) => {
+    console.log(productId);
+
+    await handleClose();
+  };
+
+  if (loading) return <div>loading...</div>;
 
   const columns = [
-    { field: "number", headerName: "Number", flex: 1 },
-    { field: "customer", headerName: "Customer", flex: 0.5 },
-    { field: "method", headerName: "Method", flex: 0.5 },
+    { field: "title", headerName: "Title", flex: 1 },
     {
-      field: "total",
-      headerName: "Total",
-      flex: 0.5,
+      field: "name",
+      headerName: "Link",
+      flex: 0.4,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <Link href={`/blog/${params.row.link}`} passHref>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
+            >
+              Link
+            </Button>
+          </Link>
+        );
+      },
+    },
+
+    {
+      field: "author",
+      headerName: "Author",
+      flex: 0.4,
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      flex: 0.4,
+    },
+    {
+      field: "publishedAt",
+      headerName: "Published At",
+      flex: 0.4,
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      flex: 0.4,
     },
     {
       field: "status",
       headerName: "Status",
-      flex: 0.5,
+      flex: 0.4,
+      renderCell: (params: GridCellParams) => {
+        const status = params.row.status;
+
+        switch (status) {
+          case "DRAFT":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
+              >
+                {params.value}
+              </Button>
+            );
+          case "PUBLISHED":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "green", borderColor: "green" }}
+              >
+                {params.value}
+              </Button>
+            );
+          case "ARCHIVED":
+            return (
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
+              >
+                {params.value}
+              </Button>
+            );
+        }
+      },
     },
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.5,
+      flex: 0.4,
+      renderCell: (params: GridCellParams) => (
+        <>
+          <IconButton edge="start" onClick={() => router.push(`/admin/articles/${params.row.id}`)}>
+            <ModifyIcon />
+          </IconButton>
+
+          <IconButton onClick={() => handleClickOpen(params)}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+      ),
     },
   ];
 
-  const rows = [];
+  const rows = data?.getArticles.map((product) => {
+    return {
+      id: product._id,
+      title: product.title,
+      name: product.title,
+      link: product.slug,
+      author: product.author,
+      category: product.category,
+      publishedAt: moment(product.publishedAt).format("DD.MM.yyyy HH:mm"),
+      createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
+      status: product.status,
+      actions: "",
+    };
+  });
+
+  if (loading) return <div>loading...</div>;
 
   return (
     <Box className={classes.root}>
@@ -87,7 +234,7 @@ const Articles = () => {
   );
 };
 
-export default Articles;
+export default withApollo({ ssr: true })(Articles);
 
 // ========================================================================================================
 

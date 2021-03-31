@@ -29,10 +29,18 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
+import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
 
 // SSR
 import withApollo from "@Apollo/ssr";
 import { DateTimePicker } from "@material-ui/pickers";
+
+// GraphQL
+import { useCreateArticleMutation } from "@Graphql/index";
+
+// State Management
+import { useReactiveVar } from "@apollo/client";
+import { markdown } from "@Apollo/state/markdown/index";
 
 // ========================================================================================================
 
@@ -41,7 +49,7 @@ type FormValues = {
   productPrice: number;
   productDescription: string;
   articleSummary: number;
-  productCategory: string;
+  articleCategory: string;
   productPromotion: boolean;
 };
 
@@ -49,14 +57,19 @@ const CreateProductAdmin = () => {
   const classes = useStyles();
   const router = useRouter();
 
+  // Apollo State
+  const content = useReactiveVar(markdown) as string;
+
+  // GraphQL
+  const [createArticle] = useCreateArticleMutation();
+
   // State
   const [articleTitle, setArticleTitle] = useState("");
   const [articleSummary, setArticleSummary] = useState<string>();
-  const [articleContent, setArticleContent] = useState<string>();
-  const [publishedAt, setPublishedAt] = useState(null);
+  const [articlePublishedAt, setArticlePublishedAt] = useState(null);
   const [articleSlug, setArticleSlug] = useState<string>();
   const [articleAuthor, setArticleAuthor] = useState<string>();
-  const [productCategory, setProductCategory] = useState<string>("");
+  const [articleCategory, setArticleCategory] = useState<string>("");
 
   // Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
@@ -65,40 +78,38 @@ const CreateProductAdmin = () => {
 
   // Events
   const handleChangeCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setProductCategory(event.target.value as string);
+    setArticleCategory(event.target.value as string);
   };
 
   const onSubmit = async (form) => {
     console.log(form);
+
+    await createArticle({
+      variables: {
+        title: form.articleTitle,
+        author: form.articleAuthor,
+        summary: form.articleSummary,
+        publishedAt: articlePublishedAt,
+        slug: form.articleSlug,
+        content,
+        status: form.articleStatus,
+        category: "bla",
+      },
+    });
   };
 
   return (
     <Box className={classes.root}>
-      <Card elevation={1} className={classes.card}>
-        <Box className={classes.preview}>
+      <MarkdownPreview />
+      <Card className={classes.cardCreation}>
+        <Box className={classes.content}>
           <Box className={classes.backButton} onClick={() => router.back()}>
             <IconButton edge="start">
               <ArrowBackIcon color="primary" />
             </IconButton>
             <Typography variant="body1">Go Back</Typography>
           </Box>
-          <InputForm
-            type="text"
-            name="articleContent"
-            id="articleContent"
-            label="Content"
-            multiline
-            variant="outlined"
-            inputRef={register({
-              required: "This field is required",
-            })}
-            value={articleContent}
-            onChange={setArticleContent}
-            errors={errors}
-          />
-        </Box>
 
-        <Box className={classes.content}>
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
               Create Article
@@ -138,16 +149,16 @@ const CreateProductAdmin = () => {
 
             <Controller
               control={control}
-              name="publishedAt"
+              name="articlePublishedAt"
               as={
                 <>
                   <DateTimePicker
                     clearable
-                    value={publishedAt}
-                    label="Publsihed At"
+                    value={articlePublishedAt}
+                    label="Published At"
                     format="DD.MM.yyyy HH:mm"
                     disablePast
-                    onChange={setPublishedAt}
+                    onChange={setArticlePublishedAt}
                   />
                 </>
               }
@@ -184,16 +195,16 @@ const CreateProductAdmin = () => {
             />
 
             <FormControl style={{ margin: "5px 0px 20px 0px" }}>
-              <InputLabel id="productCategoryLabel">Category</InputLabel>
+              <InputLabel id="articleCategoryLabel">Category</InputLabel>
 
               <Controller
                 control={control}
-                name="productCategory"
+                name="articleCategory"
                 as={
                   <Select
-                    labelId="productCategoryLabel"
-                    id="productCategory"
-                    value={productCategory}
+                    labelId="articleCategoryLabel"
+                    id="articleCategory"
+                    value={articleCategory}
                     onChange={handleChangeCategory}
                     className={classes.input}
                   >
@@ -209,19 +220,19 @@ const CreateProductAdmin = () => {
               <FormLabel component="legend">Status</FormLabel>
               <RadioGroup row aria-label="position" name="position" defaultValue="top">
                 <FormControlLabel
-                  control={<Radio color="secondary" value="DRAFT" name="productStatus" inputRef={register()} />}
+                  control={<Radio color="secondary" value="DRAFT" name="articleStatus" inputRef={register()} />}
                   label="Draft"
                   labelPlacement="end"
                 />
 
                 <FormControlLabel
-                  control={<Radio color="secondary" value="PUBLISHED" name="productStatus" inputRef={register()} />}
+                  control={<Radio color="secondary" value="PUBLISHED" name="articleStatus" inputRef={register()} />}
                   label="Published"
                   labelPlacement="end"
                 />
 
                 <FormControlLabel
-                  control={<Radio color="secondary" value="ARCHIVED" name="productStatus" inputRef={register()} />}
+                  control={<Radio color="secondary" value="ARCHIVED" name="articleStatus" inputRef={register()} />}
                   label="Archived"
                   labelPlacement="end"
                 />
@@ -248,18 +259,8 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100vh",
       display: "flex",
-      flexDirection: "column",
       justifyContent: "space-evenly",
       alignItems: "center",
-    },
-    card: {
-      position: "relative",
-      display: "flex",
-      justifyContent: "space-between",
-      width: "1100px",
-      height: 600,
-      borderRadius: "10px",
-      overflowY: "scroll",
     },
 
     backButton: {
@@ -270,20 +271,32 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "0px 0px 15px 0px",
     },
 
-    preview: {
+    card: {
+      position: "relative",
       display: "flex",
-      justifyContent: "start",
-      flexDirection: "column",
-      width: "50%",
-      padding: "20px 30px",
+      justifyContent: "space-between",
+      width: "60%",
+      height: 660,
+      borderRadius: "10px",
+      overflowY: "scroll",
+      margin: "0px 20px",
+    },
+
+    cardCreation: {
+      position: "relative",
+      display: "flex",
+      justifyContent: "space-between",
+      width: "40%",
+      height: 660,
+      borderRadius: "10px",
+      margin: "0px 20px",
     },
 
     content: {
       position: "sticky",
       flexDirection: "column",
       padding: "20px 20px",
-      width: "50%",
-      height: "100%",
+      width: "100%",
     },
 
     form: {

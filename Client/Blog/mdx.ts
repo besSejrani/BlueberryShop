@@ -17,27 +17,24 @@ import { GetArticlesDocument, GetArticleDocument } from "@Graphql/index";
 // ========================================================================================================
 
 export async function getFiles() {
-
   const data = await apolloClient.query({
     query: GetArticlesDocument,
   });
 
   const gql = await data?.data.getArticles;
 
-  return gql.map(value => value.slug)
+  return gql.map((value) => value.slug);
 }
 
 export async function getFileByPost({ post }) {
-
-
   const result = apolloClient.query({
     query: GetArticleDocument,
-    variables:{
-      productSlug: post
-    }
-  })
+    variables: {
+      productSlug: post,
+    },
+  });
 
-  const article = await (await result).data.getArticle
+  const article = await (await result).data.getArticle;
 
   const { data, content } = matter(article.content);
 
@@ -68,7 +65,6 @@ export async function getAllFilesFrontMatter() {
   const gql = await data?.data.getArticles;
 
   return gql.reduce((allPosts, postSlug) => {
-
     return [
       {
         ...postSlug,
