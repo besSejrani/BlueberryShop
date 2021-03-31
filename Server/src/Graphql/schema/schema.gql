@@ -72,6 +72,11 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+input GetArticleInput {
+  articleId: String
+  slug: String
+}
+
 type Mutation {
   addProfilePicture(picture: Upload!): Boolean!
   addToNewsletter(email: String!): Boolean!
@@ -92,6 +97,7 @@ type Mutation {
   forgotPassword(email: String!): Boolean!
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
+  updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
   updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(data: ChangedProfileInput!): User
@@ -136,7 +142,7 @@ type ProductReviewPagination {
 }
 
 type Query {
-  getArticle(productSlug: String!): Article
+  getArticle(articleInput: GetArticleInput!): Article
   getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
@@ -201,6 +207,17 @@ enum Status {
   ARCHIVED
   DRAFT
   PUBLISHED
+}
+
+input UpdateArticleInput {
+  author: String
+  category: String
+  content: String
+  publishedAt: DateTime
+  slug: String
+  status: Status
+  summary: String
+  title: String
 }
 
 input UpdateCategoryInput {

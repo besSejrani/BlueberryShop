@@ -1,5 +1,5 @@
-query GetArticle($productSlug: String!){
-  getArticle(productSlug:$productSlug){
+query GetArticle($articleId: String, $articleSlug: String) {
+  getArticle(articleInput: { articleId: $articleId, slug: $articleSlug }) {
     _id
     author
     title

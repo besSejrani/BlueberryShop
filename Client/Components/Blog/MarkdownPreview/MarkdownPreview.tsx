@@ -19,11 +19,11 @@ type FormValues = {
   articleContent: string;
 };
 
-const MarkdownPreview = () => {
+const MarkdownPreview = ({ content }) => {
   const classes = useStyles();
 
   // State
-  const [articleContent, setArticleContent] = useState<string>("");
+  const [articleContent, setArticleContent] = useState<string>(content);
 
   // Form
   const { register, errors } = useForm<FormValues>({

@@ -1,0 +1,36 @@
+mutation UpdateArticle(
+  $articleId: String!
+  $author: String
+  $title: String
+  $slug: String
+  $summary: String
+  $publishedAt: DateTime
+  $category: String
+  $content: String
+  $status: Status
+) {
+  updateArticle(
+    articleId: $articleId
+    articleInput: {
+      author: $author
+      title: $title
+      slug: $slug
+      summary: $summary
+      publishedAt: $publishedAt
+      category: $category
+      content: $content
+      status: $status
+    }
+  ) {
+    _id
+    author
+    title
+    slug
+    summary
+    publishedAt
+    category
+    content
+    status
+    createdAt
+  }
+}

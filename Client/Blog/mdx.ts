@@ -30,7 +30,7 @@ export async function getFileByPost({ post }) {
   const result = apolloClient.query({
     query: GetArticleDocument,
     variables: {
-      productSlug: post,
+      articleSlug: post,
     },
   });
 

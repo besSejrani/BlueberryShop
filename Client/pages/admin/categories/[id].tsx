@@ -50,20 +50,6 @@ const CreateProductAdmin = () => {
         categoryId: query.id as string,
         name: form.categoryName,
       },
-      // update(cache, { data }) {
-      //   const newCategory = data?.createCategory;
-
-      //   const categories: GetCategoriesQuery = cache.readQuery({
-      //     query: GetCategoriesDocument,
-      //   });
-
-      //   cache.writeQuery({
-      //     query: GetCategoriesDocument,
-      //     data: {
-      //       getCategories: [...categories.getCategories, newCategory],
-      //     },
-      //   });
-      // },
     });
 
     await router.push("/admin/categories");

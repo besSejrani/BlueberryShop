@@ -36,7 +36,7 @@ import withApollo from "@Apollo/ssr";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // GraphQL
-import { useCreateArticleMutation, GetArticlesQuery, GetArticlesDocument } from "@Graphql/index";
+import { useGetArticleQuery, useUpdateArticleMutation } from "@Graphql/index";
 
 // State Management
 import { useReactiveVar } from "@apollo/client";
@@ -53,23 +53,25 @@ type FormValues = {
   productPromotion: boolean;
 };
 
-const CreateArticleAdmin = () => {
+const UpdateArticleAdmin = () => {
   const classes = useStyles();
   const router = useRouter();
+  const { query } = router;
 
   // Apollo State
   const content = useReactiveVar(markdown) as string;
 
   // GraphQL
-  const [createArticle] = useCreateArticleMutation();
+  const { data } = useGetArticleQuery({ variables: { articleId: query.id as string } });
+  const [updateArticle] = useUpdateArticleMutation();
 
   // State
-  const [articleTitle, setArticleTitle] = useState("");
-  const [articleSummary, setArticleSummary] = useState<string>();
-  const [articlePublishedAt, setArticlePublishedAt] = useState(null);
-  const [articleSlug, setArticleSlug] = useState<string>();
-  const [articleAuthor, setArticleAuthor] = useState<string>();
-  const [articleCategory, setArticleCategory] = useState<string>("");
+  const [articleTitle, setArticleTitle] = useState(data?.getArticle.title);
+  const [articleSummary, setArticleSummary] = useState<string>(data?.getArticle.summary);
+  const [articlePublishedAt, setArticlePublishedAt] = useState(data?.getArticle.publishedAt);
+  const [articleSlug, setArticleSlug] = useState<string>(data?.getArticle.slug);
+  const [articleAuthor, setArticleAuthor] = useState<string>(data?.getArticle.author);
+  const [articleCategory, setArticleCategory] = useState<string>(data?.getArticle.category);
 
   // Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
@@ -84,8 +86,10 @@ const CreateArticleAdmin = () => {
   const onSubmit = async (form) => {
     console.log(form);
 
-    await createArticle({
+    await updateArticle({
       variables: {
+        articleId: query.id as string,
+
         title: form.articleTitle,
         author: form.articleAuthor,
         summary: form.articleSummary,
@@ -95,20 +99,6 @@ const CreateArticleAdmin = () => {
         status: form.articleStatus,
         category: "bla",
       },
-      update(cache, { data }) {
-        const newArticle = data?.createArticle;
-
-        const { getArticles }: GetArticlesQuery = cache.readQuery({
-          query: GetArticlesDocument,
-        });
-
-        cache.writeQuery({
-          query: GetArticlesDocument,
-          data: {
-            getArticles: [...getArticles, newArticle],
-          },
-        });
-      },
     });
 
     await router.push("/admin/articles");
@@ -116,7 +106,7 @@ const CreateArticleAdmin = () => {
 
   return (
     <Box className={classes.root}>
-      <MarkdownPreview />
+      <MarkdownPreview content={data?.getArticle.content} />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>
           <Box className={classes.backButton} onClick={() => router.back()}>
@@ -128,7 +118,7 @@ const CreateArticleAdmin = () => {
 
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
-              Create Article
+              Update Article
             </Typography>
           </Box>
 
@@ -236,19 +226,43 @@ const CreateArticleAdmin = () => {
               <FormLabel component="legend">Status</FormLabel>
               <RadioGroup row aria-label="position" name="position" defaultValue="top">
                 <FormControlLabel
-                  control={<Radio color="secondary" value="DRAFT" name="articleStatus" inputRef={register()} />}
+                  control={
+                    <Radio
+                      checked={data?.getArticle.status === "DRAFT"}
+                      color="secondary"
+                      value="DRAFT"
+                      name="articleStatus"
+                      inputRef={register()}
+                    />
+                  }
                   label="Draft"
                   labelPlacement="end"
                 />
 
                 <FormControlLabel
-                  control={<Radio color="secondary" value="PUBLISHED" name="articleStatus" inputRef={register()} />}
+                  control={
+                    <Radio
+                      checked={data?.getArticle.status === "PUBLISHED"}
+                      color="secondary"
+                      value="PUBLISHED"
+                      name="articleStatus"
+                      inputRef={register()}
+                    />
+                  }
                   label="Published"
                   labelPlacement="end"
                 />
 
                 <FormControlLabel
-                  control={<Radio color="secondary" value="ARCHIVED" name="articleStatus" inputRef={register()} />}
+                  control={
+                    <Radio
+                      checked={data?.getArticle.status === "ARCHIVED"}
+                      color="secondary"
+                      value="ARCHIVED"
+                      name="articleStatus"
+                      inputRef={register()}
+                    />
+                  }
                   label="Archived"
                   labelPlacement="end"
                 />
@@ -257,7 +271,7 @@ const CreateArticleAdmin = () => {
 
             <Box style={{ flexDirection: "row", marginTop: "25px" }}>
               <Button variant="contained" color="secondary" type="submit">
-                Create Article
+                Update Article
               </Button>
             </Box>
           </form>
@@ -266,7 +280,7 @@ const CreateArticleAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ ssr: true })(CreateArticleAdmin);
+export default withApollo({ ssr: true })(UpdateArticleAdmin);
 
 // ========================================================================================================
 
