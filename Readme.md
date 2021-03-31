@@ -28,6 +28,10 @@
 <a>
     <img src="https://img.shields.io/badge/Cypress-Enabled-success" alt="BlueberryShop Logo">
 </a>
+
+<a>
+    <img src="https://img.shields.io/badge/Blog-MDX-lightgrey" alt="BlueberryShop Logo">
+</a>
 </div>
 
 # Documentation
