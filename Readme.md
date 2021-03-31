@@ -30,7 +30,7 @@
 </a>
 
 <a>
-    <img src="https://img.shields.io/badge/Blog-MDX-lightgrey" alt="BlueberryShop Logo">
+    <img src="https://img.shields.io/badge/MDX-Blog-lightgrey" alt="BlueberryShop Logo">
 </a>
 </div>
 
