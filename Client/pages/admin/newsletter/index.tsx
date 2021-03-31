@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, IconButton, Typography, Paper } from "@material-ui/core";
-import { DataGrid, GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 
 // Components
-import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
+import DataGrid from "@Components/DataGrid/DataGrid";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -88,7 +88,7 @@ const Newsletters = () => {
       flex: 1,
       renderCell: (params: GridCellParams) => (
         <>
-          <img src="/static/images/unknownProduct.png" height={55} />
+          <img src="/images/unknownProduct.png" height={55} />
           {params.value}
         </>
       ),
@@ -137,23 +137,7 @@ const Newsletters = () => {
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>
-          <DataGrid
-            className={classes.dataGrid}
-            rows={rows}
-            rowsPerPageOptions={[5, 10, 20]}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            rowHeight={80}
-            pageSize={10}
-            // rowCount={count}
-            components={{
-              Toolbar,
-            }}
-            checkboxSelection
-            autoHeight
-          />
+          <DataGrid rows={rows} columns={columns} />
         </Paper>
       </Box>
     </Box>
@@ -174,13 +158,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       margin: "0px 0px 50px 0px",
-    },
-
-    dataGrid: {
-      border: "none",
-      width: "100%",
-      backgroundColor: "white",
-      borderRadius: 15,
     },
   })
 );

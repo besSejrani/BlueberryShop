@@ -20,16 +20,13 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  IconButton,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-// Icons
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
+import BackButton from "@Components/BackButon/BackButton";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -109,12 +106,7 @@ const UpdateArticleAdmin = () => {
       <MarkdownPreview content={data?.getArticle.content} />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>
-          <Box className={classes.backButton} onClick={() => router.back()}>
-            <IconButton edge="start">
-              <ArrowBackIcon color="primary" />
-            </IconButton>
-            <Typography variant="body1">Go Back</Typography>
-          </Box>
+          <BackButton />
 
           <Box>
             <Typography variant="h4" style={{ fontSize: "1.85rem" }}>
@@ -291,14 +283,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-evenly",
       alignItems: "center",
-    },
-
-    backButton: {
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      width: "150px",
-      padding: "0px 0px 15px 0px",
     },
 
     card: {

@@ -18,17 +18,14 @@ import {
   RadioGroup,
   Radio,
   Checkbox,
-  IconButton,
 } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-// Icons
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import UploadFile from "@Components/UploadFile/UploadFile";
 import PreviewProduct from "@Components/PreviewProduct/PreviewProduct";
+import BackButton from "@Components/BackButon/BackButton";
 
 // Apollo
 import { useUpdateProductMutation, useGetProductQuery } from "@Graphql/index";
@@ -122,12 +119,7 @@ const ModifyProductAdmin = () => {
     <Box className={classes.root}>
       <Card elevation={1} className={classes.card}>
         <Box className={classes.preview}>
-        <Box className={classes.backButton} onClick={() => router.back()}>
-        <IconButton edge="start">
-          <ArrowBackIcon color="primary" />
-        </IconButton>
-        <Typography variant="body1">Go Back</Typography>
-      </Box>
+          <BackButton />
           <PreviewProduct product={product} images={data?.getProduct?.productImages} router={query.id} />
         </Box>
 
@@ -305,18 +297,10 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowY: "scroll",
     },
 
-    backButton: {
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      width: "150px",
-      padding: "0px 0px 15px 0px",
-    },
-
     preview: {
       display: "flex",
       justifyContent: "start",
-      flexDirection:"column",
+      flexDirection: "column",
       width: "50%",
       padding: "20px 20px",
     },

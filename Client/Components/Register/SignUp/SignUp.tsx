@@ -62,7 +62,7 @@ const SignUp = () => {
           width={700}
           height={520}
           className={classes.media}
-          src={"/static/Water24.webp"}
+          src={"/Water24.webp"}
           // title={product.title}
         />
 

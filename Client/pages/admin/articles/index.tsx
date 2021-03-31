@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { DataGrid, GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@material-ui/data-grid";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,7 +17,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 import useToast from "@Hook/useToast";
 
 // Components
-import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
+import DataGrid from "Components/DataGrid/DataGrid";
 
 // Moment
 import moment from "moment";
@@ -233,23 +233,7 @@ const Articles = () => {
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>
-          <DataGrid
-            className={classes.dataGrid}
-            rows={rows}
-            rowsPerPageOptions={[5, 10, 20]}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            rowHeight={80}
-            pageSize={10}
-            // rowCount={count}
-            components={{
-              Toolbar,
-            }}
-            checkboxSelection
-            autoHeight
-          />
+          <DataGrid rows={rows} columns={columns} />
         </Paper>
       </Box>
     </Box>
@@ -272,13 +256,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
       margin: "0px 0px 50px 0px",
-    },
-
-    dataGrid: {
-      border: "none",
-      width: "100%",
-      backgroundColor: "white",
-      borderRadius: 15,
     },
   })
 );

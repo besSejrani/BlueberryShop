@@ -252,6 +252,13 @@ export type Newsletter = {
 };
 
 
+export type PartialUser = {
+  __typename?: 'PartialUser';
+  _id: Scalars['ObjectId'];
+  username: Scalars['String'];
+  role: Scalars['String'];
+};
+
 export type Product = {
   __typename?: 'Product';
   _id: Scalars['ObjectId'];
@@ -297,7 +304,7 @@ export type Query = {
   getProductsPagination?: Maybe<ProductPagination>;
   getSale?: Maybe<Sale>;
   getSales?: Maybe<Array<Sale>>;
-  getCurrentUser?: Maybe<User>;
+  getCurrentUser?: Maybe<PartialUser>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
 };
@@ -903,8 +910,8 @@ export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetCurrentUserQuery = (
   { __typename?: 'Query' }
   & { getCurrentUser?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, '_id' | 'username' | 'email' | 'role'>
+    { __typename?: 'PartialUser' }
+    & Pick<PartialUser, '_id' | 'username' | 'role'>
   )> }
 );
 
@@ -2243,7 +2250,6 @@ export const GetCurrentUserDocument = gql`
   getCurrentUser {
     _id
     username
-    email
     role
   }
 }

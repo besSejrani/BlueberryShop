@@ -71,7 +71,7 @@ const SignIn = () => {
   return (
     <Box>
       <Card elevation={0} className={classes.signin}>
-        <Image className={classes.media} width={790} height={520} src={"/static/Sand2.webp"} />
+        <Image className={classes.media} width={790} height={520} src={"/Sand2.webp"} />
 
         <Box className={classes.content}>
           <Box>
@@ -87,7 +87,7 @@ const SignIn = () => {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "white" }}
-                  startIcon={<img src="/static/google.svg" width="20" />}
+                  startIcon={<img src="/google.svg" width="20" />}
                 >
                   Google
                 </Button>

@@ -2,10 +2,10 @@ import React from "react";
 
 import { Box, Breadcrumbs, Link, Button, Typography, Paper } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { DataGrid, GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@material-ui/data-grid";
 
 // Components
-import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
+import DataGrid from "@Components/DataGrid/DataGrid";
 
 // ========================================================================================================
 
@@ -58,23 +58,7 @@ const Orders = () => {
         </Box>
 
         <Paper style={{ borderRadius: 15 }}>
-          <DataGrid
-            className={classes.dataGrid}
-            rows={rows}
-            rowsPerPageOptions={[5, 10, 20]}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            rowHeight={80}
-            pageSize={10}
-            // rowCount={count}
-            components={{
-              Toolbar,
-            }}
-            checkboxSelection
-            autoHeight
-          />
+          <DataGrid rows={rows} columns={columns} />
         </Paper>
       </Box>
     </Box>
@@ -97,13 +81,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
       margin: "0px 0px 50px 0px",
-    },
-
-    dataGrid: {
-      border: "none",
-      width: "100%",
-      backgroundColor: "white",
-      borderRadius: 15,
     },
   })
 );

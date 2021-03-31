@@ -30,7 +30,6 @@ import { Rating, Pagination } from "@material-ui/lab";
 // Icons
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -43,6 +42,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
+import BackButton from "@Components/BackButon/BackButton";
 
 // GraphQL
 import {
@@ -164,7 +164,7 @@ const SingleProduct = () => {
                   width={50}
                   height={50}
                   className={classes.avatar}
-                  src={`/static/images/unknown.png`}
+                  src={`/images/unknown.png`}
                   title={"tes"}
                   alt={"test"}
                 />
@@ -187,12 +187,7 @@ const SingleProduct = () => {
     <Container component="section">
       <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem", margin: "50px 0px" }}>
         <Link href="/products">
-          <Box className={classes.backButton}>
-            <IconButton edge="start">
-              <ArrowBackIcon color="primary" />
-            </IconButton>
-            <Typography variant="body1">Go Back</Typography>
-          </Box>
+          <BackButton />
         </Link>
         <Box>
           <Box className={classes.root}>
@@ -442,13 +437,6 @@ const useStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "35% 1fr",
     gridGap: "2rem",
-  },
-  backButton: {
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    width: "120px",
-    margin: "0px 0px 15px -5px",
   },
   product: {
     display: "flex",

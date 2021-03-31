@@ -112,6 +112,12 @@ type Newsletter {
 """Mongo object id scalar type"""
 scalar ObjectId
 
+type PartialUser {
+  _id: ObjectId!
+  role: String!
+  username: String!
+}
+
 type Product {
   _id: ObjectId!
   categories: [Category!]!
@@ -146,7 +152,7 @@ type Query {
   getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
-  getCurrentUser: User
+  getCurrentUser: PartialUser
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
   getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
