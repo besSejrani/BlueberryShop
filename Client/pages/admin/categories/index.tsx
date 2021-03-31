@@ -33,6 +33,9 @@ import { ui } from "@Apollo/state/ui/index";
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Categories = () => {
@@ -154,7 +157,7 @@ const Categories = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Categories);
+export default withApollo({ ssr: true })(withAuth(Categories));
 
 // ========================================================================================================
 

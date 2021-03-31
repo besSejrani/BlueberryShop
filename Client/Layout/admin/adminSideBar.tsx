@@ -106,6 +106,14 @@ const AdminSideDrawer = () => {
           </List>
 
           <List subheader={<ListSubheader>Blog</ListSubheader>}>
+            <Link href="/admin/categories/">
+              <ListItem button>
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Categories" />
+              </ListItem>
+            </Link>
             <Link href="/admin/articles/">
               <ListItem button>
                 <ListItemIcon>

@@ -19,7 +19,8 @@
       "@Components/*": ["Components/*"],
       "@Apollo/*": ["Apollo/*"],
       "@Graphql/*": ["Graphql/*"],
-      "@Hook/*": ["Hook/*"]
+      "@Hook/*": ["Hook/*"],
+      "@Guard/*": ["Guard/*"]
     }
   },
   "include": [

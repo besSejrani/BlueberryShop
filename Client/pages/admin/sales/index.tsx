@@ -29,6 +29,9 @@ import { useGetSalesQuery, useDeleteSaleMutation, GetSalesDocument, GetSalesQuer
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Products = () => {
@@ -239,7 +242,7 @@ const Products = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Products);
+export default withApollo({ ssr: true })(withAuth(Products));
 
 // ========================================================================================================
 

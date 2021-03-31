@@ -20,6 +20,9 @@ import { GetCategoriesDocument, GetCategoriesQuery, useCreateCategoryMutation } 
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -99,7 +102,7 @@ const CreateProductAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ ssr: true })(CreateProductAdmin);
+export default withApollo({ ssr: true })(withAuth(CreateProductAdmin));
 
 // ========================================================================================================
 

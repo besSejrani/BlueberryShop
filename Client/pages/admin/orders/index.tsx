@@ -7,6 +7,9 @@ import { GridCellParams } from "@material-ui/data-grid";
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Orders = () => {
@@ -65,7 +68,7 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default withAuth(Orders);
 
 // ========================================================================================================
 

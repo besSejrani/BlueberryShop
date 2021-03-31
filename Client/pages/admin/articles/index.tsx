@@ -31,6 +31,9 @@ import { useGetArticlesQuery, useDeleteArticleMutation, GetArticlesQuery, GetArt
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Articles = () => {
@@ -240,7 +243,7 @@ const Articles = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Articles);
+export default withApollo({ ssr: true })(withAuth(Articles));
 
 // ========================================================================================================
 

@@ -3,6 +3,7 @@ import { InMemoryCache, ApolloClient, ApolloLink } from "@apollo/client";
 
 // Apollo State
 import { ui } from "./state/ui";
+import { user } from "./state/user/index";
 
 // Upload
 import { createUploadLink } from "apollo-upload-client";
@@ -19,6 +20,11 @@ const cache = new InMemoryCache({
         ui: {
           read() {
             return ui();
+          },
+        },
+        user: {
+          read() {
+            return user();
           },
         },
       },
@@ -43,7 +49,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const link = createUploadLink({
   uri: "http://localhost:4000/graphql",
-  credentials: "same-origin",
 });
 
 export const apolloClient = new ApolloClient({

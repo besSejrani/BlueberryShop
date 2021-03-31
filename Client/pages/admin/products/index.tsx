@@ -9,7 +9,7 @@ import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typo
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-//Icons
+// Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
@@ -19,12 +19,15 @@ import DataGrid from "@Components/DataGrid/DataGrid";
 // Hooks
 import useToast from "@Hook/useToast";
 
-//Apollo
+// Apollo
 import { ui } from "@Apollo/state/ui/index";
 import { useGetProductsQuery, useDeleteProductMutation, GetProductsDocument, GetProductsQuery } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
+
+// Guard
+import { withAuth } from "@Guard/withAuth";
 
 // ========================================================================================================
 
@@ -213,7 +216,7 @@ const Products = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Products);
+export default withApollo({ ssr: true })(withAuth(Products));
 
 // ========================================================================================================
 

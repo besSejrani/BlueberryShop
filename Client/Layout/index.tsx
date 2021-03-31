@@ -19,16 +19,16 @@ import ConfirmationDialog from "@Components/ConfirmationDialog/ConfirmationDialo
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { ui } from "../Apollo/state/ui";
+import { user } from "../Apollo/state/user/index";
 
 // ========================================================================================================
 
 const Layout = ({ children }) => {
-  const admin = useReactiveVar(ui);
+  const admin = useReactiveVar(user);
 
   return (
     <>
-      {admin.isAdmin ? (
+      {admin.role === "admin" ? (
         <>
           <AdminHeader />
           <div style={{ padding: "120px 20px 0px 260px" }}>{children}</div>

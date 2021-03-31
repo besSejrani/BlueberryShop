@@ -33,6 +33,9 @@ import { useUpdateProductMutation, useGetProductQuery } from "@Graphql/index";
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -274,7 +277,7 @@ const ModifyProductAdmin = () => {
   );
 };
 
-export default withApollo({ ssr: true })(ModifyProductAdmin);
+export default withApollo({ ssr: true })(withAuth(ModifyProductAdmin));
 
 // ========================================================================================================
 

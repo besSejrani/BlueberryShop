@@ -10,6 +10,9 @@ import Sales from "@Components/Sales/create/Sales";
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const CreateProductAdmin = () => {
@@ -23,7 +26,7 @@ const CreateProductAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ ssr: true })(CreateProductAdmin);
+export default withApollo({ ssr: true })(withAuth(CreateProductAdmin));
 
 // ========================================================================================================
 

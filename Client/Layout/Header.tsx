@@ -54,10 +54,6 @@ const Header = () => {
   const classes = useStyles();
   const selectProducts = [];
 
-  const changeAdmin = () => {
-    ui({ ...ui(), isAdmin: true });
-  };
-
   const changeCart = () => {
     ui({ ...ui(), isCartOpen: true });
   };
@@ -130,7 +126,7 @@ const Header = () => {
                   </StyledBadge>
                 </IconButton>
 
-                <IconButton onClick={changeAdmin}>
+                <IconButton>
                   <PersonIcon
                     style={{
                       color: "white",

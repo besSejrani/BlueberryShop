@@ -6,10 +6,10 @@ const initialState = {
   role: "",
 };
 
-type Product = {
+type User = {
   _id: string;
   username: string;
   role: string;
 };
 
-export const product = makeVar<Product>(initialState);
+export const user = makeVar<User>(initialState);

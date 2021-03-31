@@ -26,6 +26,9 @@ import {
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Newsletters = () => {
@@ -144,7 +147,7 @@ const Newsletters = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Newsletters);
+export default withApollo({ ssr: true })(withAuth(Newsletters));
 
 // ========================================================================================================
 

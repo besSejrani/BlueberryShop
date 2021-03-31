@@ -8,9 +8,8 @@ import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } fro
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-//Icons
-
-//Apollo
+// Guard
+import { withAuth } from "@Guard/withAuth";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -125,7 +124,7 @@ const Dashboard = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Dashboard);
+export default withApollo({ ssr: true })(withAuth(Dashboard));
 
 // ========================================================================================================
 

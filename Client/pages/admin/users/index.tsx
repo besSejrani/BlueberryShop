@@ -25,6 +25,9 @@ import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuer
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 const Users = () => {
@@ -179,7 +182,7 @@ const Users = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Users);
+export default withApollo({ ssr: true })(withAuth(Users));
 
 // ========================================================================================================
 

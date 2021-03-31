@@ -39,6 +39,9 @@ import { useCreateArticleMutation, GetArticlesQuery, GetArticlesDocument } from 
 import { useReactiveVar } from "@apollo/client";
 import { markdown } from "@Apollo/state/markdown/index";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -257,7 +260,7 @@ const CreateArticleAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ ssr: true })(CreateArticleAdmin);
+export default withApollo({ ssr: true })(withAuth(CreateArticleAdmin));
 
 // ========================================================================================================
 

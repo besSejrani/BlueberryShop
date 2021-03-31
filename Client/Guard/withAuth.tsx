@@ -1,25 +1,35 @@
 import React from "react";
 
-// Apollo
-// import { useGetCurrentUserQuery } from "../Graphql/index";
-
 // Guard
 import redirect from "./redirect";
 import { NextContextWithApollo } from "./nextContextWithApollo";
 
+// Apollo
+// import { apolloClient } from "@Apollo/ssr";
+import { GetCurrentUserDocument, GetCurrentUserQuery } from "../Graphql/index";
+
 // Apollo State
-import { ui } from "../Apollo/state/ui";
+import { user } from "../Apollo/state/user/index";
 
 // ================================================================================
 
 export const withAuth = <T extends object>(C: React.FC<T>) =>
   class AuthComponent extends React.Component<T> {
     static async getInitialProps({ apolloClient, ...ctx }: NextContextWithApollo) {
-      // const response = await apolloClient.query<MeQuery>({ query: meQuery });
+      const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
 
-      console.log(!ui().isAdmin);
+      await user({
+        _id: result.data?.getCurrentUser?._id,
+        username: result.data?.getCurrentUser?.username,
+        role: result.data?.getCurrentUser?.role,
+      });
 
-      if (ui().isAdmin) {
+      console.log(result);
+      console.log(user());
+
+      // user().role !== "admin"
+
+      if (!!!result || !result.data || !result.data?.getCurrentUser) {
         redirect(ctx, "/register");
         return {
           me: null,
@@ -27,7 +37,7 @@ export const withAuth = <T extends object>(C: React.FC<T>) =>
       }
 
       return {
-        auth: true,
+        me: result.data?.getCurrentUser,
       };
     }
 

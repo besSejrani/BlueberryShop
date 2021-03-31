@@ -39,6 +39,9 @@ import { useGetArticleQuery, useUpdateArticleMutation } from "@Graphql/index";
 import { useReactiveVar } from "@apollo/client";
 import { markdown } from "@Apollo/state/markdown/index";
 
+// Guard
+import { withAuth } from "@Guard/withAuth";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -272,7 +275,7 @@ const UpdateArticleAdmin = () => {
     </Box>
   );
 };
-export default withApollo({ ssr: true })(UpdateArticleAdmin);
+export default withApollo({ ssr: true })(withAuth(UpdateArticleAdmin));
 
 // ========================================================================================================
 
