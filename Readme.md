@@ -18,15 +18,15 @@
 </a>
 
 <a>
-    <img src="https://img.shields.io/badge/Documentation-Mkdocs-success" alt="BlueberryShop Logo">
+    <img src="https://img.shields.io/badge/Mkdocs-Documentation-success" alt="BlueberryShop Logo">
 </a>
 
 <a>
-    <img src="https://img.shields.io/badge/Github Actions-Enabled-success" alt="BlueberryShop Logo">
+    <img src="https://img.shields.io/badge/Github Actions-CI/CD-success" alt="BlueberryShop Logo">
 </a>
 
 <a>
-    <img src="https://img.shields.io/badge/Cypress-Enabled-success" alt="BlueberryShop Logo">
+    <img src="https://img.shields.io/badge/Cypress-Testing-success" alt="BlueberryShop Logo">
 </a>
 
 <a>
