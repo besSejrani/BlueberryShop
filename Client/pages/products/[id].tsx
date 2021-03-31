@@ -4,11 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// React-Hook-Form
-import { useForm } from "react-hook-form";
-
 // Material-Ui
-import theme from "../../Layout/Theme";
 import {
   Button,
   Card,
@@ -20,7 +16,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Rating, Pagination } from "@material-ui/lab";
 
 // Icons
@@ -30,30 +26,18 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 import ProductImageSlider from "@Components/Product/ProductImageSlider/ProductImageSlider";
 import ProductReview from "@Components/Product/ProductReview/ProductReview";
+import WriteProductReview from "@Components/Product/WriteProductReview/WriteProductReview";
 
 // GraphQL
-import {
-  GetProductDocument,
-  GetProductQuery,
-  useGetProductQuery,
-  useCreateProductReviewMutation,
-  useGetProductReviewPaginationQuery,
-} from "@Graphql/index";
+import { useGetProductQuery, useGetProductReviewPaginationQuery } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
-
-type FormValues = {
-  reviewerName: string;
-  rating: number;
-  review: string;
-};
 
 const SingleProduct = () => {
   const classes = useStyles();
@@ -65,52 +49,12 @@ const SingleProduct = () => {
   const [pageNumber, setPageNumber] = useState(+page);
   const [pageSize, setPageSize] = useState(+size);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [reviewerName, setReviewerName] = useState<string>("");
-  const [rating, setRating] = useState<number>(4);
-  const [review, setReview] = useState<string>("");
 
   // GraphQL
   const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
   const { data: reviews } = useGetProductReviewPaginationQuery({
     variables: { productId: query.id as string, pageNumber: pageNumber, pageSize: pageSize },
   });
-  const [createProductReview] = useCreateProductReviewMutation();
-
-  // Form
-  const { register, errors, handleSubmit, control } = useForm<FormValues>({
-    criteriaMode: "all",
-  });
-
-  // Events
-  const onSubmit = async (form) => {
-    await createProductReview({
-      variables: {
-        productId: query.id as string,
-        rating: `${rating}`,
-        review: form.review,
-        username: form.reviewerName,
-      },
-      update(cache, { data }) {
-        const newReview = data?.createProductReview;
-
-        const product: GetProductQuery = cache.readQuery({
-          variables: { productId: query.id as string },
-          query: GetProductDocument,
-        });
-
-        cache.writeQuery({
-          query: GetProductDocument,
-          data: {
-            getProduct: [...product.getProduct.reviews, newReview],
-          },
-        });
-      },
-    });
-
-    setReview("");
-    setReviewerName("");
-    setRating(4);
-  };
 
   const pages = Math.ceil(reviews?.getProductReviewPagination.count / pageSize);
 
@@ -233,72 +177,7 @@ const SingleProduct = () => {
         </Box>
       </Card>
 
-      <Card
-        style={{
-          backgroundColor: "white",
-          borderRadius: 20,
-          padding: "2rem 2rem 1rem 2rem",
-          margin: "0px 0px 50px 0px",
-        }}
-      >
-        <Box className={classes.formReview}>
-          <Box>
-            <Typography variant="h5">Write a review</Typography>
-          </Box>
-
-          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            <InputForm
-              type="text"
-              name="reviewerName"
-              id="reviewerName"
-              label="Username"
-              inputRef={register({
-                required: "This field is required",
-              })}
-              value={reviewerName}
-              onChange={setReviewerName}
-              errors={errors}
-            />
-
-            <Box component="fieldset" mb={3} borderColor="transparent" style={{ margin: "20px 0px 0px 0px" }}>
-              <Typography component="legend" style={{ margin: "0px 0px 10px 0px" }}>
-                Rating
-              </Typography>
-              <Rating
-                name="rating"
-                precision={0.5}
-                value={rating}
-                onChange={(event, newValue) => {
-                  setRating(newValue);
-                }}
-              />
-            </Box>
-
-            <InputForm
-              type="text"
-              name="review"
-              id="review"
-              label="Review"
-              multiline
-              rowsMax={"4"}
-              inputRef={register({
-                required: "This field is required",
-                minLength: { value: 20, message: "The product description should contain minimum 20 characters" },
-                maxLength: { value: 250, message: "The product description should contain maximum 250 characters" },
-              })}
-              value={review}
-              onChange={setReview}
-              errors={errors}
-            />
-
-            <Box style={{ flexDirection: "row", marginTop: "25px" }}>
-              <Button variant="contained" color="secondary" type="submit">
-                Write Review
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Card>
+      <WriteProductReview />
 
       <ProductReview reviews={reviews} />
 
@@ -317,67 +196,61 @@ export default withApollo({ ssr: true })(SingleProduct);
 
 // =================================================================
 
-const useStyles = makeStyles({
-  root: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gridGap: "2rem",
-  },
-  product: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  productInfo: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "4px 0px",
-  },
-  productRating: {
-    display: "flex",
-    alignItems: "center",
-    margin: "4px 0px",
-  },
-  productStock: {
-    margin: "4px 0px",
-  },
-  productOptions: {
-    margin: "4px 0px",
-  },
-  callToActions: {
-    margin: "20px 0px 0px 0px",
-  },
-  media: {
-    height: "320px",
-    width: "320px",
-    marginRight: "100px",
-  },
-  content: {
-    width: "500px",
-    padding: "20px",
-    borderRadius: "10px",
-  },
-  social: {
-    margin: "50px 0px 0px 0px",
-  },
-
-  pagination: {
-    margin: "60px 0px 0px 0px",
-    "& > *": {
-      marginTop: theme.spacing(2),
-      display: "flex",
-      justifyContent: "center",
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gridGap: "2rem",
     },
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    margin: "0px 0px 0px 0px",
-  },
-  formReview: {
-    margin: "0px 0px 20px 0px",
-  },
-  accordions: {
-    margin: "50px 0px 0px 0px",
-  },
-});
+    product: {
+      display: "flex",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+    },
+    productInfo: {
+      display: "flex",
+      justifyContent: "space-between",
+      margin: "4px 0px",
+    },
+    productRating: {
+      display: "flex",
+      alignItems: "center",
+      margin: "4px 0px",
+    },
+    productStock: {
+      margin: "4px 0px",
+    },
+    productOptions: {
+      margin: "4px 0px",
+    },
+    callToActions: {
+      margin: "20px 0px 0px 0px",
+    },
+    media: {
+      height: "320px",
+      width: "320px",
+      marginRight: "100px",
+    },
+    content: {
+      width: "500px",
+      padding: "20px",
+      borderRadius: "10px",
+    },
+    social: {
+      margin: "50px 0px 0px 0px",
+    },
+
+    pagination: {
+      margin: "60px 0px 0px 0px",
+      "& > *": {
+        marginTop: theme.spacing(2),
+        display: "flex",
+        justifyContent: "center",
+      },
+    },
+    accordions: {
+      margin: "50px 0px 0px 0px",
+    },
+  })
+);
