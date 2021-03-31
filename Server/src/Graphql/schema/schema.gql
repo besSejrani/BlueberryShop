@@ -82,6 +82,7 @@ type Mutation {
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product
   createSale(saleInput: CreateSaleInput!): Boolean!
+  deleteArticle(articleId: String!): Boolean!
   deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!

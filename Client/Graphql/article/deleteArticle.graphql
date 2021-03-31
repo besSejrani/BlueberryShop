@@ -1,0 +1,3 @@
+mutation DeleteArticle($articleId: String!) {
+  deleteArticle(articleId: $articleId)
+}

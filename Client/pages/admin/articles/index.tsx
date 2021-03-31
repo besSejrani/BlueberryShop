@@ -13,6 +13,9 @@ import { DataGrid, GridCellParams } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ModifyIcon from "@material-ui/icons/Create";
 
+// Hooks
+import useToast from "@Hook/useToast";
+
 // Components
 import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
 
@@ -23,7 +26,7 @@ import moment from "moment";
 import { ui } from "@Apollo/state/ui/index";
 
 // GraphQl
-import { useGetArticlesQuery } from "@Graphql/index";
+import { useGetArticlesQuery, useDeleteArticleMutation } from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -35,11 +38,12 @@ const Articles = () => {
   const router = useRouter();
 
   const { data, loading } = useGetArticlesQuery();
+  const [deleteArticleMutation, { error }] = useDeleteArticleMutation({ errorPolicy: "all" });
 
-  // // Error Handling
-  // if (error) {
-  //   error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
-  // }
+  // Error Handling
+  if (error) {
+    error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
+  }
 
   // Events
   const handleClickOpen = (params) => {
@@ -47,7 +51,7 @@ const Articles = () => {
       isConfirmationDialogOpen: {
         open: true,
         identifier: params.row.name,
-        deleteResource: () => deleteSale(params.row.id),
+        deleteResource: () => deleteArticle(params.row.id),
         handleClose: () => handleClose(),
       },
     });
@@ -57,8 +61,10 @@ const Articles = () => {
     ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
   };
 
-  const deleteSale = async (productId) => {
-    console.log(productId);
+  const deleteArticle = async (articleId) => {
+    console.log(articleId);
+
+    await deleteArticleMutation({ variables: { articleId } });
 
     await handleClose();
   };
