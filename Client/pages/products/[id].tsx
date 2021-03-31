@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 // Next
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 // React-Hook-Form
@@ -17,33 +16,24 @@ import {
   Container,
   Box,
   IconButton,
-  MobileStepper,
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Divider,
-  CardActionArea,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Rating, Pagination } from "@material-ui/lab";
 
 // Icons
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
-import TuneIcon from "@material-ui/icons/Tune";
-
-// Libraries
-import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from "react-swipeable-views-utils";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 import ProductImageSlider from "@Components/Product/ProductImageSlider/ProductImageSlider";
+import ProductReview from "@Components/Product/ProductReview/ProductReview";
 
 // GraphQL
 import {
@@ -134,37 +124,6 @@ const SingleProduct = () => {
 
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
-  };
-
-  const renderReviews = () => {
-    return reviews?.getProductReviewPagination.reviews[0].reviews
-      .map((review) => review.reviews)
-      .map((reviews) => {
-        return (
-          <Box className={classes.review}>
-            <Box className={classes.reviewInfo}>
-              <Box style={{ margin: "0px 20px 0px 0px" }}>
-                <Image
-                  width={50}
-                  height={50}
-                  className={classes.avatar}
-                  src={`/images/unknown.png`}
-                  title={"tes"}
-                  alt={"test"}
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1">{reviews.reviewerName}</Typography>
-                <Rating value={+reviews.rating} readOnly size="small" name="customized-color" precision={0.5} />
-              </Box>
-            </Box>
-            <>
-              <Typography variant="body1">{reviews.review}</Typography>
-            </>
-            <Divider style={{ margin: "20px 0px" }} />
-          </Box>
-        );
-      });
   };
 
   return (
@@ -341,22 +300,7 @@ const SingleProduct = () => {
         </Box>
       </Card>
 
-      <Card style={{ backgroundColor: "white", borderRadius: 20, padding: "2rem 2rem 1rem 2rem", margin: "0px 0px" }}>
-        <Box>
-          <Box className={classes.reviewsHeader}>
-            <Box>
-              <Typography variant="h5">Reviews</Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <TuneIcon />
-              </IconButton>
-            </Box>
-          </Box>
-          <Divider />
-          {renderReviews()}
-        </Box>
-      </Card>
+      <ProductReview reviews={reviews} />
 
       {pages ? (
         <Box className={classes.pagination}>
@@ -416,16 +360,6 @@ const useStyles = makeStyles({
   social: {
     margin: "50px 0px 0px 0px",
   },
-  review: {
-    margin: "30px 0px",
-  },
-  avatar: {
-    borderRadius: "99px",
-  },
-  reviewInfo: {
-    display: "flex",
-    margin: "0px 0px 10px 0px",
-  },
 
   pagination: {
     margin: "60px 0px 0px 0px",
@@ -445,10 +379,5 @@ const useStyles = makeStyles({
   },
   accordions: {
     margin: "50px 0px 0px 0px",
-  },
-  reviewsHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 });
