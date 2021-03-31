@@ -43,6 +43,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
+import ProductImageSlider from "@Components/Product/ProductImageSlider/ProductImageSlider";
 
 // GraphQL
 import {
@@ -57,8 +58,6 @@ import {
 import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 type FormValues = {
   reviewerName: string;
@@ -75,7 +74,6 @@ const SingleProduct = () => {
   // State
   const [pageNumber, setPageNumber] = useState(+page);
   const [pageSize, setPageSize] = useState(+size);
-  const [activeStep, setActiveStep] = useState(0);
   const [expanded, setExpanded] = useState<string | false>(false);
   const [reviewerName, setReviewerName] = useState<string>("");
   const [rating, setRating] = useState<number>(4);
@@ -87,8 +85,6 @@ const SingleProduct = () => {
     variables: { productId: query.id as string, pageNumber: pageNumber, pageSize: pageSize },
   });
   const [createProductReview] = useCreateProductReviewMutation();
-
-  let maxSteps = data?.getProduct.productImages.length;
 
   // Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
@@ -136,18 +132,6 @@ const SingleProduct = () => {
     });
   };
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
-
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -191,50 +175,7 @@ const SingleProduct = () => {
         </Link>
         <Box>
           <Box className={classes.root}>
-            <Card style={{ borderRadius: "10px" }}>
-              <AutoPlaySwipeableViews
-                interval={3500}
-                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                index={activeStep}
-                onChangeIndex={handleStepChange}
-                enableMouseEvents
-                style={{ width: "100%" }}
-              >
-                {data?.getProduct.productImages.map((product, index) => {
-                  return (
-                    <CardActionArea className={classes.area} key={index} disableRipple>
-                      <Image
-                        width={550}
-                        height={400}
-                        className={classes.media}
-                        src={`${product}`}
-                        title={product}
-                        alt={product}
-                      />
-                    </CardActionArea>
-                  );
-                })}
-              </AutoPlaySwipeableViews>
-              <MobileStepper
-                style={{ background: "none" }}
-                steps={maxSteps}
-                position="static"
-                variant="dots"
-                activeStep={activeStep}
-                nextButton={
-                  <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                    Next
-                    {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                  </Button>
-                }
-                backButton={
-                  <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                    {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                    Back
-                  </Button>
-                }
-              />
-            </Card>
+            <ProductImageSlider product={data?.getProduct} />
 
             <Box className={classes.product}>
               <Card className={classes.content}>
@@ -435,7 +376,7 @@ export default withApollo({ ssr: true })(SingleProduct);
 const useStyles = makeStyles({
   root: {
     display: "grid",
-    gridTemplateColumns: "35% 1fr",
+    gridTemplateColumns: "1fr 1fr",
     gridGap: "2rem",
   },
   product: {
@@ -466,11 +407,6 @@ const useStyles = makeStyles({
     height: "320px",
     width: "320px",
     marginRight: "100px",
-  },
-  area: {
-    display: "flex",
-    padding: "20px 20px 0px 20px",
-    backgroundColor: "#fafafa",
   },
   content: {
     width: "500px",

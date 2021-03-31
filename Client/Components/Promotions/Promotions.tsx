@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button, Container, makeStyles } from "@material-ui/core";
 
 // Components
-import Card from "../ProductCard/ProductCard";
+import Card from "../Product/ProductCard/ProductCard";
 
 // Apollo
 import { useGetProductsQuery } from "../../Graphql/index";

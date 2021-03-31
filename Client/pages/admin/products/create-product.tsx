@@ -27,7 +27,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import UploadFile from "@Components/UploadFile/UploadFile";
-import PreviewProduct from "@Components/PreviewProduct/PreviewProduct";
+import PreviewProduct from "@Components/Product/PreviewProduct/PreviewProduct";
 import BackButton from "@Components/BackButon/BackButton";
 
 // Apollo
@@ -129,7 +129,7 @@ const CreateProductAdmin = () => {
     featured: false,
     options: [],
     imageUrl: "static/images/computeModule3+/1.webp",
-    images: images.preview,
+    productImages: images.preview,
     stock: productStock,
     rating: 4,
     reviews: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],

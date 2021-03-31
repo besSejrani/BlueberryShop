@@ -9,7 +9,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Pagination } from "@material-ui/lab";
 
 // Components
-import ProductCard from "@Components/ProductCard/ProductCard";
+import ProductCard from "@Components/Product/ProductCard/ProductCard";
 import ProductFilter from "@Components/ProductFilter/ProductFilter";
 
 // Apollo
