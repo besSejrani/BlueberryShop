@@ -1,5 +1,6 @@
 // GraphQL
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { MyContext } from "../../types/MyContext";
 import { SignupInput } from "./inputs/SignupInput";
 
 // Database
@@ -21,7 +22,10 @@ import { createConfirmationUrl } from "../../../Email/createConfirmationUrl";
 @Resolver()
 export class SignupResolver {
   @Mutation(() => UserResponse)
-  async signup(@Arg("input") { username, email, password }: SignupInput): Promise<UserResponse> {
+  async signup(
+    @Arg("input") { username, email, password }: SignupInput,
+    @Ctx() context: MyContext
+  ): Promise<UserResponse> {
     const user = await UserModel.findOne({ email });
 
     if (user) {
@@ -40,6 +44,21 @@ export class SignupResolver {
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET as string);
+
+    context.res.cookie("access-token", token, {
+      maxAge: (60 * 60 * 1000 * 24 * 10) as number,
+      httpOnly: true,
+      path: "/",
+      sameSite: "lax",
+      secure: false,
+    });
+    context.res.cookie("refresh-token", token, {
+      maxAge: (60 * 60 * 1000 * 24 * 10) as number,
+      httpOnly: true,
+      path: "/",
+      sameSite: "lax",
+      secure: false,
+    });
     await SendEmail(email, await createConfirmationUrl(newUser.id));
 
     return { user: newUser, token };

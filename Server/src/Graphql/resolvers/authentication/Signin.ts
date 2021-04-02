@@ -1,5 +1,6 @@
 // GraphQL
-import { Mutation, Resolver, Arg } from "type-graphql";
+import { Mutation, Resolver, Arg, Ctx } from "type-graphql";
+import { MyContext } from "../../types/MyContext";
 import { SigninInput } from "./inputs/SigninInput";
 
 // Database
@@ -17,7 +18,7 @@ import { UserResponse } from "../user/types/UserType";
 @Resolver()
 export class SigninResolver {
   @Mutation(() => UserResponse)
-  async signin(@Arg("input") { email, password }: SigninInput): Promise<UserResponse> {
+  async signin(@Arg("input") { email, password }: SigninInput, @Ctx() context: MyContext): Promise<UserResponse> {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
@@ -34,7 +35,24 @@ export class SigninResolver {
       throw new Error("confirm user");
     }
 
-    const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET as string);
+    const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET as string, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+
+    context.res.cookie("access-token", token, {
+      maxAge: (60 * 60 * 1000 * 24 * 10) as number,
+      httpOnly: true,
+      domain: "localhost",
+      path: "/",
+      sameSite: "lax",
+    });
+    context.res.cookie("refresh-token", token, {
+      maxAge: (60 * 60 * 1000 * 24 * 10) as number,
+      httpOnly: true,
+      domain: "localhost",
+      path: "/",
+      sameSite: "lax",
+    });
 
     return { user, token };
   }

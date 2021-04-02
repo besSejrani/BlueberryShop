@@ -25,6 +25,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/InputForm/InputForm";
+import MarkdownInput from "@Components/Blog/MarkdownInput/MarkdownInput";
 import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
 import BackButton from "@Components/BackButon/BackButton";
 
@@ -58,7 +59,7 @@ const CreateArticleAdmin = () => {
   const router = useRouter();
 
   // Apollo State
-  const content = useReactiveVar(markdown) as string;
+  const content = useReactiveVar(markdown) as any;
 
   // GraphQL
   const [createArticle] = useCreateArticleMutation();
@@ -116,6 +117,7 @@ const CreateArticleAdmin = () => {
 
   return (
     <Box className={classes.root}>
+      <MarkdownInput />
       <MarkdownPreview />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>
@@ -267,31 +269,21 @@ export default withApollo({ ssr: true })(withAuth(CreateArticleAdmin));
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: "100vh",
-      display: "flex",
+      height: "100%",
+      display: "grid",
       justifyContent: "space-evenly",
       alignItems: "center",
-    },
-
-    card: {
-      position: "relative",
-      display: "flex",
-      justifyContent: "space-between",
-      width: "60%",
-      height: 660,
-      borderRadius: "10px",
-      overflowY: "scroll",
-      margin: "0px 20px",
+      gridTemplateColumns: "1fr 2fr 1fr",
+      gridColumnGap: 20,
     },
 
     cardCreation: {
       position: "relative",
       display: "flex",
       justifyContent: "space-between",
-      width: "40%",
+      width: "100%",
       height: 660,
       borderRadius: "10px",
-      margin: "0px 20px",
     },
 
     content: {

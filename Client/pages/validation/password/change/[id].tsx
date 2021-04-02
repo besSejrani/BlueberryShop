@@ -65,7 +65,7 @@ const ChangePassword = ({ query }) => {
               width={700}
               height={520}
               className={classes.media}
-              src={"/static/Water13.png"}
+              src={"/Water13.png"}
               // title={product.title}
             />
 

@@ -243,7 +243,7 @@ const Articles = () => {
   );
 };
 
-export default withApollo({ ssr: true })(withAuth(Articles));
+export default withApollo({ ssr: true })(Articles);
 
 // ========================================================================================================
 

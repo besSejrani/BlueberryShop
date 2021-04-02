@@ -26,6 +26,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 // Components
 import InputForm from "@Components/InputForm/InputForm";
 import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
+import MarkdownInput from "@Components/Blog/MarkdownInput/MarkdownInput";
 import BackButton from "@Components/BackButon/BackButton";
 
 // SSR
@@ -59,7 +60,7 @@ const UpdateArticleAdmin = () => {
   const { query } = router;
 
   // Apollo State
-  const content = useReactiveVar(markdown) as string;
+  const content = useReactiveVar(markdown) as any;
 
   // GraphQL
   const { data } = useGetArticleQuery({ variables: { articleId: query.id as string } });
@@ -106,7 +107,8 @@ const UpdateArticleAdmin = () => {
 
   return (
     <Box className={classes.root}>
-      <MarkdownPreview content={data?.getArticle.content} />
+      <MarkdownInput content={data?.getArticle.content} />
+      <MarkdownPreview />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>
           <BackButton />
@@ -282,31 +284,21 @@ export default withApollo({ ssr: true })(withAuth(UpdateArticleAdmin));
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: "100vh",
-      display: "flex",
+      height: "100%",
+      display: "grid",
       justifyContent: "space-evenly",
       alignItems: "center",
-    },
-
-    card: {
-      position: "relative",
-      display: "flex",
-      justifyContent: "space-between",
-      width: "60%",
-      height: 660,
-      borderRadius: "10px",
-      overflowY: "scroll",
-      margin: "0px 20px",
+      gridTemplateColumns: "1fr 2fr 1fr",
+      gridColumnGap: 20,
     },
 
     cardCreation: {
       position: "relative",
       display: "flex",
       justifyContent: "space-between",
-      width: "40%",
+      width: "100%",
       height: 660,
       borderRadius: "10px",
-      margin: "0px 20px",
     },
 
     content: {

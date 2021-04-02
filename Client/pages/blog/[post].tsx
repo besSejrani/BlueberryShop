@@ -1,5 +1,5 @@
 import hydrate from "next-mdx-remote/hydrate";
-import MdxComponents from "../../Components/Blog/mdxComponents";
+import MdxComponents from "../../Components/Blog/MDXComponents";
 
 import { getFileByPost, getFiles } from "../../Blog/mdx";
 

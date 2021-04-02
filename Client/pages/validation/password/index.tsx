@@ -59,7 +59,7 @@ const SignIn = () => {
               width={700}
               height={520}
               className={classes.media}
-              src={"/static/Water13.webp"}
+              src={"/Water13.webp"}
               // title={product.title}
             />
 

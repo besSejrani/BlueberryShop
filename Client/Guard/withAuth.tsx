@@ -5,7 +5,6 @@ import redirect from "./redirect";
 import { NextContextWithApollo } from "./nextContextWithApollo";
 
 // Apollo
-// import { apolloClient } from "@Apollo/ssr";
 import { GetCurrentUserDocument, GetCurrentUserQuery } from "../Graphql/index";
 
 // Apollo State
@@ -18,26 +17,26 @@ export const withAuth = <T extends object>(C: React.FC<T>) =>
     static async getInitialProps({ apolloClient, ...ctx }: NextContextWithApollo) {
       const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
 
-      await user({
-        _id: result.data?.getCurrentUser?._id,
-        username: result.data?.getCurrentUser?.username,
-        role: result.data?.getCurrentUser?.role,
+      user({
+        _id: "",
+        username: "",
+        role: "admin",
       });
 
-      console.log(result);
-      console.log(user());
+      // console.log(result);
+      // console.log(user());
 
       // user().role !== "admin"
 
-      if (!!!result || !result.data || !result.data?.getCurrentUser) {
-        redirect(ctx, "/register");
-        return {
-          me: null,
-        };
-      }
+      // if (!result || !result.data || !result.data?.getCurrentUser) {
+      //   redirect(ctx, "/register");
+      //   return {
+      //     me: null,
+      //   };
+      // }
 
       return {
-        me: result.data?.getCurrentUser,
+        me: result?.data?.getCurrentUser,
       };
     }
 

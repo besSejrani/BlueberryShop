@@ -43,10 +43,11 @@ const Components = {
     );
   },
   card: ({ children }) => (
-    <Card style={{ backgroundColor: "white", margin: "50px 0px", padding: "50px", borderRadius: "20px" }}>
+    <Card style={{ backgroundColor: "white", margin: "0px 0px", padding: "50px", borderRadius: "20px" }}>
       {children}
     </Card>
   ),
+
   pre: ({ children }) => {
     const classes = useStyles();
 

@@ -8,6 +8,7 @@ import mongo from "../Model/mongo";
 // Server
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import cookieParser from "cookie-parser";
 
 // GraphQL
 import createSchema from "../Graphql/schema";
@@ -39,6 +40,7 @@ const main = async () => {
     const app = express();
     app.use(helmet({ contentSecurityPolicy: false }));
     app.use(express.urlencoded({ extended: false }));
+    app.use(cookieParser());
     app.use(express.json());
     app.use(mongoSanitize());
 

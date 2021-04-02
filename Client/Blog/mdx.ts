@@ -6,7 +6,7 @@ import renderToString from "next-mdx-remote/render-to-string";
 import readingTime from "reading-time";
 
 // Components
-import MdxComponents from "../Components/Blog/mdxComponents";
+import MdxComponents from "../Components/Blog/MDXComponents";
 
 // Apollo
 import { apolloClient } from "@Apollo/ssr";

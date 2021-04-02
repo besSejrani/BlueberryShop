@@ -1,8 +1,8 @@
 // const withPlugins = require("next-compose-plugins");
 
-// // const withMDX = require("@next/mdx")({
-// //   extension: /\.mdx$/,
-// // });
+// const withMDX = require("@next/mdx")({
+//   extension: /\.mdx$/,
+// });
 
 // const nextConfig = {
 //   images: {

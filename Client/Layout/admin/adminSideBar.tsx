@@ -106,7 +106,7 @@ const AdminSideDrawer = () => {
           </List>
 
           <List subheader={<ListSubheader>Blog</ListSubheader>}>
-            <Link href="/admin/categories/">
+            <Link href="/admin/categories-articles/">
               <ListItem button>
                 <ListItemIcon>
                   <CategoryIcon />
@@ -114,6 +114,7 @@ const AdminSideDrawer = () => {
                 <ListItemText primary="Categories" />
               </ListItem>
             </Link>
+
             <Link href="/admin/articles/">
               <ListItem button>
                 <ListItemIcon>

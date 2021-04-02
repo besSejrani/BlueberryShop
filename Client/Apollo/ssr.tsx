@@ -36,7 +36,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   let token;
 
   if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
+    token = window.localStorage.getItem("token");
   }
   operation.setContext({
     headers: {
@@ -52,6 +52,7 @@ const link = createUploadLink({
 });
 
 export const apolloClient = new ApolloClient({
+  credentials: "include",
   link: authMiddleware.concat(link),
   cache,
   ssrMode: true,
