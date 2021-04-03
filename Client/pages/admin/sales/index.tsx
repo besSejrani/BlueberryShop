@@ -97,7 +97,6 @@ const Products = () => {
       flex: 0.4,
       renderCell: (params: GridCellParams) => {
         const discount = params.row.discount;
-        console.log(discount <= 20);
 
         if (discount <= 20) {
           return (
@@ -142,44 +141,6 @@ const Products = () => {
     { field: "start", headerName: "Start Date", flex: 0.4 },
     { field: "end", headerName: "End Date", flex: 0.4 },
     { field: "createdAt", headerName: "Created At", flex: 0.4 },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 0.4,
-
-      renderCell: (params: GridCellParams) => {
-        const end = params.row.end;
-        const now = moment(Date.now()).format("DD.MM.yyyy HH:mm");
-
-        if (now > end) {
-          return (
-            <>
-              <Button
-                variant="outlined"
-                color="secondary"
-                size="small"
-                style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
-              >
-                Expired
-              </Button>
-            </>
-          );
-        }
-
-        return (
-          <>
-            <Button
-              variant="outlined"
-              color="secondary"
-              size="small"
-              style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
-            >
-              Valid
-            </Button>
-          </>
-        );
-      },
-    },
 
     {
       field: "actions",
@@ -207,7 +168,6 @@ const Products = () => {
       end: moment(product.endDate).format("DD.MM.yyyy HH:mm"),
       createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
       discount: product.discount,
-      status: "",
       actions: "",
     };
   });

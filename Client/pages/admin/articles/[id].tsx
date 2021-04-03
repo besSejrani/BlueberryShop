@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Next
 import { useRouter } from "next/router";
@@ -24,7 +24,7 @@ import {
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
 import MarkdownInput from "@Components/Blog/MarkdownInput/MarkdownInput";
 import BackButton from "@Components/BackButon/BackButton";
@@ -68,12 +68,22 @@ const UpdateArticleAdmin = () => {
   const [updateArticle] = useUpdateArticleMutation();
 
   // State
-  const [articleTitle, setArticleTitle] = useState(data?.getArticle.title);
-  const [articleSummary, setArticleSummary] = useState<string>(data?.getArticle.summary);
-  const [articlePublishedAt, setArticlePublishedAt] = useState(data?.getArticle.publishedAt);
-  const [articleSlug, setArticleSlug] = useState<string>(data?.getArticle.slug);
-  const [articleAuthor, setArticleAuthor] = useState<string>(data?.getArticle.author);
+  const [articleTitle, setArticleTitle] = useState("");
+  const [articleSummary, setArticleSummary] = useState<string>("");
+  const [articlePublishedAt, setArticlePublishedAt] = useState();
+  const [articleSlug, setArticleSlug] = useState<string>("");
+  const [articleAuthor, setArticleAuthor] = useState<string>("");
   const [articleCategory, setArticleCategory] = useState<string>("");
+  const [articleStatus, setArticleStatus] = useState<string>("");
+
+  useEffect(() => {
+    setArticleTitle(data?.getArticle.title);
+    setArticleSummary(data?.getArticle.summary);
+    setArticlePublishedAt(data?.getArticle.publishedAt);
+    setArticleSlug(data?.getArticle.slug);
+    setArticleAuthor(data?.getArticle.author);
+    setArticleStatus(data?.getArticle.status);
+  }, [data]);
 
   // Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
@@ -83,6 +93,10 @@ const UpdateArticleAdmin = () => {
   // Events
   const handleChangeCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
     setArticleCategory(event.target.value as string);
+  };
+
+  const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setArticleStatus((event.target as HTMLInputElement).value);
   };
 
   const onSubmit = async (form) => {
@@ -108,7 +122,7 @@ const UpdateArticleAdmin = () => {
 
   return (
     <Box className={classes.root}>
-      <MarkdownInput content={data?.getArticle.content} />
+      <MarkdownInput content={data?.getArticle?.content} />
       <MarkdownPreview />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>
@@ -225,11 +239,12 @@ const UpdateArticleAdmin = () => {
               <RadioGroup row aria-label="position" name="position" defaultValue="top">
                 <FormControlLabel
                   control={
-                    <Radio
-                      checked={data?.getArticle.status === "DRAFT"}
+                    <Radios
                       color="secondary"
+                      checked={articleStatus === "DRAFT"}
                       value="DRAFT"
-                      name="articleStatus"
+                      name="productStatus"
+                      onChange={handleChangeRadio}
                       inputRef={register()}
                     />
                   }
@@ -240,10 +255,11 @@ const UpdateArticleAdmin = () => {
                 <FormControlLabel
                   control={
                     <Radio
-                      checked={data?.getArticle.status === "PUBLISHED"}
                       color="secondary"
+                      checked={articleStatus === "PUBLISHED"}
                       value="PUBLISHED"
-                      name="articleStatus"
+                      name="productStatus"
+                      onChange={handleChangeRadio}
                       inputRef={register()}
                     />
                   }
@@ -254,10 +270,11 @@ const UpdateArticleAdmin = () => {
                 <FormControlLabel
                   control={
                     <Radio
-                      checked={data?.getArticle.status === "ARCHIVED"}
                       color="secondary"
+                      checked={articleStatus === "ARCHIVED"}
                       value="ARCHIVED"
-                      name="articleStatus"
+                      name="productStatus"
+                      onChange={handleChangeRadio}
                       inputRef={register()}
                     />
                   }

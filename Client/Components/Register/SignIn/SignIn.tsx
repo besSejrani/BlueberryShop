@@ -16,7 +16,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { toast } from "react-toastify";
 
 // Components
-import InputForm from "../../InputForm/InputForm";
+import InputForm from "../../Form/InputForm/InputForm";
 
 // Icons
 import TwitterIcon from "@material-ui/icons/Twitter";

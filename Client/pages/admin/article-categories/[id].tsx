@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Next
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ import { Button, Box, Card, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 
 // Apollo
@@ -38,11 +38,15 @@ const CreateProductAdmin = () => {
   const { data } = useGetArticleCategoryQuery({ variables: { articleCategoryId: query.id as string } });
 
   // State
-  const [categoryName, setCategoryName] = useState(data?.getArticleCategory.name);
+  const [categoryName, setCategoryName] = useState("");
 
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
+
+  useEffect(() => {
+    setCategoryName(data?.getArticleCategory.name);
+  }, [data]);
 
   const [updateCategory] = useUpdateArticleCategoryMutation();
 

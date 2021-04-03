@@ -11,7 +11,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 
 // React-Hook-Form

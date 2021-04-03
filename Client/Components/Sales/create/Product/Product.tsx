@@ -4,14 +4,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, Typography } from "@material-ui/core";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Date Picker
 import { DateTimePicker } from "@material-ui/pickers";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 
 // React-Hook-Form
@@ -36,8 +36,8 @@ const Product = () => {
   const router = useRouter();
 
   // GraphQL
-  const [createSale] = useCreateSaleMutation();
   const { data } = useGetProductsSaleQuery();
+  const [createSale] = useCreateSaleMutation();
 
   // State
   const [saleName, setSaleName] = useState("");
@@ -47,6 +47,7 @@ const Product = () => {
   const [productSale, setProductSale] = useState<number>();
   const [product, setProduct] = useState<string>("");
 
+  // React Hook Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
     criteriaMode: "all",
   });

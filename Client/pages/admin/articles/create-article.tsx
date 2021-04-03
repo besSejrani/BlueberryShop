@@ -24,7 +24,7 @@ import {
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import MarkdownInput from "@Components/Blog/MarkdownInput/MarkdownInput";
 import MarkdownPreview from "@Components/Blog/MarkdownPreview/MarkdownPreview";
 import BackButton from "@Components/BackButon/BackButton";

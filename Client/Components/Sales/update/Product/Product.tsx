@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Next
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 
 // React-Hook-Form
@@ -41,13 +41,20 @@ const Product = () => {
   const [updateSale] = useUpdateSaleMutation();
 
   // State
-  const [saleName, setSaleName] = useState(data?.getSale.sale);
-  const [saleDiscount, setSaleDiscount] = useState<number>(data?.getSale.discount);
-  const [startDate, setStartDate] = useState(new Date(data?.getSale.startDate));
-  const [endDate, setEndDate] = useState(new Date(data?.getSale.endDate));
-
+  const [saleName, setSaleName] = useState("");
+  const [saleDiscount, setSaleDiscount] = useState<number>(0);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
   const [product, setProduct] = useState<string>("");
 
+  useEffect(() => {
+    setSaleName(data?.getSale.sale);
+    setSaleDiscount(data?.getSale.discount);
+    setStartDate(new Date(data?.getSale.startDate));
+    setEndDate(new Date(data?.getSale.endDate));
+  }, [data]);
+
+  // React Hook Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
     criteriaMode: "all",
   });

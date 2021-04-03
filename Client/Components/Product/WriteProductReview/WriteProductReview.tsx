@@ -12,7 +12,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Rating } from "@material-ui/lab";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 
 // GraphQL
 import { GetProductDocument, GetProductQuery, useCreateProductReviewMutation } from "@Graphql/index";

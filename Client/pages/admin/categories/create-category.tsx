@@ -11,7 +11,7 @@ import { Button, Box, Card, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import BackButton from "@Components/BackButon/BackButton";
 
 // Apollo

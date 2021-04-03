@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Next
 import { useRouter } from "next/router";
@@ -22,7 +22,7 @@ import {
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
-import InputForm from "@Components/InputForm/InputForm";
+import InputForm from "@Components/Form/InputForm/InputForm";
 import UploadFile from "@Components/UploadFile/UploadFile";
 import PreviewProduct from "@Components/Product/PreviewProduct/PreviewProduct";
 import BackButton from "@Components/BackButon/BackButton";
@@ -57,21 +57,28 @@ const ModifyProductAdmin = () => {
   const router = useRouter();
   const { query } = router;
 
-  // Update Product
-  const [updateProduct] = useUpdateProductMutation();
-
-  // Get Product
+  // GraphQL
   const { data, loading } = useGetProductQuery({
     variables: { productId: query.id as string },
   });
+  const [updateProduct] = useUpdateProductMutation();
 
   // State
-  const [productName, setProductName] = useState(data?.getProduct?.name);
-  const [productPrice, setProductPrice] = useState<number>(data?.getProduct?.price);
-  const [productDescription, setProductDescription] = useState(data?.getProduct?.description);
-  const [productStock, setProductStock] = useState<number>(data?.getProduct?.stock);
-  const [productPromotion, setProductPromotion] = useState<boolean>(data?.getProduct?.promotion);
-  const [productStatus, setProductStatus] = useState<string>(data?.getProduct?.status);
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState<number>();
+  const [productDescription, setProductDescription] = useState("");
+  const [productStock, setProductStock] = useState<number>();
+  const [productPromotion, setProductPromotion] = useState<boolean>();
+  const [productStatus, setProductStatus] = useState<string>("");
+
+  useEffect(() => {
+    setProductName(data?.getProduct?.name);
+    setProductPrice(data?.getProduct?.price);
+    setProductDescription(data?.getProduct?.description);
+    setProductStock(data?.getProduct?.stock);
+    setProductPromotion(data?.getProduct?.promotion);
+    setProductStatus(data?.getProduct?.status);
+  }, [data]);
 
   // Events
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,7 +116,7 @@ const ModifyProductAdmin = () => {
     featured: false,
     options: [],
     imageUrl: "static/images/computeModule3+/1.webp",
-    images: data?.getProduct?.productImages,
+    productImages: data?.getProduct?.productImages,
     stock: productStock,
     rating: 4,
     reviews: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
@@ -209,7 +216,7 @@ const ModifyProductAdmin = () => {
                   name="productPromotion"
                   id="productPromotion"
                   disableRipple
-                  checked={productPromotion}
+                  checked={productPromotion === true}
                 />
               }
               label="Promotion"
