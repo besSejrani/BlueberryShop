@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper, IconButton } from "@material-ui/core";
+import { Box, Button, Paper, IconButton } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { GridCellParams } from "@material-ui/data-grid";
 
@@ -18,6 +18,7 @@ import useToast from "@Hook/useToast";
 
 // Components
 import DataGrid from "Components/DataGrid/DataGrid";
+import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
 // Moment
 import moment from "moment";
@@ -214,26 +215,7 @@ const Articles = () => {
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Articles
-            </Typography>
-
-            <Breadcrumbs aria-label="breadcrumb">
-              <MaterialLink href="/">Administration</MaterialLink>
-              <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
-                Articles
-              </MaterialLink>
-            </Breadcrumbs>
-          </Box>
-
-          <Link href="articles/create-article" passHref>
-            <Button variant="contained" color="secondary">
-              Create Article
-            </Button>
-          </Link>
-        </Box>
+        <DataGridInfoAction action="Create Article" title="Articles" path="articles/create-article" />
 
         <Paper style={{ borderRadius: 15 }}>
           <DataGrid rows={rows} columns={columns} />
@@ -253,12 +235,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "0px 0px 50px 0px",
     },
   })
 );

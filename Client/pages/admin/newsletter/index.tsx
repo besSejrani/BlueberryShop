@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, IconButton, Typography, Paper } from "@material-ui/core";
+import { Box, IconButton, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -10,6 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
+import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -122,22 +123,7 @@ const Newsletters = () => {
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Newsletter
-            </Typography>
-
-            <Breadcrumbs aria-label="breadcrumb">
-              <MaterialLink color="inherit" href="/">
-                Administration
-              </MaterialLink>
-              <MaterialLink color="textPrimary" aria-current="page">
-                Newsletter
-              </MaterialLink>
-            </Breadcrumbs>
-          </Box>
-        </Box>
+        <DataGridInfoAction title="Newsletter" />
 
         <Paper style={{ borderRadius: 15 }}>
           <DataGrid rows={rows} columns={columns} />
@@ -156,11 +142,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      margin: "0px 0px 50px 0px",
     },
   })
 );

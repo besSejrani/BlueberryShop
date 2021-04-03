@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Typography, Paper } from "@material-ui/core";
+import { Box, Button, IconButton, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -15,6 +15,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
+import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -153,26 +154,7 @@ const Users = () => {
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Users
-            </Typography>
-
-            <Breadcrumbs aria-label="breadcrumb">
-              <MaterialLink href="/">Administration</MaterialLink>
-              <MaterialLink color="inherit" href="/components/breadcrumbs/" aria-current="page">
-                Users
-              </MaterialLink>
-            </Breadcrumbs>
-          </Box>
-
-          <Link href="/admin/users/create-user" passHref>
-            <Button variant="contained" color="secondary">
-              Create User
-            </Button>
-          </Link>
-        </Box>
+        <DataGridInfoAction title="Users" />
 
         <Paper style={{ borderRadius: 15 }}>
           <DataGrid columns={columns} rows={rows} />
@@ -192,12 +174,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "0px 0px 50px 0px",
     },
   })
 );

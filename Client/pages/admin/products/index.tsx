@@ -1,11 +1,10 @@
 import React from "react";
 
 // Next
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typography } from "@material-ui/core";
+import { Box, Button, IconButton, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -15,6 +14,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
+import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
 // Hooks
 import useToast from "@Hook/useToast";
@@ -187,26 +187,7 @@ const Products = () => {
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Products
-            </Typography>
-
-            <Breadcrumbs aria-label="breadcrumb">
-              <MaterialLink href="/">Administration</MaterialLink>
-              <MaterialLink color="inherit" aria-current="page">
-                Products
-              </MaterialLink>
-            </Breadcrumbs>
-          </Box>
-
-          <Link href="/admin/products/create-product" passHref>
-            <Button variant="contained" color="secondary">
-              Create Product
-            </Button>
-          </Link>
-        </Box>
+        <DataGridInfoAction title="Products" action="Create Product" path="products/create-product" />
 
         <Paper style={{ borderRadius: 15 }}>
           <DataGrid rows={rows} columns={columns} />
@@ -225,12 +206,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "0px 0px 50px 0px",
     },
   })
 );

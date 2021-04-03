@@ -1,11 +1,10 @@
 import React from "react";
 
 // Next
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Breadcrumbs, Link as MaterialLink, Button, IconButton, Paper, Typography } from "@material-ui/core";
+import { Box, IconButton, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -15,6 +14,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
+import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -128,26 +128,7 @@ const Categories = () => {
   return (
     <Box className={classes.root}>
       <Box style={{ width: "100%" }}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="h5" style={{ margin: "0px 0px 10px 0px" }}>
-              Categories
-            </Typography>
-
-            <Breadcrumbs aria-label="breadcrumb">
-              <MaterialLink href="/">Administration</MaterialLink>
-              <MaterialLink color="inherit" aria-current="page">
-                Categories
-              </MaterialLink>
-            </Breadcrumbs>
-          </Box>
-
-          <Link href="/admin/categories/create-category" passHref>
-            <Button variant="contained" color="secondary">
-              Create Category
-            </Button>
-          </Link>
-        </Box>
+        <DataGridInfoAction action="Create Category" title="Categories" path="categories/create-category" />
 
         <Paper style={{ borderRadius: 15 }}>
           <DataGrid rows={rows} columns={columns} />
@@ -166,12 +147,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "0px 0px 50px 0px",
     },
   })
 );
