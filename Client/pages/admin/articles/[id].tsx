@@ -239,7 +239,7 @@ const UpdateArticleAdmin = () => {
               <RadioGroup row aria-label="position" name="position" defaultValue="top">
                 <FormControlLabel
                   control={
-                    <Radios
+                    <Radio
                       color="secondary"
                       checked={articleStatus === "DRAFT"}
                       value="DRAFT"

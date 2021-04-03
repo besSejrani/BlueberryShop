@@ -4,17 +4,14 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Button, IconButton, Paper } from "@material-ui/core";
+import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-// Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 
 // Hooks
 import useToast from "@Hook/useToast";
@@ -39,6 +36,7 @@ const Products = () => {
   const { loading, data } = useGetProductsQuery();
   const [deleteProductMutation, { error }] = useDeleteProductMutation({ errorPolicy: "all" });
 
+  // Error Handling
   if (error) {
     error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
   }
@@ -94,7 +92,7 @@ const Products = () => {
         const image = params.value[params.rowIndex].productImages[0];
         return (
           <>
-            <img src={image || `/static/images/unknownProduct.png`} height={60} width={60} />
+            <img src={image || `/images/unknownProduct.png`} height={60} width={60} />
             {params.value[params.rowIndex].name}
           </>
         );
@@ -158,15 +156,7 @@ const Products = () => {
       flex: 0.4,
 
       renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => router.push(`/admin/products/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
-
-          <IconButton onClick={() => handleClickOpen(params)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+        <DataGridAction path={`/admin/products/${params.row.id}`} handleClickOpen={() => handleClickOpen(params)} />
       ),
     },
   ];

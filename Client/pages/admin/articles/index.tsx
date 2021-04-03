@@ -1,17 +1,12 @@
 import React from "react";
 
 //Next
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Button, Paper, IconButton } from "@material-ui/core";
+import { Box, Button, Paper } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { GridCellParams } from "@material-ui/data-grid";
-
-//Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
 
 // Hooks
 import useToast from "@Hook/useToast";
@@ -19,6 +14,8 @@ import useToast from "@Hook/useToast";
 // Components
 import DataGrid from "Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
+import DataGridLinkButton from "@Components/DataGrid/DataGridLinkButton/DataGridLinkButton";
 
 // Moment
 import moment from "moment";
@@ -66,8 +63,6 @@ const Articles = () => {
   };
 
   const deleteArticle = async (articleId) => {
-    console.log(articleId);
-
     await deleteArticleMutation({
       variables: { articleId },
       update(cache, { data }) {
@@ -89,8 +84,6 @@ const Articles = () => {
     await handleClose();
   };
 
-  if (loading) return <div>loading...</div>;
-
   const columns = [
     { field: "title", headerName: "Title", flex: 1 },
     {
@@ -98,18 +91,7 @@ const Articles = () => {
       headerName: "Link",
       flex: 0.4,
       renderCell: (params: GridCellParams) => {
-        return (
-          <Link href={`/blog/${params.row.link}`} passHref>
-            <Button
-              variant="outlined"
-              color="secondary"
-              size="small"
-              style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
-            >
-              Link
-            </Button>
-          </Link>
-        );
+        return <DataGridLinkButton path={`/blog/${params.row.link}`} text="Link" />;
       },
     },
 
@@ -181,16 +163,9 @@ const Articles = () => {
       field: "actions",
       headerName: "Actions",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => router.push(`/admin/articles/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
 
-          <IconButton onClick={() => handleClickOpen(params)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+      renderCell: (params: GridCellParams) => (
+        <DataGridAction path={`/admin/articles/${params.row.id}`} handleClickOpen={() => handleClickOpen(params)} />
       ),
     },
   ];

@@ -5,17 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Button, IconButton, Paper } from "@material-ui/core";
+import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
-
-//Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 
 // Hooks
 import useToast from "@Hook/useToast";
@@ -147,15 +144,7 @@ const Products = () => {
       headerName: "Actions",
       flex: 0.4,
       renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => router.push(`/admin/sales/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
-
-          <IconButton onClick={() => handleClickOpen(params)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+        <DataGridAction path={`/admin/sales/${params.row.id}`} handleClickOpen={() => handleClickOpen(params)} />
       ),
     },
   ];

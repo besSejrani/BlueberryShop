@@ -1,16 +1,14 @@
 import React from "react";
 
 // Material-UI
-import { Box, IconButton, Paper } from "@material-ui/core";
+import { Box, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-//Icons
-import DeleteIcon from "@material-ui/icons/Delete";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -101,13 +99,8 @@ const Newsletters = () => {
       field: "actions",
       headerName: "Actions",
       flex: 0.4,
-
       renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => handleClickOpen(params)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+        <DataGridAction deleteOnly handleClickOpen={() => handleClickOpen(params)} />
       ),
     },
   ];

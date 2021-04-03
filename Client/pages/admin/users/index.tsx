@@ -1,26 +1,23 @@
 import React from "react";
 
 // Next
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, Button, IconButton, Paper } from "@material-ui/core";
+import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-//Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 
 // Hook
 import useToast from "@Hook/useToast";
 
 //Apollo
+import { ui } from "@Apollo/state/ui/index";
 import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuery } from "@Graphql/index";
 
 // SSR
@@ -39,12 +36,28 @@ const Users = () => {
   const { loading, data } = useGetUsersQuery();
   const [deleteUserMutation, { error }] = useDeleteUserMutation({ errorPolicy: "all" });
 
+  // Error Hanlding
   if (error) {
     error?.graphQLErrors.map(({ message }) => useToast({ message, color: "#ff0000" }));
   }
 
+  // Events
+  const handleClickOpen = (params) => {
+    ui({
+      isConfirmationDialogOpen: {
+        open: true,
+        identifier: params.row.email,
+        deleteResource: () => deleteUser(params.row.id),
+        handleClose: () => handleClose(),
+      },
+    });
+  };
+
+  const handleClose = () => {
+    ui({ isConfirmationDialogOpen: { identifier: ui().isConfirmationDialogOpen.identifier, open: false } });
+  };
   const deleteUser = async (userId) => {
-    const { data } = await deleteUserMutation({
+    await deleteUserMutation({
       variables: { userId },
 
       update(cache, { data }) {
@@ -54,8 +67,6 @@ const Users = () => {
 
         const newUsers = getUsers.filter((user) => user._id !== data.deleteUser);
 
-        debugger;
-
         cache.writeQuery({
           query: GetUsersDocument,
           data: {
@@ -64,6 +75,8 @@ const Users = () => {
         });
       },
     });
+
+    await handleClose();
   };
 
   if (loading) return <div>loading...</div>;
@@ -125,17 +138,8 @@ const Users = () => {
       field: "actions",
       headerName: "Actions",
       flex: 0.4,
-
       renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => router.push(`/admin/users/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
-
-          <IconButton onClick={() => deleteUser(params.row.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+        <DataGridAction deleteOnly handleClickOpen={() => handleClickOpen(params)} />
       ),
     },
   ];

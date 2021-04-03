@@ -4,17 +4,14 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // Material-UI
-import { Box, IconButton, Paper } from "@material-ui/core";
+import { Box, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
-//Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import ModifyIcon from "@material-ui/icons/Create";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
+import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 
 // Hook
 import useToast from "@Hook/useToast";
@@ -104,15 +101,10 @@ const Categories = () => {
       flex: 0.4,
 
       renderCell: (params: GridCellParams) => (
-        <>
-          <IconButton edge="start" onClick={() => router.push(`/admin/article-categories/${params.row.id}`)}>
-            <ModifyIcon />
-          </IconButton>
-
-          <IconButton onClick={() => handleClickOpen(params)}>
-            <DeleteIcon />
-          </IconButton>
-        </>
+        <DataGridAction
+          path={`/admin/article-categories/${params.row.id}`}
+          handleClickOpen={() => handleClickOpen(params)}
+        />
       ),
     },
   ];
