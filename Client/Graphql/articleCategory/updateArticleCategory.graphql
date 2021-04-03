@@ -1,0 +1,6 @@
+mutation UpdateArticleCategory($articleCategoryId: String!, $name: String!) {
+  updateArticleCategory(articleCategoryInput: { articleCategoryId: $articleCategoryId, name: $name }) {
+    _id
+    name
+  }
+}

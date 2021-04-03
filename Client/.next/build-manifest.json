@@ -24,20 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/admin/sales": [
+    "/admin/articles": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/sales.js"
+      "static/chunks/pages/admin/articles.js"
     ],
-    "/admin/sales/create-sale": [
+    "/admin/articles/[id]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin/sales/create-sale.js"
-    ],
-    "/admin/users": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/admin/users.js"
+      "static/chunks/pages/admin/articles/[id].js"
     ]
   },
   "ampFirstPages": []

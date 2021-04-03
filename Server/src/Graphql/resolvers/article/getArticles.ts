@@ -10,6 +10,6 @@ import { Article, ArticleModel } from "../../../Model/Article";
 export class GetArticlesResolver {
   @Query(() => [Article], { nullable: true })
   async getArticles(): Promise<Article[] | null> {
-    return await ArticleModel.find({});
+    return await ArticleModel.find({}).populate("categories");
   }
 }

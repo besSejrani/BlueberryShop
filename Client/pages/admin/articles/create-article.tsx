@@ -34,7 +34,12 @@ import withApollo from "@Apollo/ssr";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // GraphQL
-import { useCreateArticleMutation, GetArticlesQuery, GetArticlesDocument } from "@Graphql/index";
+import {
+  useCreateArticleMutation,
+  GetArticlesQuery,
+  GetArticlesDocument,
+  useGetArticleCategoriesQuery,
+} from "@Graphql/index";
 
 // State Management
 import { useReactiveVar } from "@apollo/client";
@@ -63,6 +68,7 @@ const CreateArticleAdmin = () => {
 
   // GraphQL
   const [createArticle] = useCreateArticleMutation();
+  const { data } = useGetArticleCategoriesQuery();
 
   // State
   const [articleTitle, setArticleTitle] = useState("");
@@ -94,7 +100,7 @@ const CreateArticleAdmin = () => {
         slug: form.articleSlug,
         content,
         status: form.articleStatus,
-        category: "bla",
+        categories: form.articleCategory,
       },
       update(cache, { data }) {
         const newArticle = data?.createArticle;
@@ -220,9 +226,9 @@ const CreateArticleAdmin = () => {
                     onChange={handleChangeCategory}
                     className={classes.input}
                   >
-                    {/* {data?.getCategories.map((category) => {
+                    {data?.getArticleCategories.map((category) => {
                       return <MenuItem value={category._id}>{category.name}</MenuItem>;
-                    })} */}
+                    })}
                   </Select>
                 }
               />

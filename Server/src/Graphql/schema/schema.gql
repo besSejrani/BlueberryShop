@@ -6,7 +6,7 @@
 type Article {
   _id: ObjectId!
   author: String!
-  category: String!
+  categories: [ArticleCategory!]!
   content: String!
   createdAt: DateTime!
   publishedAt: DateTime!
@@ -14,6 +14,11 @@ type Article {
   status: String!
   summary: String!
   title: String!
+}
+
+type ArticleCategory {
+  _id: ObjectId!
+  name: String!
 }
 
 type Category {
@@ -33,7 +38,7 @@ input ChangedProfileInput {
 
 input CreateArticleInput {
   author: String!
-  category: String!
+  categories: String!
   content: String!
   publishedAt: DateTime!
   slug: String!
@@ -83,11 +88,13 @@ type Mutation {
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
   createArticle(input: CreateArticleInput!): Boolean!
+  createArticleCategory(articleCategoryName: String!): Boolean!
   createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product
   createSale(saleInput: CreateSaleInput!): Boolean!
   deleteArticle(articleId: String!): Boolean!
+  deleteArticleCategory(articleCategoryId: String!): Boolean!
   deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
@@ -98,6 +105,7 @@ type Mutation {
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
+  updateArticleCategory(articleCategoryInput: UpdateArticleCategoryInput!): ArticleCategory!
   updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(data: ChangedProfileInput!): User
@@ -149,6 +157,8 @@ type ProductReviewPagination {
 
 type Query {
   getArticle(articleInput: GetArticleInput!): Article
+  getArticleCategories: [ArticleCategory!]
+  getArticleCategory(articleCategoryId: String!): ArticleCategory
   getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
@@ -215,9 +225,14 @@ enum Status {
   PUBLISHED
 }
 
+input UpdateArticleCategoryInput {
+  articleCategoryId: String
+  name: String
+}
+
 input UpdateArticleInput {
   author: String
-  category: String
+  categories: String
   content: String
   publishedAt: DateTime
   slug: String

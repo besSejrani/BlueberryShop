@@ -5,7 +5,7 @@ mutation UpdateArticle(
   $slug: String
   $summary: String
   $publishedAt: DateTime
-  $category: String
+  $categories: String
   $content: String
   $status: Status
 ) {
@@ -17,7 +17,7 @@ mutation UpdateArticle(
       slug: $slug
       summary: $summary
       publishedAt: $publishedAt
-      category: $category
+      categories: $categories
       content: $content
       status: $status
     }
@@ -28,7 +28,10 @@ mutation UpdateArticle(
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt

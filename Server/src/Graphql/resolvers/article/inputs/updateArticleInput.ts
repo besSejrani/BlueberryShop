@@ -23,7 +23,7 @@ export class UpdateArticleInput {
   publishedAt: Date;
 
   @Field({ nullable: true })
-  category: string;
+  categories: string;
 
   @Field({ nullable: true })
   content: string;

@@ -1,0 +1,6 @@
+query GetArticleCategories {
+  getArticleCategories {
+    _id
+    name
+  }
+}

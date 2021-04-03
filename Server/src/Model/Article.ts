@@ -5,6 +5,8 @@ import { Field, ObjectType } from "type-graphql";
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
+import { ArticleCategory } from "./ArticleCategory";
+
 // ========================================================================================================
 
 @ObjectType()
@@ -32,9 +34,9 @@ export class Article {
   @Property({ required: true })
   publishedAt: Date;
 
-  @Field()
-  @Property({ required: true })
-  category: string;
+  @Field(() => [ArticleCategory])
+  @Property({ ref: ArticleCategory, type: ObjectId })
+  categories?: ArticleCategory[];
 
   @Field()
   @Property({ required: true })

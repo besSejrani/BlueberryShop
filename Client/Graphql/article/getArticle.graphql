@@ -6,7 +6,10 @@ query GetArticle($articleId: String, $articleSlug: String) {
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt

@@ -5,7 +5,7 @@ mutation CreateArticle(
   $publishedAt: DateTime!
   $summary: String!
   $status: Status!
-  $category: String!
+  $categories: String!
   $content: String!
 ) {
   createArticle(
@@ -16,7 +16,7 @@ mutation CreateArticle(
       publishedAt: $publishedAt
       summary: $summary
       status: $status
-      category: $category
+      categories: $categories
       content: $content
     }
   )

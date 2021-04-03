@@ -23,7 +23,7 @@ export class CreateArticleInput {
   publishedAt: Date;
 
   @Field()
-  category: string;
+  categories: string;
 
   @Field()
   content: string;

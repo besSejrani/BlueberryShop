@@ -6,7 +6,10 @@ query GetArticles {
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt

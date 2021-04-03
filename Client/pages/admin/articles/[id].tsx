@@ -34,7 +34,7 @@ import withApollo from "@Apollo/ssr";
 import { DateTimePicker } from "@material-ui/pickers";
 
 // GraphQL
-import { useGetArticleQuery, useUpdateArticleMutation } from "@Graphql/index";
+import { useGetArticleQuery, useUpdateArticleMutation, useGetArticleCategoriesQuery } from "@Graphql/index";
 
 // State Management
 import { useReactiveVar } from "@apollo/client";
@@ -64,6 +64,7 @@ const UpdateArticleAdmin = () => {
 
   // GraphQL
   const { data } = useGetArticleQuery({ variables: { articleId: query.id as string } });
+  const { data: categories } = useGetArticleCategoriesQuery();
   const [updateArticle] = useUpdateArticleMutation();
 
   // State
@@ -72,7 +73,7 @@ const UpdateArticleAdmin = () => {
   const [articlePublishedAt, setArticlePublishedAt] = useState(data?.getArticle.publishedAt);
   const [articleSlug, setArticleSlug] = useState<string>(data?.getArticle.slug);
   const [articleAuthor, setArticleAuthor] = useState<string>(data?.getArticle.author);
-  const [articleCategory, setArticleCategory] = useState<string>(data?.getArticle.category);
+  const [articleCategory, setArticleCategory] = useState<string>("");
 
   // Form
   const { register, errors, handleSubmit, control } = useForm<FormValues>({
@@ -98,7 +99,7 @@ const UpdateArticleAdmin = () => {
         slug: form.articleSlug,
         content,
         status: form.articleStatus,
-        category: "bla",
+        categories: form.articleCategory,
       },
     });
 
@@ -211,9 +212,9 @@ const UpdateArticleAdmin = () => {
                     onChange={handleChangeCategory}
                     className={classes.input}
                   >
-                    {/* {data?.getCategories.map((category) => {
+                    {categories?.getArticleCategories.map((category) => {
                       return <MenuItem value={category._id}>{category.name}</MenuItem>;
-                    })} */}
+                    })}
                   </Select>
                 }
               />

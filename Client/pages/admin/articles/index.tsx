@@ -202,7 +202,7 @@ const Articles = () => {
       name: product.title,
       link: product.slug,
       author: product.author,
-      category: product.category,
+      category: product.categories.map((category) => category.name),
       publishedAt: moment(product.publishedAt).format("DD.MM.yyyy HH:mm"),
       createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
       status: product.status,

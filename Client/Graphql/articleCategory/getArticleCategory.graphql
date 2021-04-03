@@ -1,0 +1,6 @@
+query GetArticleCategory($articleCategoryId: String!) {
+  getArticleCategory(articleCategoryId: $articleCategoryId) {
+    _id
+    name
+  }
+}

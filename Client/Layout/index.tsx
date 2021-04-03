@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
           <AdminHeader />
           <div style={{ padding: "120px 20px 0px 260px" }}>{children}</div>
           <AdminSideBar />
+          <ConfirmationDialog />
           <Toast />
         </>
       ) : (
@@ -43,8 +44,8 @@ const Layout = ({ children }) => {
           <SideDrawerCart />
           {children}
 
-          <Toast />
           <ConfirmationDialog />
+          <Toast />
           <Footer />
         </>
       )}

@@ -13,6 +13,8 @@ export class GetArticleResolver {
   async getArticle(@Arg("articleInput") { articleId = "", slug = "" }: GetArticleInput): Promise<Article | null> {
     const result = slug;
 
-    return result ? await ArticleModel.findOne({ slug: slug }) : await ArticleModel.findOne({ _id: articleId });
+    return result
+      ? await ArticleModel.findOne({ slug: slug }).populate("categories")
+      : await ArticleModel.findOne({ _id: articleId }).populate("categories");
   }
 }

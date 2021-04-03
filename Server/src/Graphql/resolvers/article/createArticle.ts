@@ -18,7 +18,7 @@ export class CreateArticleResolver {
   @UseMiddleware(authorization(["admin"]))
   async createArticle(
     @Arg("input")
-    { author, category, content, publishedAt, slug, status, summary, title }: CreateArticleInput
+    { author, categories, content, publishedAt, slug, status, summary, title }: CreateArticleInput
   ): Promise<boolean> {
     const article = await ArticleModel.findOne({ title });
 
@@ -26,7 +26,7 @@ export class CreateArticleResolver {
       return true;
     }
 
-    const newArticle = new ArticleModel({ author, category, content, publishedAt, slug, status, summary, title });
+    const newArticle = new ArticleModel({ author, categories, content, publishedAt, slug, status, summary, title });
     newArticle.save();
 
     return true;

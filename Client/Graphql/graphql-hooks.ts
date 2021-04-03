@@ -28,10 +28,16 @@ export type Article = {
   slug: Scalars['String'];
   summary: Scalars['String'];
   publishedAt: Scalars['DateTime'];
-  category: Scalars['String'];
+  categories: Array<ArticleCategory>;
   content: Scalars['String'];
   status: Scalars['String'];
   createdAt: Scalars['DateTime'];
+};
+
+export type ArticleCategory = {
+  __typename?: 'ArticleCategory';
+  _id: Scalars['ObjectId'];
+  name: Scalars['String'];
 };
 
 export type Category = {
@@ -56,7 +62,7 @@ export type CreateArticleInput = {
   slug: Scalars['String'];
   summary: Scalars['String'];
   publishedAt: Scalars['DateTime'];
-  category: Scalars['String'];
+  categories: Scalars['String'];
   content: Scalars['String'];
   status: Status;
 };
@@ -94,16 +100,19 @@ export type GetArticleInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createArticleCategory: Scalars['Boolean'];
+  deleteArticleCategory: Scalars['Boolean'];
+  updateArticleCategory: ArticleCategory;
   createArticle: Scalars['Boolean'];
   deleteArticle: Scalars['Boolean'];
   updateArticle: Article;
   signin: UserResponse;
   signup: UserResponse;
+  addToNewsletter: Scalars['Boolean'];
+  deleteFromNewsletter: Scalars['Boolean'];
   createCategory: Scalars['Boolean'];
   deleteCategory: Scalars['Boolean'];
   updateCategory: Category;
-  addToNewsletter: Scalars['Boolean'];
-  deleteFromNewsletter: Scalars['Boolean'];
   createProduct: Product;
   createProductReview?: Maybe<Product>;
   deleteProduct: Scalars['Boolean'];
@@ -118,6 +127,21 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   updateProfile?: Maybe<User>;
   addProfilePicture: Scalars['Boolean'];
+};
+
+
+export type MutationCreateArticleCategoryArgs = {
+  articleCategoryName: Scalars['String'];
+};
+
+
+export type MutationDeleteArticleCategoryArgs = {
+  articleCategoryId: Scalars['String'];
+};
+
+
+export type MutationUpdateArticleCategoryArgs = {
+  articleCategoryInput: UpdateArticleCategoryInput;
 };
 
 
@@ -147,6 +171,16 @@ export type MutationSignupArgs = {
 };
 
 
+export type MutationAddToNewsletterArgs = {
+  email: Scalars['String'];
+};
+
+
+export type MutationDeleteFromNewsletterArgs = {
+  newsletterId: Scalars['String'];
+};
+
+
 export type MutationCreateCategoryArgs = {
   category: Scalars['String'];
 };
@@ -159,16 +193,6 @@ export type MutationDeleteCategoryArgs = {
 
 export type MutationUpdateCategoryArgs = {
   categoryInput: UpdateCategoryInput;
-};
-
-
-export type MutationAddToNewsletterArgs = {
-  email: Scalars['String'];
-};
-
-
-export type MutationDeleteFromNewsletterArgs = {
-  newsletterId: Scalars['String'];
 };
 
 
@@ -293,11 +317,13 @@ export type ProductReviewPagination = {
 
 export type Query = {
   __typename?: 'Query';
+  getArticleCategories?: Maybe<Array<ArticleCategory>>;
+  getArticleCategory?: Maybe<ArticleCategory>;
   getArticle?: Maybe<Article>;
   getArticles?: Maybe<Array<Article>>;
+  getNewsletters?: Maybe<Array<Newsletter>>;
   getCategories?: Maybe<Array<Category>>;
   getCategory?: Maybe<Category>;
-  getNewsletters?: Maybe<Array<Newsletter>>;
   getProduct?: Maybe<Product>;
   getProductReviewPagination?: Maybe<ProductReviewPagination>;
   getProducts?: Maybe<ProductPagination>;
@@ -307,6 +333,11 @@ export type Query = {
   getCurrentUser?: Maybe<PartialUser>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
+};
+
+
+export type QueryGetArticleCategoryArgs = {
+  articleCategoryId: Scalars['String'];
 };
 
 
@@ -401,13 +432,18 @@ export enum Status {
   Archived = 'ARCHIVED'
 }
 
+export type UpdateArticleCategoryInput = {
+  articleCategoryId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type UpdateArticleInput = {
   author?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   summary?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  category?: Maybe<Scalars['String']>;
+  categories?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   status?: Maybe<Status>;
 };
@@ -458,7 +494,7 @@ export type CreateArticleMutationVariables = Exact<{
   publishedAt: Scalars['DateTime'];
   summary: Scalars['String'];
   status: Status;
-  category: Scalars['String'];
+  categories: Scalars['String'];
   content: Scalars['String'];
 }>;
 
@@ -488,7 +524,11 @@ export type GetArticleQuery = (
   { __typename?: 'Query' }
   & { getArticle?: Maybe<(
     { __typename?: 'Article' }
-    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'category' | 'content' | 'status' | 'createdAt'>
+    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'content' | 'status' | 'createdAt'>
+    & { categories: Array<(
+      { __typename?: 'ArticleCategory' }
+      & Pick<ArticleCategory, '_id' | 'name'>
+    )> }
   )> }
 );
 
@@ -499,7 +539,11 @@ export type GetArticlesQuery = (
   { __typename?: 'Query' }
   & { getArticles?: Maybe<Array<(
     { __typename?: 'Article' }
-    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'category' | 'content' | 'status' | 'createdAt'>
+    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'content' | 'status' | 'createdAt'>
+    & { categories: Array<(
+      { __typename?: 'ArticleCategory' }
+      & Pick<ArticleCategory, '_id' | 'name'>
+    )> }
   )>> }
 );
 
@@ -510,7 +554,7 @@ export type UpdateArticleMutationVariables = Exact<{
   slug?: Maybe<Scalars['String']>;
   summary?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  category?: Maybe<Scalars['String']>;
+  categories?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   status?: Maybe<Status>;
 }>;
@@ -520,7 +564,69 @@ export type UpdateArticleMutation = (
   { __typename?: 'Mutation' }
   & { updateArticle: (
     { __typename?: 'Article' }
-    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'category' | 'content' | 'status' | 'createdAt'>
+    & Pick<Article, '_id' | 'author' | 'title' | 'slug' | 'summary' | 'publishedAt' | 'content' | 'status' | 'createdAt'>
+    & { categories: Array<(
+      { __typename?: 'ArticleCategory' }
+      & Pick<ArticleCategory, '_id' | 'name'>
+    )> }
+  ) }
+);
+
+export type CreateArticleCategoryMutationVariables = Exact<{
+  articleCategoryName: Scalars['String'];
+}>;
+
+
+export type CreateArticleCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createArticleCategory'>
+);
+
+export type DeleteArticleCategoryMutationVariables = Exact<{
+  articleCategoryName: Scalars['String'];
+}>;
+
+
+export type DeleteArticleCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteArticleCategory'>
+);
+
+export type GetArticleCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetArticleCategoriesQuery = (
+  { __typename?: 'Query' }
+  & { getArticleCategories?: Maybe<Array<(
+    { __typename?: 'ArticleCategory' }
+    & Pick<ArticleCategory, '_id' | 'name'>
+  )>> }
+);
+
+export type GetArticleCategoryQueryVariables = Exact<{
+  articleCategoryId: Scalars['String'];
+}>;
+
+
+export type GetArticleCategoryQuery = (
+  { __typename?: 'Query' }
+  & { getArticleCategory?: Maybe<(
+    { __typename?: 'ArticleCategory' }
+    & Pick<ArticleCategory, '_id' | 'name'>
+  )> }
+);
+
+export type UpdateArticleCategoryMutationVariables = Exact<{
+  articleCategoryId: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type UpdateArticleCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { updateArticleCategory: (
+    { __typename?: 'ArticleCategory' }
+    & Pick<ArticleCategory, '_id' | 'name'>
   ) }
 );
 
@@ -1002,9 +1108,9 @@ export type UpdateProfileMutation = (
 
 
 export const CreateArticleDocument = gql`
-    mutation CreateArticle($author: String!, $title: String!, $slug: String!, $publishedAt: DateTime!, $summary: String!, $status: Status!, $category: String!, $content: String!) {
+    mutation CreateArticle($author: String!, $title: String!, $slug: String!, $publishedAt: DateTime!, $summary: String!, $status: Status!, $categories: String!, $content: String!) {
   createArticle(
-    input: {author: $author, title: $title, slug: $slug, publishedAt: $publishedAt, summary: $summary, status: $status, category: $category, content: $content}
+    input: {author: $author, title: $title, slug: $slug, publishedAt: $publishedAt, summary: $summary, status: $status, categories: $categories, content: $content}
   )
 }
     `;
@@ -1029,7 +1135,7 @@ export type CreateArticleMutationFn = Apollo.MutationFunction<CreateArticleMutat
  *      publishedAt: // value for 'publishedAt'
  *      summary: // value for 'summary'
  *      status: // value for 'status'
- *      category: // value for 'category'
+ *      categories: // value for 'categories'
  *      content: // value for 'content'
  *   },
  * });
@@ -1081,7 +1187,10 @@ export const GetArticleDocument = gql`
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt
@@ -1126,7 +1235,10 @@ export const GetArticlesDocument = gql`
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt
@@ -1161,10 +1273,10 @@ export type GetArticlesQueryHookResult = ReturnType<typeof useGetArticlesQuery>;
 export type GetArticlesLazyQueryHookResult = ReturnType<typeof useGetArticlesLazyQuery>;
 export type GetArticlesQueryResult = Apollo.QueryResult<GetArticlesQuery, GetArticlesQueryVariables>;
 export const UpdateArticleDocument = gql`
-    mutation UpdateArticle($articleId: String!, $author: String, $title: String, $slug: String, $summary: String, $publishedAt: DateTime, $category: String, $content: String, $status: Status) {
+    mutation UpdateArticle($articleId: String!, $author: String, $title: String, $slug: String, $summary: String, $publishedAt: DateTime, $categories: String, $content: String, $status: Status) {
   updateArticle(
     articleId: $articleId
-    articleInput: {author: $author, title: $title, slug: $slug, summary: $summary, publishedAt: $publishedAt, category: $category, content: $content, status: $status}
+    articleInput: {author: $author, title: $title, slug: $slug, summary: $summary, publishedAt: $publishedAt, categories: $categories, content: $content, status: $status}
   ) {
     _id
     author
@@ -1172,7 +1284,10 @@ export const UpdateArticleDocument = gql`
     slug
     summary
     publishedAt
-    category
+    categories {
+      _id
+      name
+    }
     content
     status
     createdAt
@@ -1200,7 +1315,7 @@ export type UpdateArticleMutationFn = Apollo.MutationFunction<UpdateArticleMutat
  *      slug: // value for 'slug'
  *      summary: // value for 'summary'
  *      publishedAt: // value for 'publishedAt'
- *      category: // value for 'category'
+ *      categories: // value for 'categories'
  *      content: // value for 'content'
  *      status: // value for 'status'
  *   },
@@ -1213,6 +1328,176 @@ export function useUpdateArticleMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateArticleMutationHookResult = ReturnType<typeof useUpdateArticleMutation>;
 export type UpdateArticleMutationResult = Apollo.MutationResult<UpdateArticleMutation>;
 export type UpdateArticleMutationOptions = Apollo.BaseMutationOptions<UpdateArticleMutation, UpdateArticleMutationVariables>;
+export const CreateArticleCategoryDocument = gql`
+    mutation CreateArticleCategory($articleCategoryName: String!) {
+  createArticleCategory(articleCategoryName: $articleCategoryName)
+}
+    `;
+export type CreateArticleCategoryMutationFn = Apollo.MutationFunction<CreateArticleCategoryMutation, CreateArticleCategoryMutationVariables>;
+
+/**
+ * __useCreateArticleCategoryMutation__
+ *
+ * To run a mutation, you first call `useCreateArticleCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateArticleCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createArticleCategoryMutation, { data, loading, error }] = useCreateArticleCategoryMutation({
+ *   variables: {
+ *      articleCategoryName: // value for 'articleCategoryName'
+ *   },
+ * });
+ */
+export function useCreateArticleCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateArticleCategoryMutation, CreateArticleCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateArticleCategoryMutation, CreateArticleCategoryMutationVariables>(CreateArticleCategoryDocument, options);
+      }
+export type CreateArticleCategoryMutationHookResult = ReturnType<typeof useCreateArticleCategoryMutation>;
+export type CreateArticleCategoryMutationResult = Apollo.MutationResult<CreateArticleCategoryMutation>;
+export type CreateArticleCategoryMutationOptions = Apollo.BaseMutationOptions<CreateArticleCategoryMutation, CreateArticleCategoryMutationVariables>;
+export const DeleteArticleCategoryDocument = gql`
+    mutation DeleteArticleCategory($articleCategoryName: String!) {
+  deleteArticleCategory(articleCategoryId: $articleCategoryName)
+}
+    `;
+export type DeleteArticleCategoryMutationFn = Apollo.MutationFunction<DeleteArticleCategoryMutation, DeleteArticleCategoryMutationVariables>;
+
+/**
+ * __useDeleteArticleCategoryMutation__
+ *
+ * To run a mutation, you first call `useDeleteArticleCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArticleCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArticleCategoryMutation, { data, loading, error }] = useDeleteArticleCategoryMutation({
+ *   variables: {
+ *      articleCategoryName: // value for 'articleCategoryName'
+ *   },
+ * });
+ */
+export function useDeleteArticleCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteArticleCategoryMutation, DeleteArticleCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteArticleCategoryMutation, DeleteArticleCategoryMutationVariables>(DeleteArticleCategoryDocument, options);
+      }
+export type DeleteArticleCategoryMutationHookResult = ReturnType<typeof useDeleteArticleCategoryMutation>;
+export type DeleteArticleCategoryMutationResult = Apollo.MutationResult<DeleteArticleCategoryMutation>;
+export type DeleteArticleCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteArticleCategoryMutation, DeleteArticleCategoryMutationVariables>;
+export const GetArticleCategoriesDocument = gql`
+    query GetArticleCategories {
+  getArticleCategories {
+    _id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetArticleCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetArticleCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticleCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticleCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetArticleCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetArticleCategoriesQuery, GetArticleCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticleCategoriesQuery, GetArticleCategoriesQueryVariables>(GetArticleCategoriesDocument, options);
+      }
+export function useGetArticleCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticleCategoriesQuery, GetArticleCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticleCategoriesQuery, GetArticleCategoriesQueryVariables>(GetArticleCategoriesDocument, options);
+        }
+export type GetArticleCategoriesQueryHookResult = ReturnType<typeof useGetArticleCategoriesQuery>;
+export type GetArticleCategoriesLazyQueryHookResult = ReturnType<typeof useGetArticleCategoriesLazyQuery>;
+export type GetArticleCategoriesQueryResult = Apollo.QueryResult<GetArticleCategoriesQuery, GetArticleCategoriesQueryVariables>;
+export const GetArticleCategoryDocument = gql`
+    query GetArticleCategory($articleCategoryId: String!) {
+  getArticleCategory(articleCategoryId: $articleCategoryId) {
+    _id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetArticleCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetArticleCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticleCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticleCategoryQuery({
+ *   variables: {
+ *      articleCategoryId: // value for 'articleCategoryId'
+ *   },
+ * });
+ */
+export function useGetArticleCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetArticleCategoryQuery, GetArticleCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetArticleCategoryQuery, GetArticleCategoryQueryVariables>(GetArticleCategoryDocument, options);
+      }
+export function useGetArticleCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetArticleCategoryQuery, GetArticleCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetArticleCategoryQuery, GetArticleCategoryQueryVariables>(GetArticleCategoryDocument, options);
+        }
+export type GetArticleCategoryQueryHookResult = ReturnType<typeof useGetArticleCategoryQuery>;
+export type GetArticleCategoryLazyQueryHookResult = ReturnType<typeof useGetArticleCategoryLazyQuery>;
+export type GetArticleCategoryQueryResult = Apollo.QueryResult<GetArticleCategoryQuery, GetArticleCategoryQueryVariables>;
+export const UpdateArticleCategoryDocument = gql`
+    mutation UpdateArticleCategory($articleCategoryId: String!, $name: String!) {
+  updateArticleCategory(
+    articleCategoryInput: {articleCategoryId: $articleCategoryId, name: $name}
+  ) {
+    _id
+    name
+  }
+}
+    `;
+export type UpdateArticleCategoryMutationFn = Apollo.MutationFunction<UpdateArticleCategoryMutation, UpdateArticleCategoryMutationVariables>;
+
+/**
+ * __useUpdateArticleCategoryMutation__
+ *
+ * To run a mutation, you first call `useUpdateArticleCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateArticleCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateArticleCategoryMutation, { data, loading, error }] = useUpdateArticleCategoryMutation({
+ *   variables: {
+ *      articleCategoryId: // value for 'articleCategoryId'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useUpdateArticleCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateArticleCategoryMutation, UpdateArticleCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateArticleCategoryMutation, UpdateArticleCategoryMutationVariables>(UpdateArticleCategoryDocument, options);
+      }
+export type UpdateArticleCategoryMutationHookResult = ReturnType<typeof useUpdateArticleCategoryMutation>;
+export type UpdateArticleCategoryMutationResult = Apollo.MutationResult<UpdateArticleCategoryMutation>;
+export type UpdateArticleCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateArticleCategoryMutation, UpdateArticleCategoryMutationVariables>;
 export const CreateCategoryDocument = gql`
     mutation CreateCategory($category: String!) {
   createCategory(category: $category)
