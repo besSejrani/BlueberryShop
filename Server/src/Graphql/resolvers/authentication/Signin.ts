@@ -9,6 +9,7 @@ import { UserModel } from "../../../Model/User";
 //Authentication & Authorization
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+// import { setCookie } from "nookies";
 
 // Response
 import { UserResponse } from "../user/types/UserType";
@@ -41,15 +42,17 @@ export class SigninResolver {
 
     context.res.cookie("access-token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 10) as number,
-      httpOnly: true,
-      domain: "localhost",
+      httpOnly: false,
+      domain: "http://localhost:3000",
       path: "/",
+      secure: false,
       sameSite: "lax",
     });
     context.res.cookie("refresh-token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 10) as number,
-      httpOnly: true,
-      domain: "localhost",
+      httpOnly: false,
+      domain: "http://localhost:3000",
+      secure: false,
       path: "/",
       sameSite: "lax",
     });

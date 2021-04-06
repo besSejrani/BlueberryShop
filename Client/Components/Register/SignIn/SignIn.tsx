@@ -23,7 +23,11 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo
-import { useSigninMutation } from "../../../Graphql/index";
+import { apolloClient } from "@Apollo/ssr";
+import { useSigninMutation, GetCurrentUserDocument, GetCurrentUserQuery } from "../../../Graphql/index";
+
+// Apollo State
+import { user } from "@Apollo/state/user/index";
 
 // ========================================================================================================
 
@@ -63,6 +67,16 @@ const SignIn = () => {
     });
 
     localStorage.setItem("token", data?.signin.token!);
+
+    const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
+
+    if (localStorage.getItem("token")) {
+      user({
+        _id: result.data.getCurrentUser._id,
+        username: result.data.getCurrentUser.username,
+        role: result.data.getCurrentUser.role,
+      });
+    }
 
     router.push("/products");
     await toaster();

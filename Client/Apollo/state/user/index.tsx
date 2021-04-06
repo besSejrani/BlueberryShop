@@ -3,7 +3,7 @@ import { makeVar } from "@apollo/client";
 const initialState = {
   _id: "",
   username: "",
-  role: "admin",
+  role: "user",
 };
 
 type User = {

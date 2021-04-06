@@ -29,8 +29,8 @@
     "**/*.tsx",
     "pages/blog/index.jsx",
     "pages/blog/[post].tsx",
-    "Blog/mdx.ts",
-    "Blog/mdxComponents.jsx"
+    "Mdx/mdx.ts",
+    "Mdx/mdxComponents.jsx"
   ],
   "exclude": ["node_modules"]
 }

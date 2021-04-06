@@ -8,8 +8,11 @@ import { GridCellParams } from "@material-ui/data-grid";
 import DataGrid from "@Components/DataGrid/DataGrid";
 import DataGridInfoAction from "@Components/DataGrid/DataGridInfoAction/DataGridInfoAction";
 
+// SSR
+import withApollo from "@Apollo/ssr";
+
 // Guard
-// import { withAuth } from "@Guard/withAuth";
+import { withAuth } from "@Guard/withAuth";
 
 // ========================================================================================================
 
@@ -52,7 +55,7 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default withApollo({ ssr: true })(withAuth(Orders));
 
 // ========================================================================================================
 

@@ -14,10 +14,10 @@ type inputType = {
   multiline?: boolean;
   rowsMax?: string;
   variant?: "standard" | "filled" | "outlined";
-  inputRef: any;
+  inputRef?: any;
   value: string | number;
   onChange: Function;
-  errors: any;
+  errors?: any;
 };
 
 const inputForm: React.FC<inputType> = ({
@@ -48,9 +48,14 @@ const inputForm: React.FC<inputType> = ({
         value={value}
         onChange={(text) => onChange(text.target.value)}
       />
-      <ErrorMessage errors={errors} name={name} as={<Typography variant="body2" />}>
-        {({ messages }) => messages && Object.entries(messages).map(([type, message]) => <p key={type}>{message}</p>)}
-      </ErrorMessage>
+
+      {errors ? (
+        <ErrorMessage errors={errors} name={name} as={<Typography variant="body2" />}>
+          {({ messages }) => messages && Object.entries(messages).map(([type, message]) => <p key={type}>{message}</p>)}
+        </ErrorMessage>
+      ) : (
+        ""
+      )}
     </>
   );
 };

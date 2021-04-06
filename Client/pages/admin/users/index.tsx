@@ -31,8 +31,6 @@ import { withAuth } from "@Guard/withAuth";
 const Users = () => {
   const classes = useStyles();
 
-  const router = useRouter();
-
   const { loading, data } = useGetUsersQuery();
   const [deleteUserMutation, { error }] = useDeleteUserMutation({ errorPolicy: "all" });
 

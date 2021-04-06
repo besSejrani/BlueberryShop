@@ -1,7 +1,7 @@
 import hydrate from "next-mdx-remote/hydrate";
 import MdxComponents from "../../Components/Blog/MDXComponents";
 
-import { getFileByPost, getFiles } from "../../Blog/mdx";
+import { getFileByPost, getFiles } from "../../Mdx/mdx";
 
 // Material-UI
 import { Container } from "@material-ui/core";

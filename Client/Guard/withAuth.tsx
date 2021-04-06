@@ -1,10 +1,14 @@
 import React from "react";
 
+// Next
+import Router from "next/router";
+
 // Guard
-import redirect from "./redirect";
-import { NextContextWithApollo } from "./nextContextWithApollo";
+// import redirect from "./redirect";
+// import { NextContextWithApollo } from "./nextContextWithApollo";
 
 // Apollo
+import { apolloClient } from "@Apollo/ssr";
 import { GetCurrentUserDocument, GetCurrentUserQuery } from "../Graphql/index";
 
 // Apollo State
@@ -14,31 +18,27 @@ import { user } from "../Apollo/state/user/index";
 
 export const withAuth = <T extends object>(C: React.FC<T>) =>
   class AuthComponent extends React.Component<T> {
-    static async getInitialProps({ apolloClient, ...ctx }: NextContextWithApollo) {
+    componentDidMount = async () => {
       const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
 
-      user({
-        _id: "",
-        username: "",
-        role: "admin",
-      });
+      if (localStorage.getItem("token")) {
+        user({
+          _id: result.data.getCurrentUser._id,
+          username: result.data.getCurrentUser.username,
+          role: result.data.getCurrentUser.role,
+        });
+      }
 
-      // console.log(result);
-      // console.log(user());
+      if (!result || !result.data || !result.data?.getCurrentUser || user().role !== "admin") {
+        // redirect(ctx, "/register");
 
-      // user().role !== "admin"
+        Router.replace("/register");
+      }
 
-      // if (!result || !result.data || !result.data?.getCurrentUser) {
-      //   redirect(ctx, "/register");
-      //   return {
-      //     me: null,
-      //   };
-      // }
-
-      return {
-        me: result?.data?.getCurrentUser,
-      };
-    }
+      // return {
+      //   me: result?.data?.getCurrentUser,
+      // };
+    };
 
     render() {
       return <C {...this.props} />;

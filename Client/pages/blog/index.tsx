@@ -14,7 +14,7 @@ import { Pagination } from "@material-ui/lab";
 import moment from "moment";
 
 // MDX
-import { getAllFilesFrontMatter } from "../../Blog/mdx";
+import { getAllFilesFrontMatter } from "../../Mdx/mdx";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // =================================================================

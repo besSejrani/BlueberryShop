@@ -13,8 +13,8 @@ import { product } from "../../Apollo/state/product/index";
 // ========================================================================================================
 
 type UploadFileType = {
-  name: string;
   filesLimit: number;
+  name?: string;
 };
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
   files: [],
 };
 
-const UploadFile: React.FC<UploadFileType> = ({ name, filesLimit }) => {
+const UploadFile: React.FC<UploadFileType> = ({ name, filesLimit, children }) => {
   const classes = useStyles();
 
   const [file, setFile] = useState(initialState);
@@ -46,8 +46,8 @@ const UploadFile: React.FC<UploadFileType> = ({ name, filesLimit }) => {
   return (
     <div>
       <Box className={classes.content}>
-        <Button variant="contained" style={{ backgroundColor: "white", marginBottom: "20px" }} onClick={openFileUpload}>
-          {name}
+        <Button variant="contained" style={{ backgroundColor: "white" }} onClick={openFileUpload}>
+          {name || children}
         </Button>
       </Box>
 

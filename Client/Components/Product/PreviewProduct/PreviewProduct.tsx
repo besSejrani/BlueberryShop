@@ -41,12 +41,14 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
       <Box className={classes.productImagesGroup} onMouseLeave={() => setShow(false)}>
         {images?.map((image, index) => {
           return (
-            <Box className={classes.productImagesGroup} onMouseEnter={() => setShow(true)}>
-              <img src={image} alt={image} className={classes.productImage} />
+            <Box className={classes.productImagesGroup}>
+              <img src={image} alt={image} className={classes.productImage} onMouseEnter={() => setShow(true)} />
               {show ? (
-                <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
-                  <DeleteIcon />
-                </IconButton>
+                <>
+                  <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </>
               ) : (
                 <></>
               )}
@@ -85,6 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 100,
       margin: "0px 15px 0px 0px",
     },
+
     deleteProductImage: {
       position: "absolute",
       right: -15,

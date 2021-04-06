@@ -5,6 +5,8 @@ import { InMemoryCache, ApolloClient, ApolloLink } from "@apollo/client";
 import { ui } from "./state/ui";
 import { user } from "./state/user/index";
 
+import Cookie from "js-cookie";
+
 // Upload
 import { createUploadLink } from "apollo-upload-client";
 
@@ -52,9 +54,9 @@ const link = createUploadLink({
 });
 
 export const apolloClient = new ApolloClient({
-  credentials: "include",
   link: authMiddleware.concat(link),
   cache,
+  credentials: "include",
   ssrMode: true,
 });
 
