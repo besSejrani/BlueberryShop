@@ -25,6 +25,7 @@ const initialState = {
 const UploadFile: React.FC<UploadFileType> = ({ name, filesLimit, children }) => {
   const classes = useStyles();
 
+  // State
   const [file, setFile] = useState(initialState);
   const [mediaPreview, setMediaPreview] = useState("");
 

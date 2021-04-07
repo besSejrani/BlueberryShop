@@ -26,6 +26,7 @@ export const withAuth = <T extends object>(C: React.FC<T>) =>
           _id: result.data.getCurrentUser._id,
           username: result.data.getCurrentUser.username,
           role: result.data.getCurrentUser.role,
+          profileImageUrl: result.data.getCurrentUser.profileImageUrl,
         });
       }
 

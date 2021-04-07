@@ -19,4 +19,8 @@ export class PartialUser {
   @Field()
   @Property({ enum: ["user", "dev", "designer", "admin"], default: "user" })
   role: string;
+
+  @Field({ nullable: true })
+  @Property({ default: "" })
+  profileImageUrl: string;
 }

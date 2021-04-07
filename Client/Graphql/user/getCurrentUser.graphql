@@ -3,5 +3,6 @@ query getCurrentUser {
     _id
     username
     role
+    profileImageUrl
   }
 }

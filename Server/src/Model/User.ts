@@ -49,8 +49,9 @@ export class User {
   @Property({ default: false })
   confirmed: boolean;
 
-  @Property()
-  profileImageUrl?: string;
+  @Field({ nullable: true })
+  @Property({ default: "" })
+  profileImageUrl: string;
 
   @Property({ default: Date.now() })
   createdAt?: Date;

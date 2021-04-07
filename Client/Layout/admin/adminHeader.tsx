@@ -69,11 +69,21 @@ const AdminHeader = () => {
         <Box className={classes.user}>
           <Typography variant="body2">hi {user().username}</Typography>
           <Link href={`/account`}>
-            <IconButton>
-              <PersonIcon
-                style={{ color: "white", borderRadius: 90, fontSize: "25px", backgroundColor: "grey", padding: "3px" }}
-              />
-            </IconButton>
+            {user().profileImageUrl ? (
+              <img src={user().profileImageUrl} className={classes.profileImage} />
+            ) : (
+              <IconButton>
+                <PersonIcon
+                  style={{
+                    color: "white",
+                    borderRadius: 90,
+                    fontSize: "25px",
+                    backgroundColor: "grey",
+                    padding: "3px",
+                  }}
+                />
+              </IconButton>
+            )}
           </Link>
           <Button style={{ color: "white" }} onClick={deleteJwtToken}>
             Logout
@@ -109,6 +119,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "15px",
       fontWeight: 500,
       textTransform: "capitalize",
+    },
+
+    profileImage: {
+      width: 30,
+      height: 30,
+      borderRadius: 90,
+      cursor: "pointer",
+      marginLeft: "0.5rem",
     },
   })
 );

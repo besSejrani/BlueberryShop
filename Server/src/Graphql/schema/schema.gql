@@ -83,7 +83,6 @@ input GetArticleInput {
 }
 
 type Mutation {
-  addProfilePicture(picture: Upload!): Boolean!
   addToNewsletter(email: String!): Boolean!
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
@@ -108,7 +107,7 @@ type Mutation {
   updateArticleCategory(articleCategoryInput: UpdateArticleCategoryInput!): ArticleCategory!
   updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
-  updateProfile(data: ChangedProfileInput!): User
+  updateProfile(picture: [Upload!]!, updateProfileInput: UpdateProfile!): User
   updateSale(updateSaleInput: UpdateSaleInput!): Sale!
 }
 
@@ -122,6 +121,7 @@ scalar ObjectId
 
 type PartialUser {
   _id: ObjectId!
+  profileImageUrl: String
   role: String!
   username: String!
 }
@@ -255,6 +255,11 @@ input UpdateProductInput {
   stock: Float
 }
 
+input UpdateProfile {
+  email: String!
+  username: String!
+}
+
 input UpdateSaleInput {
   categoryId: String
   discount: String
@@ -271,6 +276,7 @@ type User {
   _id: ObjectId!
   confirmed: Boolean!
   email: String!
+  profileImageUrl: String
   role: String!
   username: String!
 }

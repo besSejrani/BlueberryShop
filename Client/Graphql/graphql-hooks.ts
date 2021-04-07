@@ -126,7 +126,6 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
   updateProfile?: Maybe<User>;
-  addProfilePicture: Scalars['Boolean'];
 };
 
 
@@ -261,12 +260,8 @@ export type MutationForgotPasswordArgs = {
 
 
 export type MutationUpdateProfileArgs = {
-  data: ChangedProfileInput;
-};
-
-
-export type MutationAddProfilePictureArgs = {
-  picture: Scalars['Upload'];
+  picture: Array<Scalars['Upload']>;
+  updateProfileInput: UpdateProfile;
 };
 
 export type Newsletter = {
@@ -281,6 +276,7 @@ export type PartialUser = {
   _id: Scalars['ObjectId'];
   username: Scalars['String'];
   role: Scalars['String'];
+  profileImageUrl?: Maybe<Scalars['String']>;
 };
 
 export type Product = {
@@ -462,6 +458,11 @@ export type UpdateProductInput = {
   status?: Maybe<Status>;
 };
 
+export type UpdateProfile = {
+  username: Scalars['String'];
+  email: Scalars['String'];
+};
+
 export type UpdateSaleInput = {
   sale?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['DateTime']>;
@@ -479,6 +480,7 @@ export type User = {
   email: Scalars['String'];
   role: Scalars['String'];
   confirmed: Scalars['Boolean'];
+  profileImageUrl?: Maybe<Scalars['String']>;
 };
 
 export type UserResponse = {
@@ -1017,7 +1019,7 @@ export type GetCurrentUserQuery = (
   { __typename?: 'Query' }
   & { getCurrentUser?: Maybe<(
     { __typename?: 'PartialUser' }
-    & Pick<PartialUser, '_id' | 'username' | 'role'>
+    & Pick<PartialUser, '_id' | 'username' | 'role' | 'profileImageUrl'>
   )> }
 );
 
@@ -1043,16 +1045,6 @@ export type GetUsersQuery = (
     { __typename?: 'User' }
     & Pick<User, '_id' | 'username' | 'email' | 'role' | 'confirmed'>
   )>> }
-);
-
-export type AddProfilePictureMutationVariables = Exact<{
-  picture: Scalars['Upload'];
-}>;
-
-
-export type AddProfilePictureMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'addProfilePicture'>
 );
 
 export type SigninMutationVariables = Exact<{
@@ -1093,6 +1085,7 @@ export type SignupMutation = (
 );
 
 export type UpdateProfileMutationVariables = Exact<{
+  picture: Array<Scalars['Upload']> | Scalars['Upload'];
   username: Scalars['String'];
   email: Scalars['String'];
 }>;
@@ -1102,7 +1095,7 @@ export type UpdateProfileMutation = (
   { __typename?: 'Mutation' }
   & { updateProfile?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'username' | '_id' | 'email' | 'role'>
+    & Pick<User, '_id' | 'username' | 'email' | 'profileImageUrl'>
   )> }
 );
 
@@ -2536,6 +2529,7 @@ export const GetCurrentUserDocument = gql`
     _id
     username
     role
+    profileImageUrl
   }
 }
     `;
@@ -2641,37 +2635,6 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
-export const AddProfilePictureDocument = gql`
-    mutation AddProfilePicture($picture: Upload!) {
-  addProfilePicture(picture: $picture)
-}
-    `;
-export type AddProfilePictureMutationFn = Apollo.MutationFunction<AddProfilePictureMutation, AddProfilePictureMutationVariables>;
-
-/**
- * __useAddProfilePictureMutation__
- *
- * To run a mutation, you first call `useAddProfilePictureMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddProfilePictureMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addProfilePictureMutation, { data, loading, error }] = useAddProfilePictureMutation({
- *   variables: {
- *      picture: // value for 'picture'
- *   },
- * });
- */
-export function useAddProfilePictureMutation(baseOptions?: Apollo.MutationHookOptions<AddProfilePictureMutation, AddProfilePictureMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddProfilePictureMutation, AddProfilePictureMutationVariables>(AddProfilePictureDocument, options);
-      }
-export type AddProfilePictureMutationHookResult = ReturnType<typeof useAddProfilePictureMutation>;
-export type AddProfilePictureMutationResult = Apollo.MutationResult<AddProfilePictureMutation>;
-export type AddProfilePictureMutationOptions = Apollo.BaseMutationOptions<AddProfilePictureMutation, AddProfilePictureMutationVariables>;
 export const SigninDocument = gql`
     mutation Signin($email: String!, $password: String!) {
   signin(input: {email: $email, password: $password}) {
@@ -2750,12 +2713,15 @@ export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
 export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
 export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($username: String!, $email: String!) {
-  updateProfile(data: {username: $username, email: $email}) {
-    username
+    mutation UpdateProfile($picture: [Upload!]!, $username: String!, $email: String!) {
+  updateProfile(
+    picture: $picture
+    updateProfileInput: {username: $username, email: $email}
+  ) {
     _id
+    username
     email
-    role
+    profileImageUrl
   }
 }
     `;
@@ -2774,6 +2740,7 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  * @example
  * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
  *   variables: {
+ *      picture: // value for 'picture'
  *      username: // value for 'username'
  *      email: // value for 'email'
  *   },

@@ -1,8 +1,8 @@
-mutation UpdateProfile($username: String!, $email: String!) {
-  updateProfile(data: { username: $username, email: $email }) {
-    username
+mutation UpdateProfile($picture: [Upload!]!, $username: String!, $email: String!) {
+  updateProfile(picture: $picture, updateProfileInput: { username: $username, email: $email }) {
     _id
+    username
     email
-    role
+    profileImageUrl
   }
 }

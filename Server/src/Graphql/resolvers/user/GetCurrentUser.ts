@@ -22,6 +22,6 @@ export class GetCurrentUserResolver {
 
     const user = await UserModel.findById(context.req.userId);
 
-    return { username: user?.username, _id: user?._id, role: user?.role };
+    return { username: user?.username, _id: user?._id, role: user?.role, profileImageUrl: user?.profileImageUrl };
   }
 }

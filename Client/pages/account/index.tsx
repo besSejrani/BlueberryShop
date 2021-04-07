@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// React-Hook-Form
+import { useForm, Controller } from "react-hook-form";
+
 // Material-UI
 import { Box, Card, Typography, Button, Divider } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -10,10 +13,12 @@ import UploadFile from "@Components/UploadFile/UploadFile";
 import AccountSideBar from "@Components/Account/AccountSideBar/AccountSideBar";
 
 // GraphQL
-import { useGetUserQuery } from "@Graphql/index";
+import { useGetUserQuery, useUpdateProfileMutation } from "@Graphql/index";
 
 // Apollo State
+import { useReactiveVar } from "@apollo/client";
 import { user } from "@Apollo/state/user/index";
+import { product } from "@Apollo/state/product/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -30,17 +35,50 @@ import CreateIcon from "@material-ui/icons/Create";
 const Account = () => {
   const classes = useStyles();
 
+  // Apollo State
+  const account = useReactiveVar(product);
+
   // GraphQL
   const { data, loading } = useGetUserQuery({ variables: { userId: user()._id } });
+  const [updateProfile] = useUpdateProfileMutation();
 
-  // State
+  // Profile State
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+
+  // Billing State
+  const [billingCountry, setBillingCountry] = useState("");
+  const [billingAddress, setBillingAddress] = useState("");
+  const [bilingCity, setBillingCity] = useState("");
+  const [billingZip, setBillingZip] = useState("");
+
+  // Shipping State
+  const [shippingCountry, setShippingCountry] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [shippingCity, setShippingCity] = useState("");
+  const [shippingZip, setShippingZip] = useState("");
+
+  // Password State
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     setUsername(data?.getUser.username);
     setEmail(data?.getUser.email);
   }, [data]);
+
+  // Form
+  const { register, errors, handleSubmit, control } = useForm({
+    criteriaMode: "all",
+  });
+
+  // Events
+  const onSubmitProfile = async (form) => {
+    console.log(form);
+
+    await updateProfile({ variables: { picture: account.images, email: form.email, username: form.username } });
+  };
 
   if (loading) return <div>loading...</div>;
 
@@ -52,8 +90,10 @@ const Account = () => {
         <Box id="profile">
           <Typography variant="h2">Profile</Typography>
 
-          <form className={classes.form}>
-            <Box className={classes.profileImage}>
+          <Box className={classes.profileImage}>
+            {user().profileImageUrl ? (
+              <img src={user().profileImageUrl} className={classes.profileImage} />
+            ) : (
               <PersonIcon
                 style={{
                   color: "white",
@@ -63,22 +103,27 @@ const Account = () => {
                   padding: "3px",
                 }}
               />
+            )}
 
-              <Box className={classes.uploadbutton}>
-                <UploadFile name="" filesLimit={1}>
-                  <CreateIcon />
-                </UploadFile>
-              </Box>
+            <Box className={classes.uploadbutton}>
+              <UploadFile name="" filesLimit={1}>
+                <CreateIcon />
+              </UploadFile>
             </Box>
+          </Box>
 
+          <form className={classes.form} onSubmit={handleSubmit(onSubmitProfile)}>
             <InputForm
               type="text"
               label="Username"
               name="username"
               id="username"
+              inputRef={register({
+                required: "This field is required",
+              })}
               value={username}
               onChange={setUsername}
-              errors={null}
+              errors={errors}
             />
 
             <InputForm
@@ -86,9 +131,12 @@ const Account = () => {
               label="Email"
               name="email"
               id="email"
+              inputRef={register({
+                required: "This field is required",
+              })}
               value={email}
               onChange={setEmail}
-              errors={null}
+              errors={errors}
             />
 
             <Button
@@ -107,34 +155,45 @@ const Account = () => {
         <Box id="billing">
           <Typography variant="h2">Billing Information</Typography>
 
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmitProfile)}>
             <InputForm
-              type="password"
-              label="Old Password"
-              name="oldPassword"
-              id="oldPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              type="text"
+              label="Country"
+              name="country"
+              id="country"
+              value={billingCountry}
+              onChange={setBillingCountry}
+              errors={errors}
             />
 
             <InputForm
-              type="password"
-              label="Password"
-              name="password"
-              id="password"
-              value={email}
-              onChange={setEmail}
-              errors={null}
+              type="text"
+              label="Address"
+              name="address"
+              id="address"
+              value={billingAddress}
+              onChange={setBillingAddress}
+              errors={errors}
             />
+
             <InputForm
-              type="password"
-              label="Confirm Password"
-              name="confirmPassword"
-              id="confirmPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              type="text"
+              label="City"
+              name="city"
+              id="city"
+              value={bilingCity}
+              onChange={setBillingCity}
+              errors={errors}
+            />
+
+            <InputForm
+              type="number"
+              label="Zip"
+              name="zip"
+              id="zip"
+              value={billingZip}
+              onChange={setBillingZip}
+              errors={errors}
             />
 
             <Button
@@ -155,32 +214,43 @@ const Account = () => {
 
           <form className={classes.form}>
             <InputForm
-              type="password"
-              label="Old Password"
-              name="oldPassword"
-              id="oldPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              type="text"
+              label="Country"
+              name="country"
+              id="country"
+              value={shippingCountry}
+              onChange={setShippingCountry}
+              errors={errors}
             />
 
             <InputForm
-              type="password"
-              label="Password"
-              name="password"
-              id="password"
-              value={email}
-              onChange={setEmail}
-              errors={null}
+              type="text"
+              label="Address"
+              name="address"
+              id="address"
+              value={shippingAddress}
+              onChange={setShippingAddress}
+              errors={errors}
             />
+
             <InputForm
-              type="password"
-              label="Confirm Password"
-              name="confirmPassword"
-              id="confirmPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              type="text"
+              label="City"
+              name="city"
+              id="city"
+              value={shippingCity}
+              onChange={setShippingCity}
+              errors={errors}
+            />
+
+            <InputForm
+              type="number"
+              label="Zip"
+              name="zip"
+              id="zip"
+              value={shippingZip}
+              onChange={setShippingZip}
+              errors={errors}
             />
 
             <Button
@@ -205,9 +275,9 @@ const Account = () => {
               label="Old Password"
               name="oldPassword"
               id="oldPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              value={oldPassword}
+              onChange={setOldPassword}
+              errors={errors}
             />
 
             <InputForm
@@ -215,18 +285,18 @@ const Account = () => {
               label="Password"
               name="password"
               id="password"
-              value={email}
-              onChange={setEmail}
-              errors={null}
+              value={password}
+              onChange={setPassword}
+              errors={errors}
             />
             <InputForm
               type="password"
               label="Confirm Password"
               name="confirmPassword"
               id="confirmPassword"
-              value={username}
-              onChange={setUsername}
-              errors={null}
+              value={confirmPassword}
+              onChange={setConfirmPassword}
+              errors={errors}
             />
 
             <Button
@@ -269,6 +339,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
     profileImage: {
       position: "relative",
+      borderRadius: 150,
+      cursor: "pointer",
+      width: 200,
+      height: 200,
     },
 
     uploadbutton: {
