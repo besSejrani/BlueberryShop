@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 //Next
 import Link from "next/link";
@@ -13,12 +13,15 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
 
 // Apollo State
+import { useReactiveVar } from "@apollo/client";
 import { user } from "../../Apollo/state/user/index";
 
 // ========================================================================================================
 
 const AdminHeader = () => {
   const classes = useStyles();
+
+  const data = useReactiveVar(user);
 
   const deleteJwtToken = () => {
     localStorage.removeItem("token");
@@ -67,10 +70,10 @@ const AdminHeader = () => {
         </Box>
 
         <Box className={classes.user}>
-          <Typography variant="body2">hi {user().username}</Typography>
+          <Typography variant="body2">hi {data.username}</Typography>
           <Link href={`/account`}>
-            {user().profileImageUrl ? (
-              <img src={user().profileImageUrl} className={classes.profileImage} />
+            {data.profileImageUrl ? (
+              <img src={data.profileImageUrl} className={classes.profileImage} />
             ) : (
               <IconButton>
                 <PersonIcon

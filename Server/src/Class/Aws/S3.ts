@@ -88,6 +88,25 @@ export class S3 {
     return Promise.all(files.map((f) => this.singleFileUploadResolver({ file: f })));
   }
 
+  async singleFileUpdateResolver({
+    file,
+  }: {
+    file: ApolloServerFileUploads.Upload;
+  }): Promise<ApolloServerFileUploads.UploadedFileResponse> {
+    const { createReadStream, filename, mimetype, encoding } = await file;
+
+    const extension = filename.split(".")[1];
+    const updateFilename = `${uuid()}.${extension}`;
+
+    const filePath = this.createDestinationFilePath(updateFilename, mimetype, encoding);
+    const uploadStream = this.createUploadStream(filePath);
+
+    createReadStream().pipe(uploadStream.writeStream);
+    const result = await uploadStream.promise;
+
+    return await { filename, mimetype, encoding, url: result.Location };
+  }
+
   async deleteProductImage(key: string) {
     this.s3.deleteObject(
       {

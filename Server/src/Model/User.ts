@@ -10,6 +10,10 @@ import { IsEmail } from "class-validator";
 
 // Hash
 import bcrypt from "bcryptjs";
+// import { Billing } from "./Billing";
+
+// Scalar
+import { ObjectScalar } from "../Graphql/types/Object.scalar";
 
 // ========================================================================================================
 
@@ -52,6 +56,15 @@ export class User {
   @Field({ nullable: true })
   @Property({ default: "" })
   profileImageUrl: string;
+
+  @Field(() => ObjectScalar)
+  @Property({ type: Object, _id: false })
+  billing: {
+    country?: string;
+    address?: string;
+    city?: string;
+    zip?: number;
+  };
 
   @Property({ default: Date.now() })
   createdAt?: Date;

@@ -31,6 +31,7 @@ import { withAuth } from "@Guard/withAuth";
 const Users = () => {
   const classes = useStyles();
 
+  // GraphQL
   const { loading, data } = useGetUsersQuery();
   const [deleteUserMutation, { error }] = useDeleteUserMutation({ errorPolicy: "all" });
 
@@ -85,9 +86,11 @@ const Users = () => {
       headerName: "Username",
       flex: 1,
       renderCell: (params: GridCellParams) => {
+        const image = params.row.profile;
+
         return (
           <>
-            <img src="/images/unknown.png" width={50} />
+            <img src={image || "/images/unknown.png"} className={classes.profileImage} />
             {params.value}
           </>
         );
@@ -145,6 +148,7 @@ const Users = () => {
   const rows = data?.getUsers.map((user) => {
     return {
       id: user._id,
+      profile: user.profileImageUrl,
       username: user.username,
       email: user.email,
       confirmed: user.confirmed,
@@ -176,6 +180,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+    },
+    profileImage: {
+      width: 35,
+      height: 35,
+      borderRadius: 90,
+      cursor: "pointer",
+      marginLeft: "0.5rem",
+      marginRight: "0.5rem",
     },
   })
 );

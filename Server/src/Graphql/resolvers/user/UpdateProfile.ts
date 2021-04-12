@@ -23,7 +23,7 @@ export class UpdateProfileResolver {
   @UseMiddleware(authentication)
   async updateProfile(
     @Arg("updateProfileInput") updateProfileInput: UpdateProfile,
-    @Arg("picture", () => [GraphQLUpload]) FileList: Upload[],
+    @Arg("picture", () => GraphQLUpload, { nullable: true }) File: Upload,
     @Ctx() context: MyContext
   ): Promise<User | null> {
     const user = await UserModel.findOne({ _id: context.req.userId });
@@ -32,36 +32,39 @@ export class UpdateProfileResolver {
       return null;
     }
 
-    const s3 = await new S3({
-      accessKeyId: process.env.AMAZON_KEY_ID,
-      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY,
-      bucket: process.env.AMAZON_S3_BUCKET,
-      signatureVersion: "v4",
-      region: "eu-west-3",
-    });
+    if (File) {
+      const s3 = await new S3({
+        accessKeyId: process.env.AMAZON_KEY_ID,
+        secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY,
+        bucket: process.env.AMAZON_S3_BUCKET,
+        signatureVersion: "v4",
+        region: "eu-west-3",
+      });
 
-    const data: string[] = [];
+      const data = user.profileImageUrl.split("https://blueberryshop.s3.eu-west-3.amazonaws.com/");
+      const key = data[1];
 
-    const images = await s3.multipleUploadsResolver({ files: FileList });
-    const urls = await Promise.all(images);
-    await urls.forEach((value) => data.push(value.url));
+      if (key) {
+        await s3.deleteProductImage(key);
+      }
 
-    if (data.length < 1) {
+      const { url } = await s3.singleFileUpdateResolver({ file: File });
+
       const update = await UserModel.findOneAndUpdate(
         { _id: context.req.userId },
-        { ...user.toObject(), ...updateProfileInput },
-        { new: true }
-      );
-
-      return update;
-    } else {
-      const update = await UserModel.findOneAndUpdate(
-        { _id: context.req.userId },
-        { ...user.toObject(), ...updateProfileInput, profileImageUrl: data[0] },
+        { ...user.toObject(), ...updateProfileInput, profileImageUrl: url },
         { new: true }
       );
 
       return update;
     }
+
+    const update = await UserModel.findOneAndUpdate(
+      { _id: context.req.userId },
+      { ...user.toObject(), ...updateProfileInput },
+      { new: true }
+    );
+
+    return update;
   }
 }

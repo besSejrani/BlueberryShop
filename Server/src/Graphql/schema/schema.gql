@@ -105,9 +105,10 @@ type Mutation {
   signup(input: SignupInput!): UserResponse!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
   updateArticleCategory(articleCategoryInput: UpdateArticleCategoryInput!): ArticleCategory!
+  updateBilling(updateBillingInput: UpdateBilling!): User
   updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
-  updateProfile(picture: [Upload!]!, updateProfileInput: UpdateProfile!): User
+  updateProfile(picture: Upload, updateProfileInput: UpdateProfile!): User
   updateSale(updateSaleInput: UpdateSaleInput!): Sale!
 }
 
@@ -115,6 +116,9 @@ type Newsletter {
   _id: ObjectId!
   email: String!
 }
+
+"""Mongo object id scalar type"""
+scalar Object
 
 """Mongo object id scalar type"""
 scalar ObjectId
@@ -241,6 +245,13 @@ input UpdateArticleInput {
   title: String
 }
 
+input UpdateBilling {
+  address: String
+  city: String
+  country: String
+  zip: Float
+}
+
 input UpdateCategoryInput {
   categoryId: String
   name: String
@@ -274,6 +285,7 @@ scalar Upload
 
 type User {
   _id: ObjectId!
+  billing: Object!
   confirmed: Boolean!
   email: String!
   profileImageUrl: String

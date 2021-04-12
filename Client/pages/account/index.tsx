@@ -75,9 +75,16 @@ const Account = () => {
 
   // Events
   const onSubmitProfile = async (form) => {
-    console.log(form);
+    await updateProfile({ variables: { picture: account.images[0], email: form.email, username: form.username } });
 
-    await updateProfile({ variables: { picture: account.images, email: form.email, username: form.username } });
+    const profileImageUrl = account.preview[0];
+
+    user({
+      _id: user()._id,
+      username: form.username,
+      role: user().role,
+      profileImageUrl: !profileImageUrl ? user().profileImageUrl : profileImageUrl,
+    });
   };
 
   if (loading) return <div>loading...</div>;

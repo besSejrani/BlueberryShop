@@ -2,7 +2,7 @@
 import { Field, ObjectType } from "type-graphql";
 
 // Database
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass, mongoose } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
 // Model
@@ -58,7 +58,7 @@ export class Product {
   categories?: Category[];
 
   @Field(() => [Review], { nullable: true })
-  @Property()
+  @Property({ type: mongoose.Schema.Types.Mixed })
   reviews?: Review[];
 
   // @Field(() => [String])

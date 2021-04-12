@@ -15,6 +15,8 @@ export type Scalars = {
   /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
   DateTime: any;
   /** Mongo object id scalar type */
+  Object: any;
+  /** Mongo object id scalar type */
   ObjectId: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
@@ -125,6 +127,7 @@ export type Mutation = {
   confirmUser: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
+  updateBilling?: Maybe<User>;
   updateProfile?: Maybe<User>;
 };
 
@@ -259,8 +262,13 @@ export type MutationForgotPasswordArgs = {
 };
 
 
+export type MutationUpdateBillingArgs = {
+  updateBillingInput: UpdateBilling;
+};
+
+
 export type MutationUpdateProfileArgs = {
-  picture: Array<Scalars['Upload']>;
+  picture?: Maybe<Scalars['Upload']>;
   updateProfileInput: UpdateProfile;
 };
 
@@ -269,6 +277,7 @@ export type Newsletter = {
   _id: Scalars['ObjectId'];
   email: Scalars['String'];
 };
+
 
 
 export type PartialUser = {
@@ -444,6 +453,13 @@ export type UpdateArticleInput = {
   status?: Maybe<Status>;
 };
 
+export type UpdateBilling = {
+  country?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zip?: Maybe<Scalars['Float']>;
+};
+
 export type UpdateCategoryInput = {
   categoryId?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -481,6 +497,7 @@ export type User = {
   role: Scalars['String'];
   confirmed: Scalars['Boolean'];
   profileImageUrl?: Maybe<Scalars['String']>;
+  billing: Scalars['Object'];
 };
 
 export type UserResponse = {
@@ -1043,7 +1060,7 @@ export type GetUsersQuery = (
   { __typename?: 'Query' }
   & { getUsers?: Maybe<Array<(
     { __typename?: 'User' }
-    & Pick<User, '_id' | 'username' | 'email' | 'role' | 'confirmed'>
+    & Pick<User, '_id' | 'username' | 'email' | 'role' | 'confirmed' | 'profileImageUrl'>
   )>> }
 );
 
@@ -1085,7 +1102,7 @@ export type SignupMutation = (
 );
 
 export type UpdateProfileMutationVariables = Exact<{
-  picture: Array<Scalars['Upload']> | Scalars['Upload'];
+  picture?: Maybe<Scalars['Upload']>;
   username: Scalars['String'];
   email: Scalars['String'];
 }>;
@@ -2605,6 +2622,7 @@ export const GetUsersDocument = gql`
     email
     role
     confirmed
+    profileImageUrl
   }
 }
     `;
@@ -2713,7 +2731,7 @@ export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
 export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
 export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($picture: [Upload!]!, $username: String!, $email: String!) {
+    mutation UpdateProfile($picture: Upload, $username: String!, $email: String!) {
   updateProfile(
     picture: $picture
     updateProfileInput: {username: $username, email: $email}
