@@ -43,15 +43,16 @@ export class SigninResolver {
     context.res.cookie("access-token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 10) as number,
       httpOnly: false,
-      domain: "http://localhost:3000",
+      // domain: "http://localhost:3000",
       path: "/",
       secure: false,
       sameSite: "lax",
     });
+
     context.res.cookie("refresh-token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 10) as number,
       httpOnly: false,
-      domain: "http://localhost:3000",
+      // domain: "http://localhost:3000",
       secure: false,
       path: "/",
       sameSite: "lax",

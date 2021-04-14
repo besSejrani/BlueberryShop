@@ -53,9 +53,9 @@ export class CreateProductResolver {
       stock,
       promotion,
       status,
+      categories: category,
       productImageUrl: data[0],
       productImages: data,
-      categories: category,
     });
     await newProduct.save();
     return newProduct;

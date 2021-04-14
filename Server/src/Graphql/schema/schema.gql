@@ -21,6 +21,13 @@ type ArticleCategory {
   name: String!
 }
 
+type Billing {
+  address: String
+  city: String
+  country: String
+  zip: Float
+}
+
 type Category {
   _id: ObjectId!
   name: String!
@@ -105,7 +112,7 @@ type Mutation {
   signup(input: SignupInput!): UserResponse!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
   updateArticleCategory(articleCategoryInput: UpdateArticleCategoryInput!): ArticleCategory!
-  updateBilling(updateBillingInput: UpdateBilling!): User
+  updateBillingInformation(updateBillingInput: UpdateBilling!): User
   updateCategory(categoryInput: UpdateCategoryInput!): Category!
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(picture: Upload, updateProfileInput: UpdateProfile!): User
@@ -118,17 +125,7 @@ type Newsletter {
 }
 
 """Mongo object id scalar type"""
-scalar Object
-
-"""Mongo object id scalar type"""
 scalar ObjectId
-
-type PartialUser {
-  _id: ObjectId!
-  profileImageUrl: String
-  role: String!
-  username: String!
-}
 
 type Product {
   _id: ObjectId!
@@ -166,7 +163,7 @@ type Query {
   getArticles: [Article!]
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
-  getCurrentUser: PartialUser
+  getCurrentUser: User
   getNewsletters: [Newsletter!]
   getProduct(productId: String!): Product
   getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
@@ -285,7 +282,7 @@ scalar Upload
 
 type User {
   _id: ObjectId!
-  billing: Object!
+  billing: [Billing!]!
   confirmed: Boolean!
   email: String!
   profileImageUrl: String

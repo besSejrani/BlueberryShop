@@ -15,25 +15,30 @@ import { authentication } from "../../../Middleware/authentication";
 export class UpdateBillingInformationResolver {
   @Mutation(() => User, { nullable: true })
   @UseMiddleware(authentication)
-  async updateBilling(
+  async updateBillingInformation(
     @Arg("updateBillingInput") updateBillingInput: UpdateBilling,
     @Ctx() context: MyContext
-  ): Promise<User | null> {
+  ): Promise<User | null | undefined> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
     if (!user) {
       return null;
     }
 
-    const update = await UserModel.findOneAndUpdate(
+    const update = await UserModel.findByIdAndUpdate(
       { _id: context.req.userId },
-
       {
         ...user.toObject(),
-        ...updateBillingInput,
+        // @ts-ignore: Object is possibly 'null'.
+        billing: [{ ...user!.billing[0], ...updateBillingInput }],
       },
       { new: true }
     );
+
+    console.log(update);
+
+    // @ts-ignore: Object is possibly 'null'.
+    console.log(user.billing[0]);
 
     return update;
   }

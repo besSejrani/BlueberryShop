@@ -4,7 +4,6 @@ import { ObjectId } from "mongodb";
 import path from "path";
 
 import { ObjectIdScalar } from "../types/ObjectId.scalar";
-import { ObjectScalar } from "../types/Object.scalar";
 import { TypegooseMiddleware } from "../../Middleware/typegoose";
 
 // ========================================================================================================
@@ -18,10 +17,7 @@ export default async function createSchema(): Promise<GraphQLSchema> {
     // 2. use document converting middleware
     globalMiddlewares: [TypegooseMiddleware],
     // 3. use ObjectId scalar mapping
-    scalarsMap: [
-      { type: ObjectId, scalar: ObjectIdScalar },
-      { type: Object, scalar: ObjectScalar },
-    ],
+    scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
     validate: false,
   });
   return schema;
