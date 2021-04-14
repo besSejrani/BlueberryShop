@@ -1,6 +1,25 @@
 version: "3.8"
 
 services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./Nginx
+    container_name: nginx
+    depends_on:
+      - client
+      - server
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "8000:80"
+      - "8443:443"
+    volumes:
+      - ./Nginx/server.crt:/etc/nginx/server.crt
+      - ./Nginx/server.key:/etc/nginx/server.key
+
   client:
     build:
       context: ./Client

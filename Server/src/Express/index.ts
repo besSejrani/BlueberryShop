@@ -19,6 +19,7 @@ import { graphqlUploadExpress } from "graphql-upload";
 // Security
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
+import cors from "cors";
 
 // Oauth2
 import passport from "passport";
@@ -31,7 +32,7 @@ import googleService from "../Services/passportGoogle";
 
 // CORS Configuration
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://localhost:8443",
   credentials: true,
 };
 
@@ -54,6 +55,10 @@ const main = async () => {
     app.use(githubAuth);
     app.use(googleAuth);
 
+    app.set("trust proxy", 1);
+
+    app.use(cors(corsOptions));
+
     const schema = await createSchema();
     const apolloServer = new ApolloServer({
       schema,
@@ -69,7 +74,7 @@ const main = async () => {
 
     app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 4 }));
 
-    apolloServer.applyMiddleware({ app, cors: corsOptions });
+    apolloServer.applyMiddleware({ app, cors: false });
 
     const port = process.env.PORT || 6000;
     app.listen(port, () => console.log(`Server is running on http://localhost:${port}${apolloServer.graphqlPath}`));

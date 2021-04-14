@@ -1,0 +1,11 @@
+mutation UpdateBillingInformation($country: String!, $address: String!, $city: String!, $zip: Float!) {
+  updateBillingInformation(updateBillingInput: { country: $country, address: $address, city: $city, zip: $zip }) {
+    _id
+    billing {
+      country
+      address
+      city
+      zip
+    }
+  }
+}

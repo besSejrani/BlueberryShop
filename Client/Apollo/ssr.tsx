@@ -1,11 +1,12 @@
+// Next
+// import { NextPageContext } from "next";
+
 // Apollo
 import { InMemoryCache, ApolloClient, ApolloLink } from "@apollo/client";
 
 // Apollo State
 import { ui } from "./state/ui";
 import { user } from "./state/user/index";
-
-import Cookie from "js-cookie";
 
 // Upload
 import { createUploadLink } from "apollo-upload-client";
@@ -51,12 +52,14 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const link = createUploadLink({
   uri: "http://localhost:4000/graphql",
+  credentials: "include",
 });
 
 export const apolloClient = new ApolloClient({
   link: authMiddleware.concat(link),
   cache,
   credentials: "include",
+  // headers: ctx?.req?.headers as any,
   ssrMode: true,
 });
 

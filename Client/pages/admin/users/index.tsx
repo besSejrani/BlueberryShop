@@ -186,7 +186,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 35,
       borderRadius: 90,
       cursor: "pointer",
-      marginLeft: "0.5rem",
       marginRight: "0.5rem",
     },
   })

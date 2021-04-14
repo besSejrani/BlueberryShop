@@ -15,8 +15,6 @@ export type Scalars = {
   /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
   DateTime: any;
   /** Mongo object id scalar type */
-  Object: any;
-  /** Mongo object id scalar type */
   ObjectId: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
@@ -40,6 +38,14 @@ export type ArticleCategory = {
   __typename?: 'ArticleCategory';
   _id: Scalars['ObjectId'];
   name: Scalars['String'];
+};
+
+export type Billing = {
+  __typename?: 'Billing';
+  country?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zip?: Maybe<Scalars['Float']>;
 };
 
 export type Category = {
@@ -127,7 +133,7 @@ export type Mutation = {
   confirmUser: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
-  updateBilling?: Maybe<User>;
+  updateBillingInformation?: Maybe<User>;
   updateProfile?: Maybe<User>;
 };
 
@@ -262,7 +268,7 @@ export type MutationForgotPasswordArgs = {
 };
 
 
-export type MutationUpdateBillingArgs = {
+export type MutationUpdateBillingInformationArgs = {
   updateBillingInput: UpdateBilling;
 };
 
@@ -278,15 +284,6 @@ export type Newsletter = {
   email: Scalars['String'];
 };
 
-
-
-export type PartialUser = {
-  __typename?: 'PartialUser';
-  _id: Scalars['ObjectId'];
-  username: Scalars['String'];
-  role: Scalars['String'];
-  profileImageUrl?: Maybe<Scalars['String']>;
-};
 
 export type Product = {
   __typename?: 'Product';
@@ -335,7 +332,7 @@ export type Query = {
   getProductsPagination?: Maybe<ProductPagination>;
   getSale?: Maybe<Sale>;
   getSales?: Maybe<Array<Sale>>;
-  getCurrentUser?: Maybe<PartialUser>;
+  getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
   getUsers?: Maybe<Array<User>>;
 };
@@ -492,12 +489,12 @@ export type UpdateSaleInput = {
 export type User = {
   __typename?: 'User';
   _id: Scalars['ObjectId'];
+  billing: Array<Billing>;
   username: Scalars['String'];
   email: Scalars['String'];
   role: Scalars['String'];
   confirmed: Scalars['Boolean'];
   profileImageUrl?: Maybe<Scalars['String']>;
-  billing: Scalars['Object'];
 };
 
 export type UserResponse = {
@@ -1035,8 +1032,12 @@ export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetCurrentUserQuery = (
   { __typename?: 'Query' }
   & { getCurrentUser?: Maybe<(
-    { __typename?: 'PartialUser' }
-    & Pick<PartialUser, '_id' | 'username' | 'role' | 'profileImageUrl'>
+    { __typename?: 'User' }
+    & Pick<User, '_id' | 'username' | 'role' | 'profileImageUrl'>
+    & { billing: Array<(
+      { __typename?: 'Billing' }
+      & Pick<Billing, 'country' | 'address' | 'city' | 'zip'>
+    )> }
   )> }
 );
 
@@ -1099,6 +1100,26 @@ export type SignupMutation = (
       & Pick<User, 'username' | 'email'>
     )> }
   ) }
+);
+
+export type UpdateBillingInformationMutationVariables = Exact<{
+  country: Scalars['String'];
+  address: Scalars['String'];
+  city: Scalars['String'];
+  zip: Scalars['Float'];
+}>;
+
+
+export type UpdateBillingInformationMutation = (
+  { __typename?: 'Mutation' }
+  & { updateBillingInformation?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, '_id'>
+    & { billing: Array<(
+      { __typename?: 'Billing' }
+      & Pick<Billing, 'country' | 'address' | 'city' | 'zip'>
+    )> }
+  )> }
 );
 
 export type UpdateProfileMutationVariables = Exact<{
@@ -2547,6 +2568,12 @@ export const GetCurrentUserDocument = gql`
     username
     role
     profileImageUrl
+    billing {
+      country
+      address
+      city
+      zip
+    }
   }
 }
     `;
@@ -2730,6 +2757,50 @@ export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<Signu
 export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
 export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
 export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
+export const UpdateBillingInformationDocument = gql`
+    mutation UpdateBillingInformation($country: String!, $address: String!, $city: String!, $zip: Float!) {
+  updateBillingInformation(
+    updateBillingInput: {country: $country, address: $address, city: $city, zip: $zip}
+  ) {
+    _id
+    billing {
+      country
+      address
+      city
+      zip
+    }
+  }
+}
+    `;
+export type UpdateBillingInformationMutationFn = Apollo.MutationFunction<UpdateBillingInformationMutation, UpdateBillingInformationMutationVariables>;
+
+/**
+ * __useUpdateBillingInformationMutation__
+ *
+ * To run a mutation, you first call `useUpdateBillingInformationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBillingInformationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBillingInformationMutation, { data, loading, error }] = useUpdateBillingInformationMutation({
+ *   variables: {
+ *      country: // value for 'country'
+ *      address: // value for 'address'
+ *      city: // value for 'city'
+ *      zip: // value for 'zip'
+ *   },
+ * });
+ */
+export function useUpdateBillingInformationMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBillingInformationMutation, UpdateBillingInformationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBillingInformationMutation, UpdateBillingInformationMutationVariables>(UpdateBillingInformationDocument, options);
+      }
+export type UpdateBillingInformationMutationHookResult = ReturnType<typeof useUpdateBillingInformationMutation>;
+export type UpdateBillingInformationMutationResult = Apollo.MutationResult<UpdateBillingInformationMutation>;
+export type UpdateBillingInformationMutationOptions = Apollo.BaseMutationOptions<UpdateBillingInformationMutation, UpdateBillingInformationMutationVariables>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($picture: Upload, $username: String!, $email: String!) {
   updateProfile(

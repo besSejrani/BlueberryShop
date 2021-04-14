@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // React-Hook-Form
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Box, Card, Typography, Button, Divider } from "@material-ui/core";
@@ -9,11 +9,11 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
-import UploadFile from "@Components/UploadFile/UploadFile";
 import AccountSideBar from "@Components/Account/AccountSideBar/AccountSideBar";
+import AccountProfile from "@Components/Account/AccountProfile/AccountProfile";
 
 // GraphQL
-import { useGetUserQuery, useUpdateProfileMutation } from "@Graphql/index";
+import { useGetUserQuery, useUpdateBillingInformationMutation, useGetCurrentUserQuery } from "@Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
@@ -26,10 +26,6 @@ import withApollo from "@Apollo/ssr";
 // Guard
 import { withAuth } from "@Guard/withAuth";
 
-// Icons
-import PersonIcon from "@material-ui/icons/Person";
-import CreateIcon from "@material-ui/icons/Create";
-
 // ========================================================================================================
 
 const Account = () => {
@@ -40,7 +36,10 @@ const Account = () => {
 
   // GraphQL
   const { data, loading } = useGetUserQuery({ variables: { userId: user()._id } });
-  const [updateProfile] = useUpdateProfileMutation();
+  const { data: currentUser } = useGetCurrentUserQuery();
+  const [updateBillingInformation] = useUpdateBillingInformationMutation();
+
+  console.log("graph", currentUser);
 
   // Profile State
   const [username, setUsername] = useState("");
@@ -49,7 +48,7 @@ const Account = () => {
   // Billing State
   const [billingCountry, setBillingCountry] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
-  const [bilingCity, setBillingCity] = useState("");
+  const [billingCity, setBillingCity] = useState("");
   const [billingZip, setBillingZip] = useState("");
 
   // Shipping State
@@ -74,16 +73,16 @@ const Account = () => {
   });
 
   // Events
-  const onSubmitProfile = async (form) => {
-    await updateProfile({ variables: { picture: account.images[0], email: form.email, username: form.username } });
 
-    const profileImageUrl = account.preview[0];
-
-    user({
-      _id: user()._id,
-      username: form.username,
-      role: user().role,
-      profileImageUrl: !profileImageUrl ? user().profileImageUrl : profileImageUrl,
+  const onSubmitBilling = async (form) => {
+    console.log(form);
+    await updateBillingInformation({
+      variables: {
+        address: form.billingAddress,
+        city: form.billingCity,
+        country: form.billingCountry,
+        zip: parseInt(form.billingZip),
+      },
     });
   };
 
@@ -94,80 +93,20 @@ const Account = () => {
       <AccountSideBar />
 
       <Card className={classes.userDataCard}>
-        <Box id="profile">
-          <Typography variant="h2">Profile</Typography>
-
-          <Box className={classes.profileImage}>
-            {user().profileImageUrl ? (
-              <img src={user().profileImageUrl} className={classes.profileImage} />
-            ) : (
-              <PersonIcon
-                style={{
-                  color: "white",
-                  borderRadius: 120,
-                  fontSize: "200px",
-                  backgroundColor: "grey",
-                  padding: "3px",
-                }}
-              />
-            )}
-
-            <Box className={classes.uploadbutton}>
-              <UploadFile name="" filesLimit={1}>
-                <CreateIcon />
-              </UploadFile>
-            </Box>
-          </Box>
-
-          <form className={classes.form} onSubmit={handleSubmit(onSubmitProfile)}>
-            <InputForm
-              type="text"
-              label="Username"
-              name="username"
-              id="username"
-              inputRef={register({
-                required: "This field is required",
-              })}
-              value={username}
-              onChange={setUsername}
-              errors={errors}
-            />
-
-            <InputForm
-              type="email"
-              label="Email"
-              name="email"
-              id="email"
-              inputRef={register({
-                required: "This field is required",
-              })}
-              value={email}
-              onChange={setEmail}
-              errors={errors}
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              style={{ width: "150px", margin: "30px 0px 0px 0px" }}
-            >
-              Update Profile
-            </Button>
-          </form>
-        </Box>
-
-        <Divider className={classes.divider} />
+        <AccountProfile />
 
         <Box id="billing">
           <Typography variant="h2">Billing Information</Typography>
 
-          <form className={classes.form} onSubmit={handleSubmit(onSubmitProfile)}>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmitBilling)}>
             <InputForm
               type="text"
               label="Country"
-              name="country"
-              id="country"
+              name="billingCountry"
+              id="billingCountry"
+              inputRef={register({
+                required: "This field is required",
+              })}
               value={billingCountry}
               onChange={setBillingCountry}
               errors={errors}
@@ -176,8 +115,11 @@ const Account = () => {
             <InputForm
               type="text"
               label="Address"
-              name="address"
-              id="address"
+              name="billingAddress"
+              id="billingAddress"
+              inputRef={register({
+                required: "This field is required",
+              })}
               value={billingAddress}
               onChange={setBillingAddress}
               errors={errors}
@@ -186,9 +128,12 @@ const Account = () => {
             <InputForm
               type="text"
               label="City"
-              name="city"
-              id="city"
-              value={bilingCity}
+              name="billingCity"
+              id="billingCity"
+              inputRef={register({
+                required: "This field is required",
+              })}
+              value={billingCity}
               onChange={setBillingCity}
               errors={errors}
             />
@@ -196,8 +141,11 @@ const Account = () => {
             <InputForm
               type="number"
               label="Zip"
-              name="zip"
-              id="zip"
+              name="billingZip"
+              id="billingZip"
+              inputRef={register({
+                required: "This field is required",
+              })}
               value={billingZip}
               onChange={setBillingZip}
               errors={errors}
