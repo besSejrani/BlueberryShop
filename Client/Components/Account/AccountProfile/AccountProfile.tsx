@@ -74,7 +74,9 @@ const Account = () => {
   return (
     <>
       <Box id="profile">
-        <Typography variant="h2">Profile</Typography>
+        <Typography variant="h2" style={{ scrollPadding: "30px 0px 0px 0px" }}>
+          Profile
+        </Typography>
 
         <Box className={classes.profileImage}>
           {user().profileImageUrl ? (

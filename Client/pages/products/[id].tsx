@@ -39,7 +39,7 @@ import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const SingleProduct = () => {
+const SingleProduct = (props) => {
   const classes = useStyles();
   const router = useRouter();
   const { query } = router;

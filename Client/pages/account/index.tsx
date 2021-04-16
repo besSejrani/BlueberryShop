@@ -39,17 +39,11 @@ const Account = () => {
   const { data: currentUser } = useGetCurrentUserQuery();
   const [updateBillingInformation] = useUpdateBillingInformationMutation();
 
-  console.log("graph", currentUser);
-
-  // Profile State
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-
   // Billing State
   const [billingCountry, setBillingCountry] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
   const [billingCity, setBillingCity] = useState("");
-  const [billingZip, setBillingZip] = useState("");
+  const [billingZip, setBillingZip] = useState<number>();
 
   // Shipping State
   const [shippingCountry, setShippingCountry] = useState("");
@@ -63,8 +57,10 @@ const Account = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
-    setUsername(data?.getUser.username);
-    setEmail(data?.getUser.email);
+    setBillingAddress(currentUser.getCurrentUser.billing[0].address);
+    setBillingCountry(currentUser.getCurrentUser.billing[0].country);
+    setBillingCity(currentUser.getCurrentUser.billing[0].city);
+    setBillingZip(currentUser.getCurrentUser.billing[0].zip);
   }, [data]);
 
   // Form
@@ -73,9 +69,7 @@ const Account = () => {
   });
 
   // Events
-
   const onSubmitBilling = async (form) => {
-    console.log(form);
     await updateBillingInformation({
       variables: {
         address: form.billingAddress,
@@ -96,7 +90,9 @@ const Account = () => {
         <AccountProfile />
 
         <Box id="billing">
-          <Typography variant="h2">Billing Information</Typography>
+          <Typography variant="h2" style={{ scrollMargin: "100rem 0px 0px 0px" }}>
+            Billing Information
+          </Typography>
 
           <form className={classes.form} onSubmit={handleSubmit(onSubmitBilling)}>
             <InputForm
@@ -165,7 +161,9 @@ const Account = () => {
         <Divider className={classes.divider} />
 
         <Box id="shipping">
-          <Typography variant="h2">Shipping Information</Typography>
+          <Typography variant="h2" style={{ scrollPadding: "30px 0px 0px 0px" }}>
+            Shipping Information
+          </Typography>
 
           <form className={classes.form}>
             <InputForm
@@ -222,7 +220,9 @@ const Account = () => {
         <Divider className={classes.divider} />
 
         <Box id="reset">
-          <Typography variant="h2">Reset Password</Typography>
+          <Typography variant="h2" style={{ scrollPadding: "30px 0px 0px 0px" }}>
+            Reset Password
+          </Typography>
 
           <form className={classes.form}>
             <InputForm

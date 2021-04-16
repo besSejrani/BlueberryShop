@@ -25,7 +25,7 @@ const DataGridAction: React.FC<DataGridActionType> = ({ path, handleClickOpen, d
     <>
       {deleteOnly ? (
         <>
-          <IconButton onClick={() => handleClickOpen()}>
+          <IconButton edge="start" onClick={() => handleClickOpen()}>
             <DeleteIcon />
           </IconButton>
         </>

@@ -5,6 +5,9 @@ import { Box, Breadcrumbs, Link, Typography, Tab } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 
+// SSR
+import withApollo from "@Apollo/ssr";
+
 // Guard
 import { withAuth } from "@Guard/withAuth";
 
@@ -55,7 +58,7 @@ const Blueberry = () => {
   );
 };
 
-export default withAuth(Blueberry);
+export default withApollo({ ssr: true })(withAuth(Blueberry));
 
 // ========================================================================================================
 

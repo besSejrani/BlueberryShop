@@ -35,11 +35,6 @@ export class UpdateBillingInformationResolver {
       { new: true }
     );
 
-    console.log(update);
-
-    // @ts-ignore: Object is possibly 'null'.
-    console.log(user.billing[0]);
-
     return update;
   }
 }

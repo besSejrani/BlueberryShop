@@ -70,13 +70,12 @@ const SignIn = () => {
 
     const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
 
-    if (localStorage.getItem("token")) {
-      user({
-        _id: result.data.getCurrentUser._id,
-        username: result.data.getCurrentUser.username,
-        role: result.data.getCurrentUser.role,
-      });
-    }
+    user({
+      _id: result?.data?.getCurrentUser?._id,
+      username: result?.data?.getCurrentUser?.username,
+      role: result?.data?.getCurrentUser?.role,
+      profileImageUrl: result?.data?.getCurrentUser?.profileImageUrl,
+    });
 
     router.push("/products");
     await toaster();

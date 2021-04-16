@@ -32,7 +32,7 @@ import googleService from "../Services/passportGoogle";
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://localhost:8443",
+  origin: "http://localhost:3000",
   credentials: true,
 };
 

@@ -33,16 +33,21 @@ type IProduct = {
 const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
   const classes = useStyles();
 
+  const myLoader = ({ src, width, quality }) => {
+    return product.productImages[0] || `/images/unknownProduct.png`;
+  };
+
   return (
     <Card className={classes.root}>
       {loading ? (
         <CardActionArea className={classes.area}>
           <Link href="/products/[id]" as={`/products/${product._id}`} passHref>
             <Image
+              loader={myLoader}
               width={300}
               height={250}
               onClick={() => console.log(product._id)}
-              src={product.productImages[0] || `/static/images/unknownProduct.png`}
+              src={product.productImages[0] || `/images/unknownProduct.png`}
               title={product.name}
             />
           </Link>
@@ -118,7 +123,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
 
     width: "320px",
-    height: "465px",
+    height: "480px",
 
     borderRadius: 10,
   },

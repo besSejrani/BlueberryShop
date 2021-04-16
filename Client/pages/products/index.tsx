@@ -20,10 +20,8 @@ import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const Products = (props) => {
+const Products = () => {
   const classes = useStyles();
-
-  // console.log("propssssssssssss", props.apolloClient);
 
   // Router
   const router = useRouter();
