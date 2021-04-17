@@ -21,9 +21,6 @@ import ConfirmationDialog from "@Components/ConfirmationDialog/ConfirmationDialo
 import { useReactiveVar } from "@apollo/client";
 import { user } from "../Apollo/state/user/index";
 
-// IndexDB
-import localforage from "localforage";
-
 // ========================================================================================================
 
 const Layout = ({ children }) => {

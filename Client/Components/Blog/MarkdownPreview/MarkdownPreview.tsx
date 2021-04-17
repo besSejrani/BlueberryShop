@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-
-// React-Hook-Form
-import { useForm } from "react-hook-form";
+import React from "react";
 
 // Material-UI
 import { Card } from "@material-ui/core";
@@ -10,15 +7,12 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 // MDX
 import MDXProvider from "@mdx-js/runtime";
 import MDXComponents from "../MDXComponents";
+// import { getMDXComponent } from "mdx-bundler/client";
 
 // Apollo State
 import { markdown } from "@Apollo/state/markdown/index";
 
 // ========================================================================================================
-
-type FormValues = {
-  articleContent: string;
-};
 
 const MarkdownPreview = () => {
   const classes = useStyles();

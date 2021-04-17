@@ -11,6 +11,9 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import InputForm from "@Components/Form/InputForm/InputForm";
 import UploadFile from "@Components/UploadFile/UploadFile";
 
+// Hooks
+import useToast from "@Hook/useToast";
+
 // GraphQL
 import { useGetUserQuery, useUpdateProfileMutation } from "@Graphql/index";
 
@@ -67,6 +70,8 @@ const Account = () => {
       role: user().role,
       profileImageUrl: !profileImageUrl ? user().profileImageUrl : profileImageUrl,
     });
+
+    useToast({ message: "Your profile informations where modified", color: "#00ff00" });
   };
 
   if (loading) return <div>loading...</div>;

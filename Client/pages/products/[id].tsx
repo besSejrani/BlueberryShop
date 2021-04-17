@@ -37,6 +37,9 @@ import { useGetProductQuery, useGetProductReviewPaginationQuery } from "@Graphql
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// HOC
+import { withNoAuth } from "@Guard/withNoAuth";
+
 // ========================================================================================================
 
 const SingleProduct = (props) => {
@@ -192,7 +195,7 @@ const SingleProduct = (props) => {
   );
 };
 
-export default withApollo({ ssr: true })(SingleProduct);
+export default withApollo({ ssr: true })(withNoAuth(SingleProduct));
 
 // =================================================================
 

@@ -1,8 +1,5 @@
 import React from "react";
 
-// Next
-import { useRouter } from "next/router";
-
 // Material-UI
 import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
@@ -30,7 +27,6 @@ import { withAuth } from "@Guard/withAuth";
 
 const Products = () => {
   const classes = useStyles();
-  const router = useRouter();
 
   // GraphQL
   const { loading, data } = useGetProductsQuery();

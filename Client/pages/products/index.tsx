@@ -18,6 +18,9 @@ import { useGetProductsPaginationQuery } from "@Graphql/index";
 // SSR
 import withApollo from "@Apollo/ssr";
 
+// HOC
+import { withNoAuth } from "@Guard/withNoAuth";
+
 // ========================================================================================================
 
 const Products = () => {
@@ -73,7 +76,7 @@ const Products = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Products);
+export default withApollo({ ssr: true })(withNoAuth(Products));
 
 // =================================================================
 const useStyles = makeStyles((theme: Theme) =>

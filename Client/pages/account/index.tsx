@@ -12,6 +12,9 @@ import InputForm from "@Components/Form/InputForm/InputForm";
 import AccountSideBar from "@Components/Account/AccountSideBar/AccountSideBar";
 import AccountProfile from "@Components/Account/AccountProfile/AccountProfile";
 
+// Hooks
+import useToast from "@Hook/useToast";
+
 // GraphQL
 import { useGetUserQuery, useUpdateBillingInformationMutation, useGetCurrentUserQuery } from "@Graphql/index";
 
@@ -78,6 +81,8 @@ const Account = () => {
         zip: parseInt(form.billingZip),
       },
     });
+
+    useToast({ message: "Your billing informations where modified", color: "#00ff00" });
   };
 
   if (loading) return <div>loading...</div>;

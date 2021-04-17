@@ -12,6 +12,12 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 // Icons
 import PersonIcon from "@material-ui/icons/Person";
 
+// GraphQL
+import { LogoutDocument } from "@Graphql/index";
+
+// Apollo
+import { apolloClient } from "@Apollo/ssr";
+
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
 import { user } from "../../Apollo/state/user/index";
@@ -23,15 +29,23 @@ const AdminHeader = () => {
 
   const data = useReactiveVar(user);
 
-  const deleteJwtToken = () => {
+  const Logout = async () => {
+    // Delete Cookie
+    apolloClient.mutate({
+      mutation: LogoutDocument,
+    });
+
+    // Delete Token
     localStorage.removeItem("token");
 
+    // Reset State
     user({
       _id: "",
       username: "",
       role: "",
     });
 
+    // Redirect
     Router.replace("/");
   };
 
@@ -88,7 +102,7 @@ const AdminHeader = () => {
               </IconButton>
             )}
           </Link>
-          <Button style={{ color: "white" }} onClick={deleteJwtToken}>
+          <Button style={{ color: "white" }} onClick={Logout}>
             Logout
           </Button>
         </Box>

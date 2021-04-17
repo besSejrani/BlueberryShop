@@ -39,9 +39,9 @@ const Blog = ({ posts }) => {
     console.log(form);
   };
 
-  // const filteredBlogPosts = posts
-  //   .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)))
-  //   .filter((frontMatter) => frontMatter.title.toLowerCase().includes(search.toLowerCase()));
+  const filteredBlogPosts = posts
+    .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)))
+    .filter((frontMatter) => frontMatter.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <Container>
@@ -63,9 +63,9 @@ const Blog = ({ posts }) => {
           </form>
         </Box>
 
-        {/* {!filteredBlogPosts.length && <Typography variant="body1">Sorry no posts found</Typography>} */}
+        {!filteredBlogPosts.length && <Typography variant="body1">Sorry no posts found</Typography>}
 
-        {posts.map((page) => {
+        {filteredBlogPosts.map((page) => {
           return (
             <Link href={`blog/${page.slug}`} key={page.title}>
               <Card style={{ padding: 20, margin: "20px 0px", borderRadius: 15, cursor: "pointer" }}>

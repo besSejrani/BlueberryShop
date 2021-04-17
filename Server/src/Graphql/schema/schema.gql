@@ -108,6 +108,7 @@ type Mutation {
   deleteSale(productId: String!): Boolean!
   deleteUser(userId: String!): Boolean!
   forgotPassword(email: String!): Boolean!
+  logout: Boolean!
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
