@@ -6,7 +6,7 @@ import { authentication } from "../../../Middleware/authentication";
 import authorization from "../../../Middleware/authorization";
 
 // Database
-import { UserModel } from "../../../Model/User";
+import { UserModel } from "../../../Model/user/User";
 
 // ========================================================================================================
 

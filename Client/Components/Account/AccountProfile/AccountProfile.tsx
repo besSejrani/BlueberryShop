@@ -148,7 +148,7 @@ const Account = () => {
   );
 };
 
-export default withApollo({ ssr: true })(withAuth(Account));
+export default withAuth(Account);
 
 // ========================================================================================================
 

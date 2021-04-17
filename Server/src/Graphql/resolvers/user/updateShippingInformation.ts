@@ -1,6 +1,6 @@
 // GraphQL
 import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
-import { UpdateBilling } from "./inputs/UpdateBilling";
+import { UpdateShipping } from "./inputs/updateShipping";
 import { MyContext } from "../../types/MyContext";
 
 // Database
@@ -12,11 +12,11 @@ import { authentication } from "../../../Middleware/authentication";
 //=======================================================================
 
 @Resolver()
-export class UpdateBillingInformationResolver {
+export class UpdateShippingInformationResolver {
   @Mutation(() => User, { nullable: true })
   @UseMiddleware(authentication)
-  async updateBillingInformation(
-    @Arg("updateBillingInput") updateBillingInput: UpdateBilling,
+  async updateShippingInformation(
+    @Arg("updateShippingInput") updateShippingInput: UpdateShipping,
     @Ctx() context: MyContext
   ): Promise<User | null | undefined> {
     const user = await UserModel.findOne({ _id: context.req.userId });
@@ -30,7 +30,7 @@ export class UpdateBillingInformationResolver {
       {
         ...user.toObject(),
         // @ts-ignore: Object is possibly 'null'.
-        billing: [{ ...user!.billing[0], ...updateBillingInput }],
+        shipping: [{ ...user!.shipping[0], ...updateShippingInput }],
       },
       { new: true }
     );

@@ -4,7 +4,7 @@ import { MyContext } from "../../types/MyContext";
 import { SigninInput } from "./inputs/SigninInput";
 
 // Database
-import { UserModel } from "../../../Model/User";
+import { UserModel } from "../../../Model/user/User";
 
 //Authentication & Authorization
 import bcrypt from "bcryptjs";

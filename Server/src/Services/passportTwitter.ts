@@ -5,7 +5,7 @@ import "dotenv/config";
 // import { v4 as uuid } from "uuid";
 
 // Database
-import { UserModel } from "../Model/User";
+import { UserModel } from "../Model/user/User";
 
 // OAuth2
 import passport from "passport";

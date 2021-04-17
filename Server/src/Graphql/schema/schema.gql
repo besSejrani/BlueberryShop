@@ -109,6 +109,7 @@ type Mutation {
   deleteUser(userId: String!): Boolean!
   forgotPassword(email: String!): Boolean!
   logout: Boolean!
+  resetPassword(resetPasswordInput: ResetPasswordInput!): Boolean!
   signin(input: SigninInput!): UserResponse!
   signup(input: SignupInput!): UserResponse!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
@@ -118,6 +119,7 @@ type Mutation {
   updateProduct(input: UpdateProductInput!, productId: String!): Product!
   updateProfile(picture: Upload, updateProfileInput: UpdateProfile!): User
   updateSale(updateSaleInput: UpdateSaleInput!): Sale!
+  updateShippingInformation(updateShippingInput: UpdateShipping!): User
 }
 
 type Newsletter {
@@ -176,6 +178,11 @@ type Query {
   getUsers: [User!]
 }
 
+input ResetPasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
 type Review {
   rating: Float
   review: String
@@ -206,6 +213,13 @@ type Sale {
   products: [Product!]!
   sale: String!
   startDate: DateTime!
+}
+
+type Shipping {
+  address: String
+  city: String
+  country: String
+  zip: Float
 }
 
 input SigninInput {
@@ -278,6 +292,13 @@ input UpdateSaleInput {
   startDate: DateTime
 }
 
+input UpdateShipping {
+  address: String
+  city: String
+  country: String
+  zip: Float
+}
+
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
 
@@ -288,6 +309,7 @@ type User {
   email: String!
   profileImageUrl: String
   role: String!
+  shipping: [Shipping!]!
   username: String!
 }
 

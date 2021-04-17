@@ -115,6 +115,7 @@ export type Mutation = {
   deleteArticle: Scalars['Boolean'];
   updateArticle: Article;
   logout: Scalars['Boolean'];
+  resetPassword: Scalars['Boolean'];
   signin: UserResponse;
   signup: UserResponse;
   addToNewsletter: Scalars['Boolean'];
@@ -136,6 +137,7 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   updateBillingInformation?: Maybe<User>;
   updateProfile?: Maybe<User>;
+  updateShippingInformation?: Maybe<User>;
 };
 
 
@@ -167,6 +169,11 @@ export type MutationDeleteArticleArgs = {
 export type MutationUpdateArticleArgs = {
   articleInput: UpdateArticleInput;
   articleId: Scalars['String'];
+};
+
+
+export type MutationResetPasswordArgs = {
+  resetPasswordInput: ResetPasswordInput;
 };
 
 
@@ -279,6 +286,11 @@ export type MutationUpdateProfileArgs = {
   updateProfileInput: UpdateProfile;
 };
 
+
+export type MutationUpdateShippingInformationArgs = {
+  updateShippingInput: UpdateShipping;
+};
+
 export type Newsletter = {
   __typename?: 'Newsletter';
   _id: Scalars['ObjectId'];
@@ -379,6 +391,11 @@ export type QueryGetUserArgs = {
   userId: Scalars['String'];
 };
 
+export type ResetPasswordInput = {
+  oldPassword: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
 export type Review = {
   __typename?: 'Review';
   reviewerName?: Maybe<Scalars['String']>;
@@ -414,6 +431,14 @@ export type Sale = {
   products: Array<Product>;
   categories: Array<Category>;
   createdAt: Scalars['DateTime'];
+};
+
+export type Shipping = {
+  __typename?: 'Shipping';
+  country?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zip?: Maybe<Scalars['Float']>;
 };
 
 export type SigninInput = {
@@ -486,11 +511,19 @@ export type UpdateSaleInput = {
   categoryId?: Maybe<Scalars['String']>;
 };
 
+export type UpdateShipping = {
+  country?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zip?: Maybe<Scalars['Float']>;
+};
+
 
 export type User = {
   __typename?: 'User';
   _id: Scalars['ObjectId'];
   billing: Array<Billing>;
+  shipping: Array<Shipping>;
   username: Scalars['String'];
   email: Scalars['String'];
   role: Scalars['String'];
@@ -653,6 +686,17 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logout'>
+);
+
+export type ResetPasswordMutationVariables = Exact<{
+  oldpassword: Scalars['String'];
+  newPassword: Scalars['String'];
+}>;
+
+
+export type ResetPasswordMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'resetPassword'>
 );
 
 export type SigninMutationVariables = Exact<{
@@ -1080,7 +1124,10 @@ export type GetCurrentUserQuery = (
   & { getCurrentUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, '_id' | 'username' | 'role' | 'profileImageUrl'>
-    & { billing: Array<(
+    & { shipping: Array<(
+      { __typename?: 'Shipping' }
+      & Pick<Shipping, 'country' | 'address' | 'city' | 'zip'>
+    )>, billing: Array<(
       { __typename?: 'Billing' }
       & Pick<Billing, 'country' | 'address' | 'city' | 'zip'>
     )> }
@@ -1143,6 +1190,26 @@ export type UpdateProfileMutation = (
   & { updateProfile?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, '_id' | 'username' | 'email' | 'profileImageUrl'>
+  )> }
+);
+
+export type UpdateShippingInformationMutationVariables = Exact<{
+  country: Scalars['String'];
+  address: Scalars['String'];
+  city: Scalars['String'];
+  zip: Scalars['Float'];
+}>;
+
+
+export type UpdateShippingInformationMutation = (
+  { __typename?: 'Mutation' }
+  & { updateShippingInformation?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, '_id'>
+    & { shipping: Array<(
+      { __typename?: 'Shipping' }
+      & Pick<Shipping, 'country' | 'address' | 'city' | 'zip'>
+    )> }
   )> }
 );
 
@@ -1568,6 +1635,40 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const ResetPasswordDocument = gql`
+    mutation ResetPassword($oldpassword: String!, $newPassword: String!) {
+  resetPassword(
+    resetPasswordInput: {oldPassword: $oldpassword, newPassword: $newPassword}
+  )
+}
+    `;
+export type ResetPasswordMutationFn = Apollo.MutationFunction<ResetPasswordMutation, ResetPasswordMutationVariables>;
+
+/**
+ * __useResetPasswordMutation__
+ *
+ * To run a mutation, you first call `useResetPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
+ *   variables: {
+ *      oldpassword: // value for 'oldpassword'
+ *      newPassword: // value for 'newPassword'
+ *   },
+ * });
+ */
+export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, options);
+      }
+export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
+export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
+export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
 export const SigninDocument = gql`
     mutation Signin($email: String!, $password: String!) {
   signin(input: {email: $email, password: $password}) {
@@ -2684,6 +2785,12 @@ export const GetCurrentUserDocument = gql`
     username
     role
     profileImageUrl
+    shipping {
+      country
+      address
+      city
+      zip
+    }
     billing {
       country
       address
@@ -2881,3 +2988,47 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const UpdateShippingInformationDocument = gql`
+    mutation UpdateShippingInformation($country: String!, $address: String!, $city: String!, $zip: Float!) {
+  updateShippingInformation(
+    updateShippingInput: {country: $country, address: $address, city: $city, zip: $zip}
+  ) {
+    _id
+    shipping {
+      country
+      address
+      city
+      zip
+    }
+  }
+}
+    `;
+export type UpdateShippingInformationMutationFn = Apollo.MutationFunction<UpdateShippingInformationMutation, UpdateShippingInformationMutationVariables>;
+
+/**
+ * __useUpdateShippingInformationMutation__
+ *
+ * To run a mutation, you first call `useUpdateShippingInformationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateShippingInformationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateShippingInformationMutation, { data, loading, error }] = useUpdateShippingInformationMutation({
+ *   variables: {
+ *      country: // value for 'country'
+ *      address: // value for 'address'
+ *      city: // value for 'city'
+ *      zip: // value for 'zip'
+ *   },
+ * });
+ */
+export function useUpdateShippingInformationMutation(baseOptions?: Apollo.MutationHookOptions<UpdateShippingInformationMutation, UpdateShippingInformationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateShippingInformationMutation, UpdateShippingInformationMutationVariables>(UpdateShippingInformationDocument, options);
+      }
+export type UpdateShippingInformationMutationHookResult = ReturnType<typeof useUpdateShippingInformationMutation>;
+export type UpdateShippingInformationMutationResult = Apollo.MutationResult<UpdateShippingInformationMutation>;
+export type UpdateShippingInformationMutationOptions = Apollo.BaseMutationOptions<UpdateShippingInformationMutation, UpdateShippingInformationMutationVariables>;

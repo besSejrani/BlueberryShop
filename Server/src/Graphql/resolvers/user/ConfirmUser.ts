@@ -2,7 +2,7 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
 
 // Database
-import { UserModel } from "../../../Model/User";
+import { UserModel } from "../../../Model/user/User";
 
 // Redis
 import { redis } from "../../../Redis/index";

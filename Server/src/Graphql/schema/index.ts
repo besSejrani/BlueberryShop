@@ -3,7 +3,7 @@ import { buildSchema } from "type-graphql";
 import { ObjectId } from "mongodb";
 import path from "path";
 
-import { ObjectIdScalar } from "../types/ObjectId.scalar";
+import { ObjectIdScalar } from "../scalars/ObjectId.scalar";
 import { TypegooseMiddleware } from "../../Middleware/typegoose";
 
 // ========================================================================================================

@@ -12,11 +12,11 @@ import { useForm } from "react-hook-form";
 import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
-// React-Toastify
-import { toast } from "react-toastify";
-
 // Components
 import InputForm from "../../Form/InputForm/InputForm";
+
+// Hooks
+import useToast from "@Hook/useToast";
 
 // Icons
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -40,27 +40,19 @@ const SignIn = () => {
   const classes = useStyles();
   const router = useRouter();
 
+  // React Hook Form
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
+  // State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // GraphQL
   const [signIn] = useSigninMutation();
 
-  const toaster = () => {
-    toast.dark("Successful authentication", {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
+  // Events
   const onSubmit = async (form) => {
     const { data } = await signIn({
       variables: { email: form.email, password: form.password },
@@ -78,7 +70,7 @@ const SignIn = () => {
     });
 
     router.push("/products");
-    await toaster();
+    await useToast({ message: "Successful Authentication", color: "#00ff00" });
   };
 
   return (

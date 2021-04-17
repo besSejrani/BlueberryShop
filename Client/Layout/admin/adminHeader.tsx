@@ -38,15 +38,15 @@ const AdminHeader = () => {
     // Delete Token
     localStorage.removeItem("token");
 
+    // Redirect
+    Router.replace("/");
+
     // Reset State
     user({
       _id: "",
       username: "",
       role: "",
     });
-
-    // Redirect
-    Router.replace("/");
   };
 
   return (

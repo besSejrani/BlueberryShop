@@ -4,6 +4,12 @@ query getCurrentUser {
     username
     role
     profileImageUrl
+    shipping {
+      country
+      address
+      city
+      zip
+    }
     billing {
       country
       address

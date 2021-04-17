@@ -123,7 +123,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
 
     width: "320px",
-    height: "480px",
+    height: "465px",
 
     borderRadius: 10,
   },

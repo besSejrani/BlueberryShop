@@ -1,0 +1,11 @@
+mutation UpdateShippingInformation($country: String!, $address: String!, $city: String!, $zip: Float!) {
+  updateShippingInformation(updateShippingInput: { country: $country, address: $address, city: $city, zip: $zip }) {
+    _id
+    shipping {
+      country
+      address
+      city
+      zip
+    }
+  }
+}

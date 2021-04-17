@@ -4,7 +4,7 @@ import { UpdateProfile } from "./inputs/UpdateProfile";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { User, UserModel } from "../../../Model/User";
+import { User, UserModel } from "../../../Model/user/User";
 
 // Upload
 import { GraphQLUpload } from "graphql-upload";

@@ -5,7 +5,7 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 
 // Database
-import { UserModel as User } from "../Model/User";
+import { UserModel as User } from "../Model/user/User";
 
 // GraphQL
 import { MiddlewareFn } from "type-graphql";

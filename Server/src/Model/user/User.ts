@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 
 // SubDocuments
 import { Billing } from "./Billing";
+import { Shipping } from "./Shipping";
 
 // GraphQL
 import { Field, ObjectType } from "type-graphql";
@@ -24,6 +25,10 @@ export class User {
   @Field(() => [Billing])
   @Property()
   billing?: Billing[];
+
+  @Field(() => [Shipping])
+  @Property()
+  shipping?: Shipping[];
 
   @Property()
   googleId?: string;

@@ -2,7 +2,7 @@
 import { Resolver, Query, Arg } from "type-graphql";
 
 // Database
-import { User, UserModel } from "../../../Model/User";
+import { User, UserModel } from "../../../Model/user/User";
 
 //=======================================================================
 

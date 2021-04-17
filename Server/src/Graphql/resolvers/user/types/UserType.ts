@@ -2,7 +2,7 @@
 import { ObjectType, Field } from "type-graphql";
 
 // Database
-import { User } from "../../../../Model/User";
+import { User } from "../../../../Model/user/User";
 
 // ========================================================================================================
 
