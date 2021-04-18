@@ -18,6 +18,7 @@ export const authentication: MiddlewareFn<MyContext> = async ({ context }, next)
     const token = context.req.headers.cookie?.split("token=")[1].split(";")[0] || context.req.headers.token;
 
     const decoded: any = await jwt.verify(token as string, process.env.JWT_SECRET as string);
+
     const user = await User.findById(decoded._id);
 
     if (!user) {

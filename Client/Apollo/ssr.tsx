@@ -41,6 +41,9 @@ if (typeof window !== "undefined") {
 const link = createUploadLink({
   uri: "http://localhost:4000/graphql",
   credentials: "include",
+  headers: {
+    token: token,
+  },
 });
 
 export const apolloClient = new ApolloClient({

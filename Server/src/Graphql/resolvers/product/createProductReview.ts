@@ -1,33 +1,40 @@
 // GraphQL
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
 import { CreateReviewInput } from "./inputs/productReviewInput";
+import { MyContext } from "../../types/MyContext";
 
 // Database
 import { Product, ProductModel } from "../../../Model/Product";
+import { UserModel } from "../../../Model/user/User";
+
+// Middleware
+import { authentication } from "../../../Middleware/authentication";
 
 // ========================================================================================================
 
 @Resolver()
 export class CreateReviewResolver {
-  @Mutation(() => Product, { nullable: true })
+  @Mutation(() => Product)
+  @UseMiddleware(authentication)
   async createProductReview(
     @Arg("productId") productId: string,
-    @Arg("reviewInput") reviewInput: CreateReviewInput
+    @Arg("reviewInput") reviewInput: CreateReviewInput,
+    @Ctx() context: MyContext
   ): Promise<Product | undefined | boolean> {
-    const product = await ProductModel.findById(productId);
+    const user = await UserModel.findOne({ _id: context.req.userId });
 
-    if (!product) {
+    if (!user) {
       return true;
     }
 
     return await ProductModel.findOneAndUpdate(
-      { _id: product._id },
+      { _id: productId },
       {
         $push: {
-          reviews: { reviewerName: reviewInput.username, rating: +reviewInput.rating, review: reviewInput.review },
+          reviews: { reviewerName: user.username, rating: +reviewInput.rating, review: reviewInput.review },
         },
       },
-      { upsert: true, new: true }
+      { new: true, upsert: true }
     );
   }
 }

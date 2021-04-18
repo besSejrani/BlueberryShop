@@ -67,7 +67,6 @@ input CreateProductInput {
 input CreateReviewInput {
   rating: String!
   review: String!
-  username: String!
 }
 
 input CreateSaleInput {
@@ -90,6 +89,7 @@ input GetArticleInput {
 }
 
 type Mutation {
+  addToCart(productId: String!): Boolean!
   addToNewsletter(email: String!): Boolean!
   changePassword(input: ChangedPasswordInput!): User
   confirmUser(token: String!): Boolean!
@@ -97,7 +97,7 @@ type Mutation {
   createArticleCategory(articleCategoryName: String!): Boolean!
   createCategory(category: String!): Boolean!
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
-  createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product
+  createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product!
   createSale(saleInput: CreateSaleInput!): Boolean!
   deleteArticle(articleId: String!): Boolean!
   deleteArticleCategory(articleCategoryId: String!): Boolean!
@@ -164,6 +164,7 @@ type Query {
   getArticleCategories: [ArticleCategory!]
   getArticleCategory(articleCategoryId: String!): ArticleCategory
   getArticles: [Article!]
+  getCart: User
   getCategories: [Category!]
   getCategory(categoryId: String!): Category
   getCurrentUser: User
@@ -305,6 +306,7 @@ scalar Upload
 type User {
   _id: ObjectId!
   billing: [Billing!]!
+  cart: [Product!]!
   confirmed: Boolean!
   email: String!
   profileImageUrl: String

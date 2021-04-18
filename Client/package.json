@@ -37,6 +37,7 @@
     "next-apollo": "^5.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-remote": "^2.1.4",
+    "next-translate": "^1.0.6",
     "prism-react-renderer": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

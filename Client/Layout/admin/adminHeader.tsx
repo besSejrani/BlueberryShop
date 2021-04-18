@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 //Next
 import Link from "next/link";
@@ -6,11 +6,12 @@ import Router from "next/router";
 import Image from "next/image";
 
 // Material-UI
-import { AppBar, Toolbar, Typography, Box, Button, IconButton, Hidden } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography, Box, Button, IconButton, Hidden, Badge } from "@material-ui/core";
+import { makeStyles, createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
 // Icons
 import PersonIcon from "@material-ui/icons/Person";
+import CartIcon from "@material-ui/icons/ShoppingCart";
 
 // GraphQL
 import { LogoutDocument } from "@Graphql/index";
@@ -102,6 +103,19 @@ const AdminHeader = () => {
               </IconButton>
             )}
           </Link>
+
+          <Link href="/cart">
+            <IconButton color="inherit">
+              <StyledBadge
+                // badgeContent={selectProducts}
+                color="secondary"
+                overlap="circle"
+              >
+                <CartIcon className="nav-icon" />
+              </StyledBadge>
+            </IconButton>
+          </Link>
+
           <Button style={{ color: "white" }} onClick={Logout}>
             Logout
           </Button>
@@ -147,3 +161,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+// =================================================================
+
+const StyledBadge = withStyles((theme: Theme) =>
+  createStyles({
+    badge: {
+      right: 0,
+      width: 20,
+      height: 18,
+      padding: "0px 11px",
+    },
+  })
+)(Badge);

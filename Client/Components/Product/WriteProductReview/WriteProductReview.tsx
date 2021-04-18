@@ -31,7 +31,6 @@ const WriteReview = () => {
   const { query } = router;
 
   // State
-  const [reviewerName, setReviewerName] = useState<string>("");
   const [rating, setRating] = useState<number>(4);
   const [review, setReview] = useState<string>("");
 
@@ -45,12 +44,13 @@ const WriteReview = () => {
 
   // Events
   const onSubmit = async (form) => {
+    console.log(query.id);
+
     await createProductReview({
       variables: {
         productId: query.id as string,
         rating: `${rating}`,
         review: form.review,
-        username: form.reviewerName,
       },
       update(cache, { data }) {
         const newReview = data?.createProductReview;
@@ -70,7 +70,6 @@ const WriteReview = () => {
     });
 
     setReview("");
-    setReviewerName("");
     setRating(4);
   };
 
@@ -89,19 +88,6 @@ const WriteReview = () => {
         </Box>
 
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-          <InputForm
-            type="text"
-            name="reviewerName"
-            id="reviewerName"
-            label="Username"
-            inputRef={register({
-              required: "This field is required",
-            })}
-            value={reviewerName}
-            onChange={setReviewerName}
-            errors={errors}
-          />
-
           <Box component="fieldset" mb={3} borderColor="transparent" style={{ margin: "20px 0px 0px 0px" }}>
             <Typography component="legend" style={{ margin: "0px 0px 10px 0px" }}>
               Rating

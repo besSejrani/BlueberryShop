@@ -5,7 +5,6 @@ import Image from "next/image";
 
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
-
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Guard

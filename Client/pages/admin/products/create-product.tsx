@@ -220,7 +220,7 @@ const CreateProductAdmin = () => {
               errors={errors}
             />
 
-            <FormControl style={{ margin: "5px 5px 20px 5px" }}>
+            <FormControl style={{ margin: "5px 0px 20px 0px" }}>
               <InputLabel id="productCategoryLabel">Category</InputLabel>
 
               <Controller

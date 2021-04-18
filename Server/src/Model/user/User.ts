@@ -1,6 +1,7 @@
 // Database
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
+import { Product } from "../Product";
 
 // SubDocuments
 import { Billing } from "./Billing";
@@ -29,6 +30,10 @@ export class User {
   @Field(() => [Shipping])
   @Property()
   shipping?: Shipping[];
+
+  @Field(() => [Product])
+  @Property({ ref: Product, type: ObjectId })
+  cart?: Product[];
 
   @Property()
   googleId?: string;

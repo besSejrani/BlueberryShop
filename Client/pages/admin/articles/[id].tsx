@@ -75,6 +75,9 @@ const UpdateArticleAdmin = () => {
   const [articleAuthor, setArticleAuthor] = useState<string>("");
   const [articleCategory, setArticleCategory] = useState<string>("");
   const [articleStatus, setArticleStatus] = useState<string>("");
+  const [articleContent, setArticleContent] = useState<string>("");
+
+  console.log(articleContent);
 
   useEffect(() => {
     setArticleTitle(data?.getArticle.title);
@@ -83,6 +86,7 @@ const UpdateArticleAdmin = () => {
     setArticleSlug(data?.getArticle.slug);
     setArticleAuthor(data?.getArticle.author);
     setArticleStatus(data?.getArticle.status);
+    setArticleContent(data?.getArticle.content);
   }, [data]);
 
   // Form
@@ -122,7 +126,7 @@ const UpdateArticleAdmin = () => {
 
   return (
     <Box className={classes.root}>
-      <MarkdownInput content={data?.getArticle?.content} />
+      <MarkdownInput content={articleContent} />
       <MarkdownPreview />
       <Card className={classes.cardCreation}>
         <Box className={classes.content}>

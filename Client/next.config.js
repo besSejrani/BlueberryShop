@@ -1,3 +1,7 @@
+// i18n
+// const nextTranslate = require("next-translate");
+
+// Esbuild
 const { ESBuildMinifyPlugin } = require("esbuild-loader");
 
 function useEsbuildMinify(config, options) {
@@ -42,10 +46,7 @@ module.exports = {
     return config;
   },
 
-  i18n: {
-    locales: ["en", "fr", "de"],
-    defaultLocale: "en",
-  },
+  // ...nextTranslate(),
 
   images: {
     domains: [

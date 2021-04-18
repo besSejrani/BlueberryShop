@@ -1,0 +1,12 @@
+query GetCart {
+  getCart {
+    cart {
+      _id
+      name
+      price
+      description
+      stock
+      productImageUrl
+    }
+  }
+}

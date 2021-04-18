@@ -12,6 +12,9 @@ import { withStyles } from "@material-ui/core/styles";
 // Icons
 import AddIcon from "@material-ui/icons/Add";
 
+// GraphQL
+import { useAddToCartMutation } from "@Graphql/index";
+
 // ========================================================================================================
 
 type IProduct = {
@@ -23,18 +26,23 @@ type IProduct = {
     stock: number;
     promotion: boolean;
     productImages: string[];
-    // rating?: number;
-    // reviews?: string[];
-    // imageUrl?: any;
-    // company?: string;
   };
 };
 
 const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
   const classes = useStyles();
 
+  //GraphQL
+  const [addToCart] = useAddToCartMutation();
+
+  // image
   const myLoader = ({ src, width, quality }) => {
     return product.productImages[0] || `/images/unknownProduct.png`;
+  };
+
+  // Event
+  const addProductToCart = async (id) => {
+    await addToCart({ variables: { productId: id } });
   };
 
   return (
@@ -96,7 +104,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
         {loading ? (
           <Button
             size="small"
-            onClick={() => console.log(product._id)}
+            onClick={() => addProductToCart(product._id)}
             title="Add to cart"
             color="secondary"
             variant="outlined"

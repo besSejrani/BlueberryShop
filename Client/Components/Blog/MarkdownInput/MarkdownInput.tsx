@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // React-Hook-Form
 import { useForm } from "react-hook-form";
@@ -24,17 +24,23 @@ const MarkdownInput: React.FC<MarkdownInputType> = ({ content }) => {
   const classes = useStyles();
 
   // State
-  const [articleContent, setArticleContent] = useState(content);
+  const [articleContent, setArticleContent] = useState<any>();
 
   // Form
   const { register, errors } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
+  useEffect(() => {
+    setArticleContent(content);
+  }, [content]);
+
+  // Events
   const handleChange = (text) => {
     setArticleContent(text);
   };
 
+  // Markdown Preview
   markdown(articleContent);
 
   return (
