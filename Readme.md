@@ -37,3 +37,7 @@
 # Documentation
 
 [Github Pages](https://bessejrani.github.io/BlueberryShop/)
+
+# Work Journal
+
+[Google Sheets](https://docs.google.com/spreadsheets/d/1LqVzdcuBtA4LEa5NZqqK4WmxezKH1dXLONSHaZTixzs/edit?usp=sharing)

@@ -1,0 +1,224 @@
+0acdfff,besSejrani,2021-04-18 19:58:15 +0200,added cart
+4bfa3ec,besSejrani,2021-04-17 17:24:44 +0200,added shipping information functionnality and password reset functionnality
+fe1ba3e,besSejrani,2021-04-17 04:54:17 +0200,added lgout function and resolved state dissipation when reloading page on non admin page
+4fd3539,besSejrani,2021-04-16 20:43:09 +0200,updated client
+f03e0c2,besSejrani,2021-04-15 00:36:52 +0200,added nginx to docker-compose and configure tls certificate and fixed cookie issue on frontend
+c6eb05f,besSejrani,2021-04-14 03:29:22 +0200,implemented update billing information for user
+5a33be7,besSejrani,2021-04-12 18:54:05 +0200,added user update profile image functionnality
+54974b8,besSejrani,2021-04-07 18:40:58 +0200,added update user account functionnality
+1bf930d,besSejrani,2021-04-07 01:32:29 +0200,added account page
+922367e,besSejrani,2021-04-04 01:54:11 +0200,created datagrid components for avoiding redundant code
+6a39e9a,besSejrani,2021-04-04 00:07:50 +0200,resolved error when passing graphql data to react state
+307dece,besSejrani,2021-04-03 19:18:01 +0200,added article categories
+ff1507e,besSejrani,2021-04-03 02:11:21 +0200,created DataGridInfoAction component
+53bd587,besSejrani,2021-04-03 01:34:50 +0200,added markdown mdx preview
+0fc4718,besSejrani,2021-04-01 01:15:03 +0200,partially implemented route guard
+8a63da5,besSejrani,2021-03-31 21:32:52 +0200,created WriteProductReview component
+1e9872f,besSejrani,2021-03-31 21:16:41 +0200,created ProductReview component
+3f11503,besSejrani,2021-03-31 20:52:25 +0200,created ProductImageSlider component
+bdef416,besSejrani,2021-03-31 19:27:47 +0200,created DataGrid component
+42aa4f9,besSejrani,2021-03-31 18:17:52 +0200,added update article functionality
+d0562ed,besSejrani,2021-03-31 16:08:32 +0200,added create and delete article functionnality for apollo cache
+fb4f854,besSejrani,2021-03-31 04:18:01 +0200,added delete article functionality
+60ca40e,besSejrani,2021-03-31 03:44:51 +0200,updated shield on readme
+6993ebc,besSejrani,2021-03-31 03:42:35 +0200,updated shield on readm
+156c8c0,besSejrani,2021-03-31 03:39:58 +0200,added shield to readme
+72b5cc6,besSejrani,2021-03-31 03:37:10 +0200,added create article page
+e3376a1,Bes Sejrani,2021-03-30 15:08:16 +0200,implemented mdx blog with database retrieving
+5c97603,besSejrani,2021-03-30 03:09:04 +0200,rendered mdx file partially
+5059669,besSejrani,2021-03-30 00:39:43 +0200,modified a blog page for test and added articles models to database and create graphql queries
+7f559d3,Bes Sejrani,2021-03-29 16:54:38 +0200,resolved redis issue and added pre code highlighting
+7906e5f,besSejrani,2021-03-29 02:24:02 +0200,deleting redux dependencies in code since it is not used, keep actions and reducer for now
+dd10724,besSejrani,2021-03-29 02:16:08 +0200,added mdx markdown to blog
+e633b0e,besSejrani,2021-03-28 22:11:07 +0200,added partially mdx blog markdown to project
+36748d6,besSejrani,2021-03-28 03:57:45 +0200,added update functionnality to category
+e899def,besSejrani,2021-03-28 01:18:30 +0100,modified sales pages
+6902be0,besSejrani,2021-03-27 22:57:00 +0100,added crud functionalities to sale product
+73aaee9,besSejrani,2021-03-26 22:29:45 +0100,combined confirmation dialog component with apollo state
+6dcd755,besSejrani,2021-03-26 16:35:30 +0100,verified roesolvers for admin role and added useToast hook
+1ec1215,Bes Sejrani,2021-03-26 12:15:24 +0100,added apollo error handling with toaster
+d71a2dd,Bes Sejrani,2021-03-26 09:26:50 +0100,added discount fieled to sale
+9f5d8aa,besSejrani,2021-03-26 01:27:45 +0100,added create and read sales product functionnalities
+d96a40c,besSejrani,2021-03-26 01:24:07 +0100,added create and read sales product functionnalities
+bcc8b90,Bes Sejrani,2021-03-25 16:26:48 +0100,added create-sale page
+7abce9d,Bes Sejrani,2021-03-25 11:28:41 +0100,modified create sales form
+db94605,besSejrani,2021-03-25 02:24:00 +0100,added material-ui date picker for create-promotion page
+1f5ff2a,besSejrani,2021-03-25 02:17:04 +0100,added material-ui date picker for create-promotion page
+84206ec,besSejrani,2021-03-25 00:18:53 +0100,added client and server graphql upload file documentation
+18cc2fd,besSejrani,2021-03-24 21:26:47 +0100,added product review pagination
+4c59cd7,Bes Sejrani,2021-03-24 16:15:48 +0100,modified review pagination, not working for now
+a4ee609,besSejrani,2021-03-24 03:50:53 +0100,partially implemented product review pagination
+bbbe729,besSejrani,2021-03-23 23:31:05 +0100,added first version of product review
+bc475ed,besSejrani,2021-03-23 04:08:18 +0100,added storybook shield
+7709272,besSejrani,2021-03-23 04:02:50 +0100,added single product reviews
+8892fad,besSejrani,2021-03-22 02:58:05 +0100,added storybook as a service and added create-reveiw page for product
+d63bd8b,besSejrani,2021-03-21 23:27:52 +0100,fixed single product page
+dc6397b,besSejrani,2021-03-21 23:16:34 +0100,fixed single product page
+0c0779d,besSejrani,2021-03-21 21:27:08 +0100,added docker and docker-compose and modified the documentation
+a1fd460,besSejrani,2021-03-21 19:39:56 +0100,created empty dashboard for the moment
+c3e6abc,besSejrani,2021-03-21 17:26:41 +0100,added path folder to tsconfig file, no need to import files in relative way
+ced42dd,besSejrani,2021-03-21 16:48:17 +0100,improved admin pages
+289ad28,besSejrani,2021-03-21 04:22:30 +0100,added product image to product page
+2c27acb,besSejrani,2021-03-21 04:22:22 +0100,added product image to product page
+52d8610,besSejrani,2021-03-21 04:21:49 +0100,added image to product page
+f2e40dc,besSejrani,2021-03-20 22:58:49 +0100,added categories
+d8b985e,besSejrani,2021-03-20 16:55:05 +0100,added delete and read fonctionnality to newsletter
+ce260ce,besSejrani,2021-03-20 02:50:07 +0100,added newsletter
+38157ca,besSejrani,2021-03-19 23:44:45 +0100,added toaster component in layout
+28a1e17,besSejrani,2021-03-19 19:00:23 +0100,when product is deleted, images on S3 are also deleted
+438ae64,Bes Sejrani,2021-03-19 12:19:00 +0100,modified UI
+c4b81ca,besSejrani,2021-03-19 02:13:54 +0100,tried to implement frontend data persistens but reverted back
+7fdcacd,besSejrani,2021-03-18 23:04:21 +0100,added authorization header when making request to server and added authentication and authorization middleware to product actions
+ebc9dda,Bes Sejrani,2021-03-18 15:24:50 +0100,removed next-with-apollo for with-apollo package
+43cf141,besSejrani,2021-03-18 01:45:11 +0100,added page guard documentation and modified the client section
+1acd69c,besSejrani,2021-03-18 00:55:28 +0100,added page guard
+c9c4f17,besSejrani,2021-03-17 01:31:04 +0100,try to implement redirection funtionnality on ssr and client side
+ff40134,besSejrani,2021-03-16 14:13:10 +0100,modified pagination into persisten pagination
+38cf3c0,besSejrani,2021-03-16 03:26:35 +0100,added product pagination
+53a2bcf,Bes Sejrani,2021-03-15 16:51:42 +0100,modified header
+6f226ed,besSejrani,2021-03-15 01:01:30 +0100,modified documentation in server section and added diagrams
+54cba95,besSejrani,2021-03-14 18:49:03 +0100,added delete produt image functionnality on db and s3
+7160b65,besSejrani,2021-03-13 18:55:52 +0100,categorized sections into folders
+159337d,besSejrani,2021-03-13 17:52:01 +0100,added authorization middleware
+80121b6,besSejrani,2021-03-13 15:37:16 +0100,added multiple upload files to aws with random uuid names
+ec06563,besSejrani,2021-03-12 21:11:46 +0100,products have now an image
+d9a312c,Bes Sejrani,2021-03-12 12:09:00 +0100,test folder structure on documentation
+dd9692e,Bes Sejrani,2021-03-12 12:05:39 +0100,test folder structure on documentation
+d1c21b0,Bes Sejrani,2021-03-12 12:03:20 +0100,test folder structure on documentation
+049de09,Bes Sejrani,2021-03-12 12:00:05 +0100,test folder structure on documentation
+a4317bc,besSejrani,2021-03-12 03:21:54 +0100,removed apollo provider on the _app, now it's only with HOC
+42410e8,besSejrani,2021-03-12 02:26:14 +0100,added apollo client file upload support
+873c01c,besSejrani,2021-03-11 21:50:59 +0100,modified security section in documentation
+d07057f,besSejrani,2021-03-11 19:44:29 +0100,modified security section in documentation
+fa2352e,besSejrani,2021-03-11 18:06:13 +0100,added images preview upload when creating product
+6790d5c,besSejrani,2021-03-11 01:26:10 +0100,added architecture diagram and figma plugin list
+f94ff28,besSejrani,2021-03-11 00:06:28 +0100,added rate limiting middleware and modified the documentation
+9ffc3fb,besSejrani,2021-03-10 22:53:22 +0100,added partially apollo state management with reactive useReactiveVar
+e3c190e,SEJRANI Besjan,2021-03-10 16:16:38 +0100,added apollo state
+98a61c5,besSejrani,2021-03-10 01:50:47 +0100,modified doc
+d2fe13c,besSejrani,2021-03-09 01:07:31 +0100,resolved partially the SSR problem
+6f82218,besSejrani,2021-03-08 02:38:39 +0100,trobleshooting
+a1fa254,besSejrani,2021-03-07 17:55:59 +0100,added apollo SSR
+01d13cd,besSejrani,2021-03-07 04:36:21 +0100,modified documentation and added architecture diagrams
+af06599,besSejrani,2021-03-07 00:10:14 +0100,added aws s3 file upload image and modified the documentation
+71c025f,besSejrani,2021-03-06 00:03:42 +0100,added cypress shield to readme.md
+39e6b4a,besSejrani,2021-03-06 00:02:25 +0100,added cypress for e2e, written some tests and modified the documentation
+021624b,besSejrani,2021-03-05 20:59:22 +0100,added dashboard for admin user overview and added delete user functionnality
+e16f653,Bes Sejrani,2021-03-05 15:14:17 +0100,added status and promotion to product
+39c5216,besSejrani,2021-03-05 03:16:03 +0100,modified list users and added delete and modify product functionality
+29e1a07,besSejrani,2021-03-04 18:21:52 +0100,added products query
+d73165b,besSejrani,2021-03-04 02:26:04 +0100,added products query
+200cd69,besSejrani,2021-03-03 22:42:29 +0100,added confirm user and forgot password functionnality on client
+0f4c1a5,Bes Sejrani,2021-03-03 16:47:02 +0100,added env variable file configuration for graphql-codegen
+18399d4,besSejrani,2021-03-03 01:39:32 +0100,modified sidebar admin
+3cf4926,besSejrani,2021-03-03 01:30:20 +0100,finished create product page with text preview
+796ac55,besSejrani,2021-03-03 01:19:33 +0100,finished create product page with text preview
+9acbecf,Bes Sejrani,2021-03-02 10:01:02 +0100,modified svg logo on readme into png
+be73250,Bes Sejrani,2021-03-02 10:00:34 +0100,modified svg logo on readme into png
+b18ebff,Bes Sejrani,2021-03-02 09:57:31 +0100,modified svg logo on readme into png
+96c462f,besSejrani,2021-03-02 02:51:34 +0100,normalized css across browsers and modified local state documentation
+d61abff,Bes Sejrani,2021-03-01 16:49:07 +0100,added content to admin pages
+1ba4263,besSejrani,2021-03-01 02:53:31 +0100,added createProduct functionnality and tried to implement graphql-upload
+f0e4b4b,besSejrani,2021-02-28 04:35:35 +0100,added redux ui reducer and added admin sidebar
+c46a472,besSejrani,2021-02-27 23:24:14 +0100,updated documentation
+59456d9,besSejrani,2021-02-27 22:46:03 +0100,added frontend form validation
+c831af4,besSejrani,2021-02-27 19:58:39 +0100,redesign register page
+5a86cd6,besSejrani,2021-02-26 22:36:32 +0100,added google OAuth
+726408a,besSejrani,2021-02-26 20:56:12 +0100,added github OAuth
+0158e79,besSejrani,2021-02-26 17:29:27 +0100,added signup and graphql code generator
+415fdc5,besSejrani,2021-02-26 13:45:22 +0100,added all user resolvers
+f2ab2d1,besSejrani,2021-02-26 04:05:35 +0100,deployed server on Heroku
+25b7f95,besSejrani,2021-02-26 03:01:32 +0100,modification for server heroku deploiment
+a2add83,besSejrani,2021-02-25 23:24:13 +0100,added webp section on performance page
+8366329,besSejrani,2021-02-25 22:20:35 +0100,modified authentication section
+e4a61cf,besSejrani,2021-02-25 17:35:44 +0100,added signup functionality and modified client markdown
+ee4d0ed,besSejrani,2021-02-25 14:47:46 +0100,fixed home readme
+641cc5f,besSejrani,2021-02-25 14:44:58 +0100,modified documentation and add product model
+6424e8e,besSejrani,2021-02-23 23:32:45 +0100,modified database, faq section and added security page
+63a1bce,besSejrani,2021-02-23 19:30:26 +0100,modified documentation and added as attribute to next router
+54f1fc6,besSejrani,2021-02-22 19:22:42 +0100,added apollo-server, modified launch script, it run nows concurrentlu the frontend, documentation and the server
+e8a6c98,besSejrani,2021-02-22 18:37:33 +0100,added project goals
+3d81960,besSejrani,2021-02-22 17:19:08 +0100,added dependencies and devdependencies server and modified documentation
+972e783,besSejrani,2021-02-21 17:21:14 +0100,added prefetch routes
+f827493,besSejrani,2021-02-20 16:32:17 +0100,modified footer and added section in the documentation
+923e198,Bes,2021-02-19 12:46:18 +0100,Delete .env
+061be61,Bes Sejrani,2021-02-19 12:11:55 +0100,modified register page, added react-hook-form and initialized server
+7c55107,Bes Sejrani,2021-02-19 10:17:12 +0100,test documentation
+908c304,besSejrani,2021-02-19 01:07:14 +0100,modified product page, footer, header and created register page
+7a85da7,Bes Sejrani,2021-02-18 14:47:07 +0100,modified github readme
+3fbcbd2,Bes Sejrani,2021-02-18 14:46:32 +0100,modified github readme
+5444ae2,Bes Sejrani,2021-02-18 14:44:12 +0100,modified github readme
+197a51c,Bes Sejrani,2021-02-18 14:27:48 +0100,modified github readme
+5ab70c6,Bes Sejrani,2021-02-18 14:21:55 +0100,modified github readme
+2965bb0,Bes Sejrani,2021-02-18 14:20:34 +0100,modified github readme
+b078b7a,Bes Sejrani,2021-02-18 14:17:47 +0100,modified github readme
+d7b3733,Bes Sejrani,2021-02-18 14:06:27 +0100,modified github readme, added dummy product reviews
+b73c859,besSejrani,2021-02-18 01:04:12 +0100,modified single product page
+cd529c5,besSejrani,2021-02-18 01:01:06 +0100,modified single product page
+d7454b1,besSejrani,2021-02-18 00:57:27 +0100,modified single product page
+deca1e6,besSejrani,2021-02-18 00:53:26 +0100,modified single product page
+06376fc,besSejrani,2021-02-17 10:36:09 +0100,modified product page
+3f7562c,Bes Sejrani,2021-02-16 12:10:17 +0100,added footer skeleton
+2c0b7eb,besSejrani,2021-02-16 00:36:51 +0100,replaced price filter slider with texfields, and modified little details
+ef88de3,Bes Sejrani,2021-02-15 16:56:09 +0100,modified products page
+f85d246,Bes Sejrani,2021-02-15 16:31:38 +0100,modified products page
+28d1fc3,besSejrani,2021-02-14 20:26:25 +0100,used css grid instead of flexbox, added search products and stick filters
+96dfd4a,besSejrani,2021-02-14 20:23:01 +0100,used css grid instead of flexbox, added search products and stick filters
+d27b180,besSejrani,2021-02-14 19:51:23 +0100,used css grid instead of flexbox, added search products and stick filters
+c3c88e6,besSejrani,2021-02-13 17:07:48 +0100,modified card
+1fc5ff6,besSejrani,2021-02-13 16:21:31 +0100,modified documentation style
+0687fff,besSejrani,2021-02-13 13:32:27 +0100,added documentation and github to project list on sideDRawerNavigation
+869b9e6,besSejrani,2021-02-13 12:11:02 +0100,added workflow order to documentation
+fdc2157,besSejrani,2021-02-13 12:09:05 +0100,added workflow order to documentation
+c1341b3,besSejrani,2021-02-13 11:52:20 +0100,added sketching and user flow for design documentation
+d44168d,Bes Sejrani,2021-02-12 12:11:43 +0100,modified logo
+01faa56,Bes Sejrani,2021-02-12 11:58:06 +0100,added skeleton to Cart component
+cbd12c1,Bes Sejrani,2021-02-12 11:40:34 +0100,added pagination and poc skeleton component
+5ab1818,Bes Sejrani,2021-02-12 11:37:41 +0100,added pagination and poc skeleton component
+27b8eeb,Bes Sejrani,2021-02-12 10:08:18 +0100,modified image into lazy loading
+de3fd1c,Bes Sejrani,2021-02-12 09:42:21 +0100,modified product images
+e931c11,besSejrani,2021-02-11 22:41:09 +0100,added image lazy loading
+e0c78de,besSejrani,2021-02-11 22:12:50 +0100,modified 404 page
+6392f05,besSejrani,2021-02-11 21:13:59 +0100,Add new file or something need to noted
+362018c,besSejrani,2021-02-11 21:13:41 +0100,Add new file or something need to noted
+b5489d0,besSejrani,2021-02-11 21:11:07 +0100,fixed products page
+db718b6,Bes,2021-02-11 20:20:00 +0100,delete .next directory, not needed
+da30aba,besSejrani,2021-02-11 20:18:01 +0100,removed unused dependencies
+d7f478d,besSejrani,2021-02-11 20:13:21 +0100,removed unused dependencies
+8b176b3,besSejrani,2021-02-11 19:58:52 +0100,fully converted react into Next.js
+ada23ff,besSejrani,2021-02-11 19:50:41 +0100,fully converted react into Next.js
+c43c158,Bes Sejrani,2021-02-11 15:11:03 +0100,converting react into nextjs
+929f45b,besSejrani,2021-02-11 01:56:17 +0100,modified checkout page
+8a77c96,Bes Sejrani,2021-02-10 11:28:00 +0100,enhanced user experience on sideDrawerCart
+b1ca0ee,besSejrani,2021-02-10 02:05:48 +0100,modified card and add clear cart button on sideDrawerCart
+a00e5b9,besSejrani,2021-02-09 23:06:50 +0100,added initial documentation project
+2164703,besSejrani,2021-02-09 22:59:48 +0100,added initial documentation project
+e083d0c,besSejrani,2021-02-09 22:52:28 +0100,modified github actions
+e471613,besSejrani,2021-02-09 22:49:45 +0100,modified github actions
+7884101,besSejrani,2021-02-09 22:47:04 +0100,modified github actions
+69ebec4,besSejrani,2021-02-09 22:46:16 +0100,modified github actions
+c4d58c7,besSejrani,2021-02-09 22:45:13 +0100,modified github actions
+9a0a9ca,besSejrani,2021-02-09 22:40:30 +0100,modified github actions
+1efc8f6,besSejrani,2021-02-09 22:38:29 +0100,modified github actions
+5e1147f,besSejrani,2021-02-09 22:36:40 +0100,modified github actions
+41082f3,besSejrani,2021-02-09 22:30:53 +0100,modified github actions
+d4596ed,besSejrani,2021-02-09 22:29:57 +0100,modified github actions
+d12a92e,besSejrani,2021-02-09 22:28:52 +0100,modified github actions
+71e20e9,besSejrani,2021-02-09 22:27:00 +0100,modified github actions
+e7750a8,besSejrani,2021-02-09 22:16:10 +0100,modified github actions
+7d7d6dd,besSejrani,2021-02-09 22:11:59 +0100,modified github actions
+a81b59f,besSejrani,2021-02-09 22:10:21 +0100,modified github actions
+02396c6,Bes,2021-02-09 22:06:33 +0100,added github actions for MkDocs
+cd7d1a1,besSejrani,2021-02-09 22:02:14 +0100,added MkDocs for documentation
+b863fbe,Bes Sejrani,2021-02-09 16:41:23 +0100,modified card
+d2473e8,Bes Sejrani,2021-02-08 16:51:29 +0100,modified sideDrawerCart
+3f17b77,Bes Sejrani,2021-02-08 13:38:56 +0100,modified sideDrawerCart
+b79e40d,Bes Sejrani,2021-02-08 12:11:55 +0100,modified sidebarCart
+9c70d65,besSejrani,2021-02-07 23:41:03 +0100,modified SideDrawerCart
+2693a83,besSejrani,2021-02-07 23:15:07 +0100,modified sideDrawerNavigation
+9607eb5,besSejrani,2021-02-07 22:57:57 +0100,modified app bar header
+70be028,besSejrani,2021-02-06 00:38:32 +0100,converted project into typescript
+5731676,besSejrani,2021-02-05 23:56:09 +0100,converted partially jsx into tsx
+5448aa8,besSejrani,2021-02-05 20:15:11 +0100,redux update and converted class components to functional components
+aacf099,besSejrani,2021-02-05 18:26:07 +0100,added material-ui, typescript and modified product card
+b703a6a,SEJRANI Besjan,2021-02-05 12:17:33 +0100,added typescript

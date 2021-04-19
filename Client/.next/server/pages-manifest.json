@@ -2,10 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/cart": "pages/cart.js",
-  "/admin/dashboards": "pages/admin/dashboards.js",
-  "/admin/products/[id]": "pages/admin/products/[id].js",
-  "/admin/newsletter": "pages/admin/newsletter.js",
-  "/admin/sales": "pages/admin/sales.js",
-  "/admin/categories": "pages/admin/categories.js"
+  "/admin/articles": "pages/admin/articles.js",
+  "/blog/[post]": "pages/blog/[post].js"
 }
