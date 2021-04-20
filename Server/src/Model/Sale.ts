@@ -14,6 +14,14 @@ export class Sale {
   @Field()
   readonly _id: ObjectId;
 
+  @Field(() => [Product])
+  @Property({ ref: Product, type: ObjectId })
+  products?: Product[];
+
+  @Field(() => [Category])
+  @Property({ ref: Category, type: ObjectId })
+  categories?: Category[];
+
   @Field()
   @Property({ required: true })
   sale: string;
@@ -29,14 +37,6 @@ export class Sale {
   @Field()
   @Property({ required: true })
   discount: number;
-
-  @Field(() => [Product])
-  @Property({ ref: Product, type: ObjectId })
-  products?: Product[];
-
-  @Field(() => [Category])
-  @Property({ ref: Category, type: ObjectId })
-  categories?: Category[];
 
   @Field()
   @Property({ default: Date.now() })

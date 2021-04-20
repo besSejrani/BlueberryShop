@@ -15,6 +15,18 @@ export class Product {
   @Field()
   readonly _id: ObjectId;
 
+  @Field(() => [String])
+  @Property()
+  productImages?: string[];
+
+  @Field(() => [Category])
+  @Property({ ref: Category, type: ObjectId })
+  categories?: Category[];
+
+  @Field(() => [Review], { nullable: true })
+  @Property({ type: mongoose.Schema.Types.Mixed })
+  reviews?: Review[];
+
   @Field()
   @Property({
     required: [true, "Please provide a product name"],
@@ -49,21 +61,9 @@ export class Product {
   @Property()
   productImageUrl?: string;
 
-  @Field(() => [String])
-  @Property()
-  productImages?: String[];
-
-  @Field(() => [Category])
-  @Property({ ref: Category, type: ObjectId })
-  categories?: Category[];
-
-  @Field(() => [Review], { nullable: true })
-  @Property({ type: mongoose.Schema.Types.Mixed })
-  reviews?: Review[];
-
   // @Field(() => [String])
   @Property()
-  options?: String[];
+  options?: string[];
 
   @Property({ default: Date.now() })
   createdAt?: Date;

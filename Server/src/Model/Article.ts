@@ -14,6 +14,10 @@ export class Article {
   @Field()
   readonly _id: ObjectId;
 
+  @Field(() => [ArticleCategory])
+  @Property({ ref: ArticleCategory, type: ObjectId })
+  categories?: ArticleCategory[];
+
   @Field()
   @Property({ required: true })
   author: string;
@@ -33,10 +37,6 @@ export class Article {
   @Field()
   @Property({ required: true })
   publishedAt: Date;
-
-  @Field(() => [ArticleCategory])
-  @Property({ ref: ArticleCategory, type: ObjectId })
-  categories?: ArticleCategory[];
 
   @Field()
   @Property({ required: true })
