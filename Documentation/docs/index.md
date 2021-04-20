@@ -29,7 +29,7 @@
 - [x] Products Pagination
 - [x] Product Review
 - [x] Product Review Pagination
-- [ ] Promotions
+- [x] Promotions
 - [ ] Email Notification
 - [ ] Print PDF commands
 

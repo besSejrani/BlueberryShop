@@ -40,8 +40,8 @@ export class SigninResolver {
     });
 
     context.res.cookie("token", token, {
-      maxAge: (60 * 60 * 1000 * 24 * 7) as number,
-      httpOnly: false,
+      maxAge: (60 * 60 * 1000 * 24 * 1) as number,
+      httpOnly: true,
       domain: "localhost",
       path: "/",
       secure: true,
