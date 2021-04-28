@@ -4,7 +4,7 @@ import { MyContext } from "../../types/MyContext";
 import { SignupInput } from "./inputs/SignupInput";
 
 // Database
-import { UserModel } from "../../../Model/user/User";
+import { UserModel } from "@Model/user/User";
 
 // Authentication & Authorization
 import bcrypt from "bcryptjs";
@@ -17,7 +17,7 @@ import { UserResponse } from "../user/types/UserType";
 import { SendEmail } from "../../../Email/sendEmail";
 import { createConfirmationUrl } from "../../../Email/createConfirmationUrl";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class SignupResolver {

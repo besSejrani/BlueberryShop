@@ -4,10 +4,10 @@ import { ProductPaginationInput } from "./inputs/productsPaginationInput";
 import { ProductReviewPagination } from "./types/productReviewPaginationType";
 
 // Database
-import { ProductModel } from "../../../Model/Product";
+import { ProductModel } from "@Model/Product";
 import { ObjectId } from "mongodb";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class GetProductReviewPaginationResolver {

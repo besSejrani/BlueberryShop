@@ -3,13 +3,13 @@ import { Resolver, Query, Ctx, UseMiddleware } from "type-graphql";
 import { MyContext } from "src/Graphql/types/MyContext";
 
 // Database
-import { User, UserModel } from "../../../Model/user/User";
-// import { Product, ProductModel } from "../../../Model/Product";
+import { User, UserModel } from "@Model/user/User";
+// import { Product, ProductModel } from "@Model/Product";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
+import { authentication } from "@Middleware/authentication";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class GetCartResolver {

@@ -4,16 +4,16 @@ import { ResetPasswordInput } from "./inputs/ResetPasswordInput";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { UserModel } from "../../../Model/user/User";
+import { UserModel } from "@Model/user/User";
 
 // Bcrypt
 import bcrypt from "bcryptjs";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class ResetPasswordResolver {

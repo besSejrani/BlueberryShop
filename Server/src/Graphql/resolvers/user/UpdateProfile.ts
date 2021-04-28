@@ -4,7 +4,7 @@ import { UpdateProfile } from "./inputs/UpdateProfile";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { User, UserModel } from "../../../Model/user/User";
+import { User, UserModel } from "@Model/user/User";
 
 // Upload
 import { GraphQLUpload } from "graphql-upload";
@@ -12,10 +12,10 @@ import { Upload } from "../../types/Upload";
 import { S3 } from "../../../Class/Aws/S3";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-// import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+// import authorization from "@Middleware/authorization";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class UpdateProfileResolver {

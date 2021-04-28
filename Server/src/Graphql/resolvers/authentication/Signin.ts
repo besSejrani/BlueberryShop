@@ -4,16 +4,16 @@ import { MyContext } from "../../types/MyContext";
 import { SigninInput } from "./inputs/SigninInput";
 
 // Database
-import { UserModel } from "../../../Model/user/User";
+import { UserModel } from "@Model/user/User";
 
-//Authentication & Authorization
+// Authentication & Authorization
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Response
 import { UserResponse } from "../user/types/UserType";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class SigninResolver {

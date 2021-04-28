@@ -4,7 +4,7 @@ import { ChangedPasswordInput } from "./inputs/ChangePasswordInput";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { User, UserModel } from "../../../Model/user/User";
+import { User, UserModel } from "@Model/user/User";
 
 // Redis
 import { redis } from "../../../Redis/index";
@@ -13,7 +13,7 @@ import { forgotPaswordPrefix } from "../../../Redis/redisPrefixe";
 // Authentication
 import bcrypt from "bcryptjs";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class ChangePasswordResolver {

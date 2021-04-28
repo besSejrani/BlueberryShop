@@ -2,9 +2,9 @@
 import { Resolver, Query } from "type-graphql";
 
 // Database
-import { ArticleCategory, ArticleCategoryModel } from "../../../Model/ArticleCategory";
+import { ArticleCategory, ArticleCategoryModel } from "@Model/ArticleCategory";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class GetArticleCategoriesResolver {

@@ -4,12 +4,12 @@ import { UpdateBilling } from "./inputs/UpdateBilling";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { User, UserModel } from "../../../Model/user/User";
+import { User, UserModel } from "@Model/user/User";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
+import { authentication } from "@Middleware/authentication";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class UpdateBillingInformationResolver {

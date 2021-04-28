@@ -2,13 +2,13 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { NewsletterModel } from "../../../Model/Newsletter";
+import { NewsletterModel } from "@Model/Newsletter";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class AddToNewsletterResolver {

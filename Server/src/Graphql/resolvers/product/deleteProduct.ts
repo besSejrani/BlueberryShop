@@ -2,16 +2,16 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { ProductModel } from "../../../Model/Product";
+import { ProductModel } from "@Model/Product";
 
-//AWS
+// AWS
 import { S3 } from "../../../Class/Aws/S3";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class DeleteProductResolver {

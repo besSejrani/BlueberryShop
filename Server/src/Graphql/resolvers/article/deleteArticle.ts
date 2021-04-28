@@ -2,13 +2,13 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { ArticleModel } from "../../../Model/Article";
+import { ArticleModel } from "@Model/Article";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class DeleteArticleResolver {

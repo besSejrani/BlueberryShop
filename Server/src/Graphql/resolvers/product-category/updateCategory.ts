@@ -3,13 +3,13 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { UpdateCategoryInput } from "./inputs/updateInput";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { Category, CategoryModel } from "../../../Model/Category";
+import { Category, CategoryModel } from "@Model/Category";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class UpdateCategoryResolver {

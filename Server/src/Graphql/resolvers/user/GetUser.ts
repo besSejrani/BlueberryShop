@@ -2,9 +2,9 @@
 import { Resolver, Query, Arg } from "type-graphql";
 
 // Database
-import { User, UserModel } from "../../../Model/user/User";
+import { User, UserModel } from "@Model/user/User";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class UserResolver {

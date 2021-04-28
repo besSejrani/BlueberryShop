@@ -2,13 +2,13 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { CategoryModel } from "../../../Model/Category";
+import { CategoryModel } from "@Model/Category";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class DeleteCategoryResolver {

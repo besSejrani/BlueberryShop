@@ -4,13 +4,13 @@ import { CreateReviewInput } from "./inputs/productReviewInput";
 import { MyContext } from "../../types/MyContext";
 
 // Database
-import { Product, ProductModel } from "../../../Model/Product";
-import { UserModel } from "../../../Model/user/User";
+import { Product, ProductModel } from "@Model/Product";
+import { UserModel } from "@Model/user/User";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
+import { authentication } from "@Middleware/authentication";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class CreateReviewResolver {

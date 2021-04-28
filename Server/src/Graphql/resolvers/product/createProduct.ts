@@ -2,19 +2,19 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { CreateProductInput } from "./inputs/createProductInput";
 
-//Authorization
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+// Authorization
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { Product, ProductModel } from "../../../Model/Product";
+import { Product, ProductModel } from "@Model/Product";
 
 // Upload
 import { GraphQLUpload } from "graphql-upload";
 import { Upload } from "../../types/Upload";
 import { S3 } from "../../../Class/Aws/S3";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class CreateProductResolver {

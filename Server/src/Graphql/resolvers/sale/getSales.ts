@@ -2,9 +2,9 @@
 import { Resolver, Query } from "type-graphql";
 
 // Database
-import { Sale, SaleModel } from "../../../Model/Sale";
+import { Sale, SaleModel } from "@Model/Sale";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class GetSalesResolver {

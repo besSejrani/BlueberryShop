@@ -22,9 +22,9 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@Middleware/*": ["Middleware/*"],
-      "@Model/*": ["Model/*"],
-      "@Class/*": ["Class/*"]
+      "@Middleware/*": ["./src/Middleware/*"],
+      "@Model/*": ["./src/Model/*"],
+      "@Class/*": ["./src/Class/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

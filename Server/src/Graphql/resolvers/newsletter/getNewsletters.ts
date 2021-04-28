@@ -2,9 +2,9 @@
 import { Resolver, Query } from "type-graphql";
 
 // Database
-import { Newsletter, NewsletterModel } from "../../../Model/Newsletter";
+import { Newsletter, NewsletterModel } from "@Model/Newsletter";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class NewslettersResolver {

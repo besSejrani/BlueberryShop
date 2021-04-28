@@ -3,13 +3,13 @@ import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { UpdateProductInput } from "./inputs/updateProductInput";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { Product, ProductModel } from "../../../Model/Product";
+import { Product, ProductModel } from "@Model/Product";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class UpdateProductResolver {

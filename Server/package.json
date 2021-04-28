@@ -7,7 +7,7 @@
     "start": "npm run build && npm run copy && ts-node index.ts",
     "build": "tsc",
     "copy": "cp ./src/Graphql/schema/schema.gql ./dist/Graphql/schema ",
-    "server": "ts-node-dev --respawn index.ts",
+    "server": "tsnd --respawn -r tsconfig-paths/register index.ts",
     "client": "npm run dev --prefix ../Client",
     "client:cypress": "cd ../Client && yarn run cypress:open",
     "documentation": "cd ../Documentation && mkdocs serve",
@@ -74,6 +74,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "tsconfig-paths": "^3.9.0"
   }
 }

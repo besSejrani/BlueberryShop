@@ -2,13 +2,13 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 
 // Middleware
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { ArticleCategoryModel } from "../../../Model/ArticleCategory";
+import { ArticleCategoryModel } from "@Model/ArticleCategory";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class CreateArticleCategoryResolver {

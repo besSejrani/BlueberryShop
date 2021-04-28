@@ -2,19 +2,19 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
 
 // Database
-import { UserModel } from "../../../Model/user/User";
+import { UserModel } from "@Model/user/User";
 
 // Redis
 import { redis } from "../../../Redis/index";
 import { forgotPaswordPrefix } from "../../../Redis/redisPrefixe";
 
-//Random
+// UUID
 import { v4 as uuid } from "uuid";
 
 // Email
 import { SendEmail } from "../../../Email/sendEmail";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class ForgotPasswordResolver {

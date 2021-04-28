@@ -2,14 +2,14 @@
 import { Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import { CreateArticleInput } from "./inputs/createArticleInput";
 
-//Authorization
-import { authentication } from "../../../Middleware/authentication";
-import authorization from "../../../Middleware/authorization";
+// Authorization
+import { authentication } from "@Middleware/authentication";
+import authorization from "@Middleware/authorization";
 
 // Database
-import { ArticleModel } from "../../../Model/Article";
+import { ArticleModel } from "@Model/Article";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class CreateArticleResolver {

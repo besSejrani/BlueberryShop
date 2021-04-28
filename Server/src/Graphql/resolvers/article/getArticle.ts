@@ -3,9 +3,9 @@ import { Resolver, Query, Arg } from "type-graphql";
 import { GetArticleInput } from "./inputs/getArticleInput";
 
 // Database
-import { Article, ArticleModel } from "../../../Model/Article";
+import { Article, ArticleModel } from "@Model/Article";
 
-//=======================================================================
+// =================================================================================================
 
 @Resolver()
 export class GetArticleResolver {

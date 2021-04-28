@@ -3,9 +3,9 @@ import { Resolver, Mutation, Arg } from "type-graphql";
 import { UpdateSaleInput } from "./inputs/updateSaleInput";
 
 // Database
-import { Sale, SaleModel } from "../../../Model/Sale";
+import { Sale, SaleModel } from "@Model/Sale";
 
-// ========================================================================================================
+// =================================================================================================
 
 @Resolver()
 export class UpdateSaleResolver {
