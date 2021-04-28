@@ -2,16 +2,12 @@
 import "dotenv/config";
 import "reflect-metadata";
 
-// Database
-import mongo from "../Model/mongo";
-
-// Server
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import cookieParser from "cookie-parser";
-
-// GraphQL
-import createSchema from "../Graphql/schema";
+// Oauth2
+import passport from "passport";
+import googleAuth from "../Routes/googleOauth";
+import githubAuth from "../Routes/githubOauth";
+import githubService from "../Services/passportGithub";
+import googleService from "../Services/passportGoogle";
 
 // Upload File
 import { graphqlUploadExpress } from "graphql-upload";
@@ -21,14 +17,18 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 
-// Oauth2
-import passport from "passport";
-import githubAuth from "../Routes/githubOauth";
-import githubService from "../Services/passportGithub";
-import googleAuth from "../Routes/googleOauth";
-import googleService from "../Services/passportGoogle";
+// Server
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import cookieParser from "cookie-parser";
 
-// ========================================================================================================
+// Database
+import mongo from "../Model/mongo";
+
+// GraphQL
+import createSchema from "../Graphql/schema";
+
+// =================================================================================================
 
 // CORS Configuration
 const corsOptions = {

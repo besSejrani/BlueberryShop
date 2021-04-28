@@ -37,6 +37,6 @@
 
 ## Blog
 
-- [ ] Rich text content markdown
+- [x] Rich text content markdown
 
 <hr/>
