@@ -10,7 +10,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 // Icons
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-// ========================================================================================================
+// =================================================================================================
 
 const BackButton = () => {
   const classes = useStyles();
@@ -28,7 +28,7 @@ const BackButton = () => {
 
 export default BackButton;
 
-// ========================================================================================================
+// =================================================================================================
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

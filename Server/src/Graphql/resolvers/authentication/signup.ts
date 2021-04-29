@@ -14,8 +14,8 @@ import jwt from "jsonwebtoken";
 import { UserResponse } from "../user/types/UserType";
 
 // Email
-import { SendEmail } from "../../../Email/sendEmail";
-import { createConfirmationUrl } from "../../../Email/createConfirmationUrl";
+import { SendEmail } from "@Email/sendEmail";
+import { createConfirmationUrl } from "@Email/createConfirmationUrl";
 
 // =================================================================================================
 

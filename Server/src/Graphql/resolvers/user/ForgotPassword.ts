@@ -12,7 +12,7 @@ import { forgotPaswordPrefix } from "@Redis/redisPrefixe";
 import { v4 as uuid } from "uuid";
 
 // Email
-import { SendEmail } from "../../../Email/sendEmail";
+import { SendEmail } from "@Email/sendEmail";
 
 // =================================================================================================
 

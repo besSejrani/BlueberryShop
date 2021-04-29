@@ -19,6 +19,7 @@ plugins:
 rules: {
   "quotes": ["error", "double"],
   "no-unused-vars":"warn",
-  "no-console":"off"
+  "no-console":"off",
+  "linebreak-style": 0
 }
 

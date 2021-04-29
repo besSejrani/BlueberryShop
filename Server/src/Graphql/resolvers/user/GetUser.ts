@@ -10,6 +10,7 @@ import { User, UserModel } from "@Model/user/User";
 export class UserResolver {
   @Query(() => User, { nullable: true })
   async getUser(@Arg("userId", () => String) userId: string): Promise<User | null> {
-    return await UserModel.findById(userId);
+    const user = await UserModel.findById(userId);
+    return user;
   }
 }

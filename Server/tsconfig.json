@@ -25,10 +25,12 @@
       "@Middleware/*": ["./src/Middleware/*"],
       "@Model/*": ["./src/Model/*"],
       "@Class/*": ["./src/Class/*"],
-      "@Redis/*": ["./src/Redis/*"]
+      "@Redis/*": ["./src/Redis/*"],
+      "@Email/*": ["./src/Email/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },
+  
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
 }

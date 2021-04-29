@@ -10,6 +10,7 @@ import { User, UserModel } from "@Model/user/User";
 export class UsersResolver {
   @Query(() => [User], { nullable: true })
   async getUsers(): Promise<User[] | null> {
-    return await UserModel.find({});
+    const user = await UserModel.find({});
+    return user;
   }
 }
