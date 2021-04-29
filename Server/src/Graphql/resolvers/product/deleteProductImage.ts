@@ -9,7 +9,7 @@ import authorization from "@Middleware/authorization";
 import { ProductModel } from "@Model/Product";
 
 // AWS
-import { S3 } from "../../../Class/Aws/S3";
+import { S3 } from "@Class/Aws/S3";
 
 // =================================================================================================
 

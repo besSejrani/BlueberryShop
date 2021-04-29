@@ -2,9 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/products": "pages/products.js",
-  "/404": "pages/404.js",
   "/": "pages/index.js",
-  "/register": "pages/register.js",
-  "/admin/products": "pages/admin/products.js"
+  "/products": "pages/products.js"
 }

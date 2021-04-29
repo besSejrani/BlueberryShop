@@ -24,7 +24,8 @@
     "paths": {
       "@Middleware/*": ["./src/Middleware/*"],
       "@Model/*": ["./src/Model/*"],
-      "@Class/*": ["./src/Class/*"]
+      "@Class/*": ["./src/Class/*"],
+      "@Redis/*": ["./src/Redis/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

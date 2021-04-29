@@ -5,8 +5,8 @@ import { Resolver, Mutation, Arg } from "type-graphql";
 import { UserModel } from "@Model/user/User";
 
 // Redis
-import { redis } from "../../../Redis/index";
-import { confirmUserPrefix } from "../../../Redis/redisPrefixe";
+import { redis } from "@Redis/index";
+import { confirmUserPrefix } from "@Redis/redisPrefixe";
 
 // =================================================================================================
 

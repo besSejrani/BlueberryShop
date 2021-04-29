@@ -9,7 +9,7 @@ import { User, UserModel } from "@Model/user/User";
 // Upload
 import { GraphQLUpload } from "graphql-upload";
 import { Upload } from "../../types/Upload";
-import { S3 } from "../../../Class/Aws/S3";
+import { S3 } from "@Class/Aws/S3";
 
 // Middleware
 import { authentication } from "@Middleware/authentication";

@@ -7,8 +7,8 @@ import { MyContext } from "../../types/MyContext";
 import { User, UserModel } from "@Model/user/User";
 
 // Redis
-import { redis } from "../../../Redis/index";
-import { forgotPaswordPrefix } from "../../../Redis/redisPrefixe";
+import { redis } from "@Redis/index";
+import { forgotPaswordPrefix } from "@Redis/redisPrefixe";
 
 // Authentication
 import bcrypt from "bcryptjs";
