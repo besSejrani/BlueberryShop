@@ -21,6 +21,16 @@ rules: {
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",
     "no-underscore-dangle": "off",
+    "no-shadow":"off",
+    "object-curly-newline": 0,
+
+    # Eslint
+    "arrow-body-style": "off",
+    "import/no-mutable-exports": "off",
+
+
+    # Typescript
+    "@typescript-eslint/explicit-module-boundary-types": "off",
 
     "import/order": 0,
     "import/extensions": 0,

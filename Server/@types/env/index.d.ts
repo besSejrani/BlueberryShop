@@ -27,5 +27,10 @@ declare namespace NodeJS {
     AMAZON_S3_BUCKET: string;
     AMAZON_KEY_ID: string;
     AMAZON_SECRET_ACCESS_KEY: string;
+
+    LOG_LEVEL_PPRODUCTION: string;
+    LOG_LEVEL_DEVELOPMENT: string;
+
+    NODE_ENV: string;
   }
 }

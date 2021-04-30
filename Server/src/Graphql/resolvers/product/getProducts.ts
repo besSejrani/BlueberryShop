@@ -5,6 +5,9 @@ import { ProductPagination } from "./types/productPaginationType";
 // Database
 import { Product, ProductModel } from "@Model/Product";
 
+// Logger
+import logger from "../../../Winston/index";
+
 // =================================================================================================
 
 interface ProductPaginationInterface {
@@ -16,6 +19,10 @@ interface ProductPaginationInterface {
 export class GetProductsResolver {
   @Query(() => ProductPagination, { nullable: true })
   async getProducts(): Promise<ProductPaginationInterface> {
+    logger.info("blaaa");
+    logger.error("blaaa");
+    logger.warn("blaaa");
+
     const count = await ProductModel.countDocuments();
 
     const products = await ProductModel.find({}).populate("categories");
