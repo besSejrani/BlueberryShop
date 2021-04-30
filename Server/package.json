@@ -10,7 +10,7 @@
     "server": "tsnd --respawn -r tsconfig-paths/register index.ts",
     "client": "npm run dev --prefix ../Client",
     "client:cypress": "cd ../Client && yarn run cypress:open",
-    "documentation": "cd ../Documentation && mkdocs serve",
+    "documentation": "cd ../Documentation/config/en && mkdocs serve",
     "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run documentation\" \" npm run client:cypress\""
   },
   "dependencies": {

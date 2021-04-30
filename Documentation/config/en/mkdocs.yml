@@ -1,0 +1,63 @@
+site_name: BlueberryShop
+docs_dir: '../../docs/en'
+site_dir: './generated/en'  
+
+#Github Repository Header
+repo_name: BlueberryShop
+repo_url: https://github.com/besSejrani/BlueberryShop
+
+theme:
+  #Language
+  language: en
+
+  # Use material styles
+  name: material
+
+  # Use custom logo and favicon
+  logo: images/raspberry.svg
+  favicon: images/raspberry.png
+
+  # Github Icon Header
+  icon:
+    repo: fontawesome/brands/github
+
+  # Hide header
+  features:
+    - header.autohide
+
+  # Color palette
+  palette:
+    primary: black
+    secondary: blue
+
+# Extensions
+markdown_extensions:
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - def_list
+  - footnotes
+  - pymdownx.tabbed
+  - admonition
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+# Footer
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/besSejrani
+
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+
+    - name: Deutsch
+      link: /de/
+      lang: de
+
+# Javascript
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - javascripts/tables.js

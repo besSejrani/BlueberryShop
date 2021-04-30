@@ -11,6 +11,10 @@ const { combine, timestamp, printf } = format;
 const DevelopmentLogger = () => {
   const logFormat = printf(({ level, message, timestamp, stack }) => `${timestamp} ${level}: ${stack || message}`);
 
+  // YYYY-MM-DD
+  const date = new Date();
+  const myDate = `${date.toISOString().split("T")[0]}`;
+
   return createLogger({
     level: process.env.LOG_LEVEL_DEVELOPMENT,
     format: combine(
@@ -21,7 +25,7 @@ const DevelopmentLogger = () => {
     ),
     transports: [
       new transports.File({
-        filename: "logs/example.log",
+        filename: `logs/${myDate}.log`,
       }),
     ],
   });
