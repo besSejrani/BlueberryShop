@@ -1,6 +1,4 @@
 site_name: BlueberryShop
-docs_dir: './docs/en'
-site_dir: './generated/en'  
 
 #Github Repository Header
 repo_name: BlueberryShop
@@ -47,15 +45,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/besSejrani
-
-  alternate:
-    - name: English
-      link: /en/
-      lang: en
-
-    - name: Deutsch
-      link: /de/
-      lang: de
 
 # Javascript
 extra_javascript:

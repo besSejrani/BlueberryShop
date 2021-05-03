@@ -23,12 +23,12 @@ import YoutubeIcon from "@material-ui/icons/YouTube";
 import SendIcon from "@material-ui/icons/Send";
 
 // GraphQL
-import { useAddToNewsletterMutation } from "../Graphql/index";
+import { useAddToNewsletterMutation } from "@Graphql/index";
 
-//SSR
-import withApollo from "../Apollo/ssr";
+// SSR
+import withApollo from "@Apollo/ssr";
 
-// ========================================================================================================
+// =================================================================================================
 
 type FormValues = {
   email: string;
@@ -86,7 +86,7 @@ const Footer = () => {
                 </Link>
               </Box>
               <Typography variant="body2" style={{ color: "white", margin: "20px 0px 0px 5px" }}>
-                We sell everything, exept you.
+                We sell everything, except you.
               </Typography>
             </Box>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
