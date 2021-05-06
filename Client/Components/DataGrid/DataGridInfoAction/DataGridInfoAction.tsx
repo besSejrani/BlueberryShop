@@ -1,11 +1,11 @@
 import React from "react";
 
-//Next
+// Next
 import Link from "next/link";
 
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // ========================================================================================================
 
@@ -50,7 +50,7 @@ export default DataGridInfoAction;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     header: {
       display: "flex",

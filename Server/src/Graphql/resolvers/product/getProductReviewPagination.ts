@@ -14,7 +14,7 @@ export class GetProductReviewPaginationResolver {
   @Query(() => ProductReviewPagination, { nullable: true })
   async getProductReviewPagination(
     @Arg("productId") productId: string,
-    @Arg("pagination") { pageNumber = 1, pageSize = 10 }: ProductPaginationInput
+    @Arg("pagination") { pageNumber = 1, pageSize = 10 }: ProductPaginationInput,
   ): Promise<ProductReviewPagination> {
     // 12*(2-1)=12
     const skips = pageSize * (pageNumber - 1);

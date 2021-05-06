@@ -1,6 +1,6 @@
 import React from "react";
 
-//Next
+// Next
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
@@ -21,7 +21,8 @@ import { apolloClient } from "@Apollo/ssr";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { user } from "../../Apollo/state/user/index";
+import { user } from "@Apollo/state/user/index";
+import { ui } from "@Apollo/state/ui/index";
 
 // ========================================================================================================
 
@@ -29,6 +30,12 @@ const AdminHeader = () => {
   const classes = useStyles();
 
   const data = useReactiveVar(user);
+
+  const changeCart = () => {
+    ui({ ...ui(), isCartOpen: true });
+  };
+
+  console.log(ui().isCartOpen);
 
   const Logout = async () => {
     // Delete Cookie
@@ -63,7 +70,7 @@ const AdminHeader = () => {
                 cursor: "pointer",
               }}
             >
-              <Image width={60} height={40} src={"/raspberry.svg"} alt="Raspberry Pi Logo" />
+              <Image width={60} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
               <Typography variant="h6" className={classes.title}>
                 BlueberryShop
               </Typography>
@@ -86,9 +93,9 @@ const AdminHeader = () => {
 
         <Box className={classes.user}>
           <Typography variant="body2">hi {data.username}</Typography>
-          <Link href={`/account`}>
+          <Link href="/account">
             {data.profileImageUrl ? (
-              <img src={data.profileImageUrl} className={classes.profileImage} />
+              <img src={data.profileImageUrl} className={classes.profileImage} alt="" />
             ) : (
               <IconButton>
                 <PersonIcon
@@ -104,17 +111,17 @@ const AdminHeader = () => {
             )}
           </Link>
 
-          <Link href="/cart">
-            <IconButton color="inherit">
-              <StyledBadge
-                // badgeContent={selectProducts}
-                color="secondary"
-                overlap="circle"
-              >
-                <CartIcon className="nav-icon" />
-              </StyledBadge>
-            </IconButton>
-          </Link>
+          {/* <Link href="/cart"> */}
+          <IconButton color="inherit" onClick={changeCart}>
+            <StyledBadge
+              // badgeContent={selectProducts}
+              color="secondary"
+              overlap="circle"
+            >
+              <CartIcon className="nav-icon" />
+            </StyledBadge>
+          </IconButton>
+          {/* </Link> */}
 
           <Button style={{ color: "white" }} onClick={Logout}>
             Logout
@@ -159,12 +166,12 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: "pointer",
       marginLeft: "0.5rem",
     },
-  })
+  }),
 );
 
 // =================================================================
 
-const StyledBadge = withStyles((theme: Theme) =>
+const StyledBadge = withStyles(() =>
   createStyles({
     badge: {
       right: 0,
@@ -172,5 +179,5 @@ const StyledBadge = withStyles((theme: Theme) =>
       height: 18,
       padding: "0px 11px",
     },
-  })
+  }),
 )(Badge);

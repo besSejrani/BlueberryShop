@@ -11,7 +11,7 @@ import AWS from "aws-sdk";
 // GraphQL
 import { ApolloServerFileUploads } from "./index";
 
-// ========================================================================================================
+// =================================================================================================
 
 type S3Type = {
   accessKeyId: string;
@@ -117,7 +117,7 @@ export class S3 {
         if (err) {
           console.log(err);
         }
-      }
+      },
     );
   }
 

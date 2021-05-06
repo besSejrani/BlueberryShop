@@ -42,14 +42,14 @@ const link = createUploadLink({
   uri: "http://localhost:4000/graphql",
   credentials: "include",
   headers: {
-    token: token,
+    token,
   },
 });
 
 export const apolloClient = new ApolloClient({
-  link: link,
+  link,
   headers: {
-    token: token,
+    token,
   },
   cache,
   credentials: "include",

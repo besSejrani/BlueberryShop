@@ -6,7 +6,7 @@ import { ErrorMessage } from "@hookform/error-message";
 
 // Material-UI
 import { Box, Typography, TextField, Button } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Icons
 import SendIcon from "@material-ui/icons/Send";
@@ -61,7 +61,7 @@ export default Newsletter;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       display: "flex",
@@ -83,5 +83,5 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#000",
       borderRadius: "0px 10px 10px 0px",
     },
-  })
+  }),
 );

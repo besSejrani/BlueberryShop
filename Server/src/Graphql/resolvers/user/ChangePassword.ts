@@ -20,7 +20,7 @@ export class ChangePasswordResolver {
   @Mutation(() => User, { nullable: true })
   async changePassword(
     @Arg("input") { token, password }: ChangedPasswordInput,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<User | null> {
     const userId = await redis.get(forgotPaswordPrefix + token);
 

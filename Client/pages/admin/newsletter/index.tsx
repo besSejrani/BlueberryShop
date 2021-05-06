@@ -3,7 +3,7 @@ import React from "react";
 // Material-UI
 import { Box, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
@@ -13,7 +13,7 @@ import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 // Hook
 import useToast from "@Hook/useToast";
 
-//Apollo
+// Apollo
 import { ui } from "@Apollo/state/ui/index";
 import {
   GetNewslettersDocument,
@@ -88,10 +88,10 @@ const Newsletters = () => {
       field: "email",
       headerName: "Email",
       flex: 1,
-      renderCell: (params: GridCellParams) => (
+      renderCell: ({ value }: GridCellParams) => (
         <>
-          <img src="/images/unknownProduct.png" height={55} />
-          {params.value}
+          <img src="/images/unknownProduct.png" height={55} alt="" />
+          {value}
         </>
       ),
     },
@@ -105,13 +105,11 @@ const Newsletters = () => {
     },
   ];
 
-  const rows = data?.getNewsletters.map((newsletter) => {
-    return {
-      id: newsletter._id,
-      email: newsletter.email,
-      actions: "",
-    };
-  });
+  const rows = data?.getNewsletters.map((newsletter) => ({
+    id: newsletter._id,
+    email: newsletter.email,
+    actions: "",
+  }));
 
   return (
     <Box className={classes.root}>
@@ -130,11 +128,11 @@ export default withApollo({ ssr: true })(withAuth(Newsletters));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

@@ -5,7 +5,7 @@ import redirect from "./redirect";
 import { NextContextWithApollo } from "./nextContextWithApollo";
 
 // Apollo
-import { GetCurrentUserDocument, GetCurrentUserQuery } from "../Graphql/index";
+import { GetCurrentUserDocument, GetCurrentUserQuery } from "@Graphql/index";
 
 // Apollo State
 import { user } from "../Apollo/state/user/index";
@@ -17,12 +17,15 @@ export const withAuth = <T extends object>(C: React.FC<T>) =>
     static async getInitialProps({ apolloClient, ...ctx }: NextContextWithApollo): Promise<{ user: {} | null }> {
       const token = ctx?.req?.headers?.cookie?.split("token=")[1]?.split(";")[0];
 
+      // console.log("bla token", ctx?.req?.headers);
+      console.log("bla token", token);
+
       const result = await apolloClient?.query<GetCurrentUserQuery>({
         query: GetCurrentUserDocument,
         context: {
           credentials: "include",
           headers: {
-            token: token,
+            token,
           },
         },
       });

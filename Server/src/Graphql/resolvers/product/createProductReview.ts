@@ -19,7 +19,7 @@ export class CreateReviewResolver {
   async createProductReview(
     @Arg("productId") productId: string,
     @Arg("reviewInput") reviewInput: CreateReviewInput,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<Product | undefined | boolean> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
@@ -27,14 +27,16 @@ export class CreateReviewResolver {
       return true;
     }
 
-    return await ProductModel.findOneAndUpdate(
+    const productReviews = await ProductModel.findOneAndUpdate(
       { _id: productId },
       {
         $push: {
           reviews: { reviewerName: user.username, rating: +reviewInput.rating, review: reviewInput.review },
         },
       },
-      { new: true, upsert: true }
+      { new: true, upsert: true },
     );
+
+    return productReviews;
   }
 }

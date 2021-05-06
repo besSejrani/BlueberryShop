@@ -24,7 +24,7 @@ export class SignupResolver {
   @Mutation(() => UserResponse)
   async signup(
     @Arg("input") { username, email, password }: SignupInput,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<UserResponse> {
     const user = await UserModel.findOne({ email });
 

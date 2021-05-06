@@ -17,7 +17,7 @@ interface ProductPaginationInterface {
 export class GetProductsPaginationResolver {
   @Query(() => ProductPagination, { nullable: true })
   async getProductsPagination(
-    @Arg("pagination") { pageNumber = 1, pageSize = 12 }: ProductPaginationInput
+    @Arg("pagination") { pageNumber = 1, pageSize = 12 }: ProductPaginationInput,
   ): Promise<ProductPaginationInterface> {
     const count = await ProductModel.countDocuments();
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Material-UI
 import { Box, Tabs, Tab } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import SalesProduct from "@Components/Sales/create/Product/Product";
@@ -63,7 +63,7 @@ export default Sales;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     tabsContainer: {
       minWidth: "100%",

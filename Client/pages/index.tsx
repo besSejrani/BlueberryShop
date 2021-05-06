@@ -1,9 +1,5 @@
 import React from "react";
 
-// Next
-// import Link from "next/link";
-// import { useRouter } from "next/router";
-
 // Components
 import Promotions from "@Components/Promotions/Promotions";
 

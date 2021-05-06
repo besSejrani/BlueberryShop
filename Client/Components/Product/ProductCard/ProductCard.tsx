@@ -32,13 +32,12 @@ type IProduct = {
 const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
   const classes = useStyles();
 
-  //GraphQL
+  // GraphQL
   const [addToCart] = useAddToCartMutation();
 
   // image
-  const myLoader = ({ src, width, quality }) => {
-    return product.productImages[0] || `/images/unknownProduct.png`;
-  };
+  // Options: { src, width, quality }
+  const myLoader = () => product.productImages[0] || "/images/unknownProduct.png";
 
   // Event
   const addProductToCart = async (id) => {
@@ -55,7 +54,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
               width={300}
               height={250}
               onClick={() => console.log(product._id)}
-              src={product.productImages[0] || `/images/unknownProduct.png`}
+              src={product.productImages[0] || "/images/unknownProduct.png"}
               title={product.name}
             />
           </Link>
@@ -108,7 +107,7 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
             title="Add to cart"
             color="secondary"
             variant="outlined"
-            startIcon={<AddIcon fontSize={"small"} />}
+            startIcon={<AddIcon fontSize="small" />}
           >
             Add to Cart
           </Button>

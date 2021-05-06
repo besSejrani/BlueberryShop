@@ -26,7 +26,8 @@
       "@Model/*": ["./src/Model/*"],
       "@Class/*": ["./src/Class/*"],
       "@Redis/*": ["./src/Redis/*"],
-      "@Email/*": ["./src/Email/*"]
+      "@Email/*": ["./src/Email/*"],
+      "@Logger/*": ["./src/Winston/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

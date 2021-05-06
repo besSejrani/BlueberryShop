@@ -1,3 +1,5 @@
+import React from "react";
+
 // Next
 import Link from "next/link";
 import Image from "next/image";
@@ -90,7 +92,7 @@ const Header = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <Image width={60} height={40} src={"/raspberry.svg"} alt="Raspberry Pi Logo" />
+                    <Image width={60} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
                     <Typography variant="h6" className={classes.title}>
                       BlueberryShop
                     </Typography>
@@ -175,12 +177,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 500,
       textTransform: "capitalize",
     },
-  })
+  }),
 );
 
 // =================================================================
 
-const StyledBadge = withStyles((theme: Theme) =>
+const StyledBadge = withStyles(() =>
   createStyles({
     badge: {
       right: 0,
@@ -188,5 +190,5 @@ const StyledBadge = withStyles((theme: Theme) =>
       height: 18,
       padding: "0px 11px",
     },
-  })
+  }),
 )(Badge);

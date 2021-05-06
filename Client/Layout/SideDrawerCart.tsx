@@ -2,22 +2,46 @@ import React from "react";
 
 // Next
 import Link from "next/link";
-import Image from "next/image";
 
 // Material-UI
-import { Drawer, Divider, Button, Typography } from "@material-ui/core";
+import { Drawer, Divider, Button, Typography, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+// Icons
+import DeleteIcon from "@material-ui/icons/Delete";
+
+// Hooks
+import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
+
+// GraphQL
+import { useGetCartQuery, useDeleteProductFromCartMutation } from "@Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { ui } from "../Apollo/state/ui/index";
+import { ui } from "@Apollo/state/ui/index";
 
+// SSR
+import withApollo from "@Apollo/ssr";
+
+// Guard
+import { withAuth } from "@Guard/withAuth";
 // ========================================================================================================
 
 type Anchor = "right";
 
-const SideDrawerCart: React.FC<any> = () => {
+const SideDrawerCart: React.FC = () => {
   const classes = useStyles();
+
+  // GraphQL
+  const { data } = useGetCartQuery();
+  const [deleteProductFromCart] = useDeleteProductFromCartMutation();
+
+  const deleteProductCart = async (id) => {
+    await deleteProductFromCart({ variables: { productId: id } });
+  };
+
+  // Hook
+  const { cartTotal } = useCalculateCartTotal(data?.getCart?.cart);
 
   const changeCart = () => {
     ui({ isCartOpen: false });
@@ -27,52 +51,50 @@ const SideDrawerCart: React.FC<any> = () => {
   const list = (anchor: Anchor) => (
     <div className={classes.list}>
       <div className={classes.listProduct}>
-        {/* {selectCart.map((item) => {
-          return (
-            <div key={item.id} className={classes.product}>
-              <Link href={`/products/${item.id}`}>
-                <Image
-                  width={110}
-                  height={100}
-                  className={classes.media}
-                  src={`/${item.imageUrl}`}
-                  onClick={() => console.log(item.id)}
-                  title={item.title}
-                />
-              </Link>
+        {data?.getCart?.cart.map((item) => (
+          <div key={item._id} className={classes.product}>
+            <Link href={`/products/${item._id}`}>
+              <img src={item.productImageUrl || "/images/unknownProduct.png"} width={100} height={100} alt="" />
+            </Link>
 
-              <div className={classes.information}>
-                <Typography variant="body1">{item.title}</Typography>
-                <Button
-                  variant="outlined"
-                  className={classes.actionButton}
-                  onClick={() => console.log(item.id)}
-                >
-                  -
-                </Button>
-                <Button variant="outlined" className={classes.actionButton}>
-                  {item.count}
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={classes.actionButton}
-                  onClick={() => console.log(item.id)}
-                >
-                  +
-                </Button>
-                <Typography variant="body2" color="secondary" className={classes.priceProduct}>
-                  {item.total}.-
-                </Typography>
-              </div>
+            <div className={classes.information}>
+              <Typography variant="body1">{item.name}</Typography>
+              <Button
+                disabled
+                variant="outlined"
+                className={classes.actionButton}
+                onClick={() => console.log(item._id)}
+              >
+                -
+              </Button>
+              <Button disabled variant="outlined" className={classes.actionButton}>
+                {1}
+              </Button>
+              <Button
+                disabled
+                variant="outlined"
+                className={classes.actionButton}
+                onClick={() => console.log(item._id)}
+              >
+                +
+              </Button>
+
+              <IconButton onClick={() => deleteProductCart(item._id)}>
+                <DeleteIcon />
+              </IconButton>
+
+              <Typography variant="body2" color="secondary" className={classes.priceProduct}>
+                {item.price}.-
+              </Typography>
             </div>
-          );
-        })} */}
+          </div>
+        ))}
       </div>
       <div>
         <div className={classes.amount}>
-          <Typography variant="body1">Cart Total </Typography>
+          <Typography variant="body1">Cart Total</Typography>
           <Typography variant="subtitle2" color="secondary">
-            {0}.-
+            {cartTotal}.-
           </Typography>
         </div>
 
@@ -111,11 +133,11 @@ const SideDrawerCart: React.FC<any> = () => {
   );
 };
 
-export default SideDrawerCart;
+export default withApollo({ ssr: true })(withAuth(SideDrawerCart));
 
 // =================================================================
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   list: {
     width: 380,
     overflow: "auto",

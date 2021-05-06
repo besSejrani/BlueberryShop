@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 
-// Layout
-import Layout from "../Layout/index";
-
-//Styles
+// Styles
 import "../App/index.css";
 import "../App/highlight.css";
 
 // Date Picker
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
+
+// Layout
+import Layout from "../Layout/index";
 
 // Apollo State
 import { user } from "../Apollo/state/user/index";

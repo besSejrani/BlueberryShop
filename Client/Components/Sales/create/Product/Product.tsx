@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // Material-UI
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Date Picker
 import { DateTimePicker } from "@material-ui/pickers";
@@ -202,7 +202,7 @@ export default Product;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     content: {
       flexDirection: "column",

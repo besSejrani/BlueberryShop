@@ -10,6 +10,7 @@ import { ArticleCategory, ArticleCategoryModel } from "@Model/ArticleCategory";
 export class GetArticleCategoriesResolver {
   @Query(() => [ArticleCategory], { nullable: true })
   async getArticleCategories(): Promise<ArticleCategory[] | null> {
-    return await ArticleCategoryModel.find({});
+    const articleCategories = await ArticleCategoryModel.find({});
+    return articleCategories;
   }
 }

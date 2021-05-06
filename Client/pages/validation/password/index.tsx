@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Card, Box, Button, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -43,7 +43,7 @@ const SignIn = () => {
   const [signUp] = useForgotPasswordMutation();
 
   const onSubmit = async (form) => {
-    const { data } = await signUp({
+    await signUp({
       variables: { email: form.email },
     });
 
@@ -59,7 +59,7 @@ const SignIn = () => {
               width={700}
               height={520}
               className={classes.media}
-              src={"/Water13.webp"}
+              src="/Water13.webp"
               // title={product.title}
             />
 
@@ -106,7 +106,7 @@ export default withApollo({ ssr: true })(SignIn);
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -153,5 +153,5 @@ const useStyles = makeStyles((theme: Theme) =>
 
       marginTop: "30px",
     },
-  })
+  }),
 );

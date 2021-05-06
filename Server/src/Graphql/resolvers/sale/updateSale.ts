@@ -20,7 +20,7 @@ export class UpdateSaleResolver {
     const update = await SaleModel.findOneAndUpdate(
       { _id: updateSaleInput.productId },
       { ...sale.toObject(), ...updateSaleInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

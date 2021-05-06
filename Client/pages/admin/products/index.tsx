@@ -3,7 +3,7 @@ import React from "react";
 // Material-UI
 import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
@@ -107,9 +107,7 @@ const Products = () => {
       headerName: "Status",
       flex: 0.4,
       renderCell: (params: GridCellParams) => {
-        const status = params.row.status;
-
-        switch (status) {
+        switch (params.row.status) {
           case "DRAFT":
             return (
               <Button
@@ -143,6 +141,8 @@ const Products = () => {
                 {params.value}
               </Button>
             );
+          default:
+            return "";
         }
       },
     },
@@ -157,18 +157,16 @@ const Products = () => {
     },
   ];
 
-  const rows = data?.getProducts.products.map((product) => {
-    return {
-      id: product._id,
-      name: data?.getProducts.products.map((image) => image) || "",
-      category: product.categories.map((category) => category.name),
-      price: product.price,
-      stock: product.stock,
-      promotion: product.promotion,
-      status: product.status,
-      actions: "",
-    };
-  });
+  const rows = data?.getProducts.products.map((product) => ({
+    id: product._id,
+    name: data?.getProducts.products.map((image) => image) || "",
+    category: product.categories.map((category) => category.name),
+    price: product.price,
+    stock: product.stock,
+    promotion: product.promotion,
+    status: product.status,
+    actions: "",
+  }));
 
   return (
     <Box className={classes.root}>
@@ -187,11 +185,11 @@ export default withApollo({ ssr: true })(withAuth(Products));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

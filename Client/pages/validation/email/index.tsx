@@ -1,8 +1,8 @@
 import React from "react";
 
-//Material-UI
+// Material-UI
 import { Box, Typography } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // ========================================================================================================
 
@@ -23,7 +23,7 @@ export default EmailProcessValidation;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -32,5 +32,5 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

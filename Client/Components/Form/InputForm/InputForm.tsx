@@ -56,7 +56,7 @@ const inputForm: React.FC<inputType> = React.forwardRef(
         )}
       </>
     );
-  }
+  },
 );
 
 export default inputForm;

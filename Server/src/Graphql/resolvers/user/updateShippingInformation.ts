@@ -17,7 +17,7 @@ export class UpdateShippingInformationResolver {
   @UseMiddleware(authentication)
   async updateShippingInformation(
     @Arg("updateShippingInput") updateShippingInput: UpdateShipping,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<User | null | undefined> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
@@ -32,7 +32,7 @@ export class UpdateShippingInformationResolver {
         // @ts-ignore: Object is possibly 'null'.
         shipping: [{ ...user!.shipping[0], ...updateShippingInput }],
       },
-      { new: true }
+      { new: true },
     );
 
     return update;

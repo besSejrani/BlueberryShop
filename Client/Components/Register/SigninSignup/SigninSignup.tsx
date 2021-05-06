@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Material-UI
 import { Box, Card, Tabs, Tab } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import Signin from "@Components/Register/SignIn/SignIn";
@@ -54,7 +54,7 @@ export default SigninSignup;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",

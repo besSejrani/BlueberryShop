@@ -14,7 +14,7 @@ export class GetArticleResolver {
     const result = slug;
 
     return result
-      ? await ArticleModel.findOne({ slug: slug }).populate("categories")
-      : await ArticleModel.findOne({ _id: articleId }).populate("categories");
+      ? ArticleModel.findOne({ slug }).populate("categories")
+      : ArticleModel.findOne({ _id: articleId }).populate("categories");
   }
 }

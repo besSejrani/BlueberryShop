@@ -15,7 +15,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import InputForm from "@Components/Form/InputForm/InputForm";
 
 // Apollo
-import { useSignupMutation } from "../../../Graphql";
+import { useSignupMutation } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -48,7 +48,7 @@ const SignUp = () => {
       return;
     }
 
-    const { data } = await signUp({
+    await signUp({
       variables: { email: form.email, password: form.password, username: form.username },
     });
 
@@ -150,7 +150,7 @@ export default SignUp;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     signin: {
       display: "flex",

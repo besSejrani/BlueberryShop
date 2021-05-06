@@ -1,11 +1,8 @@
 import React from "react";
 
-//Next
-import { useRouter } from "next/router";
-
 // Material-UI
 import { Box, Button, Paper } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { GridCellParams } from "@material-ui/data-grid";
 
 // Hooks
@@ -36,7 +33,6 @@ import { withAuth } from "@Guard/withAuth";
 
 const Articles = () => {
   const classes = useStyles();
-  const router = useRouter();
 
   const { data, loading } = useGetArticlesQuery();
   const [deleteArticleMutation, { error }] = useDeleteArticleMutation({ errorPolicy: "all" });
@@ -90,9 +86,7 @@ const Articles = () => {
       field: "name",
       headerName: "Link",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => {
-        return <DataGridLinkButton path={`/blog/${params.row.link}`} text="Link" />;
-      },
+      renderCell: ({ row }: GridCellParams) => <DataGridLinkButton path={`/blog/${row.link}`} text="Link" />,
     },
 
     {
@@ -120,9 +114,7 @@ const Articles = () => {
       headerName: "Status",
       flex: 0.4,
       renderCell: (params: GridCellParams) => {
-        const status = params.row.status;
-
-        switch (status) {
+        switch (params.row.status) {
           case "DRAFT":
             return (
               <Button
@@ -156,6 +148,8 @@ const Articles = () => {
                 {params.value}
               </Button>
             );
+          default:
+            return "";
         }
       },
     },
@@ -170,20 +164,18 @@ const Articles = () => {
     },
   ];
 
-  const rows = data?.getArticles.map((product) => {
-    return {
-      id: product._id,
-      title: product.title,
-      name: product.title,
-      link: product.slug,
-      author: product.author,
-      category: product.categories.map((category) => category.name),
-      publishedAt: moment(product.publishedAt).format("DD.MM.yyyy HH:mm"),
-      createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
-      status: product.status,
-      actions: "",
-    };
-  });
+  const rows = data?.getArticles.map((product) => ({
+    id: product._id,
+    title: product.title,
+    name: product.title,
+    link: product.slug,
+    author: product.author,
+    category: product.categories.map((category) => category.name),
+    publishedAt: moment(product.publishedAt).format("DD.MM.yyyy HH:mm"),
+    createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
+    status: product.status,
+    actions: "",
+  }));
 
   if (loading) return <div>loading...</div>;
 
@@ -204,12 +196,12 @@ export default withApollo({ ssr: true })(withAuth(Articles));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

@@ -5,7 +5,7 @@ import redirect from "./redirect";
 import { NextContextWithApollo } from "./nextContextWithApollo";
 
 // Apollo
-import { GetCurrentUserDocument, GetCurrentUserQuery } from "../Graphql/index";
+import { GetCurrentUserDocument, GetCurrentUserQuery } from "@Graphql/index";
 
 // Apollo State
 import { user } from "../Apollo/state/user/index";

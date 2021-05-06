@@ -10,9 +10,9 @@ export default async () => {
       useFindAndModify: false,
     });
 
-    await console.log(`Connected to database`);
+    await console.log("Connected to database");
   } catch (error) {
     console.log(error.message);
-    console.log(`Couldn't connect to database`);
+    console.log("Couldn't connect to database");
   }
 };

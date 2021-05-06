@@ -10,6 +10,8 @@ import { Category, CategoryModel } from "@Model/Category";
 export class GetCategoryResolver {
   @Query(() => Category, { nullable: true })
   async getCategory(@Arg("categoryId") categoryId: string): Promise<Category | null> {
-    return await CategoryModel.findById({ _id: categoryId });
+    const productCategory = await CategoryModel.findById({ _id: categoryId });
+
+    return productCategory;
   }
 }

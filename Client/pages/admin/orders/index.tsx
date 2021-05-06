@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Box, Breadcrumbs, Link, Button, Typography, Paper } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { GridCellParams } from "@material-ui/data-grid";
 
 // Components
@@ -59,12 +59,12 @@ export default withApollo({ ssr: true })(withAuth(Orders));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

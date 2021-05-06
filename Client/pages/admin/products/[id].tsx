@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-//Next
+// Next
 import { useRouter } from "next/router";
 
 // React-Hook-Form
@@ -19,7 +19,7 @@ import {
   Radio,
   Checkbox,
 } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -288,7 +288,7 @@ export default withApollo({ ssr: true })(withAuth(ModifyProductAdmin));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -326,5 +326,5 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       margin: "45px 0px 0px 0px",
     },
-  })
+  }),
 );

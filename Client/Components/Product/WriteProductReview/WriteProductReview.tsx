@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 // Material-Ui
 import { Button, Card, Typography, Box } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Rating } from "@material-ui/lab";
 
 // Components
@@ -134,7 +134,7 @@ export default WriteReview;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       display: "flex",

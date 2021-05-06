@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Card, Box, Button, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -49,7 +49,7 @@ const ChangePassword = ({ query }) => {
       return;
     }
 
-    const { data } = await changePassword({
+    await changePassword({
       variables: { password: form.password, token: query.id },
     });
 
@@ -65,7 +65,7 @@ const ChangePassword = ({ query }) => {
               width={700}
               height={520}
               className={classes.media}
-              src={"/Water13.png"}
+              src="/Water13.png"
               // title={product.title}
             />
 
@@ -118,15 +118,13 @@ const ChangePassword = ({ query }) => {
   );
 };
 
-export default withApollo({ ssr: true })(ChangePassword);
+ChangePassword.getInitialProps = async ({ query }) => ({ query });
 
-ChangePassword.getInitialProps = async ({ query }) => {
-  return { query };
-};
+export default withApollo({ ssr: true })(ChangePassword);
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -173,5 +171,5 @@ const useStyles = makeStyles((theme: Theme) =>
 
       marginTop: "30px",
     },
-  })
+  }),
 );

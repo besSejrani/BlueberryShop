@@ -2,7 +2,7 @@ import React from "react";
 
 // Material-UI
 import { Box, Breadcrumbs, Link, Typography, Tab } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 
 // SSR
@@ -62,7 +62,7 @@ export default withApollo({ ssr: true })(withAuth(Blueberry));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
@@ -75,5 +75,5 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
-  })
+  }),
 );

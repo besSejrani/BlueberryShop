@@ -1,12 +1,9 @@
 import React from "react";
 
-// Next
-import { useRouter } from "next/router";
-
 // Material-UI
 import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
@@ -16,7 +13,7 @@ import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 // Hook
 import useToast from "@Hook/useToast";
 
-//Apollo
+// Apollo
 import { ui } from "@Apollo/state/ui/index";
 import { useGetUsersQuery, useDeleteUserMutation, GetUsersDocument, GetUsersQuery } from "@Graphql/index";
 
@@ -85,13 +82,13 @@ const Users = () => {
       field: "username",
       headerName: "Username",
       flex: 1,
-      renderCell: (params: GridCellParams) => {
-        const image = params.row.profile;
+      renderCell: ({ row, value }: GridCellParams) => {
+        const image = row.profile;
 
         return (
           <>
-            <img src={image || "/images/unknown.png"} className={classes.profileImage} />
-            {params.value}
+            <img src={image || "/images/unknown.png"} className={classes.profileImage} alt="" />
+            {value}
           </>
         );
       },
@@ -106,8 +103,8 @@ const Users = () => {
       field: "role",
       headerName: "Role",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => {
-        const role = params.row.role;
+      renderCell: ({ row, value }: GridCellParams) => {
+        const { role } = row;
 
         switch (role) {
           case "user":
@@ -118,7 +115,7 @@ const Users = () => {
                 size="small"
                 style={{ borderRadius: 20, borderColor: "#2196f3" }}
               >
-                {params.value}
+                {value}
               </Button>
             );
           case "admin":
@@ -129,9 +126,11 @@ const Users = () => {
                 size="small"
                 style={{ borderRadius: 20, color: "green", borderColor: "green" }}
               >
-                {params.value}
+                {value}
               </Button>
             );
+          default:
+            return "";
         }
       },
     },
@@ -145,17 +144,15 @@ const Users = () => {
     },
   ];
 
-  const rows = data?.getUsers.map((user) => {
-    return {
-      id: user._id,
-      profile: user.profileImageUrl,
-      username: user.username,
-      email: user.email,
-      confirmed: user.confirmed,
-      role: user.role,
-      actions: "",
-    };
-  });
+  const rows = data?.getUsers.map((user) => ({
+    id: user._id,
+    profile: user.profileImageUrl,
+    username: user.username,
+    email: user.email,
+    confirmed: user.confirmed,
+    role: user.role,
+    actions: "",
+  }));
 
   return (
     <Box className={classes.root}>
@@ -174,7 +171,7 @@ export default withApollo({ ssr: true })(withAuth(Users));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
@@ -188,5 +185,5 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: "pointer",
       marginRight: "0.5rem",
     },
-  })
+  }),
 );

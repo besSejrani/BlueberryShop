@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Material-UI
 import { Box, Card } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import AccountSideBar from "@Components/Account/AccountSideBar/AccountSideBar";
@@ -33,13 +33,6 @@ const Account = () => {
   const { data: currentUser } = useGetCurrentUserQuery();
   const [resetPassword] = useResetPasswordMutation();
 
-  // useEffect(() => {
-  //   // setShippingAddress(currentUser.getCurrentUser.shipping[0].address);
-  //   // setShippingCountry(currentUser.getCurrentUser.shipping[0].country);
-  //   // setShippingCity(currentUser.getCurrentUser.shipping[0].city);
-  //   // setShippingZip(currentUser.getCurrentUser.shipping[0].zip);
-  // }, [data]);
-
   if (loading) return <div>loading...</div>;
 
   return (
@@ -63,7 +56,7 @@ export default withApollo({ ssr: true })(withAuth(Account));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
@@ -81,5 +74,5 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "2rem",
       boxSizing: "border-box",
     },
-  })
+  }),
 );

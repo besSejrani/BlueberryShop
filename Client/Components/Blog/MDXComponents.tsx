@@ -3,7 +3,7 @@ import Image from "next/image";
 
 // Material-UI
 import { Typography, Card, Table, TableHead, TableRow, TableCell, Box } from "@material-ui/core";
-import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Rating } from "@material-ui/lab";
 
 // Components
@@ -81,7 +81,7 @@ export default Components;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     pre: {
       "& code": {
@@ -91,5 +91,5 @@ const useStyles = makeStyles((theme: Theme) =>
         borderRadius: "0px 0px 10px 10px",
       },
     },
-  })
+  }),
 );

@@ -1,12 +1,9 @@
 import React from "react";
 
-// Next
-import { useRouter } from "next/router";
-
 // Material-UI
 import { Box, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
@@ -16,7 +13,7 @@ import DataGridAction from "@Components/DataGrid/DataGridAction/DataGridAction";
 // Hook
 import useToast from "@Hook/useToast";
 
-//Apollo
+// Apollo
 import {
   GetArticleCategoriesDocument,
   GetArticleCategoriesQuery,
@@ -37,7 +34,6 @@ import { withAuth } from "@Guard/withAuth";
 
 const Categories = () => {
   const classes = useStyles();
-  const router = useRouter();
 
   // GraphQL
   const { loading, data } = useGetArticleCategoriesQuery();
@@ -109,13 +105,11 @@ const Categories = () => {
     },
   ];
 
-  const rows = data?.getArticleCategories.map((product) => {
-    return {
-      id: product._id,
-      name: product.name,
-      actions: "",
-    };
-  });
+  const rows = data?.getArticleCategories.map((product) => ({
+    id: product._id,
+    name: product.name,
+    actions: "",
+  }));
 
   return (
     <Box className={classes.root}>
@@ -138,11 +132,11 @@ export default withApollo({ ssr: true })(withAuth(Categories));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // Material-Ui
 import { Card, Typography, Box, IconButton, Divider } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Rating } from "@material-ui/lab";
 
 // Icons
@@ -69,7 +69,7 @@ export default ProductReview;
 
 // =================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     reviewsHeader: {
       display: "flex",
@@ -87,5 +87,5 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       borderRadius: "99px",
     },
-  })
+  }),
 );

@@ -8,7 +8,7 @@ import { Button, Container, makeStyles } from "@material-ui/core";
 import Card from "../Product/ProductCard/ProductCard";
 
 // Apollo
-import { useGetProductsQuery } from "../../Graphql/index";
+import { useGetProductsQuery } from "@Graphql/index";
 
 // ========================================================================================================
 

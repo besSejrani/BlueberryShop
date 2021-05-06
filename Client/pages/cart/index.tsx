@@ -9,44 +9,38 @@ import { useGetCartQuery } from "@Graphql/index";
 // SSR
 import withApollo from "@Apollo/ssr";
 
-// HOC
+// Guard
 import { withAuth } from "@Guard/withAuth";
 
 // ========================================================================================================
 const CartProducts = () => {
-  let token;
-
-  if (typeof window !== "undefined") {
-    token = window.localStorage.getItem("token");
-  }
-
   const { data, loading } = useGetCartQuery();
 
   // const { data, loading } = useGetCartQuery({
   //   context: {
   //     headers: {
   //       token:
-  //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDc1M2ExM2QyOTA5YTgxMzVhNmNhMjgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MTg3MTMwMzYsImV4cCI6MTYxODc5OTQzNn0.VM26orYFUM2rWm2V1mTal1y4RuRg7rLUmnPbikcIXsw",
+  //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDc1M2ExM2QyOTA5YTgxMzVhNmNhMjgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjAyMjIzMjksImV4cCI6MTYyMDMwODcyOX0.FWDaj51VtZoN_W0WPp-Ezu7JdKjpunPrvMuFuh_6ZQ0",
   //     },
   //   },
   // });
+
+  console.log("cart", data);
 
   if (loading) return <div>loading...</div>;
 
   return (
     <Card>
       <h1>Cart</h1>
-      {data?.getCart?.cart.map((product) => {
-        return (
-          <Box key={product._id}>
-            <img src={product.productImageUrl} width={100} height={100} />
-            <Box>{product.name}</Box>
-            <Box>{product.description}</Box>
-            <Box>{product.price}</Box>
-            <Box>{product.stock}</Box>
-          </Box>
-        );
-      })}
+      {data?.getCart?.cart.map((product) => (
+        <Box key={product._id}>
+          <img src={product.productImageUrl} width={100} height={100} alt="" />
+          <Box>{product.name}</Box>
+          <Box>{product.description}</Box>
+          <Box>{product.price}</Box>
+          <Box>{product.stock}</Box>
+        </Box>
+      ))}
     </Card>
   );
 };

@@ -20,7 +20,7 @@ const ConfirmUser = ({ query }) => {
   }, []);
 
   const confirm = async () => {
-    const { data } = await confirmUser({ variables: { token: query.id } });
+    await confirmUser({ variables: { token: query.id } });
 
     router.push("/");
   };
@@ -28,9 +28,7 @@ const ConfirmUser = ({ query }) => {
   return <div> </div>;
 };
 
-ConfirmUser.getInitialProps = async ({ query }) => {
-  return { query };
-};
+ConfirmUser.getInitialProps = async ({ query }) => ({ query });
 
 export default withApollo({ ssr: true })(ConfirmUser);
 

@@ -17,7 +17,7 @@ export class UpdateArticleCategoryResolver {
   @UseMiddleware(authentication)
   @UseMiddleware(authorization(["admin"]))
   async updateArticleCategory(
-    @Arg("articleCategoryInput") articleCategoryInput: UpdateArticleCategoryInput
+    @Arg("articleCategoryInput") articleCategoryInput: UpdateArticleCategoryInput,
   ): Promise<ArticleCategory | null> {
     const category = await ArticleCategoryModel.findOne({ _id: articleCategoryInput.articleCategoryId });
 
@@ -28,7 +28,7 @@ export class UpdateArticleCategoryResolver {
     const update = await ArticleCategoryModel.findOneAndUpdate(
       { _id: articleCategoryInput.articleCategoryId },
       { ...category.toObject(), ...articleCategoryInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

@@ -6,7 +6,7 @@ import { ProductPagination } from "./types/productPaginationType";
 import { Product, ProductModel } from "@Model/Product";
 
 // Logger
-import logger from "../../../Winston/index";
+import logger from "@Logger/index";
 
 // =================================================================================================
 

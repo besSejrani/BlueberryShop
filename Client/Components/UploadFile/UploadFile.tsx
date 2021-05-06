@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Material-UI
 import { Box, Button } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 //Material-UI Dropzone
 import { DropzoneDialog } from "material-ui-dropzone";
@@ -69,7 +69,7 @@ export default UploadFile;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     content: {
       display: "flex",

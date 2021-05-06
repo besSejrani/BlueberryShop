@@ -22,7 +22,7 @@ export class ResetPasswordResolver {
   @UseMiddleware(authorization(["admin"]))
   async resetPassword(
     @Arg("resetPasswordInput") resetPasswordInput: ResetPasswordInput,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<boolean | null> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
@@ -45,7 +45,7 @@ export class ResetPasswordResolver {
         ...user.toObject(),
         password: hash,
       },
-      { new: true }
+      { new: true },
     );
 
     return true;

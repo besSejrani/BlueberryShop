@@ -34,15 +34,17 @@ const Products = () => {
   const [pageNumber, setPageNumber] = useState(+page);
   const [pageSize, setPageSize] = useState(+size);
 
+  // GraphQL
   const { loading, data } = useGetProductsPaginationQuery({
     variables: { pageNumber: +pageNumber, pageSize: pageSize },
   });
+
   const pages = Math.ceil(data?.getProductsPagination.count / pageSize);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
 
-    router.push(`/products?page=${value}&size=${pageSize}`, ``, {
+    router.push(`/products?page=${value}&size=${pageSize}`, "", {
       shallow: true,
     });
   };
@@ -63,9 +65,9 @@ const Products = () => {
       <Box className={classes.products}>
         <ProductFilter />
         <Box className={classes.grid}>
-          {data?.getProductsPagination.products.map((product) => {
-            return <ProductCard key={product._id} product={product} />;
-          })}
+          {data?.getProductsPagination.products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </Box>
       </Box>
 
@@ -104,5 +106,5 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: "center",
       },
     },
-  })
+  }),
 );

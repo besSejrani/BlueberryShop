@@ -10,6 +10,7 @@ import { Newsletter, NewsletterModel } from "@Model/Newsletter";
 export class NewslettersResolver {
   @Query(() => [Newsletter], { nullable: true })
   async getNewsletters(): Promise<Newsletter[] | null> {
-    return await NewsletterModel.find({});
+    const newsletter = await NewsletterModel.find({});
+    return newsletter;
   }
 }

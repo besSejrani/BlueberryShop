@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Card, Box, Button, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "../../Form/InputForm/InputForm";
@@ -24,7 +24,7 @@ import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo
 import { apolloClient } from "@Apollo/ssr";
-import { useSigninMutation, GetCurrentUserDocument, GetCurrentUserQuery } from "../../../Graphql/index";
+import { useSigninMutation, GetCurrentUserDocument, GetCurrentUserQuery } from "@Graphql/index";
 
 // Apollo State
 import { user } from "@Apollo/state/user/index";
@@ -162,7 +162,7 @@ export default SignIn;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     signin: {
       display: "flex",

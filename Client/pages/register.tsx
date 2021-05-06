@@ -8,8 +8,6 @@ import withApollo from "@Apollo/ssr";
 
 // ========================================================================================================
 
-const Register = () => {
-  return <SigninSignup />;
-};
+const Register = () => <SigninSignup />;
 
 export default withApollo({ ssr: true })(Register);

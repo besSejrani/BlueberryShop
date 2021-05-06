@@ -19,7 +19,7 @@ export class UpdateArticleResolver {
   async updateArticle(
     @Arg("articleId") articleId: string,
     @Arg("articleInput")
-    updateArticleInput: UpdateArticleInput
+    updateArticleInput: UpdateArticleInput,
   ): Promise<Article | null> {
     const product = await ArticleModel.findOne({ _id: articleId });
 
@@ -30,7 +30,7 @@ export class UpdateArticleResolver {
     const update = await ArticleModel.findOneAndUpdate(
       { _id: articleId },
       { ...product.toObject(), ...updateArticleInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

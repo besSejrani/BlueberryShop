@@ -22,7 +22,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -295,7 +295,7 @@ export default withApollo({ ssr: true })(withAuth(CreateProductAdmin));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -339,5 +339,5 @@ const useStyles = makeStyles((theme: Theme) =>
         background: "none",
       },
     },
-  })
+  }),
 );

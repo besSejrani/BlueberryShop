@@ -4,8 +4,8 @@ import React from "react";
 import Link from "next/link";
 
 // Material-UI
-import { Box, Card, Typography, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Card, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Icons
 import PersonIcon from "@material-ui/icons/Person";
@@ -65,7 +65,7 @@ export default AccountSideBar;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       position: "sticky",
@@ -75,5 +75,5 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: "2.5rem",
       borderRadius: 10,
     },
-  })
+  }),
 );

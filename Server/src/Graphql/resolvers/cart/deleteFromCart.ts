@@ -1,10 +1,9 @@
 // GraphQL
-import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
+import { Resolver, Mutation, Ctx, UseMiddleware, Arg } from "type-graphql";
 import { MyContext } from "src/Graphql/types/MyContext";
 
 // Database
 import { UserModel } from "@Model/user/User";
-import { ProductModel } from "@Model/Product";
 
 // Middleware
 import { authentication } from "@Middleware/authentication";
@@ -12,27 +11,20 @@ import { authentication } from "@Middleware/authentication";
 // =================================================================================================
 
 @Resolver()
-export class AddToCartResolver {
+export class deleteProductFromCart {
   @Mutation(() => Boolean)
   @UseMiddleware(authentication)
-  async addToCart(@Arg("productId") productId: string, @Ctx() context: MyContext): Promise<boolean> {
-    const product = await ProductModel.findOne({ _id: productId });
-
-    if (!product) {
-      return true;
-    }
-
-    const user = await UserModel.findOne({ _id: context.req.userId });
-
-    if (!user) {
+  async deleteProductFromCart(@Arg("productId") productId: string, @Ctx() context: MyContext): Promise<boolean> {
+    if (!context.req.userId) {
       return true;
     }
 
     await UserModel.findOneAndUpdate(
       { _id: context.req.userId },
       {
-        $addToSet: {
-          cart: product,
+        $pull: {
+          // @ts-ignore
+          cart: productId,
         },
       },
       { new: true, upsert: true },

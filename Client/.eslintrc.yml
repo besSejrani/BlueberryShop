@@ -17,9 +17,31 @@ plugins:
   - '@typescript-eslint'
   - "prettier"
 rules: {
+  
+  # #Eslint
+  "function-paren-newline": 0,
   "quotes": ["error", "double"],
   "no-unused-vars":"warn",
   "no-console":"off",
-  "linebreak-style": 0
+  "linebreak-style": 0,
+  "implicit-arrow-linebreak": 0,
+  "no-use-before-define": 0,
+  "no-underscore-dangle": 0,
+  "max-len": [2, 120, 4],
+  "radix": 0,
+
+
+  # # React Typescript
+  "react/jsx-filename-extension": [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
+  "react/jsx-one-expression-per-line": 0,
+  "react/prop-types": 0,
+  "react/jsx-props-no-spreading": 0
 }
 
+# settings: {
+#   "import/resolver": {
+#     "node": {
+#       "extensions": [".js", ".jsx", ".ts", ".tsx"]
+#     }
+#   }
+# }

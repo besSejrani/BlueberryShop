@@ -116,5 +116,5 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.action.hover,
       },
     },
-  })
+  }),
 );

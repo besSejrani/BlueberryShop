@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Card, Box, TextField } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Apollo State
 import { markdown } from "@Apollo/state/markdown/index";
@@ -27,7 +27,7 @@ const MarkdownInput: React.FC<MarkdownInputType> = ({ content }) => {
   const [articleContent, setArticleContent] = useState<any>();
 
   // Form
-  const { register, errors } = useForm<FormValues>({
+  const { register } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
@@ -71,7 +71,7 @@ export default MarkdownInput;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     card: {
       position: "relative",
@@ -108,5 +108,5 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowY: "scroll",
       padding: "35px 30px 20px 30px",
     },
-  })
+  }),
 );

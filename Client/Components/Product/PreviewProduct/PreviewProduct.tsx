@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
-// GraphQL
-import { useDeleteProductImageMutation } from "../../../Graphql/index";
-
 // Material-UI
 import { Box, IconButton } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 
 // Components
 import ProductImageSLider from "@Components/Product/ProductImageSlider/ProductImageSlider";
+
+// GraphQL
+import { useDeleteProductImageMutation } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -39,22 +39,21 @@ const PreviewProduct: React.FC<Preview> = ({ product, images, router }) => {
     <Box className={classes.root}>
       <ProductImageSLider product={product} />
       <Box className={classes.productImagesGroup} onMouseLeave={() => setShow(false)}>
-        {images?.map((image, index) => {
-          return (
-            <Box className={classes.productImagesGroup}>
-              <img src={image} alt={image} className={classes.productImage} onMouseEnter={() => setShow(true)} />
-              {show ? (
-                <>
-                  <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </>
-              ) : (
-                <></>
-              )}
-            </Box>
-          );
-        })}
+        {images?.map((image) => (
+          <Box className={classes.productImagesGroup}>
+            <img src={image} alt={image} className={classes.productImage} onMouseEnter={() => setShow(true)} />
+            {show ? (
+              <>
+                <IconButton className={classes.deleteProductImage} onClick={() => deleteImage(image)}>
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            ) : (
+              <></>
+            )}
+          </Box>
+        ),
+        )}
       </Box>
     </Box>
   );
@@ -64,7 +63,7 @@ export default PreviewProduct;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexDirection: "column",
@@ -94,5 +93,5 @@ const useStyles = makeStyles((theme: Theme) =>
       top: -15,
       cursor: "pointer",
     },
-  })
+  }),
 );

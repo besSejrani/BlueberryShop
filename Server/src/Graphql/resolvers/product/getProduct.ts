@@ -10,6 +10,8 @@ import { Product, ProductModel } from "@Model/Product";
 export class GetProductsResolver {
   @Query(() => Product, { nullable: true })
   async getProduct(@Arg("productId") productId: string): Promise<Product | null> {
-    return await ProductModel.findOne({ _id: productId });
+    const product = await ProductModel.findOne({ _id: productId });
+
+    return product;
   }
 }

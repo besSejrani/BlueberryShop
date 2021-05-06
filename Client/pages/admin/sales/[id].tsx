@@ -2,7 +2,7 @@ import React from "react";
 
 // Material-UI
 import { Box, Card } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import Sales from "@Components/Sales/update/Sales";
@@ -30,7 +30,7 @@ export default withApollo({ ssr: true })(withAuth(CreateProductAdmin));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -50,5 +50,5 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "10px",
       padding: "30px 40px",
     },
-  })
+  }),
 );

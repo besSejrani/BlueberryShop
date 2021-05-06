@@ -2,7 +2,7 @@ import React from "react";
 
 // Material-UI
 import { DataGrid } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import Toolbar from "@Components/DataGrid/ToolBar/Toolbar";
@@ -38,7 +38,7 @@ export default Datagrid;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     dataGrid: {
       border: "none",
@@ -46,5 +46,5 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "white",
       borderRadius: 15,
     },
-  })
+  }),
 );

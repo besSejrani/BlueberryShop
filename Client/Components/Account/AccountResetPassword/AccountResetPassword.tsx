@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Box, Typography, Button } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -30,7 +30,7 @@ const AccountResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   // Form
-  const { register, errors, handleSubmit, control } = useForm({
+  const { register, errors, handleSubmit } = useForm({
     criteriaMode: "all",
   });
 
@@ -118,12 +118,12 @@ export default AccountResetPassword;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       display: "flex",
       flexDirection: "column",
       margin: "45px 0px 0px 0px",
     },
-  })
+  }),
 );

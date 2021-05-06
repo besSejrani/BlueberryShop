@@ -26,7 +26,7 @@ export class UpdateCategoryResolver {
     const update = await CategoryModel.findOneAndUpdate(
       { _id: categoryInput.categoryId },
       { ...category.toObject(), ...categoryInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

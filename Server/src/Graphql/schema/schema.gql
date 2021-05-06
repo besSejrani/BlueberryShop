@@ -104,6 +104,7 @@ type Mutation {
   deleteCategory(categoryId: String!): Boolean!
   deleteFromNewsletter(newsletterId: String!): Boolean!
   deleteProduct(productId: String!): Boolean!
+  deleteProductFromCart(productId: String!): Boolean!
   deleteProductImage(keyId: String!, productId: String!): Boolean!
   deleteSale(productId: String!): Boolean!
   deleteUser(userId: String!): Boolean!

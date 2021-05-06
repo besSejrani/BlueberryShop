@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // Material-UI
 import { Box, Breadcrumbs, Link as MaterialLink, Button, Typography, Paper } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Guard
 import { withAuth } from "@Guard/withAuth";
@@ -127,7 +127,7 @@ export default withApollo({ ssr: true })(withAuth(Dashboard));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       justifyContent: "center",
@@ -180,5 +180,5 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

@@ -24,7 +24,7 @@ export class UpdateProfileResolver {
   async updateProfile(
     @Arg("updateProfileInput") updateProfileInput: UpdateProfile,
     @Arg("picture", () => GraphQLUpload, { nullable: true }) File: Upload,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<User | null> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
@@ -53,7 +53,7 @@ export class UpdateProfileResolver {
       const update = await UserModel.findOneAndUpdate(
         { _id: context.req.userId },
         { ...user.toObject(), ...updateProfileInput, profileImageUrl: url },
-        { new: true }
+        { new: true },
       );
 
       return update;
@@ -62,7 +62,7 @@ export class UpdateProfileResolver {
     const update = await UserModel.findOneAndUpdate(
       { _id: context.req.userId },
       { ...user.toObject(), ...updateProfileInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

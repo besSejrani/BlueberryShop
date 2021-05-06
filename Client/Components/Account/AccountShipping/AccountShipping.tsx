@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Box, Typography, Button, Divider } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -43,7 +43,7 @@ const AccountShipping = () => {
   }, [data]);
 
   // Form
-  const { register, errors, handleSubmit, control } = useForm({
+  const { register, errors, handleSubmit } = useForm({
     criteriaMode: "all",
   });
 
@@ -145,7 +145,7 @@ export default AccountShipping;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       display: "flex",
@@ -156,5 +156,5 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       margin: "50px 0px",
     },
-  })
+  }),
 );

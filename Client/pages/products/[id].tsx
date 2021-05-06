@@ -255,5 +255,5 @@ const useStyles = makeStyles((theme: Theme) =>
     accordions: {
       margin: "50px 0px 0px 0px",
     },
-  })
+  }),
 );

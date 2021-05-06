@@ -1,6 +1,6 @@
 import React from "react";
 
-//Next
+// Next
 import Link from "next/link";
 
 // Material-UI
@@ -13,19 +13,18 @@ interface DataGridLinkButtonType {
   text: string;
 }
 
-const DataGridLinkButton: React.FC<DataGridLinkButtonType> = ({ path, text }) => {
-  return (
-    <Link href={`${path}`} passHref>
-      <Button
-        variant="outlined"
-        color="secondary"
-        size="small"
-        style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
-      >
-        {text}
-      </Button>
-    </Link>
-  );
-};
+const DataGridLinkButton: React.FC<DataGridLinkButtonType> = ({ path, text }) => (
+  <Link href={`${path}`} passHref>
+    <Button
+      variant="outlined"
+      color="secondary"
+      size="small"
+      style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
+    >
+      {text}
+    </Button>
+  </Link>
+);
+
 
 export default DataGridLinkButton;

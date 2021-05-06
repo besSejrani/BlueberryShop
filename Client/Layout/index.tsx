@@ -19,7 +19,7 @@ import ConfirmationDialog from "@Components/ConfirmationDialog/ConfirmationDialo
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { user } from "../Apollo/state/user/index";
+import { user } from "@Apollo/state/user/index";
 
 // ========================================================================================================
 
@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
           <AdminHeader />
           <div style={{ padding: "120px 20px 0px 260px" }}>{children}</div>
           <AdminSideBar />
+          <SideDrawerCart />
           <ConfirmationDialog />
           <Toast />
         </>

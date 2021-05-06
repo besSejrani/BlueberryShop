@@ -1,10 +1,10 @@
 import hydrate from "next-mdx-remote/hydrate";
-import MdxComponents from "../../Components/Blog/MDXComponents";
-
-import { getFileByPost, getFiles } from "../../Mdx/mdx";
+import MdxComponents from "@Components/Blog/MDXComponents";
 
 // Material-UI
 import { Container } from "@material-ui/core";
+
+import { getFileByPost, getFiles } from "../../Mdx/mdx";
 
 // ========================================================================================================
 
@@ -30,7 +30,7 @@ export const getStaticPaths = async () => {
   return {
     paths: posts.map((post) => ({
       params: {
-        post: post,
+        post,
       },
     })),
     fallback: false,

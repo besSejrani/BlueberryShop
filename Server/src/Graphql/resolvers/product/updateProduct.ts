@@ -18,7 +18,7 @@ export class UpdateProductResolver {
   @UseMiddleware(authorization(["admin"]))
   async updateProduct(
     @Arg("productId") productId: string,
-    @Arg("input") productInput: UpdateProductInput
+    @Arg("input") productInput: UpdateProductInput,
   ): Promise<Product | null> {
     const product = await ProductModel.findOne({ _id: productId });
 
@@ -29,7 +29,7 @@ export class UpdateProductResolver {
     const update = await ProductModel.findOneAndUpdate(
       { _id: productId },
       { ...product.toObject(), ...productInput },
-      { new: true }
+      { new: true },
     );
 
     return update;

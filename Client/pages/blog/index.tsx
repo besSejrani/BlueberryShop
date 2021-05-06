@@ -9,13 +9,13 @@ import { useForm } from "react-hook-form";
 // Material-UI
 import { Container, Box, Typography, Card, TextField } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Moment
 import moment from "moment";
 
 // MDX
 import { getAllFilesFrontMatter } from "../../Mdx/mdx";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // =================================================================
 
@@ -65,18 +65,16 @@ const Blog = ({ posts }) => {
 
         {!filteredBlogPosts.length && <Typography variant="body1">Sorry no posts found</Typography>}
 
-        {filteredBlogPosts.map((page) => {
-          return (
-            <Link href={`blog/${page.slug}`} key={page.title}>
-              <Card style={{ padding: 20, margin: "20px 0px", borderRadius: 15, cursor: "pointer" }}>
-                <Typography variant="h6">{page?.title}</Typography>
-                <Typography variant="body1">{moment(page?.publishedAt).format("DD.MM.yyyy")}</Typography>
-                <Typography variant="body1">{page?.summary}</Typography>
-                <Typography variant="body1">{page?.slug}</Typography>
-              </Card>
-            </Link>
-          );
-        })}
+        {filteredBlogPosts.map((page) => (
+          <Link href={`blog/${page.slug}`} key={page.title}>
+            <Card style={{ padding: 20, margin: "20px 0px", borderRadius: 15, cursor: "pointer" }}>
+              <Typography variant="h6">{page?.title}</Typography>
+              <Typography variant="body1">{moment(page?.publishedAt).format("DD.MM.yyyy")}</Typography>
+              <Typography variant="body1">{page?.summary}</Typography>
+              <Typography variant="body1">{page?.slug}</Typography>
+            </Card>
+          </Link>
+        ))}
       </Card>
 
       <Box className={classes.pagination}>
@@ -95,7 +93,7 @@ export async function getStaticProps() {
 export default Blog;
 // ==================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     form: {
       display: "flex",
@@ -107,5 +105,5 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       margin: "50px 0px",
     },
-  })
+  }),
 );

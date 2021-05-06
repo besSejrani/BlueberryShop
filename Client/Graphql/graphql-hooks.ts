@@ -23,12 +23,12 @@ export type Scalars = {
 export type Article = {
   __typename?: 'Article';
   _id: Scalars['ObjectId'];
+  categories: Array<ArticleCategory>;
   author: Scalars['String'];
   title: Scalars['String'];
   slug: Scalars['String'];
   summary: Scalars['String'];
   publishedAt: Scalars['DateTime'];
-  categories: Array<ArticleCategory>;
   content: Scalars['String'];
   status: Scalars['String'];
   createdAt: Scalars['DateTime'];
@@ -118,6 +118,7 @@ export type Mutation = {
   signin: UserResponse;
   signup: UserResponse;
   addToCart: Scalars['Boolean'];
+  deleteProductFromCart: Scalars['Boolean'];
   addToNewsletter: Scalars['Boolean'];
   deleteFromNewsletter: Scalars['Boolean'];
   createCategory: Scalars['Boolean'];
@@ -188,6 +189,11 @@ export type MutationSignupArgs = {
 
 
 export type MutationAddToCartArgs = {
+  productId: Scalars['String'];
+};
+
+
+export type MutationDeleteProductFromCartArgs = {
   productId: Scalars['String'];
 };
 
@@ -306,6 +312,9 @@ export type Newsletter = {
 export type Product = {
   __typename?: 'Product';
   _id: Scalars['ObjectId'];
+  productImages: Array<Scalars['String']>;
+  categories: Array<Category>;
+  reviews?: Maybe<Array<Review>>;
   name: Scalars['String'];
   price: Scalars['Float'];
   description: Scalars['String'];
@@ -313,9 +322,6 @@ export type Product = {
   promotion: Scalars['Boolean'];
   status: Scalars['String'];
   productImageUrl?: Maybe<Scalars['String']>;
-  productImages: Array<Scalars['String']>;
-  categories: Array<Category>;
-  reviews?: Maybe<Array<Review>>;
 };
 
 export type ProductPagination = {
@@ -430,12 +436,12 @@ export type Reviews40 = {
 export type Sale = {
   __typename?: 'Sale';
   _id: Scalars['ObjectId'];
+  products: Array<Product>;
+  categories: Array<Category>;
   sale: Scalars['String'];
   startDate: Scalars['DateTime'];
   endDate: Scalars['DateTime'];
   discount: Scalars['Float'];
-  products: Array<Product>;
-  categories: Array<Category>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -751,6 +757,16 @@ export type AddToCartMutationVariables = Exact<{
 export type AddToCartMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'addToCart'>
+);
+
+export type DeleteProductFromCartMutationVariables = Exact<{
+  productId: Scalars['String'];
+}>;
+
+
+export type DeleteProductFromCartMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteProductFromCart'>
 );
 
 export type GetCartQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1807,6 +1823,37 @@ export function useAddToCartMutation(baseOptions?: Apollo.MutationHookOptions<Ad
 export type AddToCartMutationHookResult = ReturnType<typeof useAddToCartMutation>;
 export type AddToCartMutationResult = Apollo.MutationResult<AddToCartMutation>;
 export type AddToCartMutationOptions = Apollo.BaseMutationOptions<AddToCartMutation, AddToCartMutationVariables>;
+export const DeleteProductFromCartDocument = gql`
+    mutation DeleteProductFromCart($productId: String!) {
+  deleteProductFromCart(productId: $productId)
+}
+    `;
+export type DeleteProductFromCartMutationFn = Apollo.MutationFunction<DeleteProductFromCartMutation, DeleteProductFromCartMutationVariables>;
+
+/**
+ * __useDeleteProductFromCartMutation__
+ *
+ * To run a mutation, you first call `useDeleteProductFromCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProductFromCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProductFromCartMutation, { data, loading, error }] = useDeleteProductFromCartMutation({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useDeleteProductFromCartMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProductFromCartMutation, DeleteProductFromCartMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteProductFromCartMutation, DeleteProductFromCartMutationVariables>(DeleteProductFromCartDocument, options);
+      }
+export type DeleteProductFromCartMutationHookResult = ReturnType<typeof useDeleteProductFromCartMutation>;
+export type DeleteProductFromCartMutationResult = Apollo.MutationResult<DeleteProductFromCartMutation>;
+export type DeleteProductFromCartMutationOptions = Apollo.BaseMutationOptions<DeleteProductFromCartMutation, DeleteProductFromCartMutationVariables>;
 export const GetCartDocument = gql`
     query GetCart {
   getCart {

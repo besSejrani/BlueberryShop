@@ -1,8 +1,8 @@
 import React from "react";
 
-//Material-UI
+// Material-UI
 import { Box, Typography } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 // ========================================================================================================
 
 const PasswordConfirmation = () => {
@@ -22,7 +22,7 @@ export default PasswordConfirmation;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: "100vh",
@@ -31,5 +31,5 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

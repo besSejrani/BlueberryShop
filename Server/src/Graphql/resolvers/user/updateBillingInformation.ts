@@ -17,7 +17,7 @@ export class UpdateBillingInformationResolver {
   @UseMiddleware(authentication)
   async updateBillingInformation(
     @Arg("updateBillingInput") updateBillingInput: UpdateBilling,
-    @Ctx() context: MyContext
+    @Ctx() context: MyContext,
   ): Promise<User | null | undefined> {
     const user = await UserModel.findOne({ _id: context.req.userId });
 
@@ -32,7 +32,7 @@ export class UpdateBillingInformationResolver {
         // @ts-ignore: Object is possibly 'null'.
         billing: [{ ...user!.billing[0], ...updateBillingInput }],
       },
-      { new: true }
+      { new: true },
     );
 
     return update;

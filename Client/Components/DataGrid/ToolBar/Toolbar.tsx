@@ -9,24 +9,23 @@ import {
   GridFilterToolbarButton,
 } from "@material-ui/data-grid";
 
-//Icons
+// Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 
 // ========================================================================================================
 
-const Toolbar = () => {
-  return (
-    <>
-      <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
-        <GridColumnsToolbarButton />
-        <GridFilterToolbarButton />
-        <GridToolbarExport />
-        <Button size="small" startIcon={<DeleteIcon />}>
-          Delete
-        </Button>
-      </GridToolbarContainer>
-    </>
-  );
-};
+const Toolbar = () => (
+  <>
+    <GridToolbarContainer style={{ marginLeft: 10, height: 50 }}>
+      <GridColumnsToolbarButton />
+      <GridFilterToolbarButton />
+      <GridToolbarExport />
+      <Button size="small" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+    </GridToolbarContainer>
+  </>
+);
+
 
 export default Toolbar;

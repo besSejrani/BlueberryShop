@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Box, Typography, Button, Divider } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -22,9 +22,6 @@ import { useReactiveVar } from "@apollo/client";
 import { user } from "@Apollo/state/user/index";
 import { product } from "@Apollo/state/product/index";
 
-// SSR
-import withApollo from "@Apollo/ssr";
-
 // Guard
 import { withAuth } from "@Guard/withAuth";
 
@@ -32,7 +29,7 @@ import { withAuth } from "@Guard/withAuth";
 import PersonIcon from "@material-ui/icons/Person";
 import CreateIcon from "@material-ui/icons/Create";
 
-// ========================================================================================================
+// =================================================================================================
 
 const Account = () => {
   const classes = useStyles();
@@ -54,7 +51,7 @@ const Account = () => {
   }, [data]);
 
   // Form
-  const { register, errors, handleSubmit, control } = useForm({
+  const { register, errors, handleSubmit } = useForm({
     criteriaMode: "all",
   });
 
@@ -85,7 +82,7 @@ const Account = () => {
 
         <Box className={classes.profileImage}>
           {user().profileImageUrl ? (
-            <img src={user().profileImageUrl} className={classes.profileImage} />
+            <img src={user().profileImageUrl} className={classes.profileImage} alt="" />
           ) : (
             <PersonIcon
               style={{
@@ -150,9 +147,9 @@ const Account = () => {
 
 export default withAuth(Account);
 
-// ========================================================================================================
+// =================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     profileImage: {
       position: "relative",
@@ -177,5 +174,5 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       margin: "50px 0px",
     },
-  })
+  }),
 );

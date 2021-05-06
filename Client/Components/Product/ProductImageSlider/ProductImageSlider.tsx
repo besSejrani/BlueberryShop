@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Material-UI
 import theme from "../../../Layout/Theme";
 import { Button, Card, MobileStepper, CardActionArea } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Icons
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
@@ -89,7 +89,7 @@ export default ProductSlider;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     area: {
       display: "flex",

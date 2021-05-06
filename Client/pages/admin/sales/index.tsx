@@ -1,12 +1,9 @@
 import React from "react";
 
-// Next
-import { useRouter } from "next/router";
-
 // Material-UI
 import { Box, Button, Paper } from "@material-ui/core";
 import { GridCellParams } from "@material-ui/data-grid";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // Components
 import DataGrid from "@Components/DataGrid/DataGrid";
@@ -19,7 +16,7 @@ import useToast from "@Hook/useToast";
 // Moment
 import moment from "moment";
 
-//Apollo
+// Apollo
 import { ui } from "@Apollo/state/ui/index";
 import { useGetSalesQuery, useDeleteSaleMutation, GetSalesDocument, GetSalesQuery } from "@Graphql/index";
 
@@ -33,7 +30,6 @@ import { withAuth } from "@Guard/withAuth";
 
 const Products = () => {
   const classes = useStyles();
-  const router = useRouter();
 
   // GraphQL
   const { data, loading } = useGetSalesQuery();
@@ -91,8 +87,8 @@ const Products = () => {
       field: "discount",
       headerName: "Discount",
       flex: 0.4,
-      renderCell: (params: GridCellParams) => {
-        const discount = params.row.discount;
+      renderCell: ({ row }: GridCellParams) => {
+        const { discount } = row;
 
         if (discount <= 20) {
           return (
@@ -102,7 +98,7 @@ const Products = () => {
               size="small"
               style={{ borderRadius: 20, color: "#2196f3", borderColor: "#2196f3" }}
             >
-              {params.row.discount} %
+              {row.discount} %
             </Button>
           );
         }
@@ -115,7 +111,7 @@ const Products = () => {
               size="small"
               style={{ borderRadius: 20, color: "#f57c00", borderColor: "#f57c00" }}
             >
-              {params.row.discount} %
+              {row.discount} %
             </Button>
           );
         }
@@ -128,7 +124,7 @@ const Products = () => {
               size="small"
               style={{ borderRadius: 20, color: "#ff0000", borderColor: "#ff0000" }}
             >
-              {params.row.discount} %
+              {row.discount} %
             </Button>
           );
         }
@@ -148,17 +144,15 @@ const Products = () => {
     },
   ];
 
-  const rows = data?.getSales?.map((product) => {
-    return {
-      id: product._id,
-      name: product.sale,
-      start: moment(product.startDate).format("DD.MM.yyyy HH:mm"),
-      end: moment(product.endDate).format("DD.MM.yyyy HH:mm"),
-      createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
-      discount: product.discount,
-      actions: "",
-    };
-  });
+  const rows = data?.getSales?.map((product) => ({
+    id: product._id,
+    name: product.sale,
+    start: moment(product.startDate).format("DD.MM.yyyy HH:mm"),
+    end: moment(product.endDate).format("DD.MM.yyyy HH:mm"),
+    createdAt: moment(product.createdAt).format("DD.MM.yyyy HH:mm"),
+    discount: product.discount,
+    actions: "",
+  }));
 
   return (
     <Box className={classes.root}>
@@ -177,11 +171,11 @@ export default withApollo({ ssr: true })(withAuth(Products));
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       justifyContent: "center",
       alignItems: "center",
     },
-  })
+  }),
 );

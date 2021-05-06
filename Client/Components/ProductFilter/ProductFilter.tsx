@@ -2,8 +2,8 @@ import React from "react";
 
 // Material-Ui
 import { Box, Paper, TextField, Typography, Checkbox, FormControlLabel } from "@material-ui/core";
-import { Skeleton, Rating } from "@material-ui/lab";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Rating } from "@material-ui/lab";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const ProductFilter = () => {
   const classes = useStyles();
@@ -127,7 +127,7 @@ const ProductFilter = () => {
 export default ProductFilter;
 
 // =================================================================
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     category: {
       position: "sticky",
@@ -153,5 +153,5 @@ const useStyles = makeStyles((theme: Theme) =>
     label: {
       fontSize: "0.9rem",
     },
-  })
+  }),
 );

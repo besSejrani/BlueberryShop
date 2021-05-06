@@ -2,7 +2,7 @@ import React from "react";
 
 // Material-UI
 import { Card } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // MDX
 import MDXProvider from "@mdx-js/runtime";
@@ -30,7 +30,7 @@ export default MarkdownPreview;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     cardPreview: {
       height: "660px",
@@ -56,5 +56,5 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100%",
     },
-  })
+  }),
 );
