@@ -34,9 +34,6 @@
 </a>
 </div>
 
-# Documentation
-
-[Google Doc](https://docs.google.com/document/d/1AMvA4kfWDmtYyRRf82kJECiWAPGyYOuv52SHW4-XSzg/edit?usp=sharing)
 
 # Technical Documentation
 
