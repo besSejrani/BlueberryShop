@@ -29,10 +29,10 @@ import CartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 
 // Apollo State
-import { ui } from "../Apollo/state/ui/index";
+import { ui } from "@Apollo/state/ui/index";
 
 // Icons
-import PersonIcon from "@material-ui/icons/Person";
+// import PersonIcon from "@material-ui/icons/Person";
 
 // ========================================================================================================
 
@@ -128,17 +128,6 @@ const Header = () => {
                   </StyledBadge>
                 </IconButton>
 
-                <IconButton>
-                  <PersonIcon
-                    style={{
-                      color: "white",
-                      borderRadius: 90,
-                      fontSize: "25px",
-                      backgroundColor: "grey",
-                      padding: "3px",
-                    }}
-                  />
-                </IconButton>
                 <Link href="/register" passHref>
                   <Button color="inherit">Login</Button>
                 </Link>

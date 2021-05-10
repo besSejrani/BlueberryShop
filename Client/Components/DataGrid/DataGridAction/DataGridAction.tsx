@@ -13,7 +13,7 @@ import ModifyIcon from "@material-ui/icons/Create";
 // ========================================================================================================
 
 interface DataGridActionType {
-  handleClickOpen: Function;
+  handleClickOpen: () => void;
   path?: string;
   deleteOnly?: boolean;
 }

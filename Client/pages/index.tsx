@@ -41,6 +41,6 @@ const Home: React.FC = () => {
 //   };
 // }
 
-export default withApollo({ ssr: true })(withNoAuth(Home));
+export default withApollo({ ssr: false })(withNoAuth(Home));
 
 // =================================================================

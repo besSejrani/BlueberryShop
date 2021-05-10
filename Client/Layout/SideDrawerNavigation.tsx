@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-//Icons
+// Icons
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingIcon from "@material-ui/icons/ShoppingCart";
 import QueueIcon from "@material-ui/icons/Queue";
@@ -14,13 +14,13 @@ import GithubIcon from "@material-ui/icons/GitHub";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
-import { ui } from "../Apollo/state/ui/index";
+import { ui } from "@Apollo/state/ui/index";
 
 // ========================================================================================================
 
 type Anchor = "left";
 
-const SideDrawer: React.FC<any> = () => {
+const SideDrawer: React.FC = () => {
   const classes = useStyles();
 
   const changeSideBar = () => {
@@ -62,7 +62,7 @@ const SideDrawer: React.FC<any> = () => {
       <Divider />
 
       <List subheader={<ListSubheader>Project</ListSubheader>}>
-        <a href="https://bessejrani.github.io/BlueberryShop/" target="_blank">
+        <a href="https://bessejrani.github.io/BlueberryShop/" target="_blank" rel="noreferrer">
           <ListItem button>
             <ListItemIcon>
               <DocumentationIcon />
@@ -71,7 +71,7 @@ const SideDrawer: React.FC<any> = () => {
           </ListItem>
         </a>
 
-        <a href="https://github.com/besSejrani/BlueberryShop" target="_blank">
+        <a href="https://github.com/besSejrani/BlueberryShop" target="_blank" rel="noreferrer">
           <ListItem button>
             <ListItemIcon>
               <GithubIcon />

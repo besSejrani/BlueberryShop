@@ -58,6 +58,9 @@ const CreateProductAdmin = () => {
           query: GetArticleCategoriesDocument,
         });
 
+        console.log("newArticle", newArticleCategory);
+        console.log("articles", getArticleCategories);
+
         cache.writeQuery({
           query: GetArticleCategoriesDocument,
           data: {

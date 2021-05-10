@@ -190,5 +190,5 @@ const useStyles = makeStyles(() =>
         background: "none",
       },
     },
-  })
+  }),
 );

@@ -28,12 +28,8 @@ const Theme: React.FC<any> = (props) => {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
-export const withTheme = (Component) => {
-  return (props) => {
-    return (
-      <Theme>
-        <Component {...props} />
-      </Theme>
-    );
-  };
-};
+export const withTheme = (Component) => (props) => (
+  <Theme>
+    <Component {...props} />
+  </Theme>
+);

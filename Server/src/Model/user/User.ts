@@ -79,7 +79,8 @@ export class User {
    * @description Compare hashed passwords
    */
   public async comparePasswords(candidatePassword: string, userPassword: string): Promise<boolean> {
-    return await bcrypt.compare(candidatePassword, userPassword);
+    const comparison = await bcrypt.compare(candidatePassword, userPassword);
+    return comparison;
   }
 
   // ========================================================================================================

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 
 // Material-UI
 import { Card, Box, Button, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
@@ -62,7 +62,7 @@ const SignUp = () => {
           width={700}
           height={520}
           className={classes.media}
-          src={"/Water24.webp"}
+          src="/Water24.webp"
           // title={product.title}
         />
 
@@ -183,5 +183,5 @@ const useStyles = makeStyles(() =>
 
       marginTop: "30px",
     },
-  })
+  }),
 );

@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 
-//Material-UI
+// Material-UI
 import { Button, Container, makeStyles } from "@material-ui/core";
-
-// Components
-import Card from "../Product/ProductCard/ProductCard";
 
 // Apollo
 import { useGetProductsQuery } from "@Graphql/index";
+
+// Components
+import Card from "../Product/ProductCard/ProductCard";
 
 // ========================================================================================================
 

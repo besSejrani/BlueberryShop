@@ -13,7 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 
 // GraphQL
-import { useAddToCartMutation } from "@Graphql/index";
+import { useAddToCartMutation, GetCartDocument, GetCartQuery } from "@Graphql/index";
 
 // ========================================================================================================
 
@@ -35,13 +35,28 @@ const Product: React.FC<IProduct> = ({ product }, loading: boolean) => {
   // GraphQL
   const [addToCart] = useAddToCartMutation();
 
-  // image
   // Options: { src, width, quality }
   const myLoader = () => product.productImages[0] || "/images/unknownProduct.png";
 
   // Event
   const addProductToCart = async (id) => {
-    await addToCart({ variables: { productId: id } });
+    await addToCart({
+      variables: { productId: id },
+      update(cache, { data }) {
+        const newProduct = data?.addToCart;
+
+        const { getCart }: GetCartQuery = cache.readQuery({
+          query: GetCartDocument,
+        });
+
+        cache.writeQuery({
+          query: GetCartDocument,
+          data: {
+            getCart: [...getCart.cart, newProduct],
+          },
+        });
+      },
+    });
   };
 
   return (

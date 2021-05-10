@@ -28,6 +28,9 @@ declare namespace NodeJS {
     AMAZON_KEY_ID: string;
     AMAZON_SECRET_ACCESS_KEY: string;
 
+    STRIPE_PUBLIC_TEST_KEY: string;
+    STRIPE_PRIVATE_TEST_KEY: string;
+
     LOG_LEVEL_PPRODUCTION: string;
     LOG_LEVEL_DEVELOPMENT: string;
 

@@ -31,7 +31,9 @@ const Layout = ({ children }) => {
       {admin.role === "admin" ? (
         <>
           <AdminHeader />
+
           <div style={{ padding: "120px 20px 0px 260px" }}>{children}</div>
+
           <AdminSideBar />
           <SideDrawerCart />
           <ConfirmationDialog />
@@ -42,7 +44,7 @@ const Layout = ({ children }) => {
           <Header />
 
           <SideDrawerNavigation />
-          <SideDrawerCart />
+          {/* <SideDrawerCart /> */}
           {children}
 
           <ConfirmationDialog />

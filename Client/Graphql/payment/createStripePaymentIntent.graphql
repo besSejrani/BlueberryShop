@@ -1,0 +1,3 @@
+mutation CreateStripePaymentIntent($amount: Float!) {
+  createStripePaymentIntent(stripePaymentIntent: { amount: $amount })
+}

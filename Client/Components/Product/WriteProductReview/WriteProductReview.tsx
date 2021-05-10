@@ -108,7 +108,7 @@ const WriteReview = () => {
             id="review"
             label="Review"
             multiline
-            rowsMax={"4"}
+            rowsMax="4"
             inputRef={register({
               required: "This field is required",
               minLength: { value: 20, message: "The product description should contain minimum 20 characters" },
@@ -144,5 +144,5 @@ const useStyles = makeStyles(() =>
     formReview: {
       margin: "0px 0px 20px 0px",
     },
-  })
+  }),
 );

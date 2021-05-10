@@ -12,9 +12,6 @@ import { useForm } from "react-hook-form";
 import { Card, Box, Button, Typography } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
-// Components
-import InputForm from "../../Form/InputForm/InputForm";
-
 // Hooks
 import useToast from "@Hook/useToast";
 
@@ -28,6 +25,9 @@ import { useSigninMutation, GetCurrentUserDocument, GetCurrentUserQuery } from "
 
 // Apollo State
 import { user } from "@Apollo/state/user/index";
+
+// Components
+import InputForm from "../../Form/InputForm/InputForm";
 
 // ========================================================================================================
 
@@ -76,7 +76,7 @@ const SignIn = () => {
   return (
     <Box>
       <Card elevation={0} className={classes.signin}>
-        <Image className={classes.media} width={790} height={520} src={"/Sand2.webp"} />
+        <Image className={classes.media} width={790} height={520} src="/Sand2.webp" />
 
         <Box className={classes.content}>
           <Box>
@@ -92,7 +92,7 @@ const SignIn = () => {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "white" }}
-                  startIcon={<img src="/google.svg" width="20" />}
+                  startIcon={<img src="/google.svg" width="20" alt="" />}
                 >
                   Google
                 </Button>
@@ -200,5 +200,5 @@ const useStyles = makeStyles(() =>
 
       marginTop: "30px",
     },
-  })
+  }),
 );

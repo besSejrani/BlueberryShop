@@ -121,6 +121,7 @@ export type Mutation = {
   deleteProductFromCart: Scalars['Boolean'];
   addToNewsletter: Scalars['Boolean'];
   deleteFromNewsletter: Scalars['Boolean'];
+  createStripePaymentIntent?: Maybe<Scalars['String']>;
   createCategory: Scalars['Boolean'];
   deleteCategory: Scalars['Boolean'];
   updateCategory: Category;
@@ -205,6 +206,11 @@ export type MutationAddToNewsletterArgs = {
 
 export type MutationDeleteFromNewsletterArgs = {
   newsletterId: Scalars['String'];
+};
+
+
+export type MutationCreateStripePaymentIntentArgs = {
+  stripePaymentIntent: StripePaymentIntent;
 };
 
 
@@ -471,6 +477,10 @@ export enum Status {
   /** The other left */
   Archived = 'ARCHIVED'
 }
+
+export type StripePaymentIntent = {
+  amount: Scalars['Float'];
+};
 
 export type UpdateArticleCategoryInput = {
   articleCategoryId?: Maybe<Scalars['String']>;
@@ -870,6 +880,16 @@ export type GetNewslettersQuery = (
     { __typename?: 'Newsletter' }
     & Pick<Newsletter, '_id' | 'email'>
   )>> }
+);
+
+export type CreateStripePaymentIntentMutationVariables = Exact<{
+  amount: Scalars['Float'];
+}>;
+
+
+export type CreateStripePaymentIntentMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createStripePaymentIntent'>
 );
 
 export type CreateProductMutationVariables = Exact<{
@@ -2160,6 +2180,37 @@ export function useGetNewslettersLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetNewslettersQueryHookResult = ReturnType<typeof useGetNewslettersQuery>;
 export type GetNewslettersLazyQueryHookResult = ReturnType<typeof useGetNewslettersLazyQuery>;
 export type GetNewslettersQueryResult = Apollo.QueryResult<GetNewslettersQuery, GetNewslettersQueryVariables>;
+export const CreateStripePaymentIntentDocument = gql`
+    mutation CreateStripePaymentIntent($amount: Float!) {
+  createStripePaymentIntent(stripePaymentIntent: {amount: $amount})
+}
+    `;
+export type CreateStripePaymentIntentMutationFn = Apollo.MutationFunction<CreateStripePaymentIntentMutation, CreateStripePaymentIntentMutationVariables>;
+
+/**
+ * __useCreateStripePaymentIntentMutation__
+ *
+ * To run a mutation, you first call `useCreateStripePaymentIntentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStripePaymentIntentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStripePaymentIntentMutation, { data, loading, error }] = useCreateStripePaymentIntentMutation({
+ *   variables: {
+ *      amount: // value for 'amount'
+ *   },
+ * });
+ */
+export function useCreateStripePaymentIntentMutation(baseOptions?: Apollo.MutationHookOptions<CreateStripePaymentIntentMutation, CreateStripePaymentIntentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateStripePaymentIntentMutation, CreateStripePaymentIntentMutationVariables>(CreateStripePaymentIntentDocument, options);
+      }
+export type CreateStripePaymentIntentMutationHookResult = ReturnType<typeof useCreateStripePaymentIntentMutation>;
+export type CreateStripePaymentIntentMutationResult = Apollo.MutationResult<CreateStripePaymentIntentMutation>;
+export type CreateStripePaymentIntentMutationOptions = Apollo.BaseMutationOptions<CreateStripePaymentIntentMutation, CreateStripePaymentIntentMutationVariables>;
 export const CreateProductDocument = gql`
     mutation CreateProduct($name: String!, $price: String!, $description: String!, $stock: String!, $category: String!, $picture: [Upload!]!, $status: Status!, $promotion: Boolean!) {
   createProduct(

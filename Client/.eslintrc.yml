@@ -29,6 +29,8 @@ rules: {
   "no-underscore-dangle": 0,
   "max-len": [2, 120, 4],
   "radix": 0,
+  "object-curly-newline": 0,
+  "import/no-unresolved": 0,
 
 
   # # React Typescript

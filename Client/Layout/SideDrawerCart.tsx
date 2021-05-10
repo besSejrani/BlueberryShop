@@ -14,7 +14,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
 
 // GraphQL
-import { useGetCartQuery, useDeleteProductFromCartMutation } from "@Graphql/index";
+import {
+  useGetCartQuery,
+  GetCartDocument,
+  GetCartQuery,
+  useDeleteProductFromCartMutation,
+  DeleteProductFromCartDocument,
+} from "@Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
@@ -33,11 +39,27 @@ const SideDrawerCart: React.FC = () => {
   const classes = useStyles();
 
   // GraphQL
-  const { data } = useGetCartQuery();
+  const { data, loading } = useGetCartQuery();
   const [deleteProductFromCart] = useDeleteProductFromCartMutation();
 
   const deleteProductCart = async (id) => {
-    await deleteProductFromCart({ variables: { productId: id } });
+    await deleteProductFromCart({
+      variables: { productId: id },
+      update(cache, { data }) {
+        const { getCart }: GetCartQuery = cache.readQuery({
+          query: GetCartDocument,
+        });
+
+        const newProducts = getCart.cart.filter((product) => product !== data.deleteProductFromCart);
+
+        cache.writeQuery({
+          query: GetCartDocument,
+          data: {
+            getCart: { newProducts },
+          },
+        });
+      },
+    });
   };
 
   // Hook
@@ -47,6 +69,8 @@ const SideDrawerCart: React.FC = () => {
     ui({ isCartOpen: false });
   };
   const cart = useReactiveVar(ui);
+
+  if (loading) return <div>loading...</div>;
 
   const list = (anchor: Anchor) => (
     <div className={classes.list}>
@@ -99,13 +123,14 @@ const SideDrawerCart: React.FC = () => {
         </div>
 
         <Divider />
-        <Link href="/checkout" passHref>
+        <Link href="/admin/checkout" passHref>
           <Button variant="contained" size="large" color="secondary" className={classes.checkout}>
             Checkout
           </Button>
         </Link>
 
         <Button
+          disabled
           variant="outlined"
           size="large"
           color="primary"

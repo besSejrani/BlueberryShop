@@ -42,7 +42,7 @@ import { withNoAuth } from "@Guard/withNoAuth";
 
 // ========================================================================================================
 
-const SingleProduct = (props) => {
+const SingleProduct = () => {
   const classes = useStyles();
   const router = useRouter();
   const { query } = router;
@@ -167,7 +167,7 @@ const SingleProduct = (props) => {
           <Box className={classes.social}>
             <Typography variant="h5">Share On Social Media</Typography>
 
-            <IconButton edge={"start"}>
+            <IconButton edge="start">
               <FacebookIcon style={{ fontSize: "2rem" }} />
             </IconButton>
             <IconButton>

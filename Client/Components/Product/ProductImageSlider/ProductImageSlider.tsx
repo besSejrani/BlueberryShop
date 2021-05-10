@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 // Material-UI
-import theme from "../../../Layout/Theme";
 import { Button, Card, MobileStepper, CardActionArea } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
@@ -13,6 +12,8 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 
+// Theme
+import theme from "../../../Layout/Theme";
 // ========================================================================================================
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -23,7 +24,7 @@ const ProductSlider = ({ product }) => {
   // State
   const [activeStep, setActiveStep] = useState(0);
 
-  let maxSteps = product?.productImages.length;
+  const maxSteps = product?.productImages.length;
 
   // Events
   const handleNext = () => {
@@ -50,13 +51,11 @@ const ProductSlider = ({ product }) => {
             enableMouseEvents
             style={{ width: "100%" }}
           >
-            {product?.productImages.map((product, index) => {
-              return (
-                <CardActionArea key={index} className={classes.area} disableRipple>
-                  <img width={520} height={350} src={`${product}`} title={product.title} alt={product.label} />
-                </CardActionArea>
-              );
-            })}
+            {product?.productImages.map((product, index) => (
+              <CardActionArea key={index} className={classes.area} disableRipple>
+                <img width={520} height={350} src={`${product}`} title={product.title} alt={product.label} />
+              </CardActionArea>
+            ))}
           </AutoPlaySwipeableViews>
           <MobileStepper
             style={{ background: "none" }}
@@ -97,5 +96,5 @@ const useStyles = makeStyles(() =>
       height: "100%",
       width: "100%",
     },
-  })
+  }),
 );

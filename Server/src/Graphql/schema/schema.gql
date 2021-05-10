@@ -99,6 +99,7 @@ type Mutation {
   createProduct(input: CreateProductInput!, picture: [Upload!]!): Product!
   createProductReview(productId: String!, reviewInput: CreateReviewInput!): Product!
   createSale(saleInput: CreateSaleInput!): Boolean!
+  createStripePaymentIntent(stripePaymentIntent: StripePaymentIntent!): String
   deleteArticle(articleId: String!): Boolean!
   deleteArticleCategory(articleCategoryId: String!): Boolean!
   deleteCategory(categoryId: String!): Boolean!
@@ -241,6 +242,10 @@ enum Status {
   ARCHIVED
   DRAFT
   PUBLISHED
+}
+
+input StripePaymentIntent {
+  amount: Float!
 }
 
 input UpdateArticleCategoryInput {

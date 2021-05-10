@@ -58,5 +58,5 @@ const useStyles = makeStyles(() =>
       alignItems: "center",
       margin: "0px 0px 50px 0px",
     },
-  })
+  }),
 );

@@ -8,15 +8,24 @@ import "../App/highlight.css";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 
+// Apollo State
+import { user } from "@Apollo/state/user/index";
+
 // Layout
 import Layout from "../Layout/index";
 
-// Apollo State
-import { user } from "../Apollo/state/user/index";
+// SSR
+import withApollo from "@Apollo/ssr";
+
+// Stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 // ========================================================================================================
 
 const App = ({ Component, pageProps }) => {
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_KEY);
+
   if (pageProps?.user) {
     user({
       _id: pageProps?.user?._id,
@@ -41,10 +50,12 @@ const App = ({ Component, pageProps }) => {
   return (
     <Layout {...pageProps}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Component {...pageProps} />
+        <Elements stripe={stripePromise}>
+          <Component {...pageProps} />
+        </Elements>
       </MuiPickersUtilsProvider>
     </Layout>
   );
 };
 
-export default App;
+export default withApollo({ ssr: false })(App);

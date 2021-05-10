@@ -12,6 +12,7 @@ import { makeStyles, createStyles, Theme, withStyles } from "@material-ui/core/s
 // Icons
 import PersonIcon from "@material-ui/icons/Person";
 import CartIcon from "@material-ui/icons/ShoppingCart";
+import SearchIcon from "@material-ui/icons/Search";
 
 // GraphQL
 import { LogoutDocument } from "@Graphql/index";
@@ -34,8 +35,6 @@ const AdminHeader = () => {
   const changeCart = () => {
     ui({ ...ui(), isCartOpen: true });
   };
-
-  console.log(ui().isCartOpen);
 
   const Logout = async () => {
     // Delete Cookie
@@ -92,7 +91,20 @@ const AdminHeader = () => {
         </Box>
 
         <Box className={classes.user}>
-          <Typography variant="body2">hi {data.username}</Typography>
+          <IconButton color="inherit">
+            <SearchIcon className="nav-icon" />
+          </IconButton>
+
+          <IconButton color="inherit" onClick={changeCart}>
+            <StyledBadge
+              // badgeContent={selectProducts}
+              color="secondary"
+              overlap="circle"
+            >
+              <CartIcon className="nav-icon" />
+            </StyledBadge>
+          </IconButton>
+
           <Link href="/account">
             {data.profileImageUrl ? (
               <img src={data.profileImageUrl} className={classes.profileImage} alt="" />
@@ -110,18 +122,6 @@ const AdminHeader = () => {
               </IconButton>
             )}
           </Link>
-
-          {/* <Link href="/cart"> */}
-          <IconButton color="inherit" onClick={changeCart}>
-            <StyledBadge
-              // badgeContent={selectProducts}
-              color="secondary"
-              overlap="circle"
-            >
-              <CartIcon className="nav-icon" />
-            </StyledBadge>
-          </IconButton>
-          {/* </Link> */}
 
           <Button style={{ color: "white" }} onClick={Logout}>
             Logout

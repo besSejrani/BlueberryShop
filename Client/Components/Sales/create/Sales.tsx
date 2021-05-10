@@ -81,5 +81,5 @@ const useStyles = makeStyles(() =>
     tab: {
       minWidth: "50%",
     },
-  })
+  }),
 );

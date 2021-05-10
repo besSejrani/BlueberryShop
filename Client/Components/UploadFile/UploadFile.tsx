@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { Box, Button } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
-//Material-UI Dropzone
+// Material-UI Dropzone
 import { DropzoneDialog } from "material-ui-dropzone";
 
 // Apollo State
-import { product } from "../../Apollo/state/product/index";
+import { product } from "@Apollo/state/product/index";
 
 // ========================================================================================================
 
@@ -81,5 +81,5 @@ const useStyles = makeStyles(() =>
       height: "75px",
       width: "75px",
     },
-  })
+  }),
 );

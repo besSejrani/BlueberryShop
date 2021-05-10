@@ -4,6 +4,7 @@ import { MyContext } from "src/Graphql/types/MyContext";
 
 // Database
 import { User, UserModel } from "@Model/user/User";
+import { ProductModel } from "@Model/Product";
 
 // Middleware
 import { authentication } from "@Middleware/authentication";
@@ -23,11 +24,9 @@ export class GetCartResolver {
       path: "cart",
       populate: {
         path: "products",
-        model: "products",
+        model: ProductModel,
       },
     });
-
-    console.log(cart);
 
     return cart;
   }

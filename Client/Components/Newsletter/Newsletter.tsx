@@ -43,7 +43,7 @@ const Newsletter = () => {
 
         <ErrorMessage
           errors={errors}
-          name={"email"}
+          name="email"
           as={<Typography style={{ color: "white", margin: "5px 0px 0px 3px" }} variant="body2" />}
         >
           {({ messages }) => messages && Object.entries(messages).map(([type, message]) => <p key={type}>{message}</p>)}

@@ -181,7 +181,7 @@ const ModifyProductAdmin = () => {
               id="productDescription"
               label="Description"
               multiline
-              rowsMax={"4"}
+              rowsMax="4"
               inputRef={register({
                 required: "This field is required",
                 minLength: { value: 20, message: "The product description should contain minimum 20 characters" },

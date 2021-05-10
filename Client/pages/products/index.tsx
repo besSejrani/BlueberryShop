@@ -55,9 +55,9 @@ const Products = () => {
         <Box className={classes.search}>
           <TextField fullWidth id="search product" label="Search Product" variant="outlined" />
           <Select id="search match" labelId="demo-simple-select-label" value="Best Match" variant="outlined">
-            <MenuItem value={"Best Match"}>Best Match</MenuItem>
-            <MenuItem value={"Ascending Price"}>Ascending Price</MenuItem>
-            <MenuItem value={"Descending Price"}>Descending Price</MenuItem>
+            <MenuItem value="Best Match">Best Match</MenuItem>
+            <MenuItem value="Ascending Price">Ascending Price</MenuItem>
+            <MenuItem value="Descending Price">Descending Price</MenuItem>
           </Select>
         </Box>
       </form>

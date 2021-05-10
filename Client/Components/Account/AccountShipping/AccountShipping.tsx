@@ -36,10 +36,10 @@ const AccountShipping = () => {
   const [shippingZip, setShippingZip] = useState<number>();
 
   useEffect(() => {
-    setShippingAddress(currentUser.getCurrentUser.shipping[0].address);
-    setShippingCountry(currentUser.getCurrentUser.shipping[0].country);
-    setShippingCity(currentUser.getCurrentUser.shipping[0].city);
-    setShippingZip(currentUser.getCurrentUser.shipping[0].zip);
+    setShippingAddress(currentUser?.getCurrentUser?.shipping[0].address);
+    setShippingCountry(currentUser?.getCurrentUser?.shipping[0].country);
+    setShippingCity(currentUser?.getCurrentUser?.shipping[0].city);
+    setShippingZip(currentUser?.getCurrentUser?.shipping[0].zip);
   }, [data]);
 
   // Form

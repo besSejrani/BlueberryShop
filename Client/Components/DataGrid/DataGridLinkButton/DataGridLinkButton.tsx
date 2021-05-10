@@ -26,5 +26,4 @@ const DataGridLinkButton: React.FC<DataGridLinkButtonType> = ({ path, text }) =>
   </Link>
 );
 
-
 export default DataGridLinkButton;
