@@ -3,7 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/admin/checkout": "pages/admin/checkout.js",
-  "/admin/checkout/payment": "pages/admin/checkout/payment.js",
-  "/admin/checkout/done": "pages/admin/checkout/done.js",
-  "/products": "pages/products.js"
+  "/admin/checkout/payment": "pages/admin/checkout/payment.js"
 }

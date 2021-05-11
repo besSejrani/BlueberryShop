@@ -1,3 +1,17 @@
-mutation CreateStripePaymentIntent($amount: Float!) {
-  createStripePaymentIntent(stripePaymentIntent: { amount: $amount })
+mutation CreateStripePaymentIntent(
+  $amount: Float!
+  $shippingCountry: String!
+  $shippingAddress: String!
+  $shippingCity: String!
+  $shippingZip: String!
+) {
+  createStripePaymentIntent(
+    stripePaymentIntent: {
+      amount: $amount
+      shippingCountry: $shippingCountry
+      shippingAddress: $shippingAddress
+      shippingCity: $shippingCity
+      shippingZip: $shippingZip
+    }
+  )
 }

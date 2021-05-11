@@ -13,6 +13,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
 import DropDownCountries from "@Components/Form/DropDownCountries/DropDown";
+import MultiStep from "@Components/Form/MultiStep/MultiStep";
 
 // Hook
 import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
@@ -49,6 +50,7 @@ const CheckoutShipping = () => {
   const [shippingCity, setShippingCity] = useState<string>("");
   const [shippingZip, setShippingZip] = useState<string>("");
 
+  // Hook
   const { cartTotal } = useCalculateCartTotal(data?.getCart?.cart);
 
   // Form
@@ -67,7 +69,7 @@ const CheckoutShipping = () => {
 
   return (
     <Paper elevation={3} className={classes.root}>
-      <Typography variant="h5">Checkout</Typography>
+      <MultiStep first="Shipping" second="Billing" third="Done" />
 
       <Box className={classes.layout}>
         <Box className={classes.overview}>
@@ -171,7 +173,7 @@ const CheckoutShipping = () => {
 
               <InputForm
                 type="number"
-                label="Zip"
+                label="Zip Code"
                 name="shippingZip"
                 id="shippingZip"
                 inputRef={register({

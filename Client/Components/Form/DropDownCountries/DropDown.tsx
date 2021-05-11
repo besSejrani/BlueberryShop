@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Material-UI
-import { Box, Select, MenuItem } from "@material-ui/core";
+import { Select, MenuItem } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Data
@@ -11,6 +11,9 @@ import countries from "./countries.json";
 
 const DropDown = ({ id, name, value, onChange }) => {
   const classes = useStyles();
+
+  // State
+  const [selectCountry, setSelectCountry] = useState("");
 
   return (
     <Select
@@ -27,11 +30,13 @@ const DropDown = ({ id, name, value, onChange }) => {
           return <em>Select Country</em>;
         }
 
-        return value;
+        return selectCountry;
       }}
     >
       {countries.map((country) => (
-        <MenuItem value={country.Name}>{country.Name}</MenuItem>
+        <MenuItem value={country.Code} onClick={() => setSelectCountry(country.Name)}>
+          {country.Name}
+        </MenuItem>
       ))}
     </Select>
   );

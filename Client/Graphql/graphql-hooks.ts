@@ -210,7 +210,7 @@ export type MutationDeleteFromNewsletterArgs = {
 
 
 export type MutationCreateStripePaymentIntentArgs = {
-  stripePaymentIntent: StripePaymentIntent;
+  stripePaymentIntent: StripePaymentIntentInput;
 };
 
 
@@ -478,8 +478,12 @@ export enum Status {
   Archived = 'ARCHIVED'
 }
 
-export type StripePaymentIntent = {
+export type StripePaymentIntentInput = {
   amount: Scalars['Float'];
+  shippingCountry: Scalars['String'];
+  shippingAddress: Scalars['String'];
+  shippingCity: Scalars['String'];
+  shippingZip: Scalars['String'];
 };
 
 export type UpdateArticleCategoryInput = {
@@ -884,6 +888,10 @@ export type GetNewslettersQuery = (
 
 export type CreateStripePaymentIntentMutationVariables = Exact<{
   amount: Scalars['Float'];
+  shippingCountry: Scalars['String'];
+  shippingAddress: Scalars['String'];
+  shippingCity: Scalars['String'];
+  shippingZip: Scalars['String'];
 }>;
 
 
@@ -2181,8 +2189,10 @@ export type GetNewslettersQueryHookResult = ReturnType<typeof useGetNewslettersQ
 export type GetNewslettersLazyQueryHookResult = ReturnType<typeof useGetNewslettersLazyQuery>;
 export type GetNewslettersQueryResult = Apollo.QueryResult<GetNewslettersQuery, GetNewslettersQueryVariables>;
 export const CreateStripePaymentIntentDocument = gql`
-    mutation CreateStripePaymentIntent($amount: Float!) {
-  createStripePaymentIntent(stripePaymentIntent: {amount: $amount})
+    mutation CreateStripePaymentIntent($amount: Float!, $shippingCountry: String!, $shippingAddress: String!, $shippingCity: String!, $shippingZip: String!) {
+  createStripePaymentIntent(
+    stripePaymentIntent: {amount: $amount, shippingCountry: $shippingCountry, shippingAddress: $shippingAddress, shippingCity: $shippingCity, shippingZip: $shippingZip}
+  )
 }
     `;
 export type CreateStripePaymentIntentMutationFn = Apollo.MutationFunction<CreateStripePaymentIntentMutation, CreateStripePaymentIntentMutationVariables>;
@@ -2201,6 +2211,10 @@ export type CreateStripePaymentIntentMutationFn = Apollo.MutationFunction<Create
  * const [createStripePaymentIntentMutation, { data, loading, error }] = useCreateStripePaymentIntentMutation({
  *   variables: {
  *      amount: // value for 'amount'
+ *      shippingCountry: // value for 'shippingCountry'
+ *      shippingAddress: // value for 'shippingAddress'
+ *      shippingCity: // value for 'shippingCity'
+ *      shippingZip: // value for 'shippingZip'
  *   },
  * });
  */

@@ -7,13 +7,23 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 // Material-UI
-import { Paper, Box, Typography, Button, Divider } from "@material-ui/core";
+import {
+  Paper,
+  Box,
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
 import InputForm from "@Components/Form/InputForm/InputForm";
 import DropDownCountries from "@Components/Form/DropDownCountries/DropDown";
-import MultiStep from "@Components/Form/MultiStep/MultiStep";
 
 // Hook
 import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
@@ -57,12 +67,11 @@ const CheckoutPayment = () => {
   const [billingCity, setBillingCity] = useState<string>("");
   const [billingZip, setBillingZip] = useState<string>("");
 
-  // Coupon State
-  const [coupon, setCoupon] = useState<string>("");
-
-  // Total
-  const taxes = parseInt(cartTotal) * 0.077;
-  const stripeFees = parseInt(cartTotal) * 0.029;
+  // Shipping State
+  const [shippingCountry, setShippingCountry] = useState<string>("");
+  const [shippingAddress, setShippingAddress] = useState<string>("");
+  const [shippingCity, setShippingCity] = useState<string>("");
+  const [shippingZip, setShippingZip] = useState<string>("");
 
   // Form
   const { register, errors, handleSubmit } = useForm<FormValues>({
@@ -123,104 +132,61 @@ const CheckoutPayment = () => {
 
   return (
     <Paper elevation={3} className={classes.root}>
-      <MultiStep first="Shipping" second="Billing" third="Done" />
+      <Typography variant="h5">Checkout</Typography>
+
       <Box className={classes.layout}>
-        <Box className={classes.overview}>
-          {data?.getCart?.cart.map((item) => (
-            <Box key={item._id}>
-              <Box
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 2fr 1fr",
-                  gridGap: "1rem",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <img
-                    src={item.productImageUrl || "/images/unknownProduct.png"}
-                    alt={item.name}
-                    width="110"
-                    height="110"
-                  />
-                </Box>
-
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <Box>
-                    <Typography variant="body1" style={{ fontSize: "1.2rem" }}>
-                      {item.name}
-                    </Typography>
-                    <Box style={{ display: "flex" }}>
-                      <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                        Quantity:
-                      </Typography>
-                      <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                        1
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-                <Typography variant="body1" style={{ justifySelf: "flex-end" }}>
-                  {item.price}.-
-                </Typography>
-              </Box>
-            </Box>
-          ))}
-
-          <Divider />
-
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Cart Total
-            </Typography>
-
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              {cartTotal}.-
-            </Typography>
-          </Box>
-
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Taxes
-            </Typography>
-
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              7.7%
-            </Typography>
-          </Box>
-
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Stripe Fees
-            </Typography>
-
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              2.9%
-            </Typography>
-          </Box>
-
-          <Divider />
-
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Total Price
-            </Typography>
-
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              {(parseInt(cartTotal) + taxes + stripeFees).toFixed(2)}.-
-            </Typography>
-          </Box>
-        </Box>
         <Box>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <Box className={classes.shipping}>
+              <Typography variant="h5">Shipping</Typography>
+
+              <DropDownCountries
+                name="shippingCountry"
+                id="shippingCountry"
+                value={shippingCountry}
+                onChange={setShippingCountry}
+              />
+
+              <InputForm
+                type="text"
+                label="Address"
+                name="shippingAddress"
+                id="shippingAddress"
+                inputRef={register({
+                  required: "This field is required",
+                })}
+                value={shippingAddress}
+                onChange={setShippingAddress}
+                errors={errors}
+              />
+
+              <InputForm
+                type="text"
+                label="City"
+                name="shippingCity"
+                id="shippingCity"
+                inputRef={register({
+                  required: "This field is required",
+                })}
+                value={shippingCity}
+                onChange={setShippingCity}
+                errors={errors}
+              />
+
+              <InputForm
+                type="number"
+                label="Zip"
+                name="shippingZip"
+                id="shippingZip"
+                inputRef={register({
+                  required: "This field is required",
+                })}
+                value={shippingZip}
+                onChange={setShippingZip}
+                errors={errors}
+              />
+            </Box>
+
             <Box className={classes.billing}>
               <Typography variant="h5">Billing</Typography>
 
@@ -259,7 +225,7 @@ const CheckoutPayment = () => {
 
               <InputForm
                 type="number"
-                label="Zip Code"
+                label="Zip"
                 name="billingZip"
                 id="billingZip"
                 inputRef={register({
@@ -275,32 +241,76 @@ const CheckoutPayment = () => {
               <CardElement options={cardElementOption} />
             </Box>
 
-            <InputForm
-              variant="outlined"
-              type="string"
-              label="Coupon Code"
-              name="coupon"
-              id="coupon"
-              inputRef={register({})}
-              value={coupon}
-              onChange={setCoupon}
-              errors={errors}
-            />
-            <Box style={{ display: "flex", justifyContent: "flex-end", marginTop: "20px" }}>
-              <Button variant="outlined" color="primary" onClick={() => router.back()}>
-                Back to Shipping
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ margin: "0px 0px 0px 20px" }}
-                onClick={() => router.push("/admin/checkout/done")}
-              >
-                Confirm Payment
-              </Button>
-            </Box>
+            <Button className={classes.pay} variant="contained" color="secondary" type="submit">
+              <Typography variant="body1">Pay {cartTotal}</Typography>
+            </Button>
           </form>
         </Box>
+        <Box>hello</Box>
+      </Box>
+      <Box className={classes.overview}>
+        <Typography variant="h5">Order Overview</Typography>
+
+        <TableContainer
+          component={Paper}
+          className={classes.overview}
+          elevation={2}
+          style={{ width: "70%", height: 455, margin: "30px 0px 0px 0px" }}
+        >
+          <Table aria-label="spanning table">
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <Typography variant="body1">Product</Typography>
+                </TableCell>
+                <TableCell align="left">
+                  <Typography variant="body1">Quantity</Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography variant="body1">Price</Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <Typography variant="body1">Total</Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {data?.getCart?.cart.map((item) => (
+                <TableRow key={item._id}>
+                  <TableCell>
+                    <Box style={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={item.productImageUrl || "/images/unknownProduct.png"}
+                        alt={item.name}
+                        width="100"
+                        height="100"
+                      />
+                      <Typography variant="body1">{item.name}</Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell align="left">{1}</TableCell>
+                  <TableCell align="center">{item.price}</TableCell>
+                  <TableCell align="right">{item.price}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+
+      <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="outlined" color="primary" onClick={() => router.back()}>
+          Back to Shipping
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ margin: "0px 0px 0px 20px" }}
+          onClick={() => router.push("/admin/checkout/done")}
+        >
+          Confirm Payment
+        </Button>
       </Box>
     </Paper>
   );
@@ -315,17 +325,21 @@ const useStyles = makeStyles(() =>
     root: {
       borderRadius: 10,
       height: "100%",
-      width: "100%",
     },
     layout: {
       display: "flex",
       justifyContent: "space-between",
-      padding: "50px 100px",
     },
     form: {
       display: "flex",
       flexDirection: "column",
-      width: "700px",
+      margin: "50px 50px",
+      width: 700,
+    },
+    shipping: {
+      margin: "30px 0px",
+      display: "flex",
+      flexDirection: "column",
     },
     billing: {
       margin: "30px 0px",
@@ -333,17 +347,15 @@ const useStyles = makeStyles(() =>
       flexDirection: "column",
     },
     overview: {
-      display: "grid",
-      gridTemplateColumns: "1fr",
-      gridGap: "1rem",
-      width: "40%",
-      flexDirection: "row",
+      padding: "50px 50px",
     },
     cardElements: {
       border: "1px solid rgba(33, 33, 33, 0.5)",
-      margin: "0px 0px 20px 0px",
-      padding: "20px 20px 20px 20px",
+      padding: 20,
       borderRadius: 6,
+    },
+    pay: {
+      marginTop: 30,
     },
   }),
 );
