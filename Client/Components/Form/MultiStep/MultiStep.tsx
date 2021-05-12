@@ -1,5 +1,8 @@
 import React from "react";
 
+// Next
+import { useRouter } from "next/router";
+
 // Material-UI
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
@@ -9,18 +12,39 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 const MultiStep = ({ first, second, third }) => {
   const classes = useStyles();
 
+  // Router
+  const { pathname } = useRouter();
+  const parameters = pathname.split("/");
+  const param = parameters.filter((value) => value === "shipping" || value === "payment" || value === "done");
+
   return (
     <Box className={classes.root}>
       <Box className={classes.multiStep}>
         <Box className={classes.check}>
-          <Box className={classes.shipping}>
+          <Box
+            className={classes.shipping}
+            style={{
+              backgroundColor: param[0] === "shipping" ? "#212121" : "white",
+              backgroundColor: param[0] !== "shipping" ? "white" : "#212121",
+              color: param[0] !== "shipping" ? "#212121" : "white",
+              color: param[0] === "shipping" ? "white" : "#212121",
+            }}
+          >
             <Typography style={{ fontSize: "0.9rem" }}>1</Typography>
           </Box>
           <Typography style={{ marginTop: 10, fontSize: "0.9rem" }}>{first}</Typography>
         </Box>
 
         <Box className={classes.check}>
-          <Box className={classes.billing}>
+          <Box
+            className={classes.billing}
+            style={{
+              backgroundColor: param[0] === "payment" ? "#212121" : "white",
+              backgroundColor: param[0] !== "payment" ? "white" : "#212121",
+              color: param[0] !== "payment" ? "#212121" : "white",
+              color: param[0] === "payment" ? "white" : "#212121",
+            }}
+          >
             <Typography style={{ fontSize: "0.9rem" }}>2</Typography>
           </Box>
           <Typography style={{ marginTop: 10, fontSize: "0.9rem" }}>{second}</Typography>
@@ -29,10 +53,17 @@ const MultiStep = ({ first, second, third }) => {
         <hr className={classes.line} />
 
         <Box className={classes.check}>
-          <Box className={classes.done}>
+          <Box
+            className={classes.done}
+            style={{
+              backgroundColor: param[0] === "done" ? "#212121" : "white",
+              backgroundColor: param[0] !== "done" ? "white" : "#212121",
+              color: param[0] !== "done" ? "#212121" : "white",
+              color: param[0] === "done" ? "white" : "#212121",
+            }}
+          >
             <Typography style={{ fontSize: "0.9rem" }}>3</Typography>
           </Box>
-
           <Typography style={{ marginTop: 10, fontSize: "0.9rem" }}>{third}</Typography>
         </Box>
       </Box>

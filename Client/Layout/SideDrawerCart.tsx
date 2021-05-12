@@ -14,13 +14,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
 
 // GraphQL
-import {
-  useGetCartQuery,
-  GetCartDocument,
-  GetCartQuery,
-  useDeleteProductFromCartMutation,
-  DeleteProductFromCartDocument,
-} from "@Graphql/index";
+import { useGetCartQuery, GetCartDocument, GetCartQuery, useDeleteProductFromCartMutation } from "@Graphql/index";
 
 // Apollo State
 import { useReactiveVar } from "@apollo/client";
@@ -123,7 +117,7 @@ const SideDrawerCart: React.FC = () => {
         </div>
 
         <Divider />
-        <Link href="/admin/checkout" passHref>
+        <Link href="/admin/checkout/shipping" passHref>
           <Button variant="contained" size="large" color="secondary" className={classes.checkout}>
             Checkout
           </Button>

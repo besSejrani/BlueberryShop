@@ -20,10 +20,11 @@ type inputType = {
   value: string | number;
   onChange: Function;
   errors?: any;
+  disabled?: boolean;
 };
 
 const inputForm: React.FC<inputType> = React.forwardRef(
-  ({ type, name, id, label, multiline, rowsMax, variant, inputRef, value, onChange, errors }) => {
+  ({ type, name, id, label, multiline, rowsMax, variant, inputRef, value, onChange, errors, disabled }) => {
     useImperativeHandle(inputRef, () => {
       return {};
     });
@@ -40,6 +41,7 @@ const inputForm: React.FC<inputType> = React.forwardRef(
           variant={variant}
           rowsMax={rowsMax}
           inputRef={inputRef}
+          disabled={disabled}
           ref={inputRef}
           value={value}
           onChange={(text) => onChange(text.target.value)}

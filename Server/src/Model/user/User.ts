@@ -35,6 +35,10 @@ export class User {
   @Property({ ref: Product, type: ObjectId })
   cart?: Product[];
 
+  @Field()
+  @Property()
+  stripeId?: string;
+
   @Property()
   googleId?: string;
 

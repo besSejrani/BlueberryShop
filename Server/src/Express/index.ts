@@ -4,8 +4,6 @@ import "reflect-metadata";
 
 // Oauth2
 import passport from "passport";
-import googleAuth from "../Routes/googleOauth";
-import githubAuth from "../Routes/githubOauth";
 import githubService from "../Services/passportGithub";
 import googleService from "../Services/passportGoogle";
 
@@ -22,8 +20,13 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 
+// Routes
+import googleAuth from "@Routes/Oauth2/googleOauth";
+import githubAuth from "@Routes/Oauth2/githubOauth";
+import stripeWebhooks from "@Routes/Stripe/Webhooks";
+
 // Database
-import mongo from "../Model/mongo";
+import mongo from "@Model/mongo";
 
 // GraphQL
 import createSchema from "../Graphql/schema";
@@ -39,24 +42,30 @@ const corsOptions = {
 const main = async () => {
   try {
     const app = express();
+
+    // Middlewares
     app.use(helmet({ contentSecurityPolicy: false }));
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.json());
     app.use(mongoSanitize());
 
+    // Services
     await mongo();
     await githubService();
     await googleService();
 
+    // Passport
     app.use(passport.initialize());
     app.use(passport.session());
 
+    // Rest Routes
     app.use(githubAuth);
     app.use(googleAuth);
+    app.use(stripeWebhooks);
 
+    // Configuration
     app.set("trust proxy", 1);
-
     app.use(cors(corsOptions));
 
     const schema = await createSchema();

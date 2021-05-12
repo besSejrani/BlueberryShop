@@ -29,6 +29,7 @@ import { withAuth } from "@Guard/withAuth";
 
 // Apollo State
 import { ui } from "@Apollo/state/ui/index";
+import { checkout } from "@Apollo/state/checkout/index";
 
 // ========================================================================================================
 
@@ -61,18 +62,23 @@ const CheckoutShipping = () => {
   // Events
   const returnToCart = async () => {
     await router.back();
-
     await ui({ ...ui(), isCartOpen: true });
+  };
+
+  const onSubmit = async () => {
+    await checkout({ ...checkout(), shippingAddress, shippingCity, shippingCountry, shippingZip });
+    await router.push("/admin/checkout/payment");
   };
 
   if (loading) return <div>Loading ...</div>;
 
   return (
     <Paper elevation={3} className={classes.root}>
-      <MultiStep first="Shipping" second="Billing" third="Done" />
+      <MultiStep first="Shipping" second="Payment" third="Done" />
 
       <Box className={classes.layout}>
         <Box className={classes.overview}>
+          <Typography variant="h5">Shopping Cart</Typography>
           {data?.getCart?.cart.map((item) => (
             <Box key={item._id}>
               <Box
@@ -136,7 +142,8 @@ const CheckoutShipping = () => {
         </Box>
 
         <Box>
-          <form className={classes.form}>
+          <Typography variant="h5">Shipping Address</Typography>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <Box className={classes.shipping}>
               <DropDownCountries
                 name="shippingCountry"
@@ -184,21 +191,16 @@ const CheckoutShipping = () => {
                 errors={errors}
               />
             </Box>
-          </form>
 
-          <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button variant="outlined" color="primary" onClick={() => returnToCart()}>
-              Back to Cart
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ margin: "0px 0px 0px 20px" }}
-              onClick={() => router.push("/admin/checkout/payment")}
-            >
-              Continue to Payment
-            </Button>
-          </Box>
+            <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="outlined" color="primary" onClick={() => returnToCart()}>
+                Back to Cart
+              </Button>
+              <Button type="submit" variant="contained" color="primary" style={{ margin: "0px 0px 0px 20px" }}>
+                Continue to Payment
+              </Button>
+            </Box>
+          </form>
         </Box>
       </Box>
     </Paper>
@@ -219,7 +221,7 @@ const useStyles = makeStyles(() =>
     layout: {
       display: "flex",
       justifyContent: "space-between",
-      padding: "50px 100px",
+      padding: "30px 100px 30px 100px",
     },
     form: {
       display: "flex",
@@ -227,7 +229,7 @@ const useStyles = makeStyles(() =>
       width: "700px",
     },
     shipping: {
-      margin: "30px 0px",
+      margin: "0px 0px 30px 0px",
       display: "flex",
       flexDirection: "column",
     },

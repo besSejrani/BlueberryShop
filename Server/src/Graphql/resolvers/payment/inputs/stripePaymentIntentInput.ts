@@ -5,6 +5,9 @@ export class StripePaymentIntentInput {
   @Field()
   amount: number;
 
+  // @Field()
+  // products: string[];
+
   @Field()
   shippingCountry: string;
 

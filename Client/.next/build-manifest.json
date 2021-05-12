@@ -24,15 +24,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/admin/checkout": [
+    "/admin/products": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/admin/checkout.js"
+      "static/chunks/pages/admin/products.js"
     ],
-    "/admin/checkout/payment": [
+    "/admin/products/create-product": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/admin/checkout/payment.js"
+      "static/chunks/pages/admin/products/create-product.js"
     ]
   },
   "ampFirstPages": []

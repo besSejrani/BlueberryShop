@@ -22,12 +22,14 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@Middleware/*": ["./src/Middleware/*"],
-      "@Model/*": ["./src/Model/*"],
-      "@Class/*": ["./src/Class/*"],
-      "@Redis/*": ["./src/Redis/*"],
-      "@Email/*": ["./src/Email/*"],
-      "@Logger/*": ["./src/Winston/*"]
+      "@Middleware/*":  ["./src/Middleware/*"],
+      "@Model/*":       ["./src/Model/*"],
+      "@Graphql/*":     ["./src/Graphql/*"],
+      "@Routes/*":      ["./src/Routes/*"],
+      "@Class/*":       ["./src/Class/*"],
+      "@Redis/*":       ["./src/Redis/*"],
+      "@Email/*":       ["./src/Email/*"],
+      "@Logger/*":      ["./src/Winston/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

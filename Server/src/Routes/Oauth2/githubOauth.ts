@@ -1,9 +1,9 @@
+// Oauth
+import passport from "passport";
+
 // Express
 import express from "express";
 const router = express.Router();
-
-// Oauth
-import passport from "passport";
 
 // ========================================================================================================
 

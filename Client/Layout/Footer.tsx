@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 // Material-UI
 import { Box, Container, Typography, TextField, IconButton, Divider, Button } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Icons
 import InstagramIcon from "@material-ui/icons/Instagram";
@@ -70,14 +70,14 @@ const Footer = () => {
   };
 
   return (
-    <Box component="footer" boxShadow={3} className={classes.root}>
+    <Box component={"footer"} boxShadow={3} className={classes.root}>
       <Container>
         <Box className={classes.footer}>
           <Box className={classes.footerHeader}>
             <Box>
               <Box className={classes.logo}>
                 <Link href="/">
-                  <Image width={40} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
+                  <Image width={40} height={40} src={"/raspberry.svg"} alt="Raspberry Pi Logo" />
                 </Link>
                 <Link href="/">
                   <Typography variant="h5" style={{ color: "white", marginLeft: "10px" }}>
@@ -109,7 +109,7 @@ const Footer = () => {
 
                 <ErrorMessage
                   errors={errors}
-                  name="email"
+                  name={"email"}
                   as={<Typography style={{ color: "white", margin: "5px 0px 0px 3px" }} variant="body2" />}
                 >
                   {({ messages }) =>
@@ -221,7 +221,7 @@ export default withApollo({ ssr: true })(Footer);
 
 // =================================================================
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop: "calc(1% + 40px)",

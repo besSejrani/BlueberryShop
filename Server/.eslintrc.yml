@@ -28,6 +28,7 @@ rules: {
     "arrow-body-style": "off",
     "import/no-mutable-exports": "off",
     "max-len": [2, 120, 4],
+    "no-case-declarations": "off",
 
 
     # Typescript

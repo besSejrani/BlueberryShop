@@ -34,7 +34,7 @@ const DropDown = ({ id, name, value, onChange }) => {
       }}
     >
       {countries.map((country) => (
-        <MenuItem value={country.Code} onClick={() => setSelectCountry(country.Name)}>
+        <MenuItem value={country.Code} name={name} onClick={() => setSelectCountry(country.Name)}>
           {country.Name}
         </MenuItem>
       ))}

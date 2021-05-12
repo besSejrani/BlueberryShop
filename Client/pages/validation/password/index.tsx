@@ -32,16 +32,20 @@ type FormValues = {
 const SignIn = () => {
   const classes = useStyles();
 
+  const router = useRouter();
+
+  // State
   const [email, setEmail] = useState("");
 
+  // Form
   const { register, errors, handleSubmit } = useForm<FormValues>({
     criteriaMode: "all",
   });
 
-  const router = useRouter();
-
+  // GraphQL
   const [signUp] = useForgotPasswordMutation();
 
+  // Events
   const onSubmit = async (form) => {
     await signUp({
       variables: { email: form.email },

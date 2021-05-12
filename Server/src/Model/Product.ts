@@ -28,6 +28,10 @@ export class Product {
   reviews?: Review[];
 
   @Field()
+  @Property()
+  stripeId?: string;
+
+  @Field()
   @Property({
     required: [true, "Please provide a product name"],
     unique: true,

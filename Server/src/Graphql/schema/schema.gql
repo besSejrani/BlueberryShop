@@ -132,6 +132,15 @@ type Newsletter {
 """Mongo object id scalar type"""
 scalar ObjectId
 
+type Order {
+  _id: ObjectId!
+  amount: Float!
+  billing: Billing!
+  createdAt: DateTime!
+  fullName: String!
+  shipping: Shipping!
+}
+
 type Product {
   _id: ObjectId!
   categories: [Category!]!
@@ -144,6 +153,7 @@ type Product {
   reviews: [Review!]
   status: String!
   stock: Float!
+  stripeId: String!
 }
 
 type ProductPagination {
@@ -322,6 +332,7 @@ type User {
   profileImageUrl: String
   role: String!
   shipping: [Shipping!]!
+  stripeId: String!
   username: String!
 }
 

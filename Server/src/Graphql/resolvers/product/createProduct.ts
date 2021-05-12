@@ -14,6 +14,9 @@ import { GraphQLUpload } from "graphql-upload";
 import { Upload } from "../../types/Upload";
 import { S3 } from "@Class/Aws/S3";
 
+// Stripe
+import Stripe from "stripe";
+
 // =================================================================================================
 
 @Resolver()
@@ -31,6 +34,11 @@ export class CreateProductResolver {
     if (product) {
       return null;
     }
+    const stripe = new Stripe(`${process.env.STRIPE_PRIVATE_TEST_KEY}`, {
+      apiVersion: "2020-08-27",
+      maxNetworkRetries: 1,
+      timeout: 1000,
+    });
 
     const s3 = await new S3({
       accessKeyId: process.env.AMAZON_KEY_ID,
@@ -46,6 +54,18 @@ export class CreateProductResolver {
     const urls = await Promise.all(images);
     await urls.forEach((value) => data.push(value.url));
 
+    const productStripe = await stripe.products.create({
+      name,
+      images: data,
+      description,
+    });
+
+    await stripe.prices.create({
+      product: productStripe.id,
+      unit_amount: 8500,
+      currency: "chf",
+    });
+
     const newProduct = await new ProductModel({
       name,
       price,
@@ -56,8 +76,10 @@ export class CreateProductResolver {
       categories: category,
       productImageUrl: data[0],
       productImages: data,
+      stripeId: productStripe.id,
     });
     await newProduct.save();
+
     return newProduct;
   }
 }

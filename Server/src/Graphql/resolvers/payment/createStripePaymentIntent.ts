@@ -39,6 +39,7 @@ export class CreateStripePaymentIntent {
       currency: "chf",
       description: "BlueberryShop payment",
       payment_method_types: ["card"],
+      metadata: { sss: "ss" },
       shipping: {
         name: `${user?.username}`,
         address: {

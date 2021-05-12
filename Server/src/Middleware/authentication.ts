@@ -5,11 +5,11 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 
 // Database
-import { UserModel as User } from "../Model/user/User";
+import { UserModel as User } from "@Model/user/User";
 
 // GraphQL
 import { MiddlewareFn } from "type-graphql";
-import { MyContext } from "../Graphql/types/MyContext";
+import { MyContext } from "@Graphql/types/MyContext";
 
 // Logger
 // import Logger from "@Logger/index";

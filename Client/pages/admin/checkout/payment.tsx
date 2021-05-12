@@ -30,6 +30,9 @@ import withApollo, { apolloClient } from "@Apollo/ssr";
 // Guard
 import { withAuth } from "@Guard/withAuth";
 
+// Apollo State
+import { checkout } from "@Apollo/state/checkout/index";
+
 // ========================================================================================================
 
 type FormValues = {
@@ -88,7 +91,7 @@ const CheckoutPayment = () => {
       email: "besjan.sejrani@cpnv.ch",
 
       address: {
-        country: "ch",
+        country: billingCountry,
         city: billingCity,
         line1: billingAddress,
         postal_code: billingZip,
@@ -105,10 +108,10 @@ const CheckoutPayment = () => {
       mutation: CreateStripePaymentIntentDocument,
       variables: {
         amount: stripeTotal,
-        shippingCountry: "ch",
-        shippingAddress: "Avenue Mayor-Vautier 15",
-        shippingCity: "Clarens",
-        shippingZip: "1815",
+        shippingCountry: checkout().shippingCountry,
+        shippingAddress: checkout().shippingAddress,
+        shippingCity: checkout().shippingCity,
+        shippingZip: checkout().shippingZip,
       },
     });
 
@@ -116,16 +119,17 @@ const CheckoutPayment = () => {
       payment_method: paymentMethodReq.paymentMethod.id,
     });
 
-    router.push("/products");
+    await router.push("/admin/checkout/done");
   };
 
   if (loading) return <div>Loading ...</div>;
 
   return (
     <Paper elevation={3} className={classes.root}>
-      <MultiStep first="Shipping" second="Billing" third="Done" />
+      <MultiStep first="Shipping" second="Payment" third="Done" />
       <Box className={classes.layout}>
         <Box className={classes.overview}>
+          <Typography variant="h5">Shopping Cart</Typography>
           {data?.getCart?.cart.map((item) => (
             <Box key={item._id}>
               <Box
@@ -220,10 +224,9 @@ const CheckoutPayment = () => {
           </Box>
         </Box>
         <Box>
+          <Typography variant="h5">Payment Address</Typography>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <Box className={classes.billing}>
-              <Typography variant="h5">Billing</Typography>
-
               <DropDownCountries
                 name="billingCountry"
                 id="billingCountry"
@@ -281,6 +284,7 @@ const CheckoutPayment = () => {
               label="Coupon Code"
               name="coupon"
               id="coupon"
+              disabled
               inputRef={register({})}
               value={coupon}
               onChange={setCoupon}
@@ -290,12 +294,7 @@ const CheckoutPayment = () => {
               <Button variant="outlined" color="primary" onClick={() => router.back()}>
                 Back to Shipping
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ margin: "0px 0px 0px 20px" }}
-                onClick={() => router.push("/admin/checkout/done")}
-              >
+              <Button type="submit" variant="contained" color="primary" style={{ margin: "0px 0px 0px 20px" }}>
                 Confirm Payment
               </Button>
             </Box>
@@ -320,7 +319,7 @@ const useStyles = makeStyles(() =>
     layout: {
       display: "flex",
       justifyContent: "space-between",
-      padding: "50px 100px",
+      padding: "30px 100px 30px 100px",
     },
     form: {
       display: "flex",
@@ -328,7 +327,7 @@ const useStyles = makeStyles(() =>
       width: "700px",
     },
     billing: {
-      margin: "30px 0px",
+      margin: "0px 0px 30px 0px",
       display: "flex",
       flexDirection: "column",
     },
