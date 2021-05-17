@@ -136,6 +136,7 @@ type Order {
   _id: ObjectId!
   amount: Float!
   billing: Billing!
+  cart: [Product!]!
   createdAt: DateTime!
   fullName: String!
   shipping: Shipping!
@@ -154,6 +155,7 @@ type Product {
   status: String!
   stock: Float!
   stripeId: String!
+  stripePriceId: String!
 }
 
 type ProductPagination {
@@ -181,6 +183,7 @@ type Query {
   getCategory(categoryId: String!): Category
   getCurrentUser: User
   getNewsletters: [Newsletter!]
+  getOrders: [Order!]
   getProduct(productId: String!): Product
   getProductReviewPagination(pagination: ProductPaginationInput!, productId: String!): ProductReviewPagination
   getProducts: ProductPagination
@@ -242,6 +245,8 @@ input SigninInput {
 
 input SignupInput {
   email: String!
+  firstName: String!
+  lastName: String!
   password: String!
   username: String!
 }
@@ -301,6 +306,8 @@ input UpdateProductInput {
 
 input UpdateProfile {
   email: String!
+  firstName: String!
+  lastName: String!
   username: String!
 }
 
@@ -329,6 +336,8 @@ type User {
   cart: [Product!]!
   confirmed: Boolean!
   email: String!
+  firstName: String!
+  lastName: String!
   profileImageUrl: String
   role: String!
   shipping: [Shipping!]!

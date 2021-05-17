@@ -29,6 +29,7 @@ rules: {
     "import/no-mutable-exports": "off",
     "max-len": [2, 120, 4],
     "no-case-declarations": "off",
+    "radix": "off",
 
 
     # Typescript

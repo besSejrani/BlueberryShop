@@ -24,14 +24,14 @@ import Stripe from "stripe";
 @Resolver()
 export class SignupResolver {
   @Mutation(() => UserResponse)
-  async signup(@Arg("input") { username, email, password }: SignupInput): Promise<UserResponse> {
+  async signup(@Arg("input") { firstName, lastName, username, email, password }: SignupInput): Promise<UserResponse> {
     const user = await UserModel.findOne({ email });
 
     if (user) {
       throw new Error("Invalid credentials");
     }
 
-    const stripe = new Stripe(`${process.env.STRIPE_PRIVATE_TEST_KEY}`, {
+    const stripe = await new Stripe(`${process.env.STRIPE_PRIVATE_TEST_KEY}`, {
       apiVersion: "2020-08-27",
       maxNetworkRetries: 1,
       timeout: 1000,
@@ -45,16 +45,24 @@ export class SignupResolver {
     const salt = await bcrypt.genSalt(12);
     const hash = await bcrypt.hash(password, salt);
 
-    const newUser = await new UserModel({ username, email, password: hash, stripeId: customer.id });
+    const newUser = await new UserModel({
+      firstName,
+      lastName,
+      username,
+      email,
+      password: hash,
+      stripeId: customer.id,
+    });
     await newUser.save();
 
+    // JWT
     const payload = {
       id: newUser.id,
       role: newUser.role,
     };
-
     const token = jwt.sign(payload, process.env.JWT_SECRET as string);
 
+    // Email
     await SendEmail(email, await createConfirmationUrl(newUser.id));
 
     return { user: newUser, token };

@@ -1,7 +1,11 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
     PORT: string;
+
     MONGO_ATLAS: string;
+    MONGO_PRODUCTION: string;
+    MONGO_DEVELOPMENT: string;
+    MONGO_TEST: string;
 
     JWT_SECRET: string;
     JWT_EXPIRES_IN: string;
@@ -34,6 +38,6 @@ declare namespace NodeJS {
     LOG_LEVEL_PPRODUCTION: string;
     LOG_LEVEL_DEVELOPMENT: string;
 
-    NODE_ENV: string;
+    NODE_ENV2: string;
   }
 }

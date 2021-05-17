@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 // SubDocuments
 import { Billing } from "./user/Billing";
 import { Shipping } from "./user/Shipping";
+import { Product } from "@Model/Product";
 
 // GraphQL
 import { Field, ObjectType } from "type-graphql";
@@ -24,6 +25,10 @@ export class Order {
   @Property()
   amount?: number;
 
+  @Field(() => [Product])
+  @Property({ ref: Product, type: ObjectId })
+  cart?: Product[];
+
   @Field(() => Billing)
   @Property()
   billing?: Billing;
@@ -36,5 +41,7 @@ export class Order {
   @Property({ default: Date.now() })
   createdAt?: Date;
 }
+
+// ========================================================================================================
 
 export const OrderModel = getModelForClass(Order);

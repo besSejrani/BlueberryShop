@@ -46,6 +46,14 @@ export class User {
   githubId?: string;
 
   @Field()
+  @Property()
+  firstName: string;
+
+  @Field()
+  @Property()
+  lastName: string;
+
+  @Field()
   @Property({ required: [true, "Please provide a username"], unique: true, trim: true, minlength: 3, maxlength: 20 })
   username: string;
 

@@ -29,7 +29,7 @@ import stripeWebhooks from "@Routes/Stripe/Webhooks";
 import mongo from "@Model/mongo";
 
 // GraphQL
-import createSchema from "../Graphql/schema";
+import createSchema from "@Graphql/schema";
 
 // =================================================================================================
 

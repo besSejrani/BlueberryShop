@@ -32,6 +32,10 @@ export class Product {
   stripeId?: string;
 
   @Field()
+  @Property()
+  stripePriceId?: string;
+
+  @Field()
   @Property({
     required: [true, "Please provide a product name"],
     unique: true,

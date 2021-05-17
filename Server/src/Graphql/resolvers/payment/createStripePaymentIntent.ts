@@ -39,7 +39,7 @@ export class CreateStripePaymentIntent {
       currency: "chf",
       description: "BlueberryShop payment",
       payment_method_types: ["card"],
-      metadata: { sss: "ss" },
+      metadata: { user: `${user?._id}` },
       shipping: {
         name: `${user?.username}`,
         address: {
@@ -50,6 +50,21 @@ export class CreateStripePaymentIntent {
         },
       },
     });
+
+    const customer = `${user?.stripeId}`;
+
+    await stripe.invoiceItems.create({
+      customer,
+      amount: 600,
+      currency: "chf",
+    });
+
+    const bla = await stripe.invoices.create({
+      customer: `${user?.stripeId}`,
+      description: "hello ",
+    });
+
+    await stripe.invoices.listLineItems(bla.id);
 
     return paymentIntent.client_secret;
   }
