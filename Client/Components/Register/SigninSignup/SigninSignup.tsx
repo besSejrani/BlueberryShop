@@ -66,7 +66,7 @@ const useStyles = makeStyles(() =>
     card: {
       position: "relative",
       width: "1100px",
-      height: 520,
+      height: 620,
       borderRadius: "10px",
     },
     tabsContainer: {

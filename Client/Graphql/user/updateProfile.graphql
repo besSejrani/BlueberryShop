@@ -1,5 +1,19 @@
-mutation UpdateProfile($picture: Upload, $username: String!, $email: String!) {
-  updateProfile(picture: $picture, updateProfileInput: { username: $username, email: $email }) {
+mutation UpdateProfile(
+  $picture: Upload
+  $firstName: String!
+  $lastName: String!
+  $username: String!
+  $email: String!
+) {
+  updateProfile(
+    picture: $picture
+    updateProfileInput: {
+      firstName: $firstName
+      lastName: $lastName
+      username: $username
+      email: $email
+    }
+  ) {
     _id
     username
     email

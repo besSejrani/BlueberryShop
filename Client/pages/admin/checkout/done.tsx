@@ -1,7 +1,7 @@
 import React from "react";
 
 // Material-UI
-import { Paper } from "@material-ui/core";
+import { Container, Paper } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
@@ -19,9 +19,11 @@ const CheckoutDone = () => {
   const classes = useStyles();
 
   return (
-    <Paper elevation={3} className={classes.root}>
-      <MultiStep first="Shipping" second="Payment" third="Done" />
-    </Paper>
+    <Container>
+      <Paper elevation={3} className={classes.root}>
+        <MultiStep first="Shipping" second="Payment" third="Done" />
+      </Paper>
+    </Container>
   );
 };
 

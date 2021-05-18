@@ -54,7 +54,6 @@ const HideOnScroll = (props: Props) => {
 
 const Header = () => {
   const classes = useStyles();
-  const selectProducts = [];
 
   const changeCart = () => {
     ui({ ...ui(), isCartOpen: true });
@@ -92,8 +91,8 @@ const Header = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <Image width={60} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
-                    <Typography variant="h6" className={classes.title}>
+                    <Image width={30} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
+                    <Typography style={{ margin: "0px 0px 0px 10px" }} variant="h6" className={classes.title}>
                       BlueberryShop
                     </Typography>
                   </Box>

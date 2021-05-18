@@ -128,7 +128,7 @@ const useStyles = makeStyles(() =>
     line: {
       position: "absolute",
       top: "40%",
-      left: "26%",
+      left: "35%",
       width: "calc(100% - 840px)",
       backgroundColor: "#212121",
     },

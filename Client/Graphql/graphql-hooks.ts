@@ -315,12 +315,25 @@ export type Newsletter = {
 };
 
 
+export type Order = {
+  __typename?: 'Order';
+  _id: Scalars['ObjectId'];
+  fullName: Scalars['String'];
+  amount: Scalars['Float'];
+  cart: Array<Product>;
+  billing: Billing;
+  shipping: Shipping;
+  createdAt: Scalars['DateTime'];
+};
+
 export type Product = {
   __typename?: 'Product';
   _id: Scalars['ObjectId'];
   productImages: Array<Scalars['String']>;
   categories: Array<Category>;
   reviews?: Maybe<Array<Review>>;
+  stripeId: Scalars['String'];
+  stripePriceId: Scalars['String'];
   name: Scalars['String'];
   price: Scalars['Float'];
   description: Scalars['String'];
@@ -355,6 +368,7 @@ export type Query = {
   getArticles?: Maybe<Array<Article>>;
   getCart?: Maybe<User>;
   getNewsletters?: Maybe<Array<Newsletter>>;
+  getOrders?: Maybe<Array<Order>>;
   getCategories?: Maybe<Array<Category>>;
   getCategory?: Maybe<Category>;
   getProduct?: Maybe<Product>;
@@ -465,6 +479,8 @@ export type SigninInput = {
 };
 
 export type SignupInput = {
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
@@ -524,6 +540,8 @@ export type UpdateProductInput = {
 };
 
 export type UpdateProfile = {
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
 };
@@ -551,6 +569,9 @@ export type User = {
   billing: Array<Billing>;
   shipping: Array<Shipping>;
   cart: Array<Product>;
+  stripeId: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
   role: Scalars['String'];
@@ -745,6 +766,8 @@ export type SigninMutation = (
 );
 
 export type SignupMutationVariables = Exact<{
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
@@ -883,6 +906,21 @@ export type GetNewslettersQuery = (
   & { getNewsletters?: Maybe<Array<(
     { __typename?: 'Newsletter' }
     & Pick<Newsletter, '_id' | 'email'>
+  )>> }
+);
+
+export type GetOrdersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOrdersQuery = (
+  { __typename?: 'Query' }
+  & { getOrders?: Maybe<Array<(
+    { __typename?: 'Order' }
+    & Pick<Order, '_id' | 'fullName' | 'amount' | 'createdAt'>
+    & { cart: Array<(
+      { __typename?: 'Product' }
+      & Pick<Product, '_id' | 'productImages' | 'name' | 'price'>
+    )> }
   )>> }
 );
 
@@ -1217,7 +1255,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, '_id' | 'username' | 'email'>
+    & Pick<User, '_id' | 'firstName' | 'lastName' | 'username' | 'email'>
   )> }
 );
 
@@ -1254,6 +1292,8 @@ export type UpdateBillingInformationMutation = (
 
 export type UpdateProfileMutationVariables = Exact<{
   picture?: Maybe<Scalars['Upload']>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
 }>;
@@ -1782,8 +1822,10 @@ export type SigninMutationHookResult = ReturnType<typeof useSigninMutation>;
 export type SigninMutationResult = Apollo.MutationResult<SigninMutation>;
 export type SigninMutationOptions = Apollo.BaseMutationOptions<SigninMutation, SigninMutationVariables>;
 export const SignupDocument = gql`
-    mutation Signup($username: String!, $email: String!, $password: String!) {
-  signup(input: {username: $username, email: $email, password: $password}) {
+    mutation Signup($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) {
+  signup(
+    input: {firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password}
+  ) {
     user {
       username
       email
@@ -1807,6 +1849,8 @@ export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMut
  * @example
  * const [signupMutation, { data, loading, error }] = useSignupMutation({
  *   variables: {
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
  *      username: // value for 'username'
  *      email: // value for 'email'
  *      password: // value for 'password'
@@ -2188,6 +2232,49 @@ export function useGetNewslettersLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetNewslettersQueryHookResult = ReturnType<typeof useGetNewslettersQuery>;
 export type GetNewslettersLazyQueryHookResult = ReturnType<typeof useGetNewslettersLazyQuery>;
 export type GetNewslettersQueryResult = Apollo.QueryResult<GetNewslettersQuery, GetNewslettersQueryVariables>;
+export const GetOrdersDocument = gql`
+    query GetOrders {
+  getOrders {
+    _id
+    fullName
+    amount
+    cart {
+      _id
+      productImages
+      name
+      price
+    }
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetOrdersQuery__
+ *
+ * To run a query within a React component, call `useGetOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrdersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOrdersQuery(baseOptions?: Apollo.QueryHookOptions<GetOrdersQuery, GetOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOrdersQuery, GetOrdersQueryVariables>(GetOrdersDocument, options);
+      }
+export function useGetOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOrdersQuery, GetOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOrdersQuery, GetOrdersQueryVariables>(GetOrdersDocument, options);
+        }
+export type GetOrdersQueryHookResult = ReturnType<typeof useGetOrdersQuery>;
+export type GetOrdersLazyQueryHookResult = ReturnType<typeof useGetOrdersLazyQuery>;
+export type GetOrdersQueryResult = Apollo.QueryResult<GetOrdersQuery, GetOrdersQueryVariables>;
 export const CreateStripePaymentIntentDocument = gql`
     mutation CreateStripePaymentIntent($amount: Float!, $shippingCountry: String!, $shippingAddress: String!, $shippingCity: String!, $shippingZip: String!) {
   createStripePaymentIntent(
@@ -3044,6 +3131,8 @@ export const GetUserDocument = gql`
     query GetUser($userId: String!) {
   getUser(userId: $userId) {
     _id
+    firstName
+    lastName
     username
     email
   }
@@ -3161,10 +3250,10 @@ export type UpdateBillingInformationMutationHookResult = ReturnType<typeof useUp
 export type UpdateBillingInformationMutationResult = Apollo.MutationResult<UpdateBillingInformationMutation>;
 export type UpdateBillingInformationMutationOptions = Apollo.BaseMutationOptions<UpdateBillingInformationMutation, UpdateBillingInformationMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($picture: Upload, $username: String!, $email: String!) {
+    mutation UpdateProfile($picture: Upload, $firstName: String!, $lastName: String!, $username: String!, $email: String!) {
   updateProfile(
     picture: $picture
-    updateProfileInput: {username: $username, email: $email}
+    updateProfileInput: {firstName: $firstName, lastName: $lastName, username: $username, email: $email}
   ) {
     _id
     username
@@ -3189,6 +3278,8 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
  *   variables: {
  *      picture: // value for 'picture'
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
  *      username: // value for 'username'
  *      email: // value for 'email'
  *   },

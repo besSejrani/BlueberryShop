@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 // Material-UI
-import { Paper, Box, Typography, Button, Divider } from "@material-ui/core";
+import { Container, Paper, Box, Typography, Button, Divider } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 // Components
@@ -125,183 +125,185 @@ const CheckoutPayment = () => {
   if (loading) return <div>Loading ...</div>;
 
   return (
-    <Paper elevation={3} className={classes.root}>
-      <MultiStep first="Shipping" second="Payment" third="Done" />
-      <Box className={classes.layout}>
-        <Box className={classes.overview}>
-          <Typography variant="h5">Shopping Cart</Typography>
-          {data?.getCart?.cart.map((item) => (
-            <Box key={item._id}>
-              <Box
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 2fr 1fr",
-                  gridGap: "1rem",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
+    <Container>
+      <Paper elevation={3} className={classes.root}>
+        <MultiStep first="Shipping" second="Payment" third="Done" />
+        <Box className={classes.layout}>
+          <Box className={classes.overview}>
+            <Typography variant="h5">Shopping Cart</Typography>
+            {data?.getCart?.cart.map((item) => (
+              <Box key={item._id}>
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 2fr 1fr",
+                    gridGap: "1rem",
                     alignItems: "center",
                     width: "100%",
                   }}
                 >
-                  <img
-                    src={item.productImageUrl || "/images/unknownProduct.png"}
-                    alt={item.name}
-                    width="110"
-                    height="110"
-                  />
-                </Box>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <img
+                      src={item.productImageUrl || "/images/unknownProduct.png"}
+                      alt={item.name}
+                      width="110"
+                      height="110"
+                    />
+                  </Box>
 
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <Box>
-                    <Typography variant="body1" style={{ fontSize: "1.2rem" }}>
-                      {item.name}
-                    </Typography>
-                    <Box style={{ display: "flex" }}>
-                      <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                        Quantity:
+                  <Box style={{ display: "flex", alignItems: "center" }}>
+                    <Box>
+                      <Typography variant="body1" style={{ fontSize: "1.2rem" }}>
+                        {item.name}
                       </Typography>
-                      <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                        1
-                      </Typography>
+                      <Box style={{ display: "flex" }}>
+                        <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
+                          Quantity:
+                        </Typography>
+                        <Typography variant="body2" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
+                          1
+                        </Typography>
+                      </Box>
                     </Box>
                   </Box>
+                  <Typography variant="body1" style={{ justifySelf: "flex-end" }}>
+                    {item.price}.-
+                  </Typography>
                 </Box>
-                <Typography variant="body1" style={{ justifySelf: "flex-end" }}>
-                  {item.price}.-
-                </Typography>
               </Box>
+            ))}
+
+            <Divider />
+
+            <Box style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                Cart Total
+              </Typography>
+
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                {cartTotal}.-
+              </Typography>
             </Box>
-          ))}
 
-          <Divider />
+            <Box style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                Taxes
+              </Typography>
 
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Cart Total
-            </Typography>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                7.7%
+              </Typography>
+            </Box>
 
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              {cartTotal}.-
-            </Typography>
+            <Box style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                Stripe Fees
+              </Typography>
+
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                2.9%
+              </Typography>
+            </Box>
+
+            <Divider />
+
+            <Box style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                Total Price
+              </Typography>
+
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
+                {(parseInt(cartTotal) + taxes + stripeFees).toFixed(2)}.-
+              </Typography>
+            </Box>
           </Box>
+          <Box>
+            <Typography variant="h5">Payment Address</Typography>
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+              <Box className={classes.billing}>
+                <DropDownCountries
+                  name="billingCountry"
+                  id="billingCountry"
+                  value={billingCountry}
+                  onChange={setBillingCountry}
+                />
 
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Taxes
-            </Typography>
+                <InputForm
+                  type="text"
+                  label="Address"
+                  name="billingAddress"
+                  id="billingAddress"
+                  inputRef={register({
+                    required: "This field is required",
+                  })}
+                  value={billingAddress}
+                  onChange={setBillingAddress}
+                  errors={errors}
+                />
 
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              7.7%
-            </Typography>
-          </Box>
+                <InputForm
+                  type="text"
+                  label="City"
+                  name="billingCity"
+                  id="billingCity"
+                  inputRef={register({
+                    required: "This field is required",
+                  })}
+                  value={billingCity}
+                  onChange={setBillingCity}
+                  errors={errors}
+                />
 
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Stripe Fees
-            </Typography>
+                <InputForm
+                  type="number"
+                  label="Zip Code"
+                  name="billingZip"
+                  id="billingZip"
+                  inputRef={register({
+                    required: "This field is required",
+                  })}
+                  value={billingZip}
+                  onChange={setBillingZip}
+                  errors={errors}
+                />
+              </Box>
 
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              2.9%
-            </Typography>
-          </Box>
+              <Box className={classes.cardElements}>
+                <CardElement options={cardElementOption} />
+              </Box>
 
-          <Divider />
-
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              Total Price
-            </Typography>
-
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              {(parseInt(cartTotal) + taxes + stripeFees).toFixed(2)}.-
-            </Typography>
+              <InputForm
+                variant="outlined"
+                type="string"
+                label="Coupon Code"
+                name="coupon"
+                id="coupon"
+                disabled
+                inputRef={register({})}
+                value={coupon}
+                onChange={setCoupon}
+                errors={errors}
+              />
+              <Box style={{ display: "flex", justifyContent: "flex-end", marginTop: "20px" }}>
+                <Button variant="outlined" color="primary" onClick={() => router.back()}>
+                  Back to Shipping
+                </Button>
+                <Button type="submit" variant="contained" color="primary" style={{ margin: "0px 0px 0px 20px" }}>
+                  Confirm Payment
+                </Button>
+              </Box>
+            </form>
           </Box>
         </Box>
-        <Box>
-          <Typography variant="h5">Payment Address</Typography>
-          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            <Box className={classes.billing}>
-              <DropDownCountries
-                name="billingCountry"
-                id="billingCountry"
-                value={billingCountry}
-                onChange={setBillingCountry}
-              />
-
-              <InputForm
-                type="text"
-                label="Address"
-                name="billingAddress"
-                id="billingAddress"
-                inputRef={register({
-                  required: "This field is required",
-                })}
-                value={billingAddress}
-                onChange={setBillingAddress}
-                errors={errors}
-              />
-
-              <InputForm
-                type="text"
-                label="City"
-                name="billingCity"
-                id="billingCity"
-                inputRef={register({
-                  required: "This field is required",
-                })}
-                value={billingCity}
-                onChange={setBillingCity}
-                errors={errors}
-              />
-
-              <InputForm
-                type="number"
-                label="Zip Code"
-                name="billingZip"
-                id="billingZip"
-                inputRef={register({
-                  required: "This field is required",
-                })}
-                value={billingZip}
-                onChange={setBillingZip}
-                errors={errors}
-              />
-            </Box>
-
-            <Box className={classes.cardElements}>
-              <CardElement options={cardElementOption} />
-            </Box>
-
-            <InputForm
-              variant="outlined"
-              type="string"
-              label="Coupon Code"
-              name="coupon"
-              id="coupon"
-              disabled
-              inputRef={register({})}
-              value={coupon}
-              onChange={setCoupon}
-              errors={errors}
-            />
-            <Box style={{ display: "flex", justifyContent: "flex-end", marginTop: "20px" }}>
-              <Button variant="outlined" color="primary" onClick={() => router.back()}>
-                Back to Shipping
-              </Button>
-              <Button type="submit" variant="contained" color="primary" style={{ margin: "0px 0px 0px 20px" }}>
-                Confirm Payment
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Box>
-    </Paper>
+      </Paper>
+    </Container>
   );
 };
 
@@ -319,12 +321,12 @@ const useStyles = makeStyles(() =>
     layout: {
       display: "flex",
       justifyContent: "space-between",
-      padding: "30px 100px 30px 100px",
+      padding: "50px 70px 50px 70px",
     },
     form: {
       display: "flex",
       flexDirection: "column",
-      width: "700px",
+      width: "450px",
     },
     billing: {
       margin: "0px 0px 30px 0px",
@@ -335,7 +337,7 @@ const useStyles = makeStyles(() =>
       display: "grid",
       gridTemplateColumns: "1fr",
       gridGap: "1rem",
-      width: "40%",
+      width: "45%",
       flexDirection: "row",
     },
     cardElements: {

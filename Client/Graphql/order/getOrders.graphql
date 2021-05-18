@@ -1,0 +1,14 @@
+query GetOrders {
+  getOrders {
+    _id
+    fullName
+    amount
+    cart {
+      _id
+      productImages
+      name
+      price
+    }
+    createdAt
+  }
+}

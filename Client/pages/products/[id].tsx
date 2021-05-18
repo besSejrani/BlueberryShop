@@ -32,7 +32,13 @@ import ProductReview from "@Components/Product/ProductReview/ProductReview";
 import WriteProductReview from "@Components/Product/WriteProductReview/WriteProductReview";
 
 // GraphQL
-import { useGetProductQuery, useGetProductReviewPaginationQuery } from "@Graphql/index";
+import {
+  useGetProductQuery,
+  useGetProductReviewPaginationQuery,
+  GetCartDocument,
+  GetCartQuery,
+  useAddToCartMutation,
+} from "@Graphql/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -44,16 +50,19 @@ import { withNoAuth } from "@Guard/withNoAuth";
 
 const SingleProduct = () => {
   const classes = useStyles();
+
+  // Router
   const router = useRouter();
   const { query } = router;
   const { page = 1, size = 10 } = router.query;
 
-  // State
+  // State Pagination
   const [pageNumber, setPageNumber] = useState(+page);
   const [pageSize, setPageSize] = useState(+size);
   const [expanded, setExpanded] = useState<string | false>(false);
 
   // GraphQL
+  const [addToCart] = useAddToCartMutation();
   const { data, loading } = useGetProductQuery({ variables: { productId: query.id as string } });
   const { data: reviews } = useGetProductReviewPaginationQuery({
     variables: { productId: query.id as string, pageNumber: pageNumber, pageSize: pageSize },
@@ -61,10 +70,31 @@ const SingleProduct = () => {
 
   const pages = Math.ceil(reviews?.getProductReviewPagination.count / pageSize);
 
+  // Event
+  const addProductToCart = async (id) => {
+    await addToCart({
+      variables: { productId: id },
+      update(cache, { data }) {
+        const newProduct = data?.addToCart;
+
+        const { getCart }: GetCartQuery = cache.readQuery({
+          query: GetCartDocument,
+        });
+
+        cache.writeQuery({
+          query: GetCartDocument,
+          data: {
+            getCart: [...getCart.cart, newProduct],
+          },
+        });
+      },
+    });
+  };
+
   const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
     setPageNumber(value);
 
-    router.push(`/products/${query.id}?page=${value}&size=${pageSize}`, ``, {
+    router.push(`/products/${query.id}?page=${value}&size=${pageSize}`, "", {
       shallow: true,
     });
   };
@@ -109,7 +139,7 @@ const SingleProduct = () => {
                     variant="outlined"
                     color="secondary"
                     fullWidth
-                    onClick={() => console.log("hi")}
+                    onClick={() => addProductToCart(query.id)}
                     style={{ marginTop: "10px" }}
                   >
                     Add to Cart
@@ -130,7 +160,7 @@ const SingleProduct = () => {
           </Box>
 
           <Box className={classes.accordions}>
-            <Accordion square defaultExpanded={true} onChange={handleChange("panel1")}>
+            <Accordion square defaultExpanded onChange={handleChange("panel1")}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                 <Typography variant="body1">Description</Typography>
               </AccordionSummary>
@@ -182,7 +212,7 @@ const SingleProduct = () => {
 
       <WriteProductReview />
 
-      <ProductReview reviews={reviews} />
+      {data?.getProduct.reviews.length > 0 ? <ProductReview reviews={reviews} /> : null}
 
       {pages ? (
         <Box className={classes.pagination}>

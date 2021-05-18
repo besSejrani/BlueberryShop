@@ -28,7 +28,11 @@ type FormValues = {
 
 const SignUp = () => {
   const classes = useStyles();
+  const router = useRouter();
 
+  // State
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,10 +42,10 @@ const SignUp = () => {
     criteriaMode: "all",
   });
 
-  const router = useRouter();
-
+  // GraphQL
   const [signUp] = useSignupMutation();
 
+  // Events
   const onSubmit = async (form) => {
     if (password !== confirmPassword) {
       await alert("passwords don't match");
@@ -49,7 +53,13 @@ const SignUp = () => {
     }
 
     await signUp({
-      variables: { email: form.email, password: form.password, username: form.username },
+      variables: {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        password: form.password,
+        username: form.username,
+      },
     });
 
     router.push("/validation/email");
@@ -77,6 +87,32 @@ const SignUp = () => {
           </Box>
 
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <InputForm
+              type="text"
+              name="firstName"
+              id="firstName"
+              label="First Name"
+              inputRef={register({
+                required: "This field is required",
+              })}
+              value={firstName}
+              onChange={setFirstName}
+              errors={errors}
+            />
+
+            <InputForm
+              type="text"
+              name="lastName"
+              id="lastName"
+              label="Last Name"
+              inputRef={register({
+                required: "This field is required",
+              })}
+              value={lastName}
+              onChange={setLastName}
+              errors={errors}
+            />
+
             <InputForm
               type="text"
               name="username"
@@ -154,7 +190,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     signin: {
       display: "flex",
-      height: 520,
+      height: 620,
       justifyContent: "space-between",
     },
 

@@ -19,7 +19,7 @@ describe("login page", () => {
     });
   });
 
-  //Validation
+  // Validation
 
   it("should require fields", () => {
     cy.get("form").submit();

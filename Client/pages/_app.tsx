@@ -12,7 +12,6 @@ import MomentUtils from "@date-io/moment";
 import { user } from "@Apollo/state/user/index";
 
 // Layout
-import Layout from "../Layout/index";
 
 // SSR
 import withApollo from "@Apollo/ssr";
@@ -20,6 +19,7 @@ import withApollo from "@Apollo/ssr";
 // Stripe
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Layout from "../Layout/index";
 
 // ========================================================================================================
 

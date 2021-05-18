@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Next
 import Link from "next/link";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import Image from "next/image";
 
 // Material-UI
-import { AppBar, Toolbar, Typography, Box, Button, IconButton, Hidden, Badge } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Divider,
+  IconButton,
+  Button,
+  Hidden,
+  Badge,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import { makeStyles, createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
 // Icons
@@ -15,7 +27,7 @@ import CartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 
 // GraphQL
-import { LogoutDocument } from "@Graphql/index";
+import { LogoutDocument, useGetCartQuery } from "@Graphql/index";
 
 // Apollo
 import { apolloClient } from "@Apollo/ssr";
@@ -30,10 +42,28 @@ import { ui } from "@Apollo/state/ui/index";
 const AdminHeader = () => {
   const classes = useStyles();
 
+  const router = useRouter();
+
+  // GraphQL
+  const { data: dataCart } = useGetCartQuery();
+
+  // State
+  const [isMenuOpen, setIsMenuOpen] = useState<null | HTMLElement>(null);
+
   const data = useReactiveVar(user);
 
   const changeCart = () => {
     ui({ ...ui(), isCartOpen: true });
+  };
+
+  // Events
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setIsMenuOpen(event.currentTarget);
+  };
+
+  const handleClose = async (path?: string) => {
+    await setIsMenuOpen(null);
+    await router.push(path);
   };
 
   const Logout = async () => {
@@ -53,6 +83,7 @@ const AdminHeader = () => {
       _id: "",
       username: "",
       role: "",
+      profileImageUrl: "",
     });
   };
 
@@ -69,8 +100,8 @@ const AdminHeader = () => {
                 cursor: "pointer",
               }}
             >
-              <Image width={60} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
-              <Typography variant="h6" className={classes.title}>
+              <Image width={30} height={40} src="/raspberry.svg" alt="Raspberry Pi Logo" />
+              <Typography style={{ margin: "0px 0px 0px 10px" }} variant="h6" className={classes.title}>
                 BlueberryShop
               </Typography>
             </Box>
@@ -96,20 +127,23 @@ const AdminHeader = () => {
           </IconButton>
 
           <IconButton color="inherit" onClick={changeCart}>
-            <StyledBadge
-              // badgeContent={selectProducts}
-              color="secondary"
-              overlap="circle"
-            >
+            <StyledBadge badgeContent={dataCart?.getCart?.cart?.length} color="secondary" overlap="circle">
               <CartIcon className="nav-icon" />
             </StyledBadge>
           </IconButton>
 
-          <Link href="/account">
+          <Box>
             {data.profileImageUrl ? (
-              <img src={data.profileImageUrl} className={classes.profileImage} alt="" />
+              <img
+                src={data.profileImageUrl}
+                className={classes.profileImage}
+                alt=""
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              />
             ) : (
-              <IconButton>
+              <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <PersonIcon
                   style={{
                     color: "white",
@@ -121,11 +155,21 @@ const AdminHeader = () => {
                 />
               </IconButton>
             )}
-          </Link>
 
-          <Button style={{ color: "white" }} onClick={Logout}>
-            Logout
-          </Button>
+            <Menu
+              id="simple-menu"
+              aria-haspopup="true"
+              anchorEl={isMenuOpen}
+              keepMounted
+              open={Boolean(isMenuOpen)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => handleClose("/account")}>Account</MenuItem>
+              <MenuItem onClick={() => handleClose("/orders")}>Orders</MenuItem>
+              <Divider />
+              <MenuItem onClick={Logout}>Logout</MenuItem>
+            </Menu>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>

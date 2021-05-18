@@ -14,14 +14,13 @@ import { withNoAuth } from "@Guard/withNoAuth";
 
 // ========================================================================================================
 
-const Home: React.FC = () => {
+const Home: React.FC = () => (
   // let { t } = useTranslation();
   // const router = useRouter();
 
-  return (
-    <>
-      {/* <h6>{t("common:greeting")}</h6> */}
-      {/* <ul>
+  <>
+    {/* <h6>{t("common:greeting")}</h6> */}
+    {/* <ul>
         {router.locales.map((locale) => (
           <li key={locale}>
             <Link href={router.asPath} locale={locale}>
@@ -30,17 +29,9 @@ const Home: React.FC = () => {
           </li>
         ))}
       </ul> */}
-      <Promotions />
-    </>
-  );
-};
-
-// export async function getStaticProps() {
-//   return {
-//     props: {},
-//   };
-// }
-
+    <Promotions />
+  </>
+);
 export default withApollo({ ssr: false })(withNoAuth(Home));
 
 // =================================================================

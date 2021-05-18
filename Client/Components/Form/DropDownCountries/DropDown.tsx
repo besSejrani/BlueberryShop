@@ -27,7 +27,7 @@ const DropDown = ({ id, name, value, onChange }) => {
       displayEmpty
       renderValue={(selected) => {
         if (selected?.length === 0) {
-          return <em>Select Country</em>;
+          return <em style={{ color: "rgb(118,118,118)" }}>Select Country</em>;
         }
 
         return selectCountry;

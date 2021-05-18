@@ -36,10 +36,10 @@ const AccountBilling = () => {
   const [billingZip, setBillingZip] = useState<number>();
 
   useEffect(() => {
-    setBillingAddress(currentUser?.getCurrentUser?.billing[0].address);
-    setBillingCountry(currentUser?.getCurrentUser?.billing[0].country);
-    setBillingCity(currentUser?.getCurrentUser?.billing[0].city);
-    setBillingZip(currentUser?.getCurrentUser?.billing[0].zip);
+    setBillingAddress(currentUser?.getCurrentUser?.billing[0]?.address);
+    setBillingCountry(currentUser?.getCurrentUser?.billing[0]?.country);
+    setBillingCity(currentUser?.getCurrentUser?.billing[0]?.city);
+    setBillingZip(currentUser?.getCurrentUser?.billing[0]?.zip);
   }, [data]);
 
   // Form

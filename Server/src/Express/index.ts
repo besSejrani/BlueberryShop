@@ -24,6 +24,7 @@ import cookieParser from "cookie-parser";
 import googleAuth from "@Routes/Oauth2/googleOauth";
 import githubAuth from "@Routes/Oauth2/githubOauth";
 import stripeWebhooks from "@Routes/Stripe/Webhooks";
+import pdfKit from "@Routes/PDF/index";
 
 // Database
 import mongo from "@Model/mongo";
@@ -63,6 +64,7 @@ const main = async () => {
     app.use(githubAuth);
     app.use(googleAuth);
     app.use(stripeWebhooks);
+    app.use(pdfKit);
 
     // Configuration
     app.set("trust proxy", 1);

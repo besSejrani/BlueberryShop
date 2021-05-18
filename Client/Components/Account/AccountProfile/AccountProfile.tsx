@@ -42,10 +42,14 @@ const Account = () => {
   const [updateProfile] = useUpdateProfileMutation();
 
   // Profile State
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
+    setFirstName(data?.getUser.firstName);
+    setLastName(data?.getUser.lastName);
     setUsername(data?.getUser.username);
     setEmail(data?.getUser.email);
   }, [data]);
@@ -57,7 +61,15 @@ const Account = () => {
 
   // Events
   const onSubmitProfile = async (form) => {
-    await updateProfile({ variables: { picture: account.images[0], email: form.email, username: form.username } });
+    await updateProfile({
+      variables: {
+        picture: account.images[0],
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        username: form.username,
+      },
+    });
 
     const profileImageUrl = account.preview[0];
 
@@ -103,6 +115,32 @@ const Account = () => {
         </Box>
 
         <form className={classes.form} onSubmit={handleSubmit(onSubmitProfile)}>
+          <InputForm
+            type="text"
+            label="First Name"
+            name="firstName"
+            id="firstName"
+            inputRef={register({
+              required: "This field is required",
+            })}
+            value={firstName}
+            onChange={setFirstName}
+            errors={errors}
+          />
+
+          <InputForm
+            type="text"
+            label="Last Name"
+            name="lastName"
+            id="lastName"
+            inputRef={register({
+              required: "This field is required",
+            })}
+            value={lastName}
+            onChange={setLastName}
+            errors={errors}
+          />
+
           <InputForm
             type="text"
             label="Username"
