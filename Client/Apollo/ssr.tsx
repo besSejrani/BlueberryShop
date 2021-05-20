@@ -28,13 +28,24 @@ const cache = new InMemoryCache({
     },
   },
 });
+
+// Localstorage
 let token;
 if (typeof window !== "undefined") {
   token = window.localStorage.getItem("token");
 }
 
+// Docker
+let uri;
+if (typeof window !== "undefined" && process.env.NODE_ENV == "development") {
+  uri = process.env.NEXT_PUBLIC_DEVELOPMENT_SERVER;
+} else {
+  // uri = process.env.NEXT_PUBLIC_DEVELOPMENT_DOCKER;
+  uri = "http://localhost:4000/graphql";
+}
+
 const link = createUploadLink({
-  uri: process.env.NEXT_PUBLIC_DEVELOPMENT_SERVER,
+  uri,
   credentials: "include",
   headers: {
     token,

@@ -39,6 +39,7 @@ services:
     build:
       context: ./Server
     container_name: server
+
     networks:
       - backend
       - frontend
@@ -48,7 +49,7 @@ services:
       - mongo
       - redis
     environment:
-      - NODE_ENV=${ENVIRONMENT}
+      - NODE_ENV2=${ENVIRONMENT}
     env_file:
       - ./Server/.env
     volumes:
@@ -77,6 +78,7 @@ services:
       MONGO_INITDB_DATABASE: root-db
     volumes:
       - ./Mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ~/docker/BlueberryShop/Mongo:/data/db
 
   # ===========================================================================================================================
 

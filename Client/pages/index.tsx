@@ -32,6 +32,6 @@ const Home: React.FC = () => (
     <Promotions />
   </>
 );
-export default withApollo({ ssr: false })(withNoAuth(Home));
+export default withApollo({ ssr: true })(withNoAuth(Home));
 
 // =================================================================

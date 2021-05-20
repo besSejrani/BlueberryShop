@@ -5,7 +5,9 @@ declare namespace NodeJS {
     MONGO_ATLAS: string;
     MONGO_PRODUCTION: string;
     MONGO_DEVELOPMENT: string;
+
     MONGO_TEST: string;
+    MONGO_TEST_JEST: string;
 
     JWT_SECRET: string;
     JWT_EXPIRES_IN: string;
