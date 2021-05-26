@@ -12,7 +12,7 @@ theme:
   name: material
 
   # Use custom logo and favicon
-  logo: images/raspberry.svg
+  logo: images/raspberry.png
   favicon: images/raspberry.png
 
   # Github Icon Header

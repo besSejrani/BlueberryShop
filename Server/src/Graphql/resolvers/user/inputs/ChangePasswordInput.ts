@@ -12,6 +12,6 @@ export class ChangedPasswordInput {
   token: string;
 
   @Field()
-  @Min(8)
+  @Min(8, { message: "Password must have a minimum length of 8" })
   password: string;
 }

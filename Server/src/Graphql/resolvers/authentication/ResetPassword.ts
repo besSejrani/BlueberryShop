@@ -13,6 +13,9 @@ import bcrypt from "bcryptjs";
 import { authentication } from "@Middleware/authentication";
 import authorization from "@Middleware/authorization";
 
+// Error Handling
+import to from "@Error/to";
+
 // =================================================================================================
 
 @Resolver()
@@ -24,20 +27,23 @@ export class ResetPasswordResolver {
     @Arg("resetPasswordInput") resetPasswordInput: ResetPasswordInput,
     @Ctx() context: MyContext,
   ): Promise<boolean | null> {
-    const user = await UserModel.findOne({ _id: context.req.userId });
+    let err;
+    let data;
 
-    if (!user) {
-      return null;
-    }
+    [err, data] = await to(UserModel.findOne({ _id: context.req.userId }));
+    if (err) return null;
+    const user = data;
 
-    const valid = bcrypt.compare(resetPasswordInput.oldPassword, user.password);
+    [err, data] = await to(bcrypt.compare(resetPasswordInput.oldPassword, user.password));
+    if (!data) throw new Error("Invalid credentials");
 
-    if (!valid) {
-      throw new Error("Invalid credentials");
-    }
+    [err, data] = await to(bcrypt.genSalt(12));
+    // if (err) // TODO
+    const salt = data;
 
-    const salt = await bcrypt.genSalt(12);
-    const hash = await bcrypt.hash(resetPasswordInput.newPassword, salt);
+    [err, data] = await to(bcrypt.hash(resetPasswordInput.newPassword, salt));
+    // if (err) // TODO
+    const hash = data;
 
     await UserModel.findByIdAndUpdate(
       { _id: context.req.userId },

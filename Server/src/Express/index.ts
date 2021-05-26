@@ -16,7 +16,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 
 // Server
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 
@@ -25,6 +25,10 @@ import googleAuth from "@Routes/Oauth2/googleOauth";
 import githubAuth from "@Routes/Oauth2/githubOauth";
 import stripeWebhooks from "@Routes/Stripe/Webhooks";
 import pdfKit from "@Routes/PDF/index";
+import unhandledRoute from "@Routes/AnyRoute/unhandledRoute";
+
+// Errors
+import { NotFoundError } from "src/Error/Errors/NotFoundError";
 
 // Database
 import mongo from "@Model/mongo";
@@ -70,6 +74,7 @@ const main = async () => {
     app.set("trust proxy", 1);
     app.use(cors(corsOptions));
 
+    // Apollo
     const schema = await createSchema();
     const apolloServer = new ApolloServer({
       schema,
@@ -84,8 +89,15 @@ const main = async () => {
     });
 
     app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 4 }));
-
     apolloServer.applyMiddleware({ app, cors: false });
+
+    // Unhandled Route & Global Error handling middleware
+    app.use(unhandledRoute);
+
+    app.use((err: NotFoundError, _: Request, res: Response, next: NextFunction) => {
+      res.status(err.statusCode).json(err.serializeErrors());
+      next(err);
+    });
 
     const port = process.env.PORT || 6000;
     app.listen(port, () => console.log(`Server is running on http://localhost:${port}${apolloServer.graphqlPath}`));

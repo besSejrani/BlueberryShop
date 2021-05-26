@@ -1,3 +1,6 @@
+// Class-Validator
+import { IsEmail } from "class-validator";
+
 // GraphQL
 import { InputType, Field } from "type-graphql";
 
@@ -9,5 +12,6 @@ export class ChangedProfileInput {
   username: string;
 
   @Field()
+  @IsEmail()
   email: string;
 }

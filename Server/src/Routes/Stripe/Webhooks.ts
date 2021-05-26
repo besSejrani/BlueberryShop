@@ -5,6 +5,9 @@ import express from "express";
 import { UserModel } from "@Model/user/User";
 import { OrderModel } from "@Model/Order";
 
+// UUID
+import { v4 as uuid } from "uuid";
+
 // Logger
 import logger from "@Logger/index";
 
@@ -13,10 +16,15 @@ import logger from "@Logger/index";
 const router = express.Router();
 
 router.post("/webhook", async (req, res) => {
+  let paymentIntent;
+
   // Handle the event
   switch (req.body.type) {
     case "payment_intent.succeeded":
-      const paymentIntent = req.body.data.object;
+      paymentIntent = req.body.data.object;
+
+      const orderNumber = `${uuid()}`;
+      const invoiceNumber = `${uuid()}`;
 
       // Find corresponding user
       const user = await UserModel.findById({ _id: paymentIntent.metadata.user });
@@ -28,15 +36,19 @@ router.post("/webhook", async (req, res) => {
         amount,
         cart: user?.cart,
         billing: {
-          country: paymentIntent.charges.data[0].billing_details.address.country,
           address: paymentIntent.charges.data[0].billing_details.address.line1,
-          city: paymentIntent.charges.data[0].billing_details.address.postal_code,
+          city: paymentIntent.charges.data[0].billing_details.address.city,
+          zip: paymentIntent.charges.data[0].billing_details.address.postal_code,
+          country: paymentIntent.charges.data[0].billing_details.address.country,
         },
         shipping: {
-          city: paymentIntent.shipping.address.postal_code,
-          country: paymentIntent.shipping.address.country,
           address: paymentIntent.shipping.address.line1,
+          city: paymentIntent.shipping.address.city,
+          zip: paymentIntent.shipping.address.postal_code,
+          country: paymentIntent.shipping.address.country,
         },
+        orderNumber,
+        invoiceNumber,
       });
 
       const OrderInformation = await order.save();
@@ -55,17 +67,16 @@ router.post("/webhook", async (req, res) => {
 
       break;
 
-    case "payment_method.attached":
-      const paymentMethod = req.body.data.object;
-      console.log("PaymentMethod was attached to a Customer!", paymentMethod);
+    case "payment_intent.payment_failed":
+      paymentIntent = req.body.data.object;
+      console.log("PaymentMethod was attached to a Customer!", paymentIntent);
+      await logger.info(`Order Failed, order id: [${paymentIntent.id}]`);
       break;
 
-    // ... handle other event types
     default:
       console.log(`Unhandled event type ${req.body.type}`);
   }
 
-  // Return a 200 response to acknowledge receipt of the event
   res.status(200).json({ received: true });
 });
 

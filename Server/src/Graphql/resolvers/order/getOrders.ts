@@ -19,9 +19,12 @@ export class GetOrderResolver {
       return null;
     }
 
-    const cart = await OrderModel.find().populate({
-      path: "cart",
-    });
+    const cart = await OrderModel.find()
+      .populate({
+        path: "cart",
+      })
+      .sort({ createdAt: "desc" })
+      .exec();
 
     return cart;
   }

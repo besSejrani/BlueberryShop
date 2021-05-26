@@ -1,7 +1,6 @@
 // GraphQL
 import { InputType, Field } from "type-graphql";
-
-import { Status } from "../../../enums/statusEnum";
+import { Status } from "@Graphql/enums/statusEnum";
 
 // ========================================================================================================
 

@@ -1,6 +1,8 @@
 import { graphql, GraphQLSchema } from "graphql";
 
-// import { createSchema } from "";
+import createSchema from "../../Graphql/schema/index";
+
+// ========================================================================================================
 
 interface Options {
   source: string;
@@ -13,6 +15,7 @@ export const TestGraphqlAction = async ({ source, variableValues }: Options) => 
   if (!schema) {
     schema = await createSchema();
   }
+
   return graphql({
     schema,
     source,

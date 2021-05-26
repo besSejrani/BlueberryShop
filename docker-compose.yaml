@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+  mkdocs:
+    restart: always
+    container_name: mkdocs
+    build:
+      dockerfile: Dockerfile
+      context: ./Documentation
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./Documentation:/app
+
   nginx:
     restart: always
     build:
@@ -57,12 +68,25 @@ services:
 
   redis:
     image: redis:latest
+    # image: redislabs/redismod
     container_name: redis
     networks:
       - backend
     ports:
       - "6379:6379"
     command: redis-server
+
+  # Monitoring GUI
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "8001:8001"
+    networks:
+      - backend
+    user: root
+    volumes:
+      - ~/docker/BlueberryShop/RedisInsight:/db
 
   mongo:
     container_name: mongodb

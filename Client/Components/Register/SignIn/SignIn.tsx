@@ -62,6 +62,8 @@ const SignIn = () => {
 
     const result = await apolloClient?.query<GetCurrentUserQuery>({ query: GetCurrentUserDocument });
 
+    apolloClient.resetStore();
+
     user({
       _id: result?.data?.getCurrentUser?._id,
       username: result?.data?.getCurrentUser?.username,

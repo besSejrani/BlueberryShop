@@ -38,6 +38,14 @@ export class Order {
   shipping?: Shipping;
 
   @Field()
+  @Property()
+  orderNumber: string;
+
+  @Field()
+  @Property()
+  invoiceNumber: string;
+
+  @Field()
   @Property({ default: Date.now() })
   createdAt?: Date;
 }

@@ -16,6 +16,7 @@ import DropDownCountries from "@Components/Form/DropDownCountries/DropDown";
 import MultiStep from "@Components/Form/MultiStep/MultiStep";
 
 // Hook
+import useToast from "@Hook/useToast";
 import useCalculateCartTotal from "@Hook/useCalculateCartTotal";
 
 // Stripe
@@ -308,8 +309,6 @@ const CheckoutPayment = () => {
 };
 
 export default withApollo({ ssr: true })(withAuth(CheckoutPayment));
-
-// =================================================================
 
 const useStyles = makeStyles(() =>
   createStyles({

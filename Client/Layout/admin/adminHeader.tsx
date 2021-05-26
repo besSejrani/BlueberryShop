@@ -13,7 +13,6 @@ import {
   Box,
   Divider,
   IconButton,
-  Button,
   Hidden,
   Badge,
   Menu,
@@ -68,7 +67,7 @@ const AdminHeader = () => {
 
   const Logout = async () => {
     // Delete Cookie
-    apolloClient.mutate({
+    await apolloClient.mutate({
       mutation: LogoutDocument,
     });
 
@@ -78,8 +77,10 @@ const AdminHeader = () => {
     // Redirect
     Router.replace("/");
 
+    await apolloClient.resetStore();
+
     // Reset State
-    user({
+    await user({
       _id: "",
       username: "",
       role: "",

@@ -116,7 +116,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   resetPassword: Scalars['Boolean'];
   signin: UserResponse;
-  signup: UserResponse;
+  signup: Scalars['Boolean'];
   addToCart: Scalars['Boolean'];
   deleteProductFromCart: Scalars['Boolean'];
   addToNewsletter: Scalars['Boolean'];
@@ -776,14 +776,7 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = (
   { __typename?: 'Mutation' }
-  & { signup: (
-    { __typename?: 'UserResponse' }
-    & Pick<UserResponse, 'token'>
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'username' | 'email'>
-    )> }
-  ) }
+  & Pick<Mutation, 'signup'>
 );
 
 export type AddToCartMutationVariables = Exact<{
@@ -1825,13 +1818,7 @@ export const SignupDocument = gql`
     mutation Signup($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) {
   signup(
     input: {firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password}
-  ) {
-    user {
-      username
-      email
-    }
-    token
-  }
+  )
 }
     `;
 export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;

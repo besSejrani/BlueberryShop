@@ -9,7 +9,7 @@ import { format, createLogger, transports } from "winston";
 const { combine, timestamp, printf } = format;
 
 const DevelopmentLogger = () => {
-  const logFormat = printf(({ level, message, timestamp, stack }) => `${timestamp} ${level}: ${stack || message}`);
+  const logFormat = printf(({ level, message, timestamp, stack }) => `[${timestamp}] [${level}]: ${stack || message}`);
 
   // YYYY-MM-DD
   const date = new Date();

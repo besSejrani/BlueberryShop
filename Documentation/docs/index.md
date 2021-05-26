@@ -28,13 +28,13 @@
 ## Order History
 
 - [x] The order history is showed with date and cart total
-- [ ] The order details are showed
+- [x] The order details are showed
 
 <hr/>
 
 ## Server-side rendered order PDF
 
-- [ ] The PDF must be generated on the server
+- [x] The PDF must be generated on the server
 
 <hr/>
 

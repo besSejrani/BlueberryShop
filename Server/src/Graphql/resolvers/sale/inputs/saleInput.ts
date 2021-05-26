@@ -1,3 +1,7 @@
+// Class-Validator
+import { IsDate } from "class-validator";
+
+// GraphQL
 import { InputType, Field } from "type-graphql";
 
 // ========================================================================================================
@@ -8,9 +12,11 @@ export class CreateSaleInput {
   sale: string;
 
   @Field()
+  @IsDate()
   startDate: Date;
 
   @Field()
+  @IsDate()
   endDate: Date;
 
   @Field()

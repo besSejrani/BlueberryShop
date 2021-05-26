@@ -113,7 +113,7 @@ type Mutation {
   logout: Boolean!
   resetPassword(resetPasswordInput: ResetPasswordInput!): Boolean!
   signin(input: SigninInput!): UserResponse!
-  signup(input: SignupInput!): UserResponse!
+  signup(input: SignupInput!): Boolean!
   updateArticle(articleId: String!, articleInput: UpdateArticleInput!): Article!
   updateArticleCategory(articleCategoryInput: UpdateArticleCategoryInput!): ArticleCategory!
   updateBillingInformation(updateBillingInput: UpdateBilling!): User
@@ -139,6 +139,8 @@ type Order {
   cart: [Product!]!
   createdAt: DateTime!
   fullName: String!
+  invoiceNumber: String!
+  orderNumber: String!
   shipping: Shipping!
 }
 

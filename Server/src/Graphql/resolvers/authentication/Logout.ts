@@ -1,6 +1,6 @@
 // GraphQL
 import { Mutation, Resolver, Ctx } from "type-graphql";
-import { MyContext } from "../../types/MyContext";
+import { MyContext } from "@Graphql/types/MyContext";
 
 // =================================================================================================
 
