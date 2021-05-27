@@ -1,16 +1,16 @@
 // Config
 import "dotenv/config";
-import { connection } from "../../utils/test/mongo";
+import { connection } from "@Utils/test/mongo";
 
 // Database
 import mongoose from "mongoose";
-import { UserModel } from "../../Model/user/User";
+import { UserModel } from "@Model/user/User";
 
 // Fake Data
 import faker from "faker";
 
 // Test
-import { TestGraphqlAction } from "../../utils/test/GraphqlAction";
+import { TestGraphqlAction } from "@Utils/test/GraphqlAction";
 
 // =================================================================================================
 
@@ -56,7 +56,7 @@ const user = {
 };
 
 describe("Signup resolver", () => {
-  it("check graphql response", async (done) => {
+  it("should send a graphql response", async (done) => {
     const response = await TestGraphqlAction({
       source: registerMutation,
       variableValues: {
@@ -73,7 +73,7 @@ describe("Signup resolver", () => {
     done();
   });
 
-  it("verify user in DB", async (done) => {
+  it("should verify the user in the database", async (done) => {
     const dbUser = await UserModel.findOne({ firstName: user.firstName });
     expect(dbUser).toBeDefined();
     expect(dbUser?.confirmed).toBeFalsy();

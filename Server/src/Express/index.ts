@@ -44,66 +44,64 @@ const corsOptions = {
   credentials: true,
 };
 
+const app = express();
+
 const main = async () => {
-  try {
-    const app = express();
+  // Middlewares
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.json());
+  app.use(mongoSanitize());
 
-    // Middlewares
-    app.use(helmet({ contentSecurityPolicy: false }));
-    app.use(express.urlencoded({ extended: false }));
-    app.use(cookieParser());
-    app.use(express.json());
-    app.use(mongoSanitize());
+  // Services
+  await mongo();
+  await githubService();
+  await googleService();
 
-    // Services
-    await mongo();
-    await githubService();
-    await googleService();
+  // Passport
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-    // Passport
-    app.use(passport.initialize());
-    app.use(passport.session());
+  // Rest Routes
+  app.use(githubAuth);
+  app.use(googleAuth);
+  app.use(stripeWebhooks);
+  app.use(pdfKit);
 
-    // Rest Routes
-    app.use(githubAuth);
-    app.use(googleAuth);
-    app.use(stripeWebhooks);
-    app.use(pdfKit);
+  // Configuration
+  app.set("trust proxy", 1);
+  app.use(cors(corsOptions));
 
-    // Configuration
-    app.set("trust proxy", 1);
-    app.use(cors(corsOptions));
-
-    // Apollo
-    const schema = await createSchema();
-    const apolloServer = new ApolloServer({
-      schema,
-      context: ({ req, res }) => ({ req, res }),
-      introspection: true,
-      uploads: false,
-      playground: {
-        settings: {
-          "request.credentials": "include",
-        },
+  // Apollo
+  const schema = await createSchema();
+  const apolloServer = new ApolloServer({
+    schema,
+    context: ({ req, res }) => ({ req, res }),
+    introspection: true,
+    uploads: false,
+    playground: {
+      settings: {
+        "request.credentials": "include",
       },
-    });
+    },
+  });
 
-    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 4 }));
-    apolloServer.applyMiddleware({ app, cors: false });
+  app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 4 }));
+  apolloServer.applyMiddleware({ app, cors: false });
 
-    // Unhandled Route & Global Error handling middleware
-    app.use(unhandledRoute);
+  // Unhandled Route & Global Error handling middleware
+  app.use(unhandledRoute);
 
-    app.use((err: NotFoundError, _: Request, res: Response, next: NextFunction) => {
-      res.status(err.statusCode).json(err.serializeErrors());
-      next(err);
-    });
-
-    const port = process.env.PORT || 6000;
-    app.listen(port, () => console.log(`Server is running on http://localhost:${port}${apolloServer.graphqlPath}`));
-  } catch (error) {
-    console.log(error.message);
-  }
+  app.use((err: NotFoundError, _: Request, res: Response, next: NextFunction) => {
+    res.status(err.statusCode).json(err.serializeErrors());
+    next(err);
+  });
 };
 
+const port = process.env.PORT || 6000;
+app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
+
 main();
+
+export const application = app;

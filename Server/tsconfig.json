@@ -31,7 +31,8 @@
       "@Redis/*":       ["./src/Redis/*"],
       "@Email/*":       ["./src/Email/*"],
       "@Logger/*":      ["./src/Winston/*"],
-      "@Error/*":       ["./src/Error/*"]
+      "@Error/*":       ["./src/Error/*"],
+      "@Utils/*":       ["./src/Utils/*"]
     },
     "typeRoots": ["./@types", "./node_modules/@types"]
   },

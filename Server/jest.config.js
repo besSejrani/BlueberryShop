@@ -7,6 +7,6 @@ const moduleNameMapper = getJestMappersFromTSConfig();
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  setupFilesAfterEnv: ["<rootDir>/src/utils/test/setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/src/Utils/test/setup.ts"],
   moduleNameMapper,
 };

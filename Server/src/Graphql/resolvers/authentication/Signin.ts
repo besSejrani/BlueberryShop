@@ -39,7 +39,7 @@ export class SigninResolver {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
-    context.res.cookie("token", token, {
+    context?.res?.cookie("token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 1) as number,
       httpOnly: true,
       domain: "localhost",
