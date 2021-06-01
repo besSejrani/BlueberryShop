@@ -18,27 +18,27 @@ export class Order {
   readonly _id: ObjectId;
 
   @Field()
-  @Property()
+  @Property({ required: [true, "Please provide a user name"] })
   fullName?: string;
 
   @Field()
-  @Property()
+  @Property({ required: true })
   amount?: number;
 
   @Field(() => [Product])
-  @Property({ ref: Product, type: ObjectId })
+  @Property({ required: true, ref: Product, type: ObjectId })
   cart?: Product[];
 
   @Field(() => Billing)
-  @Property()
+  @Property({ required: true })
   billing?: Billing;
 
   @Field(() => Shipping)
-  @Property()
+  @Property({ required: true })
   shipping?: Shipping;
 
   @Field()
-  @Property()
+  @Property({ required: true })
   orderNumber: string;
 
   @Field()

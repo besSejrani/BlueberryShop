@@ -43,7 +43,7 @@ export class Article {
   content: string;
 
   @Field()
-  @Property({ enum: ["DRAFT", "PUBLISHED", "ARCHIVED"], default: false })
+  @Property({ enum: ["DRAFT", "PUBLISHED", "ARCHIVED"], default: "DRAFT" })
   status: string;
 
   @Field()

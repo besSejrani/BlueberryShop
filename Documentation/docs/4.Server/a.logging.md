@@ -48,7 +48,7 @@ The Winston logger has different levels of logging, from zero, the most importan
 
 Logs should be parsable and scannable, they can be used in a wide range of fields like tracing, analytics or audits.
 
-Using brackets around log values can help to improve readness, it also helps for searching text across regular expression or by using the seed Unix command line utility.
+Using brackets around log values can help to improve readiness, it also helps for searching text across regular expression or by using the seed Unix command line utility.
 
 === "Example"
 

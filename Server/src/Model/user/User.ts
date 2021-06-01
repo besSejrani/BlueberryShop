@@ -46,11 +46,11 @@ export class User {
   githubId?: string;
 
   @Field()
-  @Property()
+  @Property({ required: true })
   firstName: string;
 
   @Field()
-  @Property()
+  @Property({ required: true })
   lastName: string;
 
   @Field()
