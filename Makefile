@@ -1,11 +1,17 @@
 # Production
 run-prod:
-	ENVIRONMENT=production docker-compose up --build
+	ENVIRONMENT=production \
+	NEXT_PUBLIC_DEVELOPMENT_DOCKER=http://server:4000/graphql \
+	docker-compose up --build
 
 # Development
 run-dev:
-	ENVIRONMENT=development docker-compose up --build
+	ENVIRONMENT=development \
+	NEXT_PUBLIC_DEVELOPMENT_DOCKER=http://server:4000/graphql \
+	docker-compose up --build
 
 # Test
 run-test:
-	ENVIRONMENT=test docker-compose up --build
+	ENVIRONMENT=test \
+	NEXT_PUBLIC_DEVELOPMENT_DOCKER=http://server:4000/graphql \
+	docker-compose up --build

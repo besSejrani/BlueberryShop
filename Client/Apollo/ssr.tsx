@@ -40,8 +40,7 @@ let uri;
 if (typeof window !== "undefined" && process.env.NODE_ENV == "development") {
   uri = process.env.NEXT_PUBLIC_DEVELOPMENT_SERVER;
 } else {
-  uri = process.env.NEXT_PUBLIC_DEVELOPMENT_DOCKER;
-  // uri = "http://localhost:4000/graphql";
+  uri = process.env.NEXT_PUBLIC_DOCKER || process.env.NEXT_PUBLIC_DEVELOPMENT_SERVER;
 }
 
 const link = createUploadLink({

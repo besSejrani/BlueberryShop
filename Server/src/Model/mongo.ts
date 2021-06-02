@@ -1,4 +1,7 @@
+// Configuration
 import "dotenv/config";
+
+// Mongoose
 import mongoose from "mongoose";
 
 export default async () => {

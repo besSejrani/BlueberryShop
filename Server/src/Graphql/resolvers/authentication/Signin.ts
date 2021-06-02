@@ -1,3 +1,6 @@
+// Configuration
+import "dotenv/config";
+
 // GraphQL
 import { Mutation, Resolver, Arg, Ctx } from "type-graphql";
 import { MyContext } from "../../types/MyContext";
@@ -42,7 +45,7 @@ export class SigninResolver {
     context?.res?.cookie("token", token, {
       maxAge: (60 * 60 * 1000 * 24 * 1) as number,
       httpOnly: true,
-      domain: "localhost",
+      domain: process.env.COOKIES_DOMAIN,
       path: "/",
       secure: true,
       sameSite: "none",

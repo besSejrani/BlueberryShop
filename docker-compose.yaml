@@ -41,6 +41,8 @@ services:
       - "3000:3000"
     depends_on:
       - server
+    environment:
+      - NEXT_PUBLIC_DOCKER=${NEXT_PUBLIC_DEVELOPMENT_DOCKER}
     env_file:
       - ./Client/.env
     volumes:

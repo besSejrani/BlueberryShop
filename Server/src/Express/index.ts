@@ -40,7 +40,7 @@ import createSchema from "@Graphql/schema";
 
 // CORS Configuration
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CORS_DOMAIN,
   credentials: true,
 };
 

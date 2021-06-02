@@ -12,6 +12,9 @@ declare namespace NodeJS {
     JWT_SECRET: string;
     JWT_EXPIRES_IN: string;
 
+    CORS_DOMAIN: string;
+    COOKIES_DOMAIN: string;
+
     SENDGRID_API: string;
 
     REDIS_HOST: string;

@@ -31,6 +31,12 @@ JWT_SECRET=
 # Define expiration in milliseconds or in days
 JWT_EXPIRES_IN=
 
+# Cross-Origin Resource Sharing configuration value, http://localhost:3000
+CORS_DOMAIN=
+
+# Cookies bound to a specific domain, localhost
+COOKIES_DOMAIN=
+
 # Define your Sendgrid secret API key
 SENDGRID_API=
 
