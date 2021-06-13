@@ -19,6 +19,10 @@ export class Review {
   @Field({ nullable: true })
   @Property({ required: true })
   review: string;
+
+  @Field()
+  @Property({ default: () => Date.now() })
+  createdAt?: Date;
 }
 
 // ========================================================================================================

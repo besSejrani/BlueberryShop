@@ -19,6 +19,10 @@ export class Newsletter {
     trim: true,
   })
   email: string;
+
+  @Field()
+  @Property({ default: () => Date.now() })
+  createdAt?: Date;
 }
 
 // ========================================================================================================

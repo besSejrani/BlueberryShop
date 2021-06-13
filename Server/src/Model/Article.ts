@@ -47,7 +47,7 @@ export class Article {
   status: string;
 
   @Field()
-  @Property({ required: true, default: Date.now() })
+  @Property({ required: true, default: () => Date.now() })
   createdAt: Date;
 }
 

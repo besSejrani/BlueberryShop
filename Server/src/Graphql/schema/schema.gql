@@ -126,6 +126,7 @@ type Mutation {
 
 type Newsletter {
   _id: ObjectId!
+  createdAt: DateTime!
   email: String!
 }
 
@@ -202,6 +203,7 @@ input ResetPasswordInput {
 }
 
 type Review {
+  createdAt: DateTime!
   rating: Float
   review: String
   reviewerName: String

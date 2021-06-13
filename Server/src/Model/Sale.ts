@@ -39,7 +39,7 @@ export class Sale {
   discount: number;
 
   @Field()
-  @Property({ default: Date.now() })
+  @Property({ default: () => Date.now() })
   createdAt?: Date;
 }
 

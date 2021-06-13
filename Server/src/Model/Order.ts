@@ -46,7 +46,7 @@ export class Order {
   invoiceNumber: string;
 
   @Field()
-  @Property({ default: Date.now() })
+  @Property({ default: () => Date.now() })
   createdAt?: Date;
 }
 

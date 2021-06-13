@@ -17,6 +17,8 @@ const router = express.Router();
 router.get("/:id/pdf", async (req, res) => {
   const { id } = req.params;
 
+  // margins: { left: 50, right: 50, top: 300, bottom: 100 }
+
   const doc = await new PDFKit({ size: "A4", compress: true });
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline; filename=order");
@@ -151,7 +153,7 @@ router.get("/:id/pdf", async (req, res) => {
     width: 400,
   });
 
-  doc.fontSize(11).text(`${moment(order?.createdAt).format("DD.MM.yyyy")}`, 130, 370, {
+  doc.fontSize(11).text(`${moment(order?.createdAt).format("DD.MM.yyyy  hh:mm:ss")}`, 130, 370, {
     width: 400,
   });
 
@@ -171,7 +173,7 @@ router.get("/:id/pdf", async (req, res) => {
     width: 400,
   });
 
-  doc.fontSize(11).text(`${moment(order?.createdAt).format("DD.MM.yyyy")}`, 360, 370, {
+  doc.fontSize(11).text(`${moment(order?.createdAt).format("DD.MM.yyyy hh:mm:ss")}`, 360, 370, {
     width: 400,
   });
 
@@ -225,20 +227,38 @@ router.get("/:id/pdf", async (req, res) => {
     const height = space + productHeight;
 
     doc.fontSize(10).text(`${product.name}`, 40, height, {
-      width: 400,
+      align: "left",
+      width: 500,
+      // continued: true,
     });
 
-    doc.fontSize(10).text("1", 290, height, {
-      width: 400,
+    doc
+      .fontSize(10)
+      .text(" ", {
+        width: 497,
+        characterSpacing: 245,
+        continued: true,
+      })
+      .moveUp();
+
+    doc.fontSize(10).text("1", {
+      align: "left",
+      characterSpacing: 0,
+      continued: true,
     });
 
-    doc.fontSize(10).text(`${product.price}.-`, 405, height, {
-      width: 400,
+    doc.fontSize(10).text(`${product.price}.-`, {
+      characterSpacing: 0,
+      align: "center",
+      continued: true,
     });
 
-    doc.fontSize(10).text(`${product.price}.-`, 520, height, {
-      width: 400,
-    });
+    doc
+      .fontSize(10)
+      .text(`${product.price}.-`, {
+        align: "right",
+      })
+      .moveDown();
   });
 
   //
@@ -246,26 +266,26 @@ router.get("/:id/pdf", async (req, res) => {
   //
 
   doc.fontSize(11).text("Price Total", 260, lineHeight + 30, {
-    width: 275,
+    width: 277,
     align: "left",
     continued: true,
   });
 
   doc.fontSize(11).text(`${order?.amount}.-`, { align: "right" }).moveDown().moveDown();
 
-  doc.fontSize(11).text("Taxes", { width: 275, align: "left", continued: true });
+  doc.fontSize(11).text("Taxes", { width: 277, align: "left", continued: true });
 
   doc.fontSize(11).text("7.7%", { align: "center", continued: true });
 
   doc.fontSize(11).text("7.7.-", { align: "right" }).moveDown();
 
-  doc.fontSize(11).text("Stripe Fees", { width: 245, align: "left", continued: true });
+  doc.fontSize(11).text("Stripe Fees", { width: 247, align: "left", continued: true });
 
   doc.fontSize(11).text("2.9%", { align: "center" }).moveUp();
 
-  doc.fontSize(11).text("2.9.-", { width: 275, align: "right" }).moveDown().moveDown();
+  doc.fontSize(11).text("2.9.-", { width: 277, align: "right" }).moveDown().moveDown();
 
-  doc.fontSize(11).text("Total", { width: 275, align: "left", continued: true });
+  doc.fontSize(11).text("Total", { width: 277, align: "left", continued: true });
 
   doc.fontSize(11).text(`${order?.amount}.-`, { align: "right" });
 

@@ -73,7 +73,7 @@ export class Product {
   @Property()
   options?: string[];
 
-  @Property({ default: Date.now() })
+  @Property({ default: () => Date.now() })
   createdAt?: Date;
 }
 
