@@ -1,0 +1,1752 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../images/raspberry.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
+    
+    
+      
+        <title>Payment - BlueberryShop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#payment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="BlueberryShop" class="md-header__button md-logo" aria-label="BlueberryShop" data-md-component="logo">
+      
+  <img src="../images/raspberry.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BlueberryShop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Payment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/besSejrani/BlueberryShop/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BlueberryShop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="BlueberryShop" class="md-nav__button md-logo" aria-label="BlueberryShop" data-md-component="logo">
+      
+  <img src="../images/raspberry.png" alt="logo">
+
+    </a>
+    BlueberryShop
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/besSejrani/BlueberryShop/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BlueberryShop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        1.Installation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="1.Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          1.Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/0.Project.html" class="md-nav__link">
+        Blueberry Project
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Containers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Containers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Containers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Containers/0.Make.html" class="md-nav__link">
+        Make
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Containers/1.Docker.html" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Containers/2.Docker-Compose.html" class="md-nav__link">
+        Docker-Compose
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Manual
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Manual" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/0.Make.html" class="md-nav__link">
+        Make
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/1.Mongodb.html" class="md-nav__link">
+        MongoDB
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/2.Redis.html" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/3.Mkdocs.html" class="md-nav__link">
+        Mkdocs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/4.Nodejs.html" class="md-nav__link">
+        Node.js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Installation/Manual/5.Nginx.html" class="md-nav__link">
+        Nginx
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        2.Architecture
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="2.Architecture" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          2.Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.Architecture/1.client.html" class="md-nav__link">
+        Client
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.Architecture/2.backend.html" class="md-nav__link">
+        Backend
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        3.Client
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="3.Client" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          3.Client
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/1.next.html" class="md-nav__link">
+        Next
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/2.ui.html" class="md-nav__link">
+        UI Library
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/3.state.html" class="md-nav__link">
+        State Management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/4.Guard.html" class="md-nav__link">
+        Route Guard
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/5.upload.html" class="md-nav__link">
+        File Upload
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/6.testing.html" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/7.performance.html" class="md-nav__link">
+        Performance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/8.seo.html" class="md-nav__link">
+        SEO
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Client/9.configuration.html" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        4.Server
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="4.Server" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          4.Server
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="1.graphql.html" class="md-nav__link">
+        GraphQL
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2.typegoose.html" class="md-nav__link">
+        Typegoose
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3.authentication.html" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4.authorization.html" class="md-nav__link">
+        Authorization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="5.oauth2.html" class="md-nav__link">
+        OAuth2
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Payment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="6.payment.html" class="md-nav__link md-nav__link--active">
+        Payment
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-payment-intent" class="md-nav__link">
+    Stripe Payment Intent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-implementation" class="md-nav__link">
+    Stripe Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webhooks" class="md-nav__link">
+    Webhooks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-stripe-cli" class="md-nav__link">
+    Install Stripe CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-testing-cards" class="md-nav__link">
+    Stripe Testing Cards
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    Sources
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="7.upload.html" class="md-nav__link">
+        File Upload
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="8.testing.html" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="9.errorhandling.html" class="md-nav__link">
+        Error Handling
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="a.logging.html" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="b.configuration.html" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="c.problems.html" class="md-nav__link">
+        Problems
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        5.Database
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="5.Database" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          5.Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.Database/1.mongodb.html" class="md-nav__link">
+        MongoDB
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.Database/2.schema.html" class="md-nav__link">
+        Database Schema
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.Database/3.horizontal.html" class="md-nav__link">
+        Horizontal Scaling
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.Database/4.backup.html" class="md-nav__link">
+        Backups
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        6.Hosting
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="6.Hosting" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          6.Hosting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.Hosting/1.Production.html" class="md-nav__link">
+        Production
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      <label class="md-nav__link" for="__nav_8">
+        7.Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="7.Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          7.Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/0.headers.html" class="md-nav__link">
+        Security Headers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/1.sanitization.html" class="md-nav__link">
+        Data Sanitization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/2.injection.html" class="md-nav__link">
+        Injections
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/3.hashing.html" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/4.ratelimiting.html" class="md-nav__link">
+        Rate Limiting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/5.cookie.html" class="md-nav__link">
+        Cookie
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/6.tls.html" class="md-nav__link">
+        TLS Certificate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/7.docker.html" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.Security/8.OWASP.html" class="md-nav__link">
+        OWASP Top Ten
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      <label class="md-nav__link" for="__nav_9">
+        8.Road Map
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="8.Road Map" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          8.Road Map
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8.Road%20Map/1.client.html" class="md-nav__link">
+        Client
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8.Road%20Map/2.backend.html" class="md-nav__link">
+        Backend
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      <label class="md-nav__link" for="__nav_10">
+        a.Annexes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="a.Annexes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          a.Annexes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a.Annexes/1.node.html" class="md-nav__link">
+        Node.js
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-payment-intent" class="md-nav__link">
+    Stripe Payment Intent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-implementation" class="md-nav__link">
+    Stripe Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webhooks" class="md-nav__link">
+    Webhooks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-stripe-cli" class="md-nav__link">
+    Install Stripe CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stripe-testing-cards" class="md-nav__link">
+    Stripe Testing Cards
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    Sources
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/besSejrani/BlueberryShop/edit/master/docs/4.Server/6.payment.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="payment">Payment</h1>
+<hr/>
+
+<h2 id="stripe-payment-intent">Stripe Payment Intent</h2>
+<p>Stripe proposes multiple API's for interacting with multiple stripe objects, the simplest one to use for charging clients is the PaymentIntent API.</p>
+<p>Multiple parties are involved in the process, including the user, the client, the server and Stripe. The user first enters his payment information, next the client_secret is generated from the server, then the users enters his card information and finally Stripe confirms or denies the PaymentIntent.</p>
+<p>The PaymentIntent API is limited in scope, product information can't be processed. It is still possible to store some custom ID in the metadata field, from there on, via a webhook, it is possible to retrieve all the informations.</p>
+<figure>
+  <img src="../../images/StripePaymentIntent.png" alt="Stripe Payment Intent"/>
+  <a href="#">
+    <figcaption>Image: Inspired From Stripe Documentation</figcaption>
+  </a>
+</figure>
+
+<hr/>
+
+<h2 id="stripe-implementation">Stripe Implementation</h2>
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">GraphQL Payment Resolver</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1">// GraphQL</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Mutation</span><span class="p">,</span> <span class="nx">Resolver</span><span class="p">,</span> <span class="nx">Arg</span><span class="p">,</span> <span class="nx">Ctx</span><span class="p">,</span> <span class="nx">UseMiddleware</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;type-graphql&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StripePaymentIntentInput</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;./inputs/stripePaymentIntentInput&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MyContext</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;src/Graphql/types/MyContext&quot;</span><span class="p">;</span>
+
+<span class="c1">// Database</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">UserModel</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;@Model/user/User&quot;</span><span class="p">;</span>
+
+<span class="c1">// Stripe</span>
+<span class="k">import</span> <span class="nx">Stripe</span> <span class="k">from</span> <span class="s2">&quot;stripe&quot;</span><span class="p">;</span>
+
+<span class="c1">// Middleware</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">authentication</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;@Middleware/authentication&quot;</span><span class="p">;</span>
+
+<span class="c1">// =================================================================================================</span>
+
+<span class="kd">@Resolver</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreateStripePaymentIntent</span> <span class="p">{</span>
+<span class="kd">@Mutation</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nb">String</span><span class="p">,</span> <span class="p">{</span> <span class="nx">nullable</span>: <span class="kt">true</span> <span class="p">})</span>
+<span class="kd">@UseMiddleware</span><span class="p">(</span><span class="nx">authentication</span><span class="p">)</span>
+<span class="k">async</span> <span class="nx">createStripePaymentIntent</span><span class="p">(</span>
+<span class="kd">@Arg</span><span class="p">(</span><span class="s2">&quot;stripePaymentIntent&quot;</span><span class="p">)</span> <span class="nx">stripePaymentIntentInput</span>: <span class="kt">StripePaymentIntentInput</span><span class="p">,</span>
+<span class="kd">@Ctx</span><span class="p">()</span> <span class="nx">context</span>: <span class="kt">MyContext</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">|</span> <span class="kr">boolean</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">context</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">UserModel</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> <span class="nx">_id</span>: <span class="kt">context.req.userId</span> <span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">stripe</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stripe</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">STRIPE_PRIVATE_TEST_KEY</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">apiVersion</span><span class="o">:</span> <span class="s2">&quot;2020-08-27&quot;</span><span class="p">,</span>
+      <span class="nx">maxNetworkRetries</span>: <span class="kt">1</span><span class="p">,</span>
+      <span class="nx">timeout</span>: <span class="kt">1000</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">paymentIntent</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">paymentIntents</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+      <span class="nx">amount</span>: <span class="kt">stripePaymentIntentInput.amount</span><span class="p">,</span>
+      <span class="nx">currency</span><span class="o">:</span> <span class="s2">&quot;chf&quot;</span><span class="p">,</span>
+      <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;BlueberryShop payment&quot;</span><span class="p">,</span>
+      <span class="nx">payment_method_types</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;card&quot;</span><span class="p">],</span>
+      <span class="nx">metadata</span><span class="o">:</span> <span class="p">{</span> <span class="nx">user</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">_id</span><span class="si">}</span><span class="sb">`</span> <span class="p">},</span>
+      <span class="nx">shipping</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">username</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="nx">address</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">country</span>: <span class="kt">stripePaymentIntentInput.shippingCountry</span><span class="p">,</span>
+      <span class="nx">line1</span>: <span class="kt">stripePaymentIntentInput.shippingAddress</span><span class="p">,</span>
+      <span class="nx">city</span>: <span class="kt">stripePaymentIntentInput.shippingCity</span><span class="p">,</span>
+      <span class="nx">postal_code</span>: <span class="kt">stripePaymentIntentInput.shippingZip</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">customer</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">stripeId</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+<span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">invoiceItems</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+      <span class="nx">customer</span><span class="p">,</span>
+      <span class="nx">amount</span>: <span class="kt">600</span><span class="p">,</span>
+      <span class="nx">currency</span><span class="o">:</span> <span class="s2">&quot;chf&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">bla</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">invoices</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+      <span class="nx">customer</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">stripeId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;hello &quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">invoices</span><span class="p">.</span><span class="nx">listLineItems</span><span class="p">(</span><span class="nx">bla</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="nx">paymentIntent</span><span class="p">.</span><span class="nx">client_secret</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Clien Payment Event</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1">// Events</span>
+<span class="kd">const</span> <span class="nx">onSubmit</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stripe</span> <span class="o">||</span> <span class="o">!</span><span class="nx">elements</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">cardElement</span> <span class="o">=</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">getElement</span><span class="p">(</span><span class="s2">&quot;card&quot;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">billingDetails</span> <span class="o">=</span> <span class="p">{</span>
+<span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Besjan Sejrani&quot;</span><span class="p">,</span>
+<span class="nx">email</span><span class="o">:</span> <span class="s2">&quot;besjan.sejrani@cpnv.ch&quot;</span><span class="p">,</span>
+
+<span class="nx">address</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">country</span>: <span class="kt">billingCountry</span><span class="p">,</span>
+      <span class="nx">city</span>: <span class="kt">billingCity</span><span class="p">,</span>
+      <span class="nx">line1</span>: <span class="kt">billingAddress</span><span class="p">,</span>
+      <span class="nx">postal_code</span>: <span class="kt">billingZip</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">paymentMethodReq</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">createPaymentMethod</span><span class="p">({</span>
+<span class="kd">type</span><span class="o">:</span> <span class="s2">&quot;card&quot;</span><span class="p">,</span>
+<span class="nx">card</span>: <span class="kt">cardElement</span><span class="p">,</span>
+<span class="nx">billing_details</span>: <span class="kt">billingDetails</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">data</span>: <span class="kt">clientSecret</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">apolloClient</span><span class="o">?</span><span class="p">.</span><span class="nx">mutate</span><span class="p">({</span>
+<span class="nx">mutation</span>: <span class="kt">CreateStripePaymentIntentDocument</span><span class="p">,</span>
+<span class="nx">variables</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">amount</span>: <span class="kt">stripeTotal</span><span class="p">,</span>
+      <span class="nx">shippingCountry</span>: <span class="kt">checkout</span><span class="p">().</span><span class="nx">shippingCountry</span><span class="p">,</span>
+      <span class="nx">shippingAddress</span>: <span class="kt">checkout</span><span class="p">().</span><span class="nx">shippingAddress</span><span class="p">,</span>
+      <span class="nx">shippingCity</span>: <span class="kt">checkout</span><span class="p">().</span><span class="nx">shippingCity</span><span class="p">,</span>
+      <span class="nx">shippingZip</span>: <span class="kt">checkout</span><span class="p">().</span><span class="nx">shippingZip</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">confirmCardPayment</span><span class="p">(</span><span class="nx">clientSecret</span><span class="o">?</span><span class="p">.</span><span class="nx">createStripePaymentIntent</span><span class="p">,</span> <span class="p">{</span>
+<span class="nx">payment_method</span>: <span class="kt">paymentMethodReq.paymentMethod.id</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;/admin/checkout/done&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Webhook Implementation</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1">// Express</span>
+<span class="k">import</span> <span class="nx">express</span> <span class="k">from</span> <span class="s2">&quot;express&quot;</span><span class="p">;</span>
+
+<span class="c1">// Database</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">UserModel</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;@Model/user/User&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OrderModel</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;@Model/Order&quot;</span><span class="p">;</span>
+
+<span class="c1">// UUID</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">v4</span> <span class="kr">as</span> <span class="nx">uuid</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;uuid&quot;</span><span class="p">;</span>
+
+<span class="c1">// Logger</span>
+<span class="k">import</span> <span class="nx">logger</span> <span class="k">from</span> <span class="s2">&quot;@Logger/index&quot;</span><span class="p">;</span>
+
+<span class="c1">// ========================================================================================================</span>
+
+<span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/webhook&quot;</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kd">let</span> <span class="nx">paymentIntent</span><span class="p">;</span>
+
+<span class="c1">// Handle the event</span>
+<span class="k">switch</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">case</span> <span class="s2">&quot;payment_intent.succeeded&quot;</span><span class="o">:</span>
+      <span class="nx">paymentIntent</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">object</span><span class="p">;</span>
+
+      <span class="kd">const</span> <span class="nx">orderNumber</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">uuid</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+      <span class="kd">const</span> <span class="nx">invoiceNumber</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">uuid</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+      <span class="c1">// Find corresponding user</span>
+      <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">UserModel</span><span class="p">.</span><span class="nx">findById</span><span class="p">({</span> <span class="nx">_id</span>: <span class="kt">paymentIntent.metadata.user</span> <span class="p">});</span>
+      <span class="kd">const</span> <span class="nx">amount</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">paymentIntent</span><span class="p">.</span><span class="nx">amount</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100</span><span class="p">;</span>
+
+      <span class="c1">// Save user</span>
+      <span class="kd">const</span> <span class="nx">order</span> <span class="o">=</span> <span class="k">await</span> <span class="k">new</span> <span class="nx">OrderModel</span><span class="p">({</span>
+      <span class="nx">fullName</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">lastName</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="nx">amount</span><span class="p">,</span>
+      <span class="nx">cart</span>: <span class="kt">user?.cart</span><span class="p">,</span>
+      <span class="nx">billing</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">address</span>: <span class="kt">paymentIntent.charges.data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">billing_details</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">line1</span><span class="p">,</span>
+      <span class="nx">city</span>: <span class="kt">paymentIntent.charges.data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">billing_details</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">city</span><span class="p">,</span>
+      <span class="nx">zip</span>: <span class="kt">paymentIntent.charges.data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">billing_details</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">postal_code</span><span class="p">,</span>
+      <span class="nx">country</span>: <span class="kt">paymentIntent.charges.data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">billing_details</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">country</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">shipping</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">address</span>: <span class="kt">paymentIntent.shipping.address.line1</span><span class="p">,</span>
+      <span class="nx">city</span>: <span class="kt">paymentIntent.shipping.address.city</span><span class="p">,</span>
+      <span class="nx">zip</span>: <span class="kt">paymentIntent.shipping.address.postal_code</span><span class="p">,</span>
+      <span class="nx">country</span>: <span class="kt">paymentIntent.shipping.address.country</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">orderNumber</span><span class="p">,</span>
+      <span class="nx">invoiceNumber</span><span class="p">,</span>
+      <span class="p">});</span>
+
+      <span class="kd">const</span> <span class="nx">OrderInformation</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">order</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+
+      <span class="k">await</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="sb">`Successful Order, order _id: </span><span class="si">${</span><span class="nx">OrderInformation</span><span class="p">.</span><span class="nx">_id</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+      <span class="c1">// Delete user cart</span>
+      <span class="k">await</span> <span class="nx">UserModel</span><span class="p">.</span><span class="nx">findOneAndUpdate</span><span class="p">(</span>
+      <span class="p">{</span> <span class="nx">_id</span>: <span class="kt">paymentIntent.metadata.user</span> <span class="p">},</span>
+      <span class="p">{</span>
+      <span class="nx">$pull</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">cart</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$exists</span>: <span class="kt">true</span> <span class="p">},</span>
+      <span class="p">},</span>
+      <span class="p">},</span>
+      <span class="p">);</span>
+
+      <span class="k">break</span><span class="p">;</span>
+
+<span class="k">case</span> <span class="s2">&quot;payment_intent.payment_failed&quot;</span><span class="o">:</span>
+      <span class="nx">paymentIntent</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">object</span><span class="p">;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;PaymentMethod was attached to a Customer!&quot;</span><span class="p">,</span> <span class="nx">paymentIntent</span><span class="p">);</span>
+      <span class="k">await</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="sb">`Order Failed, order id: [</span><span class="si">${</span><span class="nx">paymentIntent</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">]`</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+
+<span class="k">default</span><span class="o">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Unhandled event type </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="kd">type</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">received</span>: <span class="kt">true</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">router</span><span class="p">;</span>
+</code></pre></div>
+</div>
+</div>
+<hr/>
+
+<h2 id="webhooks">Webhooks</h2>
+<p>Stripe webhooks work only with the HTTPS protocol, therefore, the stripe command line interface must be used in development environments.</p>
+<p>After installing and launching the CLI, a port and a path endpoint must be specified so that Stripe can send the webhook request.</p>
+<p>Specific Stripe trigger events can be found <a href="https://stripe.com/docs/cli/trigger#trigger-event-balance_available">here</a>.</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Listen to project port and webhook route</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>stripe listen --forward-to localhost:4000/webhook
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Trigger Action</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>stripe trigger payment_intent.succeeded
+</code></pre></div>
+</div>
+</div>
+<hr/>
+
+<h2 id="install-stripe-cli">Install Stripe CLI</h2>
+<div class="tabbed-set" data-tabs="3:5"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">homebrew</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>brew install stripe/stripe-cli/stripe
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">macOS</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># Download tar.gz file on https://github.com/stripe/stripe-cli/releases/latest</span>
+tar -xvf stripe_X.X.X_mac-os_x86_64.tar.gz
+
+<span class="c1"># Execute</span>
+/usr/local/bin
+</code></pre></div>
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Linux</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># Download tar.gz file on https://github.com/stripe/stripe-cli/releases/latest</span>
+-xvf stripe_X.X.X_linux_x86_64.tar.gz
+
+<span class="c1"># Execute</span>
+./stripe
+</code></pre></div>
+</div>
+<input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><label for="__tabbed_3_4">Windows</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># Download tar.gz file on https://github.com/stripe/stripe-cli/releases/latest</span>
+stripe_X.X.X_windows_x86_64.zip
+
+<span class="c1"># Execute</span>
+.exe
+</code></pre></div>
+</div>
+<input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><label for="__tabbed_3_5">Docker</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>docker run --rm -it stripe/stripe-cli:latest
+</code></pre></div>
+</div>
+</div>
+<hr/>
+
+<h2 id="stripe-testing-cards">Stripe Testing Cards</h2>
+<p>Stripe provides multiple test cards during development. Feel free to check their official documentation.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Card Number</th>
+<th align="left">Brand</th>
+<th align="left">CVC</th>
+<th align="left">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">4242 4242 4242 4242</td>
+<td align="left">Visa</td>
+<td align="left">Any 3 digits</td>
+<td align="left">Any future date</td>
+</tr>
+<tr>
+<td align="left">4000 0566 5566 5556</td>
+<td align="left">Visa(debit)</td>
+<td align="left">Any 3 digits</td>
+<td align="left">Any future date</td>
+</tr>
+<tr>
+<td align="left">5555 5555 5555 4444</td>
+<td align="left">MasterCard</td>
+<td align="left">Any 3 digits</td>
+<td align="left">Any future date</td>
+</tr>
+<tr>
+<td align="left">...</td>
+<td align="left">...</td>
+<td align="left">...</td>
+<td align="left">...</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+
+<h2 id="sources">Sources</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Source</th>
+<th align="center">Author</th>
+<th align="right">URI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Playlist react-stripe-js</td>
+<td align="center">Stripe Developpers</td>
+<td align="right"><a href="https://www.youtube.com/watch?v=5y5WwF9s-ZI&amp;list=PLy1nL-pvL2M6HFApWUDSGA4Y7btyKx7cE&amp;index=2">Link</a></td>
+</tr>
+<tr>
+<td align="left">Playlist stripe-node</td>
+<td align="center">Stripe Developpers</td>
+<td align="right"><a href="https://www.youtube.com/watch?v=R5RoYDEIhCI&amp;list=PLy1nL-pvL2M5xNIuNapwmABwEy2uifAlY">Link</a></td>
+</tr>
+<tr>
+<td align="left">Stripe Demo Donut</td>
+<td align="center">Stripe Thomas Marek</td>
+<td align="right"><a href="https://github.com/tmarek-stripe/demo-react-stripe-js">Link</a></td>
+</tr>
+<tr>
+<td align="left">Stripe API</td>
+<td align="center">Stripe Documentation</td>
+<td align="right"><a href="https://stripe.com/docs/api">Link</a></td>
+</tr>
+<tr>
+<td align="left">Stripe CLI</td>
+<td align="center">Stripe Documentation</td>
+<td align="right"><a href="https://stripe.com/docs/stripe-cli">Link</a></td>
+</tr>
+<tr>
+<td align="left">Stripe Trigger Events</td>
+<td align="center">Stripe Documentation</td>
+<td align="right"><a href="https://stripe.com/docs/cli/trigger#trigger-event-balance_available">Link</a></td>
+</tr>
+<tr>
+<td align="left">Stripe Testing Cards</td>
+<td align="center">Stripe Documentation</td>
+<td align="right"><a href="https://stripe.com/docs/testing">Link</a></td>
+</tr>
+</tbody>
+</table>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="5.oauth2.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: OAuth2" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              OAuth2
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="7.upload.html" class="md-footer__link md-footer__link--next" aria-label="Next: File Upload" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              File Upload
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/besSejrani" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.76f349be.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tables.js"></script>
+      
+    
+  </body>
+</html>
